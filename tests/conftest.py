@@ -1,6 +1,6 @@
-import pytest, requests, os, random
+import pytest, random
 from selenium import webdriver
-from pages.browser_option import DriverChromeOption
+from browser_set import ChromeSet
 
 
 @pytest.fixture(scope='module')
@@ -9,9 +9,9 @@ def web_driver(request):
     после выполнения основного кода закрывает браузер'''
 
     option = webdriver.ChromeOptions()
-    user_agent = random.choice(DriverChromeOption.chrome_user_agent)
+    user_agent = random.choice(ChromeSet.chrome_user_agent)
     option.add_argument(f"User-Agent={user_agent}")
-    web_driver = webdriver.Chrome(executable_path=DriverChromeOption.chrome_driver_path, options=option)
+    web_driver = webdriver.Chrome(executable_path=ChromeSet.chrome_driver_path, options=option)
     web_driver.set_window_size(1280, 960)
     # web_driver.implicitly_wait(3)
     yield web_driver
@@ -24,9 +24,9 @@ def web_driver_decktop(request):
     после выполнения основного кода закрывает браузер'''
 
     option = webdriver.ChromeOptions()
-    user_agent = random.choice(DriverChromeOption.chrome_user_agent)
+    user_agent = random.choice(ChromeSet.chrome_user_agent)
     option.add_argument(f"User-Agent={user_agent}")
-    web_driver = webdriver.Chrome(executable_path=DriverChromeOption.chrome_driver_path, options=option)
+    web_driver = webdriver.Chrome(executable_path=ChromeSet.chrome_driver_path, options=option)
     web_driver.set_window_size(1280, 960)
     yield web_driver
     web_driver.quit()
@@ -38,9 +38,9 @@ def web_driver_mobile(request):
     после выполнения основного кода закрывает браузер'''
 
     option = webdriver.ChromeOptions()
-    user_agent = random.choice(DriverChromeOption.chrome_user_agent)
+    user_agent = random.choice(ChromeSet.chrome_user_agent)
     option.add_argument(f"User-Agent={user_agent}")
-    web_driver = webdriver.Chrome(executable_path=DriverChromeOption.chrome_driver_path, options=option)
+    web_driver = webdriver.Chrome(executable_path=ChromeSet.chrome_driver_path, options=option)
     web_driver.set_window_size(425, 960)
     yield web_driver
     web_driver.quit()
@@ -52,9 +52,9 @@ def web_driver_var_size(request, width):
     после выполнения основного кода закрывает браузер'''
 
     option = webdriver.ChromeOptions()
-    user_agent = random.choice(DriverChromeOption.chrome_user_agent)
+    user_agent = random.choice(ChromeSet.chrome_user_agent)
     option.add_argument(f"User-Agent={user_agent}")
-    web_driver = webdriver.Chrome(executable_path=DriverChromeOption.chrome_driver_path, options=option)
+    web_driver = webdriver.Chrome(executable_path=ChromeSet.chrome_driver_path, options=option)
     web_driver.set_window_size(width, 960)
     yield web_driver
     web_driver.quit()
