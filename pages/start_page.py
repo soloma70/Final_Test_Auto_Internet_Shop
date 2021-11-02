@@ -13,7 +13,7 @@ class StartPage(BasePage):
         url = LinsaUa.start_url
         driver.get(url)
 
-        # Search descktop elements
+        # Search desktop elements
         self.start_img = driver.find_element(*StartLocators.logo_img)
         self.search_field = driver.find_element(*StartLocators.search_field)
         self.callback_btn = driver.find_element(*StartLocators.callback_btn)
@@ -23,9 +23,15 @@ class StartPage(BasePage):
         self.lang_btn_active = driver.find_element(*StartLocators.lang_btn_active)
         self.lang_uk_btn = driver.find_element(*StartLocators.lang_btn_uk)
         self.lang_ru_btn = driver.find_element(*StartLocators.lang_btn_ru)
-
         self.menu_btn = driver.find_element(*StartLocators.menu_button)
         self.menu_btn_close = driver.find_element(*StartLocators.menu_button_close)
+        self.menu_points = driver.find_elements(*StartLocators.menu_points)
+        self.main_menu_points = driver.find_elements(*StartLocators.main_menu_points)
+        self.sales_banners = driver.find_elements(*StartLocators.sales_banners)
+        self.all_sales_prods = driver.find_element(*StartLocators.all_sales_prods)
+
+        # Элемент прокрутки страницы
+        self.win_scroll = driver.execute_script("window.scrollTo(0, 850)")
 
 
 
@@ -73,7 +79,8 @@ class StartPage(BasePage):
     def menu_close_btn_click(self):
         self.menu_btn_close.click()
 
-
+    def all_sales_prods_click(self):
+        self.all_sales_prods.click()
 
     # Вспомагательные функции для добавления различных строк
     def generate_string(n):

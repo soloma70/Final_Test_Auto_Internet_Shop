@@ -3,6 +3,8 @@
 import time, pytest
 from pages.start_page import StartPage
 from pages.locators import StartLocators
+from pages.url_list import LinsaUa
+from selenium.webdriver.support.ui import Select
 
 
 # Тестирование десктопной версии сайта
@@ -98,40 +100,85 @@ def test_menu_start_page_desktop(web_driver_desktop):
 
     page_start = StartPage(web_driver_desktop, 5)
     page_start.menu_btn_click()
-    time.sleep(2)
     page_start.menu_close_btn_click()
-    time.sleep(2)
     assert page_start.get_relative_link() == '/' or \
            page_start.get_relative_link() == '/uk/', 'Transition error'
 
-    web_driver_desktop.find_element(*StartLocators.menu_button).click()
-    time.sleep(2)
-    web_driver_desktop.find_elements(*StartLocators.menu_button_menu)[0].click()
-    time.sleep(2)
-    assert page_start.get_relative_link() == '/ru/articles/blog/' or \
-           page_start.get_relative_link() == '/uk/articles/blog/', 'Transition error'
-    web_driver_desktop.find_element(*StartLocators.logo_img).click()
-    time.sleep(2)
+    # Перебор в цикле пунктов меню
+    menu_points = page_start.menu_points
+    for index in range(len(menu_points)):
+        web_driver_desktop.find_element(*StartLocators.menu_button).click()
+        web_driver_desktop.find_elements(*StartLocators.menu_points)[index].click()
+        time.sleep(2)
+        assert page_start.get_relative_link() == LinsaUa.menu_urls[index][0] or \
+               page_start.get_relative_link() == LinsaUa.menu_urls[index][1], 'Transition error'
+        web_driver_desktop.find_element(*StartLocators.logo_img).click()
 
 
-    web_driver_desktop.find_element(*StartLocators.menu_button).click()
-    time.sleep(2)
-    web_driver_desktop.find_elements(*StartLocators.menu_button_menu)[1].click()
-    time.sleep(2)
-    assert page_start.get_relative_link() == '/ru/page/about/' or \
-           page_start.get_relative_link() == '/uk/page/about/', 'Transition error'
-    web_driver_desktop.find_element(*StartLocators.logo_img).click()
-    time.sleep(2)
+def test_main_menu_start_page_desktop(web_driver_desktop):
+    """Тест проверяет кликабельность главного меню и переход на соответствующие страницы меню"""
 
+    page_start = StartPage(web_driver_desktop, 5)
 
-    web_driver_desktop.find_element(*StartLocators.menu_button).click()
+    # Перебор в цикле пунктов главного меню
+    for index in range(6):
+        web_driver_desktop.find_elements(*StartLocators.main_menu_points)[index].click()
+        time.sleep(2)
+        assert page_start.get_relative_link() == LinsaUa.main_menu_urls[index][0] or \
+               page_start.get_relative_link() == LinsaUa.main_menu_urls[index][1], 'Transition error'
+        web_driver_desktop.find_element(*StartLocators.logo_img).click()
+        time.sleep(2)
+
+def test_banners_start_page_desktop(web_driver_desktop):
+    """Тест проверяет кликабельность баннеров и переход на соответствующие страницы"""
+
+    page_start = StartPage(web_driver_desktop, 5)
+
+    # Перебор в цикле баннеры
+    for index in range(3):
+        amount_banner_text = web_driver_desktop.find_elements(*StartLocators.banner_points)[index].text.split()
+        amount_banner = int(amount_banner_text[0].strip())
+        web_driver_desktop.find_elements(*StartLocators.banner_points)[index].click()
+        time.sleep(2)
+        amount_page = int(web_driver_desktop.find_element(*StartLocators.amount_product).text.strip())
+        assert page_start.get_relative_link() == LinsaUa.banners_urls[index][0] or \
+               page_start.get_relative_link() == LinsaUa.banners_urls[index][1], 'Transition error'
+        assert amount_banner == amount_page, f'Different quantity: declared {amount_banner}, in fact {amount_page}'
+        web_driver_desktop.find_element(*StartLocators.logo_img).click()
+        time.sleep(2)
+
+def test_action_banners_start_page_desktop(web_driver_desktop):
+    """Тест проверяет кликабельность акционных баннеров и переход на соответствующие страницы"""
+
+    page_start = StartPage(web_driver_desktop, 5)
+    page_start.win_scroll
+    # page_start.all_sales_prods_click()
+    # time.sleep(2)
+    # assert page_start.get_relative_link() == LinsaUa.main_menu_urls[0][0] or \
+    #        page_start.get_relative_link() == LinsaUa.main_menu_urls[1][0], 'Transition error'
+    # web_driver_desktop.find_element(*StartLocators.logo_img).click()
     time.sleep(2)
-    web_driver_desktop.find_elements(*StartLocators.menu_button_menu)[2].click()
+    amount_cart_before = int(web_driver_desktop.find_element(*StartLocators.amount_cart).text)
+    # НЕ РАБОТАЕТ!!!
+    select = Select(web_driver_desktop.find_element(*StartLocators.sales_add_cart_sunglass).click())
+
     time.sleep(2)
-    assert page_start.get_relative_link() == '/ru/sluzhba-podderzhki/' or \
-           page_start.get_relative_link() == '/uk/sluzhba-pidtrimki/', 'Transition error'
-    web_driver_desktop.find_element(*StartLocators.logo_img).click()
-    time.sleep(2)
+    amount_cart_after = int(web_driver_desktop.find_element(*StartLocators.amount_cart).text)
+    print(f'\nВсего в корзине: было {amount_cart_before}, стало {amount_cart_after}')
+    # Перебор в цикле акционные баннеры
+    # for index in range(3):
+    #     web_driver_desktop.execute_script("window.scrollTo(0, 850)")
+    #     time.sleep(2)
+    #     web_driver_desktop.find_elements(*StartLocators.sales_banners)[index].click()
+    #     time.sleep(2)
+    #
+    #
+    #     # assert page_start.get_relative_link() == LinsaUa.main_menu_urls[index][0] or \
+    #     #        page_start.get_relative_link() == LinsaUa.main_menu_urls[index][1], 'Transition error'
+    #     web_driver_desktop.find_element(*StartLocators.logo_img).click()
+    #     time.sleep(2)
 
-
-
+    # page_start.cart_btn_click()
+    # assert page_start.get_relative_link() == '/ru/cart/' \
+    #        or page_start.get_relative_link() == '/uk/cart/', 'Transition error'
+    # web_driver_desktop.find_element(*StartLocators.logo_img).click()
