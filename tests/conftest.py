@@ -5,23 +5,22 @@ from browser_set import ChromeSet
 
 @pytest.fixture(scope='module')
 def web_driver(request):
-    '''Фикстура загружает веб-драйвер Хром, меняет размер окна, устанавливает неявное ожидание,
-    после выполнения основного кода закрывает браузер'''
+    """Фикстура рандомно передает в опции веб-драйвера браузера разные занчения User-Agent, загружает веб-драйвер Хром,
+    меняет размер окна, после выполнения основного кода закрывает браузер"""
 
     option = webdriver.ChromeOptions()
     user_agent = random.choice(ChromeSet.chrome_user_agent)
     option.add_argument(f"User-Agent={user_agent}")
     web_driver = webdriver.Chrome(executable_path=ChromeSet.chrome_driver_path, options=option)
     web_driver.set_window_size(1280, 960)
-    # web_driver.implicitly_wait(3)
     yield web_driver
     web_driver.quit()
 
 
 @pytest.fixture(scope='module')
-def web_driver_decktop(request):
-    '''Фикстура загружает веб-драйвер Хром, меняет размер окна, устанавливает неявное ожидание,
-    после выполнения основного кода закрывает браузер'''
+def web_driver_desktop(request):
+    """Фикстура рандомно передает в опции веб-драйвера браузера разные занчения User-Agent, загружает веб-драйвер Хром,
+    устанавливает размер окна как в десктопах (ПК, ноутбук), после выполнения основного кода закрывает браузер"""
 
     option = webdriver.ChromeOptions()
     user_agent = random.choice(ChromeSet.chrome_user_agent)
@@ -34,8 +33,8 @@ def web_driver_decktop(request):
 
 @pytest.fixture(scope='module')
 def web_driver_mobile(request):
-    '''Фикстура загружает веб-драйвер Хром, меняет размер окна, устанавливает неявное ожидание,
-    после выполнения основного кода закрывает браузер'''
+    """Фикстура рандомно передает в опции веб-драйвера браузера разные занчения User-Agent, загружает веб-драйвер Хром,
+    устанавливает размер окна как в мобильных устройствах, после выполнения основного кода закрывает браузер"""
 
     option = webdriver.ChromeOptions()
     user_agent = random.choice(ChromeSet.chrome_user_agent)
@@ -48,8 +47,9 @@ def web_driver_mobile(request):
 
 @pytest.fixture(scope='function')
 def web_driver_var_size(request, width):
-    '''Фикстура загружает веб-драйвер Хром, меняет размер окна, устанавливает неявное ожидание,
-    после выполнения основного кода закрывает браузер'''
+    """Фикстура рандомно передает в опции веб-драйвера браузера разные занчения User-Agent, загружает веб-драйвер Хром,
+    принимает в качестве опции ширину окна для разных устройств (десктоп, мобильные) , после выполнения основного кода
+    закрывает браузер"""
 
     option = webdriver.ChromeOptions()
     user_agent = random.choice(ChromeSet.chrome_user_agent)
