@@ -13,8 +13,8 @@ class StartPage(BasePage):
         url = LinsaUa.start_url
         driver.get(url)
 
-        # Десктоп-элементы
-        # Элементы хедера
+        # DESKTOP ELEMENTS
+        # Header elements
         self.start_img = driver.find_element(*StartLocators.logo_img)
         self.search_field = driver.find_element(*StartLocators.search_field)
         self.callback_btn = driver.find_element(*StartLocators.callback_btn)
@@ -25,33 +25,48 @@ class StartPage(BasePage):
         self.lang_uk_btn = driver.find_element(*StartLocators.lang_btn_uk)
         self.lang_ru_btn = driver.find_element(*StartLocators.lang_btn_ru)
 
-        # Элементы бокового меню
+        # Rightside Menu elements
         self.menu_btn = driver.find_element(*StartLocators.menu_button)
         self.menu_btn_close = driver.find_element(*StartLocators.menu_button_close)
         self.menu_points = driver.find_elements(*StartLocators.menu_points)
 
-        # Элементы главного меню
+        # Main Menu elements
         self.main_menu_points = driver.find_elements(*StartLocators.main_menu_points)
 
-        # Элементы баннеров
+        # Banners elements
         self.sales_banners = driver.find_elements(*StartLocators.sales_banners)
         self.all_sales_prods = driver.find_element(*StartLocators.all_sales_prods)
 
-        # Элементы любимых брендов
+        # Love Brands elements
         self.love_brands_sunglasses = driver.find_element(*StartLocators.love_brands_sunglasses)
         self.love_brands_lenses = driver.find_element(*StartLocators.love_brands_lenses)
         self.love_brands_accessories = driver.find_element(*StartLocators.love_brands_accessories)
+        self.vogue = driver.find_element(*StartLocators.img_vogue)
+        self.rayban = driver.find_element(*StartLocators.img_rayban)
+        self.avisor = driver.find_element(*StartLocators.img_avizor)
+        self.menicon = driver.find_element(*StartLocators.img_menicon)
+        self.okvision = driver.find_elements(*StartLocators.img_okvision)
 
-        # Элементы регистрации
+        # Registration elements
         self.reg_btn = driver.find_element(*StartLocators.registr_btn)
         self.add = driver.find_element(*StartLocators.registr_popup_add)
         self.close = driver.find_element(*StartLocators.registr_popup_close)
 
-        # Элементы прокрутки страницы
+        # Blog elements
+        self.blog_card_1 = driver.find_element(*StartLocators.blog_card_1)
+        self.blog_card_2 = driver.find_element(*StartLocators.blog_card_2)
+        self.blog_card_3 = driver.find_element(*StartLocators.blog_card_3)
+
+        # Footers elements
+        self.footers_left_btns = driver.find_elements(*StartLocators.footers_left_btns)
+        self.footers_right_btns = driver.find_elements(*StartLocators.footers_right_btns)
+
+        # Scroll elements
         self.win_scroll_begin = driver.execute_script("window.scrollTo(0, 0)")
         self.win_scroll = driver.execute_script("window.scrollTo(0, 850)")
-        self.win_scroll_b = driver.execute_script("window.scrollTo(0, 1200)")
+        self.win_scroll_b = driver.execute_script("window.scrollTo(0, 800)")
         self.win_scroll_r = driver.execute_script("window.scrollTo(0, 1850)")
+        self.win_scroll_bl = driver.execute_script("window.scrollTo(0, 2500)")
 
 
 

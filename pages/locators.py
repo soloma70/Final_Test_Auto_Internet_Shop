@@ -3,7 +3,7 @@ from selenium.webdriver.common.by import By
 
 class StartLocators:
 
-    # Descktop version locators
+    # DESKTOP LOCATORS
     # Start Image locator
     logo_img = (By.CSS_SELECTOR, 'a[class="top-logo"]>img')
     # Search locators
@@ -50,6 +50,11 @@ class StartLocators:
     love_brands_sunglasses = (By.XPATH, '//*[@id="content-wrapper"]/section[2]/div[1]/div/div[1]')
     love_brands_lenses = (By.XPATH, '//*[@id="content-wrapper"]/section[2]/div[1]/div/div[2]')
     love_brands_accessories = (By.XPATH, '//*[@id="content-wrapper"]/section[2]/div[1]/div/div[3]')
+    img_vogue = (By.CSS_SELECTOR, 'img[title="VOGUE"]')
+    img_rayban = (By.CSS_SELECTOR, 'img[title="RAY-BAN"]')
+    img_avizor = (By.CSS_SELECTOR, 'img[title="AVIZOR ENZYME"]')
+    img_menicon = (By.CSS_SELECTOR, 'img[title="Menicon Progent"]')
+    img_okvision = (By.CSS_SELECTOR, 'img[title="okvision I CARE"]')
     # PopUp Registration locators
     registr_btn = (By.CSS_SELECTOR, 'a[class="fat-button black js-open-auth-popup"]')
     registr_popup_windows = (By.CSS_SELECTOR, 'div[id="auth-popup"] > div > div > div[class="popup-window"]')
@@ -59,7 +64,25 @@ class StartLocators:
     registr_popup_chec = (By.CSS_SELECTOR, 'label[class="check-label"] > input[type="checkbox"]')
     registr_popup_add = (By.CSS_SELECTOR, 'label[class="submit-popup"] > input[type="submit"]')
     registr_popup_close = (By.CSS_SELECTOR, '#auth-popup > div > div > div > div.top > div > svg')
+    # Blogs locators
+    blog_card_1 = (By.XPATH, '//*[@id="content-wrapper"]/section[4]/div[2]/a[1]/div[2]/div[1]')
+    blog_card_2 = (By.XPATH, '//*[@id="content-wrapper"]/section[4]/div[2]/a[2]/div[2]/div[1]')
+    blog_card_3 = (By.XPATH, '//*[@id="content-wrapper"]/section[4]/div[2]/a[3]/div[2]/div[1]')
+    blog_btn = (By.CSS_SELECTOR, 'section[class="main-blog"] > div[class="button-holder"] > a')
+    blog_title = (By.CSS_SELECTOR, 'div[class="article-top"] > h1')
+    # About Us locators
+    about_left_btn = (By.CSS_SELECTOR, 'section[class="about-us-main"] > div[class="left"] > div[class="details"] > a')
+    about_right_btn = (By.CSS_SELECTOR, 'section[class="about-us-main"] > div[class="right"] > a')
+    # Footers locators
+    footers_left_btns = (
+                By.CSS_SELECTOR, 'div[class="footer-top"] > div[class="left"] > ul[class="footer-menu"] > li > a')
+    footers_right_btns = (
+                By.CSS_SELECTOR, 'div[class="footer-top"] > div[class="right"] > ul[class="footer-menu"] > li > a')
 
+    footer_bottom_left_btns = (
+        By.CSS_SELECTOR, 'div[class="footer-bottom"] > div[class="left"] > a[class="desk"]')
+    footer_bottom_right_btns = (
+        By.CSS_SELECTOR, 'div[class="footer-bottom"] > div[class="right"] > a')
 
 
     # Mobile version locators

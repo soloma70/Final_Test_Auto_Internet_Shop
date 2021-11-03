@@ -12,7 +12,10 @@ class LinsaUa:
                 ['/ru/warranty/', '/uk/warranty/'],
                 ['/ru/diskont/', '/ru/diskont/'],
                 ['/ru/certificates/', '/uk/certificates/'],
-                ['/ru/brands/', '/uk/brands/']
+                ['/ru/brands/', '/uk/brands/'],
+                ['/ru/sitemap/', '/uk/sitemap/'],
+                ['/ru/page/politica/', '/uk/page/politica/'],
+                ['/ru/page/ps/', '/uk/page/ps/']
                 ]
 
     main_menu_urls = [

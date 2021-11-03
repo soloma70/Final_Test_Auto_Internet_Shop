@@ -172,25 +172,31 @@ def test_action_banners_start_page_desktop(web_driver_desktop):
 
 
 def test_love_brands_start_page_desktop(web_driver_desktop):
-    """Тест проверяет кликабельность баннеров "Любимые бренды" """
+    """Тест проверяет кликабельность баннеров "Любимые бренды"
+    и отображение соответствующих им элементов в ленте"""
 
     page_start = StartPage(web_driver_desktop, 5)
     # page_start.win_scroll_b
-    time.sleep(2)
+    # time.sleep(2)
     page_start.love_brands_sunglasses.click()
     time.sleep(2)
+    assert page_start.vogue.is_displayed() and page_start.rayban.is_displayed()
     page_start.love_brands_lenses.click()
     time.sleep(2)
+    assert page_start.avisor.is_displayed() and page_start.menicon.is_displayed()
     page_start.love_brands_accessories.click()
     time.sleep(2)
-    web_driver_desktop.find_element(*StartLocators.logo_img).click()
+    assert page_start.okvision[2].is_displayed() or page_start.okvision[1].is_displayed()
+    web_driver_desktop.execute_script("window.scrollTo(0, 0)")
     time.sleep(2)
+    assert web_driver_desktop.find_element(*StartLocators.logo_img).is_displayed(), \
+        'ERROR! Start Image is not displayed'
 
 def test_registration_start_page_desktop(web_driver_desktop):
     """Тест проверяет кликабельность и заполнение полей формы регистрации на стартовой странице """
 
     page_start = StartPage(web_driver_desktop, 10)
-    page_start.win_scroll_r
+    # page_start.win_scroll_r
     page_start.reg_btn.click()
     assert web_driver_desktop.find_element(*StartLocators.registr_popup_windows).is_displayed(), \
         'ERROR! PopUp Registration is not displayed'
@@ -210,3 +216,118 @@ def test_registration_start_page_desktop(web_driver_desktop):
     assert web_driver_desktop.find_element(*StartLocators.logo_img).is_displayed(), \
         'ERROR! Start Image is not displayed'
 
+
+def test_blogs_start_page_desktop(web_driver_desktop):
+    """Тест проверяет кликабельность блоков в разделе "Оптический блог"
+    и корректность перехода по ссылкам """
+
+    page_start = StartPage(web_driver_desktop, 10)
+    # page_start.win_scroll_bl
+    blog_card_11 = page_start.blog_card_1
+    blog_card_1 = page_start.blog_card_1.text
+    blog_card_2 = page_start.blog_card_2.text
+    blog_card_3 = page_start.blog_card_3.text
+    # Click for card 1
+    blog_card_11.click()
+    blog_title_1 = web_driver_desktop.find_element(*StartLocators.blog_title).text
+    web_driver_desktop.find_element(*StartLocators.logo_img).click()
+    # Click for card 2
+    web_driver_desktop.find_element(*StartLocators.blog_card_2).click()
+    blog_title_2 = web_driver_desktop.find_element(*StartLocators.blog_title).text
+    web_driver_desktop.find_element(*StartLocators.logo_img).click()
+    # Click for card 3
+    web_driver_desktop.find_element(*StartLocators.blog_card_3).click()
+    blog_title_3 = web_driver_desktop.find_element(*StartLocators.blog_title).text
+    web_driver_desktop.find_element(*StartLocators.logo_img).click()
+    # Click for btn 'Больше новостей'
+    web_driver_desktop.find_element(*StartLocators.blog_btn).click()
+    blog_url = page_start.get_relative_link()
+    web_driver_desktop.find_element(*StartLocators.logo_img).click()
+
+    assert blog_card_1 == blog_title_1, f'ERROR! Bad transaction: {blog_card_1} != {blog_title_1}'
+    assert blog_card_1 == blog_title_1, f'ERROR! Bad transaction: {blog_card_2} != {blog_title_2}'
+    assert blog_card_1 == blog_title_1, f'ERROR! Bad transaction: {blog_card_3} != {blog_title_3}'
+    assert blog_url == LinsaUa.main_menu_urls[5][0] or blog_url == LinsaUa.main_menu_urls[5][1]\
+        , f'ERROR! Bad transaction for {blog_url}'
+
+
+def test_about_start_page_desktop(web_driver_desktop):
+    """Тест проверяет кликабельность блоков в разделе "О нас"
+    и корректность перехода по ссылкам """
+
+    page_start = StartPage(web_driver_desktop, 10)
+    # page_start.win_scroll_bl
+    # Click for card left
+    web_driver_desktop.find_element(*StartLocators.about_left_btn).click()
+    time.sleep(2)
+    assert page_start.get_relative_link() == LinsaUa.menu_urls[1][0] or \
+           page_start.get_relative_link() == LinsaUa.menu_urls[1][1] \
+        , f'ERROR! Bad transaction for {page_start.get_relative_link()}'
+    web_driver_desktop.find_element(*StartLocators.logo_img).click()
+
+    # Click for card right
+    web_driver_desktop.find_element(*StartLocators.about_right_btn).click()
+    time.sleep(2)
+    assert page_start.get_relative_link() == LinsaUa.main_menu_urls[3][0] or \
+           page_start.get_relative_link() == LinsaUa.main_menu_urls[3][1] \
+        , f'ERROR! Bad transaction for {page_start.get_relative_link()}'
+    web_driver_desktop.find_element(*StartLocators.logo_img).click()
+
+
+def test_footer_start_page_desktop(web_driver_desktop):
+    """Тест проверяет кликабельность блоков в footers
+    и корректность перехода по ссылкам """
+
+    page_start = StartPage(web_driver_desktop, 10)
+    # page_start.win_scroll_bl
+    footers_left = page_start.footers_left_btns
+    footers_right = page_start.footers_right_btns
+    pages_footers = []
+    for index, locator in enumerate(footers_left):
+        web_driver_desktop.find_elements(*StartLocators.footers_left_btns)[index].click()
+        pages_footers.append(page_start.get_relative_link())
+        web_driver_desktop.find_element(*StartLocators.logo_img).click()
+
+    for index, locator in enumerate(footers_right):
+        web_driver_desktop.find_elements(*StartLocators.footers_right_btns)[index].click()
+        pages_footers.append(page_start.get_relative_link())
+        web_driver_desktop.find_element(*StartLocators.logo_img).click()
+
+    web_driver_desktop.find_element(*StartLocators.footer_bottom_left_btns).click()
+    pages_footers.append(page_start.get_relative_link())
+    web_driver_desktop.find_element(*StartLocators.logo_img).click()
+
+    web_driver_desktop.find_element(*StartLocators.footer_bottom_right_btns).click()
+    pages_footers.append(page_start.get_relative_link())
+    web_driver_desktop.find_element(*StartLocators.logo_img).click()
+
+    assert pages_footers[0] == LinsaUa.menu_urls[2][0] or \
+            pages_footers[0] == LinsaUa.menu_urls[2][1] \
+         , f'ERROR! Bad transaction for {page_start.get_relative_link()}'
+    assert pages_footers[1] == LinsaUa.menu_urls[3][0] or \
+            pages_footers[1] == LinsaUa.menu_urls[3][1] \
+         , f'ERROR! Bad transaction for {page_start.get_relative_link()}'
+    assert pages_footers[2] == LinsaUa.menu_urls[4][0] or \
+           pages_footers[2] == LinsaUa.menu_urls[4][1] \
+        , f'ERROR! Bad transaction for {page_start.get_relative_link()}'
+    assert pages_footers[3] == LinsaUa.menu_urls[6][0] or \
+           pages_footers[3] == LinsaUa.menu_urls[6][1] \
+        , f'ERROR! Bad transaction for {page_start.get_relative_link()}'
+    assert pages_footers[4] == LinsaUa.menu_urls[7][0] or \
+           pages_footers[4] == LinsaUa.menu_urls[7][1] \
+        , f'ERROR! Bad transaction for {page_start.get_relative_link()}'
+    assert pages_footers[5] == LinsaUa.menu_urls[1][0] or \
+           pages_footers[5] == LinsaUa.menu_urls[1][1] \
+        , f'ERROR! Bad transaction for {page_start.get_relative_link()}'
+    assert pages_footers[6] == LinsaUa.menu_urls[5][0] or \
+           pages_footers[6] == LinsaUa.menu_urls[5][1] \
+        , f'ERROR! Bad transaction for {page_start.get_relative_link()}'
+    assert pages_footers[7] == LinsaUa.menu_urls[9][0] or \
+           pages_footers[7] == LinsaUa.menu_urls[9][1] \
+        , f'ERROR! Bad transaction for {page_start.get_relative_link()}'
+    assert pages_footers[8] == LinsaUa.menu_urls[10][0] or \
+           pages_footers[8] == LinsaUa.menu_urls[10][1] \
+        , f'ERROR! Bad transaction for {page_start.get_relative_link()}'
+    assert pages_footers[9] == LinsaUa.menu_urls[11][0] or \
+           pages_footers[9] == LinsaUa.menu_urls[11][1] \
+        , f'ERROR! Bad transaction for {page_start.get_relative_link()}'

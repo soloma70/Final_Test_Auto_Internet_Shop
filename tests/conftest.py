@@ -1,6 +1,7 @@
 import pytest, random
 from selenium import webdriver
 from browser_set import ChromeSet
+from datetime import datetime
 
 
 @pytest.fixture(scope='module')
@@ -27,7 +28,9 @@ def web_driver_desktop(request):
     option.add_argument(f"User-Agent={user_agent}")
     web_driver = webdriver.Chrome(executable_path=ChromeSet.chrome_driver_path, options=option)
     web_driver.set_window_size(1280, 960)
+    begin_time = datetime.now()
     yield web_driver
+    print(f'\nВремя тестирования: {datetime.now() - begin_time}')
     web_driver.quit()
 
 
