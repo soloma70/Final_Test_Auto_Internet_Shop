@@ -13,7 +13,8 @@ class StartPage(BasePage):
         url = LinsaUa.start_url
         driver.get(url)
 
-        # Search desktop elements
+        # Десктоп-элементы
+        # Элементы хедера
         self.start_img = driver.find_element(*StartLocators.logo_img)
         self.search_field = driver.find_element(*StartLocators.search_field)
         self.callback_btn = driver.find_element(*StartLocators.callback_btn)
@@ -23,16 +24,34 @@ class StartPage(BasePage):
         self.lang_btn_active = driver.find_element(*StartLocators.lang_btn_active)
         self.lang_uk_btn = driver.find_element(*StartLocators.lang_btn_uk)
         self.lang_ru_btn = driver.find_element(*StartLocators.lang_btn_ru)
+
+        # Элементы бокового меню
         self.menu_btn = driver.find_element(*StartLocators.menu_button)
         self.menu_btn_close = driver.find_element(*StartLocators.menu_button_close)
         self.menu_points = driver.find_elements(*StartLocators.menu_points)
+
+        # Элементы главного меню
         self.main_menu_points = driver.find_elements(*StartLocators.main_menu_points)
+
+        # Элементы баннеров
         self.sales_banners = driver.find_elements(*StartLocators.sales_banners)
         self.all_sales_prods = driver.find_element(*StartLocators.all_sales_prods)
 
-        # Элемент прокрутки страницы
-        self.win_scroll = driver.execute_script("window.scrollTo(0, 850)")
+        # Элементы любимых брендов
+        self.love_brands_sunglasses = driver.find_element(*StartLocators.love_brands_sunglasses)
+        self.love_brands_lenses = driver.find_element(*StartLocators.love_brands_lenses)
+        self.love_brands_accessories = driver.find_element(*StartLocators.love_brands_accessories)
 
+        # Элементы регистрации
+        self.reg_btn = driver.find_element(*StartLocators.registr_btn)
+        self.add = driver.find_element(*StartLocators.registr_popup_add)
+        self.close = driver.find_element(*StartLocators.registr_popup_close)
+
+        # Элементы прокрутки страницы
+        self.win_scroll_begin = driver.execute_script("window.scrollTo(0, 0)")
+        self.win_scroll = driver.execute_script("window.scrollTo(0, 850)")
+        self.win_scroll_b = driver.execute_script("window.scrollTo(0, 1200)")
+        self.win_scroll_r = driver.execute_script("window.scrollTo(0, 1850)")
 
 
 
@@ -81,6 +100,7 @@ class StartPage(BasePage):
 
     def all_sales_prods_click(self):
         self.all_sales_prods.click()
+
 
     # Вспомагательные функции для добавления различных строк
     def generate_string(n):

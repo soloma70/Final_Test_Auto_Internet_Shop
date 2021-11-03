@@ -5,6 +5,8 @@ from pages.start_page import StartPage
 from pages.locators import StartLocators
 from pages.url_list import LinsaUa
 from selenium.webdriver.support.ui import Select
+from selenium.webdriver.common.action_chains import ActionChains
+from settings import registr_name, registr_phone, registr_passw
 
 
 # Тестирование десктопной версии сайта
@@ -148,37 +150,63 @@ def test_banners_start_page_desktop(web_driver_desktop):
         time.sleep(2)
 
 def test_action_banners_start_page_desktop(web_driver_desktop):
-    """Тест проверяет кликабельность акционных баннеров и переход на соответствующие страницы"""
+    """Тест проверяет кликабельность акционного баннера и переход на соответствующую страницу,
+    добавление 1-й акционной позиции в корзину"""
 
     page_start = StartPage(web_driver_desktop, 5)
     page_start.win_scroll
-    # page_start.all_sales_prods_click()
-    # time.sleep(2)
-    # assert page_start.get_relative_link() == LinsaUa.main_menu_urls[0][0] or \
-    #        page_start.get_relative_link() == LinsaUa.main_menu_urls[1][0], 'Transition error'
-    # web_driver_desktop.find_element(*StartLocators.logo_img).click()
-    time.sleep(2)
+    page_start.all_sales_prods_click()
+    assert page_start.get_relative_link() == LinsaUa.main_menu_urls[0][0] or \
+           page_start.get_relative_link() == LinsaUa.main_menu_urls[1][0], 'Transition error'
+    web_driver_desktop.find_element(*StartLocators.logo_img).click()
+    # Добавление в корзину солнечных очков
     amount_cart_before = int(web_driver_desktop.find_element(*StartLocators.amount_cart).text)
-    # НЕ РАБОТАЕТ!!!
-    select = Select(web_driver_desktop.find_element(*StartLocators.sales_add_cart_sunglass).click())
-
-    time.sleep(2)
+    element_to_hover_over = web_driver_desktop.find_element(*StartLocators.sales_sunglass)
+    hover = ActionChains(web_driver_desktop).move_to_element(element_to_hover_over)
+    hover.perform()
+    web_driver_desktop.find_element(*StartLocators.sales_add_cart_sunglass).click()
+    web_driver_desktop.find_element(*StartLocators.close_cart_popup).click()
+    web_driver_desktop.find_element(*StartLocators.logo_img).click()
     amount_cart_after = int(web_driver_desktop.find_element(*StartLocators.amount_cart).text)
-    print(f'\nВсего в корзине: было {amount_cart_before}, стало {amount_cart_after}')
-    # Перебор в цикле акционные баннеры
-    # for index in range(3):
-    #     web_driver_desktop.execute_script("window.scrollTo(0, 850)")
-    #     time.sleep(2)
-    #     web_driver_desktop.find_elements(*StartLocators.sales_banners)[index].click()
-    #     time.sleep(2)
-    #
-    #
-    #     # assert page_start.get_relative_link() == LinsaUa.main_menu_urls[index][0] or \
-    #     #        page_start.get_relative_link() == LinsaUa.main_menu_urls[index][1], 'Transition error'
-    #     web_driver_desktop.find_element(*StartLocators.logo_img).click()
-    #     time.sleep(2)
+    assert amount_cart_before+1 == amount_cart_after, "ERROR! Product don't add to cart"
 
-    # page_start.cart_btn_click()
-    # assert page_start.get_relative_link() == '/ru/cart/' \
-    #        or page_start.get_relative_link() == '/uk/cart/', 'Transition error'
-    # web_driver_desktop.find_element(*StartLocators.logo_img).click()
+
+def test_love_brands_start_page_desktop(web_driver_desktop):
+    """Тест проверяет кликабельность баннеров "Любимые бренды" """
+
+    page_start = StartPage(web_driver_desktop, 5)
+    # page_start.win_scroll_b
+    time.sleep(2)
+    page_start.love_brands_sunglasses.click()
+    time.sleep(2)
+    page_start.love_brands_lenses.click()
+    time.sleep(2)
+    page_start.love_brands_accessories.click()
+    time.sleep(2)
+    web_driver_desktop.find_element(*StartLocators.logo_img).click()
+    time.sleep(2)
+
+def test_registration_start_page_desktop(web_driver_desktop):
+    """Тест проверяет кликабельность и заполнение полей формы регистрации на стартовой странице """
+
+    page_start = StartPage(web_driver_desktop, 10)
+    page_start.win_scroll_r
+    page_start.reg_btn.click()
+    assert web_driver_desktop.find_element(*StartLocators.registr_popup_windows).is_displayed(), \
+        'ERROR! PopUp Registration is not displayed'
+    name = web_driver_desktop.find_element(*StartLocators.registr_popup_name)
+    name.clear()
+    name.send_keys(registr_name)
+    phone = web_driver_desktop.find_element(*StartLocators.registr_popup_phone)
+    phone.clear()
+    phone.send_keys(registr_phone)
+    passw = web_driver_desktop.find_element(*StartLocators.registr_popup_passw)
+    passw.clear()
+    passw.send_keys(registr_passw)
+    web_driver_desktop.find_element(*StartLocators.registr_popup_chec).click()
+    time.sleep(3)
+    page_start.close.click()
+    web_driver_desktop.execute_script("window.scrollTo(0, 0)")
+    assert web_driver_desktop.find_element(*StartLocators.logo_img).is_displayed(), \
+        'ERROR! Start Image is not displayed'
+
