@@ -79,9 +79,13 @@ class StartLocators:
     footers_right_btns = (
                 By.CSS_SELECTOR, 'div[class="footer-top"] > div[class="right"] > ul[class="footer-menu"] > li > a')
 
-    footer_bottom_left_btns = (
+    footer_middle_btns = (
+        By.CSS_SELECTOR, 'div[class="footer-middle"] > div[class="item"] > a')
+
+
+    footer_bottom_left_btn = (
         By.CSS_SELECTOR, 'div[class="footer-bottom"] > div[class="left"] > a[class="desk"]')
-    footer_bottom_right_btns = (
+    footer_bottom_right_btn = (
         By.CSS_SELECTOR, 'div[class="footer-bottom"] > div[class="right"] > a')
 
 

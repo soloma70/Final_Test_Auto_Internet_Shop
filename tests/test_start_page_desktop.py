@@ -112,8 +112,8 @@ def test_menu_start_page_desktop(web_driver_desktop):
         web_driver_desktop.find_element(*StartLocators.menu_button).click()
         web_driver_desktop.find_elements(*StartLocators.menu_points)[index].click()
         time.sleep(2)
-        assert page_start.get_relative_link() == LinsaUa.menu_urls[index][0] or \
-               page_start.get_relative_link() == LinsaUa.menu_urls[index][1], 'Transition error'
+        assert page_start.get_relative_link() == LinsaUa.right_menu_urls[index][0] or \
+               page_start.get_relative_link() == LinsaUa.right_menu_urls[index][1], 'Transition error'
         web_driver_desktop.find_element(*StartLocators.logo_img).click()
 
 
@@ -154,7 +154,6 @@ def test_action_banners_start_page_desktop(web_driver_desktop):
     добавление 1-й акционной позиции в корзину"""
 
     page_start = StartPage(web_driver_desktop, 5)
-    page_start.win_scroll
     page_start.all_sales_prods_click()
     assert page_start.get_relative_link() == LinsaUa.main_menu_urls[0][0] or \
            page_start.get_relative_link() == LinsaUa.main_menu_urls[1][0], 'Transition error'
@@ -176,8 +175,6 @@ def test_love_brands_start_page_desktop(web_driver_desktop):
     и отображение соответствующих им элементов в ленте"""
 
     page_start = StartPage(web_driver_desktop, 5)
-    # page_start.win_scroll_b
-    # time.sleep(2)
     page_start.love_brands_sunglasses.click()
     time.sleep(2)
     assert page_start.vogue.is_displayed() and page_start.rayban.is_displayed()
@@ -196,7 +193,6 @@ def test_registration_start_page_desktop(web_driver_desktop):
     """Тест проверяет кликабельность и заполнение полей формы регистрации на стартовой странице """
 
     page_start = StartPage(web_driver_desktop, 10)
-    # page_start.win_scroll_r
     page_start.reg_btn.click()
     assert web_driver_desktop.find_element(*StartLocators.registr_popup_windows).is_displayed(), \
         'ERROR! PopUp Registration is not displayed'
@@ -260,8 +256,8 @@ def test_about_start_page_desktop(web_driver_desktop):
     # Click for card left
     web_driver_desktop.find_element(*StartLocators.about_left_btn).click()
     time.sleep(2)
-    assert page_start.get_relative_link() == LinsaUa.menu_urls[1][0] or \
-           page_start.get_relative_link() == LinsaUa.menu_urls[1][1] \
+    assert page_start.get_relative_link() == LinsaUa.right_menu_urls[1][0] or \
+           page_start.get_relative_link() == LinsaUa.right_menu_urls[1][1] \
         , f'ERROR! Bad transaction for {page_start.get_relative_link()}'
     web_driver_desktop.find_element(*StartLocators.logo_img).click()
 
@@ -279,10 +275,10 @@ def test_footer_start_page_desktop(web_driver_desktop):
     и корректность перехода по ссылкам """
 
     page_start = StartPage(web_driver_desktop, 10)
-    # page_start.win_scroll_bl
+    pages_footers = []
     footers_left = page_start.footers_left_btns
     footers_right = page_start.footers_right_btns
-    pages_footers = []
+
     for index, locator in enumerate(footers_left):
         web_driver_desktop.find_elements(*StartLocators.footers_left_btns)[index].click()
         pages_footers.append(page_start.get_relative_link())
@@ -293,41 +289,28 @@ def test_footer_start_page_desktop(web_driver_desktop):
         pages_footers.append(page_start.get_relative_link())
         web_driver_desktop.find_element(*StartLocators.logo_img).click()
 
-    web_driver_desktop.find_element(*StartLocators.footer_bottom_left_btns).click()
+    web_driver_desktop.find_element(*StartLocators.footer_bottom_left_btn).click()
     pages_footers.append(page_start.get_relative_link())
     web_driver_desktop.find_element(*StartLocators.logo_img).click()
 
-    web_driver_desktop.find_element(*StartLocators.footer_bottom_right_btns).click()
+    web_driver_desktop.find_element(*StartLocators.footer_bottom_right_btn).click()
     pages_footers.append(page_start.get_relative_link())
     web_driver_desktop.find_element(*StartLocators.logo_img).click()
 
-    assert pages_footers[0] == LinsaUa.menu_urls[2][0] or \
-            pages_footers[0] == LinsaUa.menu_urls[2][1] \
-         , f'ERROR! Bad transaction for {page_start.get_relative_link()}'
-    assert pages_footers[1] == LinsaUa.menu_urls[3][0] or \
-            pages_footers[1] == LinsaUa.menu_urls[3][1] \
-         , f'ERROR! Bad transaction for {page_start.get_relative_link()}'
-    assert pages_footers[2] == LinsaUa.menu_urls[4][0] or \
-           pages_footers[2] == LinsaUa.menu_urls[4][1] \
-        , f'ERROR! Bad transaction for {page_start.get_relative_link()}'
-    assert pages_footers[3] == LinsaUa.menu_urls[6][0] or \
-           pages_footers[3] == LinsaUa.menu_urls[6][1] \
-        , f'ERROR! Bad transaction for {page_start.get_relative_link()}'
-    assert pages_footers[4] == LinsaUa.menu_urls[7][0] or \
-           pages_footers[4] == LinsaUa.menu_urls[7][1] \
-        , f'ERROR! Bad transaction for {page_start.get_relative_link()}'
-    assert pages_footers[5] == LinsaUa.menu_urls[1][0] or \
-           pages_footers[5] == LinsaUa.menu_urls[1][1] \
-        , f'ERROR! Bad transaction for {page_start.get_relative_link()}'
-    assert pages_footers[6] == LinsaUa.menu_urls[5][0] or \
-           pages_footers[6] == LinsaUa.menu_urls[5][1] \
-        , f'ERROR! Bad transaction for {page_start.get_relative_link()}'
-    assert pages_footers[7] == LinsaUa.menu_urls[9][0] or \
-           pages_footers[7] == LinsaUa.menu_urls[9][1] \
-        , f'ERROR! Bad transaction for {page_start.get_relative_link()}'
-    assert pages_footers[8] == LinsaUa.menu_urls[10][0] or \
-           pages_footers[8] == LinsaUa.menu_urls[10][1] \
-        , f'ERROR! Bad transaction for {page_start.get_relative_link()}'
-    assert pages_footers[9] == LinsaUa.menu_urls[11][0] or \
-           pages_footers[9] == LinsaUa.menu_urls[11][1] \
-        , f'ERROR! Bad transaction for {page_start.get_relative_link()}'
+    for index in range(2):
+        web_driver_desktop.find_elements(*StartLocators.footer_middle_btns)[index].click()
+        windows = web_driver_desktop.window_handles
+        web_driver_desktop.switch_to.window(windows[1])
+        pages_footers.append(web_driver_desktop.current_url)
+        web_driver_desktop.close()
+        time.sleep(2)
+        web_driver_desktop.switch_to.window(windows[0])
+        web_driver_desktop.find_element(*StartLocators.logo_img).click()
+
+    # Переход на страницу инстаграм не проверяется, требует логин инстаграм
+    for index in range(11):
+        assert pages_footers[index] == LinsaUa.footers_menu_urls[index][0] or \
+                pages_footers[index] == LinsaUa.footers_menu_urls[index][1] \
+             , f'ERROR! Bad transaction for {pages_footers[index]}'
+
+
