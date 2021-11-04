@@ -4,6 +4,7 @@ from selenium.webdriver.common.by import By
 class StartLocators:
 
     # DESKTOP LOCATORS
+    # HEADERS LOCATORS
     # Start Image locator
     logo_img = (By.CSS_SELECTOR, 'a[class="top-logo"]>img')
     # Search locators
@@ -29,10 +30,12 @@ class StartLocators:
     lang_btn_active = (By.CSS_SELECTOR, 'div[class="active-lang"]')
     lang_btn_uk = (By.CSS_SELECTOR, 'a[href="https://linza.com.ua/uk/"]')
     lang_btn_ru = (By.CSS_SELECTOR, 'a[href="https://linza.com.ua/"]')
-    # Sidebar Menu locators
+    # RightSide Menu locators
     menu_button = (By.CSS_SELECTOR, 'div[class="menu-button js-open-side-menu"]')
     menu_button_close = (By.CSS_SELECTOR, 'div[class="side-close-menu js-side-close-menu"]>svg')
     menu_points = (By.CSS_SELECTOR, 'ul[class="wrapper-ul"]>li>a')
+
+    # MAIN PAGE LOCATORS
     # Main Menu locator
     main_menu_points = (By.CSS_SELECTOR, 'div[class="main-menu"]>ul>li>a')
     # Banners locators
@@ -73,16 +76,14 @@ class StartLocators:
     # About Us locators
     about_left_btn = (By.CSS_SELECTOR, 'section[class="about-us-main"] > div[class="left"] > div[class="details"] > a')
     about_right_btn = (By.CSS_SELECTOR, 'section[class="about-us-main"] > div[class="right"] > a')
-    # Footers locators
+
+    # FOOTERS LOCATORS
     footers_left_btns = (
                 By.CSS_SELECTOR, 'div[class="footer-top"] > div[class="left"] > ul[class="footer-menu"] > li > a')
     footers_right_btns = (
                 By.CSS_SELECTOR, 'div[class="footer-top"] > div[class="right"] > ul[class="footer-menu"] > li > a')
-
     footer_middle_btns = (
         By.CSS_SELECTOR, 'div[class="footer-middle"] > div[class="item"] > a')
-
-
     footer_bottom_left_btn = (
         By.CSS_SELECTOR, 'div[class="footer-bottom"] > div[class="left"] > a[class="desk"]')
     footer_bottom_right_btn = (

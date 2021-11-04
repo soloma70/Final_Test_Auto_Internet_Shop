@@ -4,7 +4,6 @@ import time, pytest
 from pages.start_page import StartPage
 from pages.locators import StartLocators
 from pages.url_list import LinsaUa
-from selenium.webdriver.support.ui import Select
 from selenium.webdriver.common.action_chains import ActionChains
 from settings import registr_name, registr_phone, registr_passw
 
