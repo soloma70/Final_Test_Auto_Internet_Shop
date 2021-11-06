@@ -6,6 +6,7 @@ from pages.locators import StartLocators
 from pages.url_list import LinsaUa
 from selenium.webdriver.common.action_chains import ActionChains
 from settings import registr_name, registr_phone, registr_passw
+from pages.aux_metods import AuxMetods
 
 
 # Тестирование десктопной версии сайта
@@ -29,9 +30,9 @@ def test_search_start_page_desktop_positive(web_driver_desktop, test_search_p):
 
 
 @pytest.mark.parametrize("test_search",
-                        ['123456', StartPage.generate_string(255), StartPage.generate_string(1001)
-                        , StartPage.russian_chars(), StartPage.russian_chars().upper(), StartPage.chinese_chars()
-                        , StartPage.special_chars()]
+                        ['123456', AuxMetods.generate_string(255), AuxMetods.generate_string(1001)
+                        , AuxMetods.russian_chars(), AuxMetods.russian_chars().upper(), AuxMetods.chinese_chars()
+                        , AuxMetods.special_chars()]
                         , ids=['any', '255 sym', '> 1000 sym', 'russian', 'RUSSIAN', 'chinese', 'specials'])
 def test_search_start_page_desktop_negative(web_driver_desktop, test_search):
     """Тест проверяет поле поиска с различными негативными данными и корректность обработки запроса"""
