@@ -43,8 +43,10 @@ def web_driver_mobile(request):
     user_agent = random.choice(ChromeSet.chrome_user_agent)
     option.add_argument(f"User-Agent={user_agent}")
     web_driver = webdriver.Chrome(executable_path=ChromeSet.chrome_driver_path, options=option)
-    web_driver.set_window_size(425, 960)
+    web_driver.set_window_size(480, 960)
+    begin_time = datetime.now()
     yield web_driver
+    print(f'\nВремя тестирования: {datetime.now() - begin_time}')
     web_driver.quit()
 
 

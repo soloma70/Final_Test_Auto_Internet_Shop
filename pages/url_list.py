@@ -13,6 +13,16 @@ class LinsaUa:
         ['/ru/brands/', '/uk/brands/'],
     ]
 
+    left_menu_urls = [
+        ['/ru/sluzhba-podderzhki/', '/uk/sluzhba-pidtrimki/'],
+        ['/ru/page/dostavka/', '/uk/page/dostavka/'],
+        ['/ru/obmen-vozvrat/', '/uk/obmen-vozvrat/'],
+        ['/ru/diskont/', '/ru/diskont/'],
+        ['/ru/certificates/', '/uk/certificates/'],
+        ['/ru/page/about/', '/uk/page/about/'],
+        ['/ru/warranty/', '/uk/warranty/']
+    ]
+
     main_menu_urls = [
         ['/ru/sales/', '/uk/sales/'],
         ['/ru/contact-lenses/', '/uk/contact-lenses/'],
