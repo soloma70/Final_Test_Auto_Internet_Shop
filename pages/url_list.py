@@ -1,5 +1,5 @@
 class LinsaUa:
-    start_url = 'https://linza.com.ua/'
+    start_url = 'https://linza.com.ua'
 
     right_menu_urls = [
         ['/ru/articles/blog/', '/uk/articles/blog/'],
@@ -53,3 +53,11 @@ class LinsaUa:
         ['https://www.instagram.com/linza.ua/', 'https://www.instagram.com/linza.ua/'],
     ]
 
+    def sales_url(lng='ru'):
+        if lng == 'ru':
+            sales_url = f'{LinsaUa.start_url}{LinsaUa.main_menu_urls[0][0]}'
+        elif lng == 'uk':
+            sales_url = f'{LinsaUa.start_url}{LinsaUa.main_menu_urls[0][1]}'
+        else:
+            sales_url = f'{LinsaUa.start_url}'
+        return sales_url
