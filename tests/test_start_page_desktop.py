@@ -241,8 +241,8 @@ def test_blogs_start_page_desktop(web_driver_desktop):
     web_driver_desktop.find_element(*StartLocators.logo_img).click()
 
     assert blog_card_1 == blog_title_1, f'ERROR! Bad transaction: {blog_card_1} != {blog_title_1}'
-    assert blog_card_1 == blog_title_1, f'ERROR! Bad transaction: {blog_card_2} != {blog_title_2}'
-    assert blog_card_1 == blog_title_1, f'ERROR! Bad transaction: {blog_card_3} != {blog_title_3}'
+    assert blog_card_2 == blog_title_2, f'ERROR! Bad transaction: {blog_card_2} != {blog_title_2}'
+    assert blog_card_3 == blog_title_3, f'ERROR! Bad transaction: {blog_card_3} != {blog_title_3}'
     assert blog_url == LinsaUa.main_menu_urls[5][0] or blog_url == LinsaUa.main_menu_urls[5][1]\
         , f'ERROR! Bad transaction for {blog_url}'
 
