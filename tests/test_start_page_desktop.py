@@ -20,7 +20,7 @@ def test_start_page(web_driver_desktop):
 
 
 @pytest.mark.parametrize("test_search_p", ['линзы', 'lens', 123], ids=['search ru', 'search en', 'search digit'])
-def test_search_start_page_desktop_positive(web_driver_desktop, test_search_p):
+def test_search_start_page_positive(web_driver_desktop, test_search_p):
     """Тест проверяет работу поиска с различными позитивными данными"""
 
     page_start = StartPage(web_driver_desktop, 5)
@@ -34,7 +34,7 @@ def test_search_start_page_desktop_positive(web_driver_desktop, test_search_p):
                         , AuxMetods.russian_chars(), AuxMetods.russian_chars().upper(), AuxMetods.chinese_chars()
                         , AuxMetods.special_chars()]
                         , ids=['any', '255 sym', '> 1000 sym', 'russian', 'RUSSIAN', 'chinese', 'specials'])
-def test_search_start_page_desktop_negative(web_driver_desktop, test_search):
+def test_search_start_page_negative(web_driver_desktop, test_search):
     """Тест проверяет поле поиска с различными негативными данными и корректность обработки запроса"""
 
     page_start = StartPage(web_driver_desktop, 5)
@@ -43,7 +43,7 @@ def test_search_start_page_desktop_negative(web_driver_desktop, test_search):
     assert amount == 0, 'Field "Search" working unsucсess'
 
 
-def test_callback_btn_start_page_desktop(web_driver_desktop):
+def test_callback_btn_start_page(web_driver_desktop):
     """Тест проверяет кликабельность "Перезвоните мне" и загрузку формы обратного звонка, после чего закрывает ее"""
 
     page_start = StartPage(web_driver_desktop, 5)
@@ -55,7 +55,7 @@ def test_callback_btn_start_page_desktop(web_driver_desktop):
     time.sleep(2)
 
 
-def test_login_btn_start_page_desktop(web_driver_desktop):
+def test_login_btn_start_page(web_driver_desktop):
     """Тест проверяет кликабельность "Вход" """
 
     page_start = StartPage(web_driver_desktop, 5)
@@ -65,7 +65,7 @@ def test_login_btn_start_page_desktop(web_driver_desktop):
     web_driver_desktop.find_element(*StartLocators.login_close).click()
 
 
-def test_wishlist_btn_start_page_desktop(web_driver_desktop):
+def test_wishlist_btn_start_page(web_driver_desktop):
     """Тест проверяет кликабельность "Список желаний" без авторизации"""
 
     page_start = StartPage(web_driver_desktop, 5)
@@ -75,7 +75,7 @@ def test_wishlist_btn_start_page_desktop(web_driver_desktop):
     web_driver_desktop.find_element(*StartLocators.login_close).click()
 
 
-def test_cart_start_page_desktop(web_driver_desktop):
+def test_cart_start_page(web_driver_desktop):
     """Тест проверяет кликабельность "Корзина" без авторизации"""
 
     page_start = StartPage(web_driver_desktop, 5)
@@ -85,7 +85,7 @@ def test_cart_start_page_desktop(web_driver_desktop):
     web_driver_desktop.find_element(*StartLocators.logo_img).click()
 
 
-def test_lang_start_page_desktop(web_driver_desktop):
+def test_lang_start_page(web_driver_desktop):
     """Тест проверяет переключение языков сайта Рус и Укр"""
 
     page_start = StartPage(web_driver_desktop, 5)
@@ -97,7 +97,7 @@ def test_lang_start_page_desktop(web_driver_desktop):
     assert page_start.get_relative_link() == '/', 'Transition error'
 
 
-def test_menu_start_page_desktop(web_driver_desktop):
+def test_menu_start_page(web_driver_desktop):
     """Тест проверяет кликабельность меню и переход на соответствующие страницы меню, закрытие меню"""
 
     page_start = StartPage(web_driver_desktop, 5)
@@ -117,7 +117,7 @@ def test_menu_start_page_desktop(web_driver_desktop):
         web_driver_desktop.find_element(*StartLocators.logo_img).click()
 
 
-def test_main_menu_start_page_desktop(web_driver_desktop):
+def test_main_menu_start_page(web_driver_desktop):
     """Тест проверяет кликабельность главного меню и переход на соответствующие страницы меню"""
 
     page_start = StartPage(web_driver_desktop, 5)
@@ -131,7 +131,7 @@ def test_main_menu_start_page_desktop(web_driver_desktop):
         web_driver_desktop.find_element(*StartLocators.logo_img).click()
         time.sleep(2)
 
-def test_banners_start_page_desktop(web_driver_desktop):
+def test_banners_start_page(web_driver_desktop):
     """Тест проверяет кликабельность баннеров и переход на соответствующие страницы"""
 
     page_start = StartPage(web_driver_desktop, 5)
@@ -149,7 +149,7 @@ def test_banners_start_page_desktop(web_driver_desktop):
         web_driver_desktop.find_element(*StartLocators.logo_img).click()
         time.sleep(2)
 
-def test_action_banners_start_page_desktop(web_driver_desktop):
+def test_action_banners_start_page(web_driver_desktop):
     """Тест проверяет кликабельность акционного баннера и переход на соответствующую страницу,
     добавление 1-й акционной позиции в корзину"""
 
@@ -170,7 +170,7 @@ def test_action_banners_start_page_desktop(web_driver_desktop):
     assert amount_cart_before+1 == amount_cart_after, "ERROR! Product don't add to cart"
 
 
-def test_love_brands_start_page_desktop(web_driver_desktop):
+def test_love_brands_start_page(web_driver_desktop):
     """Тест проверяет кликабельность баннеров "Любимые бренды"
     и отображение соответствующих им элементов в ленте"""
 
@@ -189,7 +189,7 @@ def test_love_brands_start_page_desktop(web_driver_desktop):
     assert web_driver_desktop.find_element(*StartLocators.logo_img).is_displayed(), \
         'ERROR! Start Image is not displayed'
 
-def test_registration_start_page_desktop(web_driver_desktop):
+def test_registration_start_page(web_driver_desktop):
     """Тест проверяет кликабельность и заполнение полей формы регистрации на стартовой странице """
 
     page_start = StartPage(web_driver_desktop, 10)
@@ -213,7 +213,7 @@ def test_registration_start_page_desktop(web_driver_desktop):
         'ERROR! Start Image is not displayed'
 
 
-def test_blogs_start_page_desktop(web_driver_desktop):
+def test_blogs_start_page(web_driver_desktop):
     """Тест проверяет кликабельность блоков в разделе "Оптический блог"
     и корректность перехода по ссылкам """
 
@@ -247,7 +247,7 @@ def test_blogs_start_page_desktop(web_driver_desktop):
         , f'ERROR! Bad transaction for {blog_url}'
 
 
-def test_about_start_page_desktop(web_driver_desktop):
+def test_about_start_page(web_driver_desktop):
     """Тест проверяет кликабельность блоков в разделе "О нас"
     и корректность перехода по ссылкам """
 
@@ -270,7 +270,7 @@ def test_about_start_page_desktop(web_driver_desktop):
     web_driver_desktop.find_element(*StartLocators.logo_img).click()
 
 
-def test_footer_start_page_desktop(web_driver_desktop):
+def test_footer_start_page(web_driver_desktop):
     """Тест проверяет кликабельность блоков в footers
     и корректность перехода по ссылкам """
 

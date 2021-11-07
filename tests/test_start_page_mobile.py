@@ -19,7 +19,7 @@ def test_start_page(web_driver_mobile):
            page_start.get_relative_link() == '/uk/', 'Transition error'
 
 
-def test_search_close_start_page_mobile(web_driver_mobile):
+def test_search_close_start_page(web_driver_mobile):
     """Тест проверяет клик на иконку поиска и закрытие окна"""
 
     page_start = StartPage(web_driver_mobile, 5)
@@ -29,7 +29,7 @@ def test_search_close_start_page_mobile(web_driver_mobile):
 
 
 @pytest.mark.parametrize("test_search_p", ['линзы', 'lens', 123], ids=['search ru', 'search en', 'search digit'])
-def test_search_start_page_mobile_positive(web_driver_mobile, test_search_p):
+def test_search_start_page_positive(web_driver_mobile, test_search_p):
     """Тест проверяет работу поиска с различными позитивными данными"""
 
     page_start = StartPage(web_driver_mobile, 5)
@@ -43,7 +43,7 @@ def test_search_start_page_mobile_positive(web_driver_mobile, test_search_p):
                              , AuxMetods.russian_chars(), AuxMetods.russian_chars().upper(), AuxMetods.chinese_chars()
                              , AuxMetods.special_chars()]
     , ids=['any', '255 sym', '> 1000 sym', 'russian', 'RUSSIAN', 'chinese', 'specials'])
-def test_search_start_page_mobile_negative(web_driver_mobile, test_search):
+def test_search_start_page_negative(web_driver_mobile, test_search):
     """Тест проверяет поле поиска с различными негативными данными и корректность обработки запроса"""
 
     page_start = StartPage(web_driver_mobile, 5)
@@ -52,7 +52,7 @@ def test_search_start_page_mobile_negative(web_driver_mobile, test_search):
     assert amount == 0, 'Field "Search" working unsucсess'
 
 
-def test_wishlist_btn_start_page_mobile(web_driver_mobile):
+def test_wishlist_btn_start_page(web_driver_mobile):
     """Тест проверяет кликабельность "Список желаний" без авторизации"""
 
     page_start = StartPage(web_driver_mobile, 5)
@@ -62,7 +62,7 @@ def test_wishlist_btn_start_page_mobile(web_driver_mobile):
     web_driver_mobile.find_element(*StartLocatorsMobile.login_close).click()
 
 
-def test_cart_start_page_mobile(web_driver_mobile):
+def test_cart_start_page(web_driver_mobile):
     """Тест проверяет кликабельность "Корзина" без авторизации"""
 
     page_start = StartPage(web_driver_mobile, 5)
@@ -72,19 +72,7 @@ def test_cart_start_page_mobile(web_driver_mobile):
     web_driver_mobile.find_element(*StartLocatorsMobile.logo_img_mobile).click()
 
 
-# def test_lang_start_page_desktop(web_driver_desktop):
-#     """Тест проверяет переключение языков сайта Рус и Укр"""
-#
-#     page_start = StartPage(web_driver_desktop, 5)
-#     page_start.lang_btn_click()
-#     page_start.lang_uk_btn_click()
-#     assert page_start.get_relative_link() == '/uk/', 'Transition error'
-#     web_driver_desktop.find_element(*StartLocators.lang_btn_active).click()
-#     web_driver_desktop.find_element(*StartLocators.lang_btn_ru).click()
-#     assert page_start.get_relative_link() == '/', 'Transition error'
-
-
-def test_menu_start_page_mobile(web_driver_mobile):
+def test_menu_start_page(web_driver_mobile):
     """Тест проверяет кликабельность меню и переход на соответствующие страницы меню, закрытие меню"""
 
     page_start = StartPage(web_driver_mobile, 5)
@@ -124,7 +112,7 @@ def test_menu_start_page_mobile(web_driver_mobile):
         web_driver_mobile.find_element(*StartLocatorsMobile.logo_img_mobile).click()
 
 
-def test_banners_start_page_mobile(web_driver_mobile):
+def test_banners_start_page(web_driver_mobile):
     """Тест проверяет кликабельность баннеров и переход на соответствующие страницы"""
 
     page_start = StartPage(web_driver_mobile, 5)
@@ -141,7 +129,7 @@ def test_banners_start_page_mobile(web_driver_mobile):
         time.sleep(2)
 
 
-def test_action_banners_start_page_mobile(web_driver_mobile):
+def test_action_banners_start_page(web_driver_mobile):
     """Тест проверяет кликабельность акционного баннера и переход на соответствующую страницу,
     добавление 1-й акционной позиции в корзину"""
 
@@ -160,7 +148,7 @@ def test_action_banners_start_page_mobile(web_driver_mobile):
     assert amount_cart_before + 1 == amount_cart_after, "ERROR! Product don't add to cart"
 
 
-def test_love_brands_start_page_mobile(web_driver_mobile):
+def test_love_brands_start_page(web_driver_mobile):
     """Тест проверяет кликабельность баннеров "Любимые бренды"
     и отображение соответствующих им элементов в ленте"""
 
@@ -180,7 +168,7 @@ def test_love_brands_start_page_mobile(web_driver_mobile):
         , 'ERROR! Start Image is not displayed'
 
 
-def test_registration_start_page_mobile(web_driver_mobile):
+def test_registration_start_page(web_driver_mobile):
     """Тест проверяет кликабельность и заполнение полей формы регистрации на стартовой странице """
 
     page_start = StartPage(web_driver_mobile, 10)
@@ -204,7 +192,7 @@ def test_registration_start_page_mobile(web_driver_mobile):
         'ERROR! Start Image is not displayed'
 
 
-def test_blogs_start_page_mobile(web_driver_mobile):
+def test_blogs_start_page(web_driver_mobile):
     """Тест проверяет кликабельность блоков в разделе "Оптический блог"
     и корректность перехода по ссылкам """
 
@@ -232,7 +220,7 @@ def test_blogs_start_page_mobile(web_driver_mobile):
         , f'ERROR! Bad transaction for {blog_url}'
 
 
-def test_footer_start_page_mobile(web_driver_mobile):
+def test_footer_start_page(web_driver_mobile):
     """Тест проверяет кликабельность блоков в footers
     и корректность перехода по ссылкам """
 
