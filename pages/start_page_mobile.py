@@ -1,6 +1,6 @@
 from pages.base_page import BasePage
 from pages.url_list import LinsaUa
-from pages.locators import StartLocators, StartLocatorsMobile
+from pages.locators import StartLocatorsMobile
 from selenium.webdriver.common.keys import Keys
 
 
@@ -22,8 +22,8 @@ class StartPage(BasePage):
         # RightSide Menu elements
         self.menu_btn = driver.find_element(*StartLocatorsMobile.menu_button)
         self.menu_btn_close = driver.find_element(*StartLocatorsMobile.menu_button_close)
-        self.lang_btn_active = driver.find_element(*StartLocators.lang_btn_active)
-        self.lang_btn = driver.find_element(*StartLocators.lang_btn_uk)
+        self.lang_btn_active = driver.find_element(*StartLocatorsMobile.lang_btn_active)
+        self.lang_btn = driver.find_element(*StartLocatorsMobile.lang_btn)
         self.menu_points = driver.find_elements(*StartLocatorsMobile.menu_points_main)  # 13
         self.menu_points_hidden = driver.find_elements(*StartLocatorsMobile.menu_points_hidden)  # 7
 
@@ -52,8 +52,8 @@ class StartPage(BasePage):
         self.blog_card_2 = driver.find_element(*StartLocatorsMobile.blog_card_2)
 
         # # Footers elements
-        self.footers_left_btns = driver.find_elements(*StartLocators.footers_left_btns)
-        self.footers_right_btns = driver.find_elements(*StartLocators.footers_right_btns)
+        self.footers_left_btns = driver.find_elements(*StartLocatorsMobile.footers_left_btns)
+        self.footers_right_btns = driver.find_elements(*StartLocatorsMobile.footers_right_btns)
 
     def start_img_click(self):
         self.start_img_mobile.click()
