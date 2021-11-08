@@ -61,3 +61,12 @@ class LinsaUa:
         else:
             sales_url = f'{LinsaUa.start_url}'
         return sales_url
+
+    def blog_url(lng='ru'):
+        if lng == 'ru':
+            blog_url = f'{LinsaUa.start_url}{LinsaUa.main_menu_urls[5][0]}'
+        elif lng == 'uk':
+            blog_url = f'{LinsaUa.start_url}{LinsaUa.main_menu_urls[5][1]}'
+        else:
+            blog_url = f'{LinsaUa.start_url}'
+        return blog_url

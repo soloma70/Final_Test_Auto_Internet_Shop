@@ -201,120 +201,126 @@ class SalesLocators:
 
     # HEADERS LOCATORS
     # Start Image locator
-    logo_img = (By.CSS_SELECTOR, 'a[class="top-logo"]>img')
+    logo_img = (By.CSS_SELECTOR, 'a.top-logo > img')
 
     # Sales Banners locator
-    sales_banner_imgs = (By.CSS_SELECTOR, 'div[class="sales-banner"] > div[class="top"] > div[class="img-banner"]')
-    sales_banner_btns = (
-        By.CSS_SELECTOR, 'div[class="sales-banner"] > div[class="bottom"] > div[class="right"] > a[class="typical-button juicy-green"]')
-    sales_products = (
-        By.CSS_SELECTOR, 'div[class="products-wrapper"] > div > div[class="main-content"] > a[class="img"]')
-    sales_products_buy = (
-        By.CSS_SELECTOR, 'div[class="products-wrapper"] > div > div[class="additional lens"] > a')
-
-
-
-
-    amount_cart = (By.CSS_SELECTOR, 'div[class="icons-panel"] > a[class="cart"] > span[class="total-in-cart"]')
+    banner_imgs = (By.CSS_SELECTOR, 'div.sales-banner > div.top > div.img-banner > div')
+    banner_btns = (By.CSS_SELECTOR, 'div.sales-banner > div.bottom > div.right > a.typical-button.juicy-green')
+    products = (By.CSS_SELECTOR, 'div.products-wrapper > div > div.main-content > a.img')
+    products_buy = (By.CSS_SELECTOR, 'div.products-wrapper > div > div.additional.lens > a')
+    product_banner = (By.CSS_SELECTOR, 'div.products-wrapper > div > div.main-content > a.img')
+    products_banner_buy = (By.CSS_SELECTOR, 'div.products-wrapper > div > div.additional.lens > a')
+    amount_cart = (By.CSS_SELECTOR, 'div.icons-panel > a.cart > span.total-in-cart')
 
 class ProductLensLocators:
     # Product card
-    card_name = (By.CSS_SELECTOR, 'div[class="card-section"] > div[class="title-card-holder"] > h1')
+    name = (By.CSS_SELECTOR, 'div.card-section > div.title-card-holder > h1')
 
-    card_rating = (By.CSS_SELECTOR, 'div[class="card-section"] > div[class="card-rating"] > div > div[class="rev-amount"]')
-    card_add_review = (By.CSS_SELECTOR, 'div[class="card-section"] > div[class="card-rating"] > div > a[class="add-review js-add-review"]')
+    rating = (By.CSS_SELECTOR, 'div[class="card-section"] > div[class="card-rating"] > div > div[class="rev-amount"]')
+    add_review = (By.CSS_SELECTOR, 'div[class="card-section"] > div[class="card-rating"] > div > a[class="add-review js-add-review"]')
 
-    card_main = (By.CSS_SELECTOR, 'div[class="card-section"] > div[class="card-menu"] > nav > a[data-tab="main"]')
-    card_char = (By.CSS_SELECTOR, 'div[class="card-section"] > div[class="card-menu"] > nav > a[data-tab="characteristics"]')
-    card_photo = (By.CSS_SELECTOR, 'div[class="card-section"] > div[class="card-menu"] > nav > a[data-tab="photo"]')
-    card_desc = (By.CSS_SELECTOR, 'div[class="card-section"] > div[class="card-menu"] > nav > a[data-tab="description"]')
-    card_reviews = (By.CSS_SELECTOR, 'div[class="card-section"] > div[class="card-menu"] > nav > a[data-tab="reviews"]')
+    main = (By.CSS_SELECTOR, 'div[class="card-section"] > div[class="card-menu"] > nav > a[data-tab="main"]')
+    char = (By.CSS_SELECTOR, 'div[class="card-section"] > div[class="card-menu"] > nav > a[data-tab="characteristics"]')
+    photo = (By.CSS_SELECTOR, 'div[class="card-section"] > div[class="card-menu"] > nav > a[data-tab="photo"]')
+    desc = (By.CSS_SELECTOR, 'div[class="card-section"] > div[class="card-menu"] > nav > a[data-tab="description"]')
+    reviews = (By.CSS_SELECTOR, 'div[class="card-section"] > div[class="card-menu"] > nav > a[data-tab="reviews"]')
 
-    card_price = (
-        By.CSS_SELECTOR, 'div[class="left-price"] > div > div[class="price"] > span[class="js-goods-price-value"]')
+    price = (By.CSS_SELECTOR, '#js-goods-price-value')
     # Same eyes
-    card_same_eyes = (
-        By.CSS_SELECTOR, 'div[id="js-same-eyes"] > div > div > div > div > a[1] > svg')
-    card_dioptr_same = (
-        By.CSS_SELECTOR, 'form[id="lenses-selects-form-same"] > div[1] > div > div[class="selectric"] > span')
-    card_curv_same = (
-        By.CSS_SELECTOR, 'form[id="lenses-selects-form-same"] > div[2] > div > div[class="selectric"] > span')
-    card_pack_one_same = (
+    same_eyes = (By.CSS_SELECTOR, 'div[id="js-same-eyes"] > div > div > div > div > a[1] > svg')
+    dioptr_same = (By.CSS_SELECTOR, '#lenses-selects-form-same > div:nth-child(3) > div > div.selectric > span')
+    dioptr_list = (
+        By.CSS_SELECTOR, '#lenses-selects-form-same > div:nth-child(3) > div > div.selectric-items > div > ul > li')
+    curv_same = (
+        By.CSS_SELECTOR, '#lenses-selects-form-same > div:nth-child(4) > div > div.selectric > div')
+    curv_list = (
+        By.CSS_SELECTOR, '#lenses-selects-form-same > div:nth-child(4) > div > div.selectric-items > div > ul > li')
+    pack_one_same = (
         By.CSS_SELECTOR, 'div[id="lenses-quantity-block-same"] > div[class="quantity-label"] > div > label[class="goods-round"] > span[class="round"]')
-    card_pack_mul_same = (
+    pack_mul_same = (
         By.CSS_SELECTOR, 'div[id="lenses-quantity-block-same"] > div[class="quantity-label"] > div > label[class="goods-round append"] > span[class="round"]')
-    card_amount_same = (
+    amount_same = (
+        By.CSS_SELECTOR, '#product-quantity-same')
+    amount_minus_same = (
         By.CSS_SELECTOR,
-        'div[id="lenses-quantity-block-same"] > div[class="quan-wrapper-cell"] > div > div[class="inp-holder"] > input')
-    card_amount_minus_same = (
+        '#lenses-quantity-block-same > div.quan-wrapper-cell > div > div.minus.js-sub-product-quantity')
+    amount_plus_same = (
         By.CSS_SELECTOR,
-        'div[id="lenses-quantity-block-same"] > div[class="quan-wrapper-cell"] > div > div[class="minus js-sub-product-quantity"] > span')
-    card_amount_plus_same = (
-        By.CSS_SELECTOR,
-        'div[id="lenses-quantity-block-same"] > div[class="quan-wrapper-cell"] > div > div[class="plus js-add-product-quantity"] > span')
+        '#lenses-quantity-block-same > div.quan-wrapper-cell > div > div.plus.js-add-product-quantity')
     # Different eyes
-    card_diff_eyes = (
+    diff_eyes = (
         By.CSS_SELECTOR, 'form[id="js-different-eyes"] > div > div > div > div > a[2] > svg')
-    card_dioptr_left = (
+    dioptr_left = (
         By.CSS_SELECTOR, 'form[id="lenses-selects-form-left"] > div[1] > div > div[class="selectric"] > span')
-    card_dioptr_right = (
+    dioptr_right = (
         By.CSS_SELECTOR, 'form[id="lenses-selects-form-right"] > div[1] > div > div[class="selectric"] > span')
-    card_curv_left = (
+    curv_left = (
         By.CSS_SELECTOR, 'form[id="lenses-selects-form-left"] > div[2] > div > div[class="selectric"] > span')
-    card_curv_right = (
+    curv_right = (
         By.CSS_SELECTOR, 'form[id="lenses-selects-form-right"] > div[2] > div > div[class="selectric"] > span')
-    card_pack_one_left = (
+    pack_one_left = (
         By.CSS_SELECTOR,
         'div[id="lenses-quantity-block-left"] > div[class="quantity-label"] > div > label[class="goods-round"] > span[class="round"]')
-    card_pack_one_right = (
+    pack_one_right = (
         By.CSS_SELECTOR,
         'div[id="lenses-quantity-block-right"] > div[class="quantity-label"] > div > label[class="goods-round"] > span[class="round"]')
-    card_pack_mul_left = (
+    pack_mul_left = (
         By.CSS_SELECTOR,
         'div[id="lenses-quantity-block-left"] > div[class="quantity-label"] > div > label[class="goods-round append"] > span[class="round"]')
-    card_pack_mul_right = (
+    pack_mul_right = (
         By.CSS_SELECTOR,
         'div[id="lenses-quantity-block-right"] > div[class="quantity-label"] > div > label[class="goods-round append"] > span[class="round"]')
-    card_amount_left = (
+    amount_left = (
         By.CSS_SELECTOR,
         'div[id="lenses-quantity-block-left"] > div[class="quan-wrapper-cell"] > div > div[class="inp-holder"] > input')
-    card_amount_right = (
+    amount_right = (
         By.CSS_SELECTOR,
         'div[id="lenses-quantity-block-right"] > div[class="quan-wrapper-cell"] > div > div[class="inp-holder"] > input')
-    card_amount_minus_left = (
+    amount_minus_left = (
         By.CSS_SELECTOR,
         'div[id="lenses-quantity-block-left"] > div[class="quan-wrapper-cell"] > div > div[class="minus js-sub-product-quantity"] > span')
-    card_amount_minus_right = (
+    amount_minus_right = (
         By.CSS_SELECTOR,
         'div[id="lenses-quantity-block-right"] > div[class="quan-wrapper-cell"] > div > div[class="minus js-sub-product-quantity"] > span')
-    card_amount_plus_left = (
+    amount_plus_left = (
         By.CSS_SELECTOR,
         'div[id="lenses-quantity-block-left"] > div[class="quan-wrapper-cell"] > div > div[class="plus js-add-product-quantity"] > span')
-    card_amount_plus_right = (
+    amount_plus_right = (
             By.CSS_SELECTOR,
             'div[id="lenses-quantity-block-right"] > div[class="quan-wrapper-cell"] > div > div[class="plus js-add-product-quantity"] > span')
 
-    card_buy_btn = (By.CSS_SELECTOR, 'button[id="md-to-basket"]')
-    card_buy_one_click = (By.CSS_SELECTOR, 'a[id="one-click-buy js-lenses-quick-order"]')
-    card_buy_repeat_order = (By.CSS_SELECTOR, 'a[id="one-click-buy js-open-auth-popup "]')
+    buy_btn = (By.CSS_SELECTOR, 'button[id="md-to-basket"]')
+    buy_one_click = (By.CSS_SELECTOR, 'a[id="one-click-buy js-lenses-quick-order"]')
+    buy_repeat_order = (By.CSS_SELECTOR, 'a[id="one-click-buy js-open-auth-popup "]')
+    close_cart_popup = (By.CSS_SELECTOR,
+                        'div[id="product-added-to-cart-popup"]>div>div>div>div>div[class="close-popup js-close-popup"]>svg')
 
-    card_add_favorite = (By.CSS_SELECTOR, 'div[class="add-to-favorites js-add-to-wishlist"] > svg')  # 5 items
+    add_favorite = (By.CSS_SELECTOR, 'div[class="add-to-favorites js-add-to-wishlist"] > svg')  # 5 items
 
-    card_alternative_name = (By.CSS_SELECTOR, 'div[class="md-title-goods"] > span')
-    card_alternative_prods = (
+    alternative_name = (By.CSS_SELECTOR, 'div[class="md-title-goods"] > span')
+    alternative_prods = (
         By.CSS_SELECTOR, 'section[class="products-section promos-compact lenses-alt"] > div[class="products-wrapper"] > div')  # 4 items
-    card_alternative_more = (By.CSS_SELECTOR, 'a[class="fat-button blue"]')
+    alternative_more = (By.CSS_SELECTOR, 'a[class="fat-button blue"]')
 
-    card_viewed_name = (By.CSS_SELECTOR, 'div[class="standard-title"]')
-    card_viewed_prods = (
+    viewed_name = (By.CSS_SELECTOR, 'div[class="standard-title"]')
+    viewed_prods = (
         By.CSS_SELECTOR,
         'section[class="products-section promos-compact "] > div[class="products-wrapper"] > div')  # 3 items
-    card_viewed_more = (By.CSS_SELECTOR, 'a[class="fat-button blue"]')
+    viewed_more = (By.CSS_SELECTOR, 'a[class="fat-button blue"]')
 
-    card_reviews_amount = (By.CSS_SELECTOR, 'div[class="reviews-title"]')
-    card_review_add = (By.CSS_SELECTOR, 'a[class="fat-button glow-button blue min_245 js-add-review"]')
-    card_reviews_block = (By.CSS_SELECTOR, 'div[class="reviews-block"] > div[class="review-item"]')  # 4 items
-    card_reviews_yet = (By.CSS_SELECTOR, 'div[class="reviews-block"] > div[class="button-holder"] > a')
+    reviews_amount = (By.CSS_SELECTOR, 'div[class="reviews-title"]')
+    review_add = (By.CSS_SELECTOR, 'a[class="fat-button glow-button blue min_245 js-add-review"]')
+    reviews_block = (By.CSS_SELECTOR, 'div[class="reviews-block"] > div[class="review-item"]')  # 4 items
+    reviews_yet = (By.CSS_SELECTOR, 'div[class="reviews-block"] > div[class="button-holder"] > a')
 
+class BlogLocators:
+    # DESKTOP LOCATORS
 
+    # HEADERS LOCATORS
+    # Start Image locator
+    logo_img = (By.CSS_SELECTOR, 'a.top-logo > img')
+
+    # Sales Banners locator
+    banner_imgs = (By.CSS_SELECTOR, 'div.sales-banner > div.top > div.img-banner > div')
+    banner_btns = (By.CSS_SELECTOR, 'div.sales-banner > div.bottom > div.right > a.typical-button.juicy-green')
 
