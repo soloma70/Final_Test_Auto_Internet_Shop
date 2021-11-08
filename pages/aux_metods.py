@@ -13,5 +13,4 @@ class AuxMetods:
     def special_chars():
         return '|\\/!@#$%^&*()-_=+`~?"№;:[]{}'
 
-    def start_img_click_mobile(self):
-        self.start_img_mobile.click()
+
