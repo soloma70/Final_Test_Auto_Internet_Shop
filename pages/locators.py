@@ -321,8 +321,8 @@ class BlogLocators:
     logo_img = (By.CSS_SELECTOR, 'a.top-logo > img')
 
     # Sales Banners locator
-    # banner_imgs = (By.CSS_SELECTOR, 'div.sales-banner > div.top > div.img-banner > div')
-
-    pagination = (By.CSS_SELECTOR, '#content-wrapper > div.pagination > a')  # 5 стр.+ стрелка (всего 11 страниц)
+    news_tags = (By.CSS_SELECTOR, 'div.news-tags-wrapper > a')  # 8 tegs (href)
+    news = (By.CSS_SELECTOR, 'div.news-wrapper > a')  # 9 blocks (href)
+    pagination = (By.CSS_SELECTOR, '#content-wrapper > div.pagination > a')  # 5 pages + arrow (all 11 pages)
     arrow_right = (By.CSS_SELECTOR, 'a.arrow-right-pagination > div')
     arrow_left = (By.CSS_SELECTOR, 'a.arrow-left-pagination > div')

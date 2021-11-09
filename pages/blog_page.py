@@ -16,7 +16,7 @@ class BlogPage(BasePage):
         # Header elements
         self.start_img = driver.find_element(*BlogLocators.logo_img)
 
-        # Sales Banners
-        # self.sales_banner_imgs = driver.find_elements(*SalesLocators.banner_imgs)
-
+        # News tegs
+        self.news_tags = driver.find_elements(*BlogLocators.news_tags)
+        self.news = driver.find_elements(*BlogLocators.news)
         self.pagination = driver.find_elements(*BlogLocators.pagination)
