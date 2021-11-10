@@ -1,7 +1,6 @@
 from pages.base_page import BasePage
 from pages.url_list import LinsaUa
 from pages.locators import BlogLocators
-from selenium.webdriver.common.keys import Keys
 
 
 class BlogPage(BasePage):

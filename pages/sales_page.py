@@ -1,7 +1,6 @@
 from pages.base_page import BasePage
 from pages.url_list import LinsaUa
 from pages.locators import BlogLocators
-from selenium.webdriver.common.keys import Keys
 
 
 class SalesPage(BasePage):
@@ -10,8 +9,8 @@ class SalesPage(BasePage):
 
     def __init__(self, driver, timeout=3):
         super().__init__(driver, timeout)
-        url = LinsaUa.blog_url()
-        driver.get(url)
+        self.url = LinsaUa.sales_url()
+        driver.get(self.url)
 
         # Header elements
         self.start_img = driver.find_element(*BlogLocators.logo_img)
