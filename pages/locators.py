@@ -330,27 +330,29 @@ class BlogLocators:
 
 class LensLocators:
     # DESKTOP LOCATORS
-    # HEADERS LOCATORS
-    # Start Image locator
+
+    # HEADERS LOCATORS: Start Image locator
     logo_img = (By.CSS_SELECTOR, 'a.top-logo > img')
+
     # Filter locators
     filters = (By.CSS_SELECTOR, 'div.product-filters-titles.js-filter-toggle-items > div > span')  # 7 items
+
     # brands 7, lines 7, type_lens 5, repl_mode 5, base_curv 7, diameter 6, dioptr 7
     filter_list = [
         (By.CSS_SELECTOR, '#filter-tab-0 > div.filter-slider.slider.js-slide-0.slick-initialized.slick-slider > div > '
-                          'div > div.slick-slide.slick-current.slick-active > div > div > label > a > img'),
+                          'div > div.slick-slide.slick-current.slick-active > div > div > label > a'),
         (By.CSS_SELECTOR, '#filter-tab-1 > div.filter-slider.slider.slick-initialized.slick-slider > div > div > '
-                          'div.slick-slide.slick-current.slick-active > div > div > label > a > span'),
+                          'div.slick-slide.slick-current.slick-active > div > div > label > a'),
         (By.CSS_SELECTOR, '#filter-tab-2 > div.filter-slider.slider.slick-initialized.slick-slider > div > div > div > '
-                          'div > div > label > a > span'),
+                          'div > div > label > a'),
         (By.CSS_SELECTOR, '#filter-tab-3 > div.filter-slider.slider.slick-initialized.slick-slider > div > div > div > '
-                          'div > div > label > a > img'),
+                          'div > div > label > a'),
         (By.CSS_SELECTOR, '#filter-tab-4 > div.filter-slider.slider.slick-initialized.slick-slider > div > div > '
-                          'div.slick-slide.slick-current.slick-active > div > div > label > a > span'),
+                          'div.slick-slide.slick-current.slick-active > div > div > label > a'),
         (By.CSS_SELECTOR, '#filter-tab-5 > div.filter-slider.slider.slick-initialized.slick-slider > div > div > div > '
-                          'div > div > label > a > span'),
+                          'div > div > label > a'),
         (By.CSS_SELECTOR, '#filter-tab-6 > div.filter-slider.slider.slick-initialized.slick-slider > div > div > '
-                          'div.slick-slide.slick-current.slick-active > div > div > label > a > span')
+                          'div.slick-slide.slick-current.slick-active > div > div > label > a')
                 ]
 
     brands_arrow_right = (By.CSS_SELECTOR, 'div.right-filter-cntrl.js-rf-cntrl-0.slick-arrow > svg')
@@ -364,6 +366,7 @@ class LensLocators:
 
     # Sort locators
     sort_by = (By.CSS_SELECTOR, 'section.sort_panel > a') # 4 items
+
     # Lens Card locator
     name = (By.CSS_SELECTOR, 'h1.standard-title')
     amount_lens = (By.CSS_SELECTOR, 'div.h-holder > div.amount')
@@ -373,7 +376,11 @@ class LensLocators:
         By.CSS_SELECTOR, 'div.products-wrapper > div.product-item.lens > div.main-content > a.top') # 16 items
     cards_lens_add_btn = (
         By.CSS_SELECTOR, 'div.products-wrapper > div.product-item.lens > div.additional.lens > a.buy-button ')  # 16 items
+
     # Pagination locators
     pagination = (By.CSS_SELECTOR, '#content-wrapper > div.pagination > a')  # 5 pages + arrow (all 6 pages)
     arrow_right = (By.CSS_SELECTOR, 'a.arrow-right-pagination > div')
     arrow_left = (By.CSS_SELECTOR, 'a.arrow-left-pagination > div')
+
+    # Footer More info
+    more_inf = (By.CSS_SELECTOR, 'div.footer_seotext > i')

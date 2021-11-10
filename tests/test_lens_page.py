@@ -11,6 +11,7 @@ def test_sales_banners_sales_page(web_driver_desktop):
 
     page = LensPage(web_driver_desktop, 5)
     filters = page.filters
+    sort_by = page.sort_by
     filter_list = []
     for i in range(len(filters)):
         filters[i].click()
@@ -20,4 +21,9 @@ def test_sales_banners_sales_page(web_driver_desktop):
     print()
     print(len(filters))
     for k in range(len(filter_list)):
-        print(len(filter_list[k]))
+        print()
+        for j in range(len(filter_list[k])):
+            print(filter_list[k][j].get_attribute('href'))
+
+    for l in range(len(sort_by)):
+        print(sort_by[l].get_attribute('href'))

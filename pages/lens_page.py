@@ -24,3 +24,6 @@ class LensPage(BasePage):
         self.base_curv = driver.find_elements(*LensLocators.filter_list[4])
         self.diameter = driver.find_elements(*LensLocators.filter_list[5])
         self.dioptr = driver.find_elements(*LensLocators.filter_list[6])
+
+        # Sort elements
+        self.sort_by = driver.find_elements(*LensLocators.sort_by)
