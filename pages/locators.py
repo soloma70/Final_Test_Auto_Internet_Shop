@@ -335,28 +335,32 @@ class LensLocators:
     logo_img = (By.CSS_SELECTOR, 'a.top-logo > img')
     # Filter locators
     filters = (By.CSS_SELECTOR, 'div.product-filters-titles.js-filter-toggle-items > div > span')  # 7 items
-    brands = (
-        By.CSS_SELECTOR, 'filter-tab-0 > div.filter-slider.slider.js-slide-0.slick-initialized.slick-slider > div > '
-                         'div > div.slick-slide.slick-current.slick-active > div > div > label > a > img') # 7 it
-    lines = (
-        By.CSS_SELECTOR, 'filter-tab-1 > div.filter-slider.slider.slick-initialized.slick-slider > div > div > '
-                         'div.slick-slide.slick-current.slick-active > div > div > label > a > span') # 7 it
-    type_lens = (
-        By.CSS_SELECTOR, 'filter-tab-2 > div.filter-slider.slider.slick-initialized.slick-slider > div > div > div > '
-                         'div > div > label > a > span') # 5 it
-    repl_mode = (
-        By.CSS_SELECTOR, 'filter-tab-3 > div.filter-slider.slider.slick-initialized.slick-slider > div > div > div > '
-                         'div > div > label > a > img') # 5 it
-    base_curv = (
-        By.CSS_SELECTOR, 'filter-tab-4 > div.filter-slider.slider.slick-initialized.slick-slider > div > div > '
-                         'div.slick-slide.slick-current.slick-active > div > div > label > a > span') # 7 it
-    diameter = (
-        By.CSS_SELECTOR, 'filter-tab-5 > div.filter-slider.slider.slick-initialized.slick-slider > div > div > div > '
-                         'div > div > label > a > span') # 6 it
-    dioptr = (
-        By.CSS_SELECTOR, 'filter-tab-6 > div.filter-slider.slider.slick-initialized.slick-slider > div > div > '
-                         'div.slick-slide.slick-current.slick-active > div > div > label > a > span') # 7 it
+    # brands 7, lines 7, type_lens 5, repl_mode 5, base_curv 7, diameter 6, dioptr 7
+    filter_list = [
+        (By.CSS_SELECTOR, '#filter-tab-0 > div.filter-slider.slider.js-slide-0.slick-initialized.slick-slider > div > '
+                          'div > div.slick-slide.slick-current.slick-active > div > div > label > a > img'),
+        (By.CSS_SELECTOR, '#filter-tab-1 > div.filter-slider.slider.slick-initialized.slick-slider > div > div > '
+                          'div.slick-slide.slick-current.slick-active > div > div > label > a > span'),
+        (By.CSS_SELECTOR, '#filter-tab-2 > div.filter-slider.slider.slick-initialized.slick-slider > div > div > div > '
+                          'div > div > label > a > span'),
+        (By.CSS_SELECTOR, '#filter-tab-3 > div.filter-slider.slider.slick-initialized.slick-slider > div > div > div > '
+                          'div > div > label > a > img'),
+        (By.CSS_SELECTOR, '#filter-tab-4 > div.filter-slider.slider.slick-initialized.slick-slider > div > div > '
+                          'div.slick-slide.slick-current.slick-active > div > div > label > a > span'),
+        (By.CSS_SELECTOR, '#filter-tab-5 > div.filter-slider.slider.slick-initialized.slick-slider > div > div > div > '
+                          'div > div > label > a > span'),
+        (By.CSS_SELECTOR, '#filter-tab-6 > div.filter-slider.slider.slick-initialized.slick-slider > div > div > '
+                          'div.slick-slide.slick-current.slick-active > div > div > label > a > span')
+                ]
 
+    brands_arrow_right = (By.CSS_SELECTOR, 'div.right-filter-cntrl.js-rf-cntrl-0.slick-arrow > svg')
+    brands_arrow_left = (By.CSS_SELECTOR, 'div.left-filter-cntrl.js-lf-cntrl-0.slick-arrow > svg')
+    lines_arrow_right = (By.CSS_SELECTOR, 'div.right-filter-cntrl.js-rf-cntrl-1.slick-arrow > svg')
+    lines_arrow_left = (By.CSS_SELECTOR, 'div.left-filter-cntrl.js-lf-cntrl-1.slick-arrow > svg')
+    base_curv_arrow_right = (By.CSS_SELECTOR, 'div.right-filter-cntrl.js-rf-cntrl-4.slick-arrow > svg')
+    base_curv_arrow_left = (By.CSS_SELECTOR, 'div.left-filter-cntrl.js-lf-cntrl-4.slick-arrow > svg')
+    dioptr_curv_arrow_right = (By.CSS_SELECTOR, 'div.right-filter-cntrl.js-rf-cntrl-6.slick-arrow > svg')
+    dioptr_curv_arrow_left = (By.CSS_SELECTOR, 'div.left-filter-cntrl.js-lf-cntrl-6.slick-arrow > svg')
 
     # Sort locators
     sort_by = (By.CSS_SELECTOR, 'section.sort_panel > a') # 4 items
