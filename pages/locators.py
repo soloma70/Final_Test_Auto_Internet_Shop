@@ -323,6 +323,7 @@ class BlogLocators:
     # Sales Banners locator
     news_tags = (By.CSS_SELECTOR, 'div.news-tags-wrapper > a')  # 8 tegs (href)
     news = (By.CSS_SELECTOR, 'div.news-wrapper > a')  # 9 blocks (href)
+    news_name = (By.CSS_SELECTOR, 'h1.article-h1')
     pagination = (By.CSS_SELECTOR, '#content-wrapper > div.pagination > a')  # 5 pages + arrow (all 11 pages)
     arrow_right = (By.CSS_SELECTOR, 'a.arrow-right-pagination > div')
     arrow_left = (By.CSS_SELECTOR, 'a.arrow-left-pagination > div')
