@@ -355,6 +355,7 @@ class LensLocators:
                           'div.slick-slide.slick-current.slick-active > div > div > label > a')
                 ]
 
+
     brands_arrow_right = (By.CSS_SELECTOR, 'div.right-filter-cntrl.js-rf-cntrl-0.slick-arrow > svg')
     brands_arrow_left = (By.CSS_SELECTOR, 'div.left-filter-cntrl.js-lf-cntrl-0.slick-arrow > svg')
     lines_arrow_right = (By.CSS_SELECTOR, 'div.right-filter-cntrl.js-rf-cntrl-1.slick-arrow > svg')
@@ -363,6 +364,7 @@ class LensLocators:
     base_curv_arrow_left = (By.CSS_SELECTOR, 'div.left-filter-cntrl.js-lf-cntrl-4.slick-arrow > svg')
     dioptr_curv_arrow_right = (By.CSS_SELECTOR, 'div.right-filter-cntrl.js-rf-cntrl-6.slick-arrow > svg')
     dioptr_curv_arrow_left = (By.CSS_SELECTOR, 'div.left-filter-cntrl.js-lf-cntrl-6.slick-arrow > svg')
+
 
     # Sort locators
     sort_by = (By.CSS_SELECTOR, 'section.sort_panel > a') # 4 items
