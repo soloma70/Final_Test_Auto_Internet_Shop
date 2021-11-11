@@ -27,3 +27,12 @@ class LensPage(BasePage):
 
         # Sort elements
         self.sort_by = driver.find_elements(*LensLocators.sort_by)
+
+        # Card elements
+        self.amount_total = driver.find_element(*LensLocators.amount_lens)
+        self.cards_lens_url = driver.find_elements(*LensLocators.cards_lens_url)
+        self.card_lens_amount = driver.find_elements(*LensLocators.card_lens_amount)
+        self.card_lens_price = driver.find_elements(*LensLocators.card_lens_price)
+
+        # Pagination
+        self.pagination = driver.find_elements(*LensLocators.pagination)

@@ -374,11 +374,14 @@ class LensLocators:
         By.CSS_SELECTOR, 'div.products-wrapper > div.product-item.lens > div.add-to-favorites.js-add-to-wishlist > svg')
     cards_lens_url = (
         By.CSS_SELECTOR, 'div.products-wrapper > div.product-item.lens > div.main-content > a.top') # 16 items
+    card_lens_amount = (By.CSS_SELECTOR, 'div.products-wrapper > div.product-item.lens > div.main-content > div.bottom > div.lenses_sizes > div:nth-child(1) > div > div.amount')
+    card_lens_price = (By.CSS_SELECTOR, 'div.products-wrapper > div.product-item.lens > div.main-content > div.bottom > div.lenses_sizes > div:nth-child(1) > div > div.add-price')
+
     cards_lens_add_btn = (
         By.CSS_SELECTOR, 'div.products-wrapper > div.product-item.lens > div.additional.lens > a.buy-button ')  # 16 items
 
     # Pagination locators
-    pagination = (By.CSS_SELECTOR, '#content-wrapper > div.pagination > a')  # 5 pages + arrow (all 6 pages)
+    pagination = (By.CSS_SELECTOR, '#content-wrapper > div.pagination > a.page-number ')  # 5 pages + arrow (all 6 pages)
     arrow_right = (By.CSS_SELECTOR, 'a.arrow-right-pagination > div')
     arrow_left = (By.CSS_SELECTOR, 'a.arrow-left-pagination > div')
 
