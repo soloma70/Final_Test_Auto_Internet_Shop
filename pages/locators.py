@@ -365,6 +365,8 @@ class LensLocators:
     dioptr_curv_arrow_right = (By.CSS_SELECTOR, 'div.right-filter-cntrl.js-rf-cntrl-6.slick-arrow > svg')
     dioptr_curv_arrow_left = (By.CSS_SELECTOR, 'div.left-filter-cntrl.js-lf-cntrl-6.slick-arrow > svg')
 
+    clear_all_filters = (By.CSS_SELECTOR, 'div.clear-all.js-remove-all-filters > div.delete-cross')
+
 
     # Sort locators
     sort_by = (By.CSS_SELECTOR, 'section.sort_panel > a') # 4 items
@@ -374,6 +376,10 @@ class LensLocators:
     amount_lens = (By.CSS_SELECTOR, 'div.h-holder > div.amount')
     card_lens_wishlist = (
         By.CSS_SELECTOR, 'div.products-wrapper > div.product-item.lens > div.add-to-favorites.js-add-to-wishlist > svg')
+    cards_lens_name_brand = (
+        By.CSS_SELECTOR, 'div.products-wrapper > div.product-item.lens > div.main-content > a.top > span.product-type')
+    cards_lens_name = (
+        By.CSS_SELECTOR, 'div.products-wrapper > div.product-item.lens > div.main-content > a.top > span.title')
     cards_lens_url = (
         By.CSS_SELECTOR, 'div.products-wrapper > div.product-item.lens > div.main-content > a.top') # 16 items
     card_lens_amount = (By.CSS_SELECTOR, 'div.products-wrapper > div.product-item.lens > div.main-content > div.bottom > div.lenses_sizes > div:nth-child(1) > div > div.amount')
