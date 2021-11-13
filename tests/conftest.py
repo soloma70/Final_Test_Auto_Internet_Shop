@@ -1,7 +1,6 @@
 import pytest, random
 from selenium import webdriver
 from browser_set import ChromeSet
-from datetime import datetime
 
 
 @pytest.fixture(scope='module')
@@ -14,6 +13,7 @@ def web_driver(request):
     option.add_argument(f"User-Agent={user_agent}")
     web_driver = webdriver.Chrome(executable_path=ChromeSet.chrome_driver_path, options=option)
     web_driver.set_window_size(1280, 960)
+    web_driver.delete_all_cookies()
     yield web_driver
     web_driver.quit()
 
@@ -28,6 +28,7 @@ def web_driver_desktop(request):
     option.add_argument(f"User-Agent={user_agent}")
     web_driver = webdriver.Chrome(executable_path=ChromeSet.chrome_driver_path, options=option)
     web_driver.set_window_size(1280, 960)
+    web_driver.delete_all_cookies()
     yield web_driver
     web_driver.quit()
 
@@ -42,6 +43,7 @@ def web_driver_mobile(request):
     option.add_argument(f"User-Agent={user_agent}")
     web_driver = webdriver.Chrome(executable_path=ChromeSet.chrome_driver_path, options=option)
     web_driver.set_window_size(480, 960)
+    web_driver.delete_all_cookies()
     yield web_driver
     web_driver.quit()
 
@@ -57,6 +59,7 @@ def web_driver_var_size(request, width):
     option.add_argument(f"User-Agent={user_agent}")
     web_driver = webdriver.Chrome(executable_path=ChromeSet.chrome_driver_path, options=option)
     web_driver.set_window_size(width, 960)
+    web_driver.delete_all_cookies()
     yield web_driver
     web_driver.quit()
 
