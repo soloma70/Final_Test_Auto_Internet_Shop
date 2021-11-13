@@ -52,8 +52,8 @@ def test_pagination_lens_page(web_driver_desktop):
 @pytest.mark.parametrize("test_set", [LensSets.O2O2, LensSets.sauflon, LensSets.interogo, LensSets.cooper_vision],
                     ids=[LensSets.O2O2[1], LensSets.sauflon[8], LensSets.interogo[8], LensSets.cooper_vision[8]])
 def test_filter_lens_page(web_driver_desktop, test_set):
-    """Тест проверяет фильтры на странице и выборку согласно критериям фильтрации
-    ВНИМАНИЕ!!! необходимо убрать курсор мышки из поля страницы браузера!"""
+    """Тест проверяет фильтры на странице и выборку согласно критериям фильтрации.
+    ВНИМАНИЕ!!! Необходимо убрать курсор мышки из поля страницы браузера!"""
 
     page = LensPage(web_driver_desktop, 5)
     filters = page.filters
@@ -64,6 +64,7 @@ def test_filter_lens_page(web_driver_desktop, test_set):
 
     # Получаем результат применения фильтров и сравниваем с тестовым набором
     search_result_brand, search_result_name = page.search_result()
+    page.save_screen_browser(f'test_filter_lens_{test_set[8]}')
     assert search_result_name[0] in test_set[7] and \
            search_result_brand[0] in test_set[8]
 
@@ -71,7 +72,45 @@ def test_filter_lens_page(web_driver_desktop, test_set):
     page.clear_all_filter()
 
 
+def test_sort_lens_page(web_driver_desktop):
+    """Тест проверяет сортировку на странице по возрастанию и снижению цены (с проверкой цен),
+    по новизне и популярности, делает скриншоты.
+    ВНИМАНИЕ!!! Необходимо убрать курсор мышки из поля страницы браузера!"""
 
+    page = LensPage(web_driver_desktop, 10)
+    print()
+    # Сортировка по снижению
+    page.sorted_by_on_page(1)
+    sleep(3)
+    page.save_screen_browser('test_sort_lens_decrease')
+    list_price = page.get_lens_list_on_page()
+    list_sort = sorted(list_price)
+    list_sort.sort(reverse=True)
+    assert list_price == list_sort, "'ERROR! Position don't sorted"
+    # Сортировка по новизне
+    page.sorted_by_on_page(3)
+    sleep(3)
+    page.save_screen_browser('test_sort_lens_novelty')
+    # Сортировка по возрастанию
+    page.sorted_by_on_page(2)
+    sleep(3)
+    page.save_screen_browser('test_sort_lens_increase')
+    list_price = page.get_lens_list_on_page()
+    list_sort = sorted(list_price)
+    assert list_price == list_sort, "'ERROR! Position don't sorted"
+    # Сортировка по популярности
+    page.sorted_by_on_page(0)
+    sleep(3)
+    page.save_screen_browser('test_sort_lens_popularity')
+
+
+    # # Получаем результат применения фильтров и сравниваем с тестовым набором
+    # search_result_brand, search_result_name = page.search_result()
+    # assert search_result_name[0] in test_set[7] and \
+    #        search_result_brand[0] in test_set[8]
+    #
+    # # Очищаем все фильтры
+    # page.clear_all_filter()
     #
     # for k in range(len(filter_list)):
     #      = web_driver_desktop.find_elements(*L)

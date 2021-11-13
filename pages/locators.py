@@ -362,9 +362,10 @@ class LensLocators:
     # Lens Card locator
     name = (By.CSS_SELECTOR, 'h1.standard-title')
     amount_lens = (By.CSS_SELECTOR, 'div.h-holder > div.amount')
+    card_lens_full = (By.CSS_SELECTOR, 'div.main-content')
     card_lens_wishlist = (
         By.CSS_SELECTOR, 'div.products-wrapper > div.product-item.lens > div.add-to-favorites.js-add-to-wishlist > svg')
-    cards_lens_name_brand = (
+    cards_lens_brand = (
         By.CSS_SELECTOR, 'div.products-wrapper > div.product-item.lens > div.main-content > a.top > span.product-type')
     cards_lens_name = (
         By.CSS_SELECTOR, 'div.products-wrapper > div.product-item.lens > div.main-content > a.top > span.title')

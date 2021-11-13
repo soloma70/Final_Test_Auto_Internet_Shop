@@ -16,3 +16,6 @@ class BasePage(object):
     def get_url(self, url: str):
         self.driver.get(url)
 
+    def save_screen_browser(self, name: str):
+        self.driver.save_screenshot(f'screenshots\\{name}.png')
+

@@ -92,3 +92,12 @@ class LensPage(BasePage):
 
     def clear_all_filter(self):
         self.driver.find_element(*LensLocators.clear_all_filters).click()
+
+    def sorted_by_on_page(self, index: int):
+        self.driver.find_elements(*LensLocators.sort_by)[index].click()
+
+    def get_lens_list_on_page(self) -> [list]:
+        lens_price = self.driver.find_elements(*LensLocators.card_lens_price)
+        list_price = [int(lens_price[i].text.split()[0]) for i in range(8)]
+        return list_price
+
