@@ -1,5 +1,6 @@
 # -*- encoding=utf8 -*-
-from settings import search_lens_interogo
+import pytest
+from pages.test_sets import LensSets
 from time import sleep
 from pages.lens_page import LensPage
 from pages.locators import LensLocators, ProductLensLocators
@@ -30,43 +31,44 @@ def test_pagination_lens_page(web_driver_desktop):
     # Переход по прямой ссылке
     for i in range(len(amount_page_url)):
         goto_url, current_url = page.get_page_urls(i)
-        assert goto_url == current_url and web_driver_desktop.find_element(*LensLocators.name).is_displayed()\
+        assert goto_url == current_url and web_driver_desktop.find_element(*LensLocators.name).is_displayed() \
             , 'ERROR! Incorrect transaction'
 
     page = LensPage(web_driver_desktop, 5)
     amount_page_url = page.pagination
     # Переход кликом на правую стрелку
-    for i in range(len(amount_page_url)-1):
+    for i in range(len(amount_page_url) - 1):
         page_number = page.right_arrow_click()
-        assert i+2 == page_number and web_driver_desktop.find_element(*LensLocators.name).is_displayed()\
-             , 'ERROR! Incorrect transaction'
+        assert i + 2 == page_number and web_driver_desktop.find_element(*LensLocators.name).is_displayed() \
+            , 'ERROR! Incorrect transaction'
     # Переход кликом на левую стрелку
-    for i in range(len(amount_page_url)-2):
+    for i in range(len(amount_page_url) - 2):
         page_number = page.left_arrow_click()
-        assert (len(amount_page_url)-1)-i == page_number and web_driver_desktop.find_element(*LensLocators.name).is_displayed()\
-             , 'ERROR! Incorrect transaction'
+        assert (len(amount_page_url) - 1) - i == page_number and web_driver_desktop.find_element(
+            *LensLocators.name).is_displayed() \
+            , 'ERROR! Incorrect transaction'
 
-# Добавить второй тестовый набор параметров и параметризацию
-def test_filter_lens_page(web_driver_desktop):
+
+@pytest.mark.parametrize("test_set", [LensSets.O2O2, LensSets.sauflon, LensSets.interogo, LensSets.cooper_vision],
+                    ids=[LensSets.O2O2[1], LensSets.sauflon[8], LensSets.interogo[8], LensSets.cooper_vision[8]])
+def test_filter_lens_page(web_driver_desktop, test_set):
     """Тест проверяет фильтры на странице и выборку согласно критериям фильтрации
-    ВНИМАНИЕ!!! Убери курсор мышки из поля страницы браузера!"""
+    ВНИМАНИЕ!!! необходимо убрать курсор мышки из поля страницы браузера!"""
 
     page = LensPage(web_driver_desktop, 5)
     filters = page.filters
-    print()
-    filter_vals =[]
+
+    # Добавляем фильтры согласно тестовым наборам и получаем списки фильтров
     for i in range(len(filters)):
-        filter_val = page.filter_click_lens(i)
-        filter_vals.append(filter_val)
-        print(f'{filter_val}')
+        page.filter_click_lens(i, test_set)
 
+    # Получаем результат применения фильтров и сравниваем с тестовым набором
     search_result_brand, search_result_name = page.search_result()
-    print(f'{search_result_brand} {search_result_name}')
-    assert search_result_name[0] in search_lens_interogo[7] and \
-           search_result_brand[0] in search_lens_interogo[8]
+    assert search_result_name[0] in test_set[7] and \
+           search_result_brand[0] in test_set[8]
 
-    web_driver_desktop.find_element(*LensLocators.clear_all_filters).click()
-    sleep(2)
+    # Очищаем все фильтры
+    page.clear_all_filter()
 
 
 
@@ -78,7 +80,6 @@ def test_filter_lens_page(web_driver_desktop):
     #
     #     for j in range(len(filter_list[k])):
     #         print(filter_list[k][j].get_attribute('href'))
-
 
     #
     # for l in range(len(sort_by)):
@@ -112,4 +113,3 @@ def test_filter_lens_page(web_driver_desktop):
     # print(url_list_sort_by[1])
     # print(url_list_sort_by[2])
     # print(url_list_sort_by[3])
-

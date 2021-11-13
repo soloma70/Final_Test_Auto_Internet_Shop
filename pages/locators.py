@@ -336,7 +336,6 @@ class LensLocators:
 
     # Filter locators
     filters = (By.CSS_SELECTOR, 'div.product-filters-titles.js-filter-toggle-items > div > span')  # 7 items
-
     # brands 7, lines 7, type_lens 5, repl_mode 5, base_curv 7, diameter 6, dioptr 7
     filter_list = [
         (By.CSS_SELECTOR, '#filter-tab-0 > div.filter-slider.slider.js-slide-0.slick-initialized.slick-slider > div > '
@@ -354,17 +353,6 @@ class LensLocators:
         (By.CSS_SELECTOR, '#filter-tab-6 > div.filter-slider.slider.slick-initialized.slick-slider > div > div > '
                           'div.slick-slide.slick-current.slick-active > div > div > label > a')
                 ]
-
-
-    brands_arrow_right = (By.CSS_SELECTOR, 'div.right-filter-cntrl.js-rf-cntrl-0.slick-arrow > svg')
-    brands_arrow_left = (By.CSS_SELECTOR, 'div.left-filter-cntrl.js-lf-cntrl-0.slick-arrow > svg')
-    lines_arrow_right = (By.CSS_SELECTOR, 'div.right-filter-cntrl.js-rf-cntrl-1.slick-arrow > svg')
-    lines_arrow_left = (By.CSS_SELECTOR, 'div.left-filter-cntrl.js-lf-cntrl-1.slick-arrow > svg')
-    base_curv_arrow_right = (By.CSS_SELECTOR, 'div.right-filter-cntrl.js-rf-cntrl-4.slick-arrow > svg')
-    base_curv_arrow_left = (By.CSS_SELECTOR, 'div.left-filter-cntrl.js-lf-cntrl-4.slick-arrow > svg')
-    dioptr_curv_arrow_right = (By.CSS_SELECTOR, 'div.right-filter-cntrl.js-rf-cntrl-6.slick-arrow > svg')
-    dioptr_curv_arrow_left = (By.CSS_SELECTOR, 'div.left-filter-cntrl.js-lf-cntrl-6.slick-arrow > svg')
-
     clear_all_filters = (By.CSS_SELECTOR, 'div.clear-all.js-remove-all-filters > div.delete-cross')
 
 
