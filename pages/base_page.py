@@ -25,9 +25,11 @@ class BasePage(object):
         amount = int(self.driver.find_element(*CartLocators.amount_cart_header).text)
         return amount
 
-    def add_cart_lens_def_par(self):
-        element = self.driver.find_element(*ProductLocators.products)
+    def add_cart_lens_def_par(self, index: int):
+        element = self.driver.find_elements(*ProductLocators.products)[index]
         ActionChains(self.driver).move_to_element(element).perform()
-        self.driver.find_element(*ProductLocators.products_buy).click()
-        self.driver.find_element(*ProductLensLocators.buy_btn).click()
+        self.driver.find_elements(*ProductLocators.products_buy)[index].click()
+        self.driver.find_elements(*ProductLensLocators.buy_btn)[index].click()
         self.driver.find_element(*CartLocators.close_popup_cart).click()
+
+
