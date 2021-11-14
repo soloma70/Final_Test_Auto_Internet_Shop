@@ -104,3 +104,11 @@ def test_sort_lens_page(web_driver_desktop):
     page.save_screen_browser('test_sort_lens_popularity')
 
 
+def test_add_lens_in_cart_lens_page(web_driver_desktop):
+    """Тест проверяет добавление линз с 1-й карточки, переход на страницу линз
+    и добавление их в корзину с параметрами по умолчанию (сложная проверка
+    с изменениями диоптрий, кривизны, типа упаковки и количества в отдельных тестах)"""
+
+    page = LensPage(web_driver_desktop, 5)
+
+
