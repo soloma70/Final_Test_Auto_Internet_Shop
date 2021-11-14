@@ -1,4 +1,6 @@
 # -*- encoding=utf8 -*-
+import random
+
 import pytest
 from pages.test_sets import LensSets
 from time import sleep
@@ -13,7 +15,7 @@ def test_amount_lens_page(web_driver_desktop):
     с количеством линз в наименовании страницы"""
 
     page = LensPage(web_driver_desktop, 5)
-    amount_lens = int(page.amount_total.text)
+    amount_lens = int(page.amount_total_on_page.text)
     amount_page = int(page.pagination[-1].text)
     amount_total = 0
     for i in range(amount_page):
@@ -105,10 +107,23 @@ def test_sort_lens_page(web_driver_desktop):
 
 
 def test_add_lens_in_cart_lens_page(web_driver_desktop):
-    """Тест проверяет добавление линз с 1-й карточки, переход на страницу линз
-    и добавление их в корзину с параметрами по умолчанию (сложная проверка
-    с изменениями диоптрий, кривизны, типа упаковки и количества в отдельных тестах)"""
+    """Тест проверяет добавление линз с 3-х рандомных позиций с 1-й, 3-й и 5-й карточки, переход на страницу
+    линз и добавление их в корзину с параметрами по умолчанию (сложная проверка с изменениями диоптрий,
+    кривизны, типа упаковки и количества в отдельных тестах)"""
 
     page = LensPage(web_driver_desktop, 5)
+    amount_cart_before = page.amount_cart()
+    total_amount_lens_on_page = len(page.cards_lens_url)
+    index =  [random.randint(0, total_amount_lens_on_page)
+            , random.randint(0, total_amount_lens_on_page)
+            , random.randint(0, total_amount_lens_on_page)
+              ]
 
+    # Добавление в корзину продукта с параметрами заказа по умолчанию
+    for i in range(3):
+        page.add_cart_lens_def_par(index[i])
+        amount_cart_after = page.amount_cart()
+        assert amount_cart_before + 1 == amount_cart_after, "ERROR! Product don't add to cart"
+        amount_cart_before = amount_cart_after
+        page.get_url(page.url)
 

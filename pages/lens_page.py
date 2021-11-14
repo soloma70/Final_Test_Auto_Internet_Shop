@@ -4,7 +4,7 @@ from selenium.webdriver.support.wait import WebDriverWait
 
 from pages.base_page import BasePage
 from pages.url_list import LinsaUa
-from pages.locators import LensLocators, ProductLensLocators
+from pages.locators import LensLocators, ProductLocators
 from time import sleep
 from selenium.webdriver.common.by import By
 
@@ -35,7 +35,7 @@ class LensPage(BasePage):
         self.sort_by = driver.find_elements(*LensLocators.sort_by)
 
         # Card elements
-        self.amount_total = driver.find_element(*LensLocators.amount_lens)
+        self.amount_total_on_page = driver.find_element(*LensLocators.amount_lens)
         self.cards_lens_url = driver.find_elements(*LensLocators.cards_lens_url)
         self.card_lens_amount = driver.find_elements(*LensLocators.card_lens_amount)
         self.card_lens_price = driver.find_elements(*LensLocators.card_lens_price)
@@ -100,4 +100,5 @@ class LensPage(BasePage):
         lens_price = self.driver.find_elements(*LensLocators.card_lens_price)
         list_price = [int(lens_price[i].text.split()[0]) for i in range(8)]
         return list_price
+
 

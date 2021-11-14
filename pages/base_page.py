@@ -1,3 +1,4 @@
+from time import sleep
 from urllib.parse import urlparse
 from selenium.webdriver import ActionChains
 from pages.locators import CartLocators, ProductLocators, ProductLensLocators
@@ -29,7 +30,8 @@ class BasePage(object):
         element = self.driver.find_elements(*ProductLocators.products)[index]
         ActionChains(self.driver).move_to_element(element).perform()
         self.driver.find_elements(*ProductLocators.products_buy)[index].click()
-        self.driver.find_elements(*ProductLensLocators.buy_btn)[index].click()
+        self.driver.find_element(*ProductLensLocators.buy_btn).click()
         self.driver.find_element(*CartLocators.close_popup_cart).click()
+        sleep(1)
 
 

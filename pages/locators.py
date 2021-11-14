@@ -284,7 +284,7 @@ class ProductLensLocators:
             By.CSS_SELECTOR,
             'div[id="lenses-quantity-block-right"] > div[class="quan-wrapper-cell"] > div > div[class="plus js-add-product-quantity"] > span')
 
-    buy_btn = (By.CSS_SELECTOR, 'button[id="md-to-basket"]')
+    buy_btn = (By.CSS_SELECTOR, '#md-to-basket')
     buy_one_click = (By.CSS_SELECTOR, 'a[id="one-click-buy js-lenses-quick-order"]')
     buy_repeat_order = (By.CSS_SELECTOR, 'a[id="one-click-buy js-open-auth-popup "]')
 
