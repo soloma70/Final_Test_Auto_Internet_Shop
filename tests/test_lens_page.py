@@ -114,16 +114,14 @@ def test_add_lens_in_cart_lens_page(web_driver_desktop, url_page):
 
     page = LensPage(web_driver_desktop, 5)
     page.get_url(f'{page.url}{url_page}')
+    # Получение количества позиций в корзине перед добавлением
     amount_cart_before = page.amount_cart()
-    total_amount_lens_on_page = len(page.cards_lens_url)
-    index =  [random.randint(0, total_amount_lens_on_page)
-            , random.randint(0, total_amount_lens_on_page)
-            , random.randint(0, total_amount_lens_on_page)
-              ]
-
+    # Получение номеров тестируемых линз на странице
+    index = page.rand_lens_card(len(page.cards_lens_url))
     # Добавление в корзину продукта с параметрами заказа по умолчанию
     for i in range(3):
         page.add_cart_lens_def_par(index[i])
+        # Получение количества позиций в корзине после добавления линз
         amount_cart_after = page.amount_cart()
         assert amount_cart_before + 1 == amount_cart_after, "ERROR! Product don't add to cart"
         amount_cart_before = amount_cart_after

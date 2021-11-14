@@ -7,6 +7,7 @@ from pages.url_list import LinsaUa
 from pages.locators import LensLocators, ProductLocators
 from time import sleep
 from selenium.webdriver.common.by import By
+from random import randint
 
 
 class LensPage(BasePage):
@@ -101,4 +102,6 @@ class LensPage(BasePage):
         list_price = [int(lens_price[i].text.split()[0]) for i in range(8)]
         return list_price
 
-
+    def rand_lens_card(self, amount: int) ->list:
+        index = [randint(0, amount), randint(0, amount), randint(0, amount)]
+        return index
