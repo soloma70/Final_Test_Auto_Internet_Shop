@@ -1,3 +1,5 @@
+from time import sleep
+from selenium.webdriver.remote.webelement import WebElement
 from selenium.webdriver.common.keys import Keys
 from pages.base_page import BasePage
 from pages.url_list import LinsaUa
@@ -10,56 +12,65 @@ class Headers(BasePage):
 
     def __init__(self, driver, timeout=3):
         super().__init__(driver, timeout)
-        url = LinsaUa.start_url
-        driver.get(url)
-
-        # Header elements
-        self.start_img = driver.find_element(*StartLocators.logo_img)
-        self.search_field = driver.find_element(*StartLocators.search_field)
-        self.callback_btn = driver.find_element(*StartLocators.callback_btn)
-        self.login_btn = driver.find_element(*StartLocators.login_btn)
-        self.wishlist_btn = driver.find_element(*StartLocators.wishlist_btns)
-        self.cart_btn = driver.find_element(*StartLocators.cart_btn)
-        self.lang_btn_active = driver.find_element(*StartLocators.lang_btn_active)
-        self.lang_uk_btn = driver.find_element(*StartLocators.lang_btn_uk)
-        self.lang_ru_btn = driver.find_element(*StartLocators.lang_btn_ru)
-
-        # Rightside Menu elements
-        self.menu_btn = driver.find_element(*StartLocators.menu_button)
-        self.menu_btn_close = driver.find_element(*StartLocators.menu_button_close)
-        self.menu_points = driver.find_elements(*StartLocators.menu_points)
+        self.url = LinsaUa.start_url
+        driver.get(self.url)
 
     def start_img_click(self):
-        self.start_img.click()
+        self.driver.find_element(*StartLocators.logo_img).click()
 
     def search_field_click(self, search_value):
+        self.search_field = self.driver.find_element(*StartLocators.search_field)
         self.search_field.clear()
         self.search_field.send_keys(search_value)
         self.search_field.send_keys(Keys.ENTER)
 
     def callback_btn_click(self):
-        self.callback_btn.click()
+        self.driver.find_element(*StartLocators.callback_btn).click()
+        sleep(1)
+
+    def search_callback_submit(self) -> WebElement:
+        return self.driver.find_element(*StartLocators.callback_form_submit)
+
+    def callback_close(self):
+        self.driver.find_element(*StartLocators.callback_form_close).click()
 
     def login_btn_click(self):
-        self.login_btn.click()
+        self.driver.find_element(*StartLocators.login_btn).click()
 
     def wishlist_btn_click(self):
-        self.wishlist_btn.click()
+        self.driver.find_element(*StartLocators.wishlist_btns).click()
+        sleep(1)
+
+    def search_login_submit(self) -> WebElement:
+        return self.driver.find_element(*StartLocators.login_submit)
+
+    def login_close(self):
+        self.driver.find_element(*StartLocators.login_close).click()
 
     def cart_btn_click(self):
-        self.cart_btn.click()
+        self.driver.find_element(*StartLocators.cart_btn).click()
 
     def lang_btn_click(self):
-        self.lang_btn_active.click()
+        self.driver.find_element(*StartLocators.lang_btn_active).click()
 
     def lang_uk_btn_click(self):
-        self.lang_uk_btn.click()
+        self.driver.find_element(*StartLocators.lang_btn_uk).click()
 
     def lang_ru_btn_click(self):
-        self.lang_ru_btn.click()
+        self.driver.find_element(*StartLocators.lang_btn_ru).click()
 
-    def menu_btn_click(self):
-        self.menu_btn.click()
+    def menu_click(self):
+        self.driver.find_element(*StartLocators.menu_button).click()
 
-    def menu_close_btn_click(self):
-        self.menu_btn_close.click()
+    def menu_close_click(self):
+        self.driver.find_element(*StartLocators.menu_button_close).click()
+
+    def menu_points(self) -> int:
+        points = len(self.driver.find_elements(*StartLocators.menu_points))
+        return points
+
+    def goto_menu_point(self, index: int):
+        self.driver.find_element(*StartLocators.menu_button).click()
+        sleep(1)
+        self.driver.find_elements(*StartLocators.menu_points)[index].click()
+
