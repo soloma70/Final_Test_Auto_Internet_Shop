@@ -381,7 +381,7 @@ class LensLocators:
 class CartLocators:
     amount_cart_header = (By.CSS_SELECTOR, 'div.icons-panel > a.cart > span.total-in-cart')
     close_popup_cart = (By.CSS_SELECTOR,
-                        'div[id="product-added-to-cart-popup"]>div>div>div>div>div[class="close-popup js-close-popup"]>svg')
+                        '#product-added-to-cart-popup > div > div > div > div > div.close-popup.js-close-popup > svg')
 
 class ProductLocators:
     products = (By.CSS_SELECTOR, 'div.products-wrapper > div > div.main-content > a.img')
