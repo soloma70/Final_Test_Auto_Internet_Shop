@@ -33,7 +33,7 @@ def test_sales_products_sales_page(web_driver_desktop):
     page.goto_page_banner(0)
 
     # Добавление в корзину акционного продукта с параметрами заказа по умолчанию
-    page.add_cart_lens_def_par()
+    page.add_cart_lens_def_par(0)
     amount_cart_after = page.amount_cart()
     assert amount_cart_before + 1 == amount_cart_after, "ERROR! Product don't add to cart"
 
