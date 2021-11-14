@@ -207,15 +207,6 @@ class SalesLocators:
     banner_imgs = (By.CSS_SELECTOR, 'div.sales-banner > div.top > div.img-banner > div')
     banner_btns = (By.CSS_SELECTOR, 'div.sales-banner > div.bottom > div.right > a.typical-button.juicy-green')
 
-class CartLocators:
-    amount_cart_header = (By.CSS_SELECTOR, 'div.icons-panel > a.cart > span.total-in-cart')
-    close_popup_cart = (By.CSS_SELECTOR,
-                'div[id="product-added-to-cart-popup"]>div>div>div>div>div[class="close-popup js-close-popup"]>svg')
-
-class ProductLocators:
-    products = (By.CSS_SELECTOR, 'div.products-wrapper > div > div.main-content > a.img')
-    products_buy = (By.CSS_SELECTOR, 'div.products-wrapper > div > div.additional.lens > a')
-
 class ProductLensLocators:
     # Product card
     name = (By.CSS_SELECTOR, 'div.card-section > div.title-card-holder > h1')
@@ -386,3 +377,12 @@ class LensLocators:
 
     # Footer More info
     more_inf = (By.CSS_SELECTOR, 'div.footer_seotext > i')
+
+class CartLocators:
+    amount_cart_header = (By.CSS_SELECTOR, 'div.icons-panel > a.cart > span.total-in-cart')
+    close_popup_cart = (By.CSS_SELECTOR,
+                        'div[id="product-added-to-cart-popup"]>div>div>div>div>div[class="close-popup js-close-popup"]>svg')
+
+class ProductLocators:
+    products = (By.CSS_SELECTOR, 'div.products-wrapper > div > div.main-content > a.img')
+    products_buy = (By.CSS_SELECTOR, 'div.products-wrapper > div > div.additional.lens > a')
