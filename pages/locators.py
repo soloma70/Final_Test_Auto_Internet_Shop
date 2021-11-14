@@ -385,4 +385,4 @@ class CartLocators:
 
 class ProductLocators:
     products = (By.CSS_SELECTOR, 'div.products-wrapper > div > div.main-content > a.img')
-    products_buy = (By.CSS_SELECTOR, 'div.products-wrapper > div > div.additional.lens > a')
+    products_lens_buy = (By.CSS_SELECTOR, 'div.products-wrapper > div > div.additional.lens > a')

@@ -127,3 +127,5 @@ def test_add_lens_in_cart_lens_page(web_driver_desktop):
         amount_cart_before = amount_cart_after
         page.get_url(page.url)
 
+# Добавить тест на разных страницах с помощью параметризации
+

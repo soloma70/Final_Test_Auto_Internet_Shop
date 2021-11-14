@@ -29,7 +29,7 @@ class BasePage(object):
     def add_cart_lens_def_par(self, index: int):
         element = self.driver.find_elements(*ProductLocators.products)[index]
         ActionChains(self.driver).move_to_element(element).perform()
-        self.driver.find_elements(*ProductLocators.products_buy)[index].click()
+        self.driver.find_elements(*ProductLocators.products_lens_buy)[index].click()
         self.driver.find_element(*ProductLensLocators.buy_btn).click()
         self.driver.find_element(*CartLocators.close_popup_cart).click()
         sleep(1)
