@@ -106,12 +106,14 @@ def test_sort_lens_page(web_driver_desktop):
     page.save_screen_browser('test_sort_lens_popularity')
 
 
-def test_add_lens_in_cart_lens_page(web_driver_desktop):
+@pytest.mark.parametrize("url_page", ['', '?page=3', '?page=5'], ids=['page 1', 'page 3', 'page 5'])
+def test_add_lens_in_cart_lens_page(web_driver_desktop, url_page):
     """Тест проверяет добавление линз с 3-х рандомных позиций с 1-й, 3-й и 5-й карточки, переход на страницу
     линз и добавление их в корзину с параметрами по умолчанию (сложная проверка с изменениями диоптрий,
     кривизны, типа упаковки и количества в отдельных тестах)"""
 
     page = LensPage(web_driver_desktop, 5)
+    page.get_url(f'{page.url}{url_page}')
     amount_cart_before = page.amount_cart()
     total_amount_lens_on_page = len(page.cards_lens_url)
     index =  [random.randint(0, total_amount_lens_on_page)
@@ -127,5 +129,4 @@ def test_add_lens_in_cart_lens_page(web_driver_desktop):
         amount_cart_before = amount_cart_after
         page.get_url(page.url)
 
-# Добавить тест на разных страницах с помощью параметризации
 
