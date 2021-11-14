@@ -9,8 +9,8 @@ class StartPage(BasePage):
 
     def __init__(self, driver, timeout=3):
         super().__init__(driver, timeout)
-        url = LinsaUa.start_url
-        driver.get(url)
+        self.url = LinsaUa.start_url
+        driver.get(self.url)
 
         # Main Menu elements
         self.main_menu_points = driver.find_elements(*StartLocators.main_menu_points)

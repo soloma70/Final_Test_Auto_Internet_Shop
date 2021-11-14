@@ -6,59 +6,59 @@ class StartLocators:
 
     # HEADERS LOCATORS
     # Start Image locator
-    logo_img = (By.CSS_SELECTOR, 'a[class="top-logo"]>img')
+    logo_img = (By.CSS_SELECTOR, 'a.top-logo > img')
     # Search locators
-    search_field = (By.CSS_SELECTOR, 'div[class="input-wrapper"]>input')
-    search_result = (By.CSS_SELECTOR, 'div[class="h-holder"]>div[class="amount"]')
+    search_field = (By.CSS_SELECTOR, 'div.input-wrapper > input')
+    search_result = (By.CSS_SELECTOR, 'div.h-holder > div.amount')
 
     # Callback locators
     callback_btn = (By.CSS_SELECTOR, 'a[href="#"]')
     callback_form_name = (By.CSS_SELECTOR, 'input[name="name"]')
     callback_form_phone = (By.CSS_SELECTOR, 'input[name="phone"]')
-    callback_form_submit = (By.CSS_SELECTOR, 'button[class="b24-form-btn"]')
-    callback_form_close = (By.CSS_SELECTOR, 'div[class="b24-window-panel b24-window-panel-pos-right"]>button')
+    callback_form_submit = (By.CSS_SELECTOR, 'button.b24-form-btn')
+    callback_form_close = (By.CSS_SELECTOR, 'div.b24-window-panel.b24-window-panel-pos-right > button')
 
     # Login locators
-    login_btn = (By.CSS_SELECTOR, 'a[class="enter md-cab-link js-open-auth-popup"]')
+    login_btn = (By.CSS_SELECTOR, 'a.enter.md-cab-link.js-open-auth-popup')
     login_name = (By.CSS_SELECTOR, 'input[name="login"]')
     login_pass = (By.CSS_SELECTOR, 'input[name="password"]')
     login_submit = (By.CSS_SELECTOR, 'input[id="auth-submit"]')
-    login_close = (By.CSS_SELECTOR, 'div[class="close-popup js-close-popup"]>svg')
+    login_close = (By.CSS_SELECTOR, 'div.close-popup.js-close-popup > svg')
 
     # Wishlist locator
-    wishlist_btns = (By.CSS_SELECTOR, 'div[class="icons-panel"]>a>svg')
+    wishlist_btns = (By.CSS_SELECTOR, 'div. icons-panel > a > svg')
 
     # Cart locator
-    cart_btn = (By.CSS_SELECTOR, 'a[class="cart"]>svg')
+    cart_btn = (By.CSS_SELECTOR, 'a.cart > svg')
 
     # Lang locators
-    lang_btn_active = (By.CSS_SELECTOR, 'div[class="active-lang"]')
+    lang_btn_active = (By.CSS_SELECTOR, 'div.active-lang')
     lang_btn_uk = (By.CSS_SELECTOR, 'a[href="https://linza.com.ua/uk/"]')
     lang_btn_ru = (By.CSS_SELECTOR, 'a[href="https://linza.com.ua/"]')
 
     # RightSide Menu locators
-    menu_button = (By.CSS_SELECTOR, 'div[class="menu-button js-open-side-menu"]')
-    menu_button_close = (By.CSS_SELECTOR, 'div[class="side-close-menu js-side-close-menu"]>svg')
-    menu_points = (By.CSS_SELECTOR, 'ul[class="wrapper-ul"]>li>a')
+    menu_button = (By.CSS_SELECTOR, 'div.menu-button.js-open-side-menu')
+    menu_button_close = (By.CSS_SELECTOR, 'div.side-close-menu.js-side-close-menu > svg')
+    menu_points = (By.CSS_SELECTOR, 'ul.wrapper-ul > li > a')
 
     # MAIN PAGE LOCATORS
     # Main Menu locator
-    main_menu_points = (By.CSS_SELECTOR, 'div[class="main-menu"]>ul>li>a')
+    main_menu_points = (By.CSS_SELECTOR, 'div.main-menu > ul > li > a')
 
     # Banners locators
-    banner_points = (By.CSS_SELECTOR, 'div[class="blocks-holder"]>div>div[class="button-holder"]>a')
-    amount_product = (By.CSS_SELECTOR, 'div[class="h-holder"]>div[class="amount"]')
-    sales_banners = (By.CSS_SELECTOR, 'div[class="main-content"]')
-    sales_sunglass = (By.CSS_SELECTOR, 'div[class="product-item sunglasses"]>div[class="main-content"]>a[class="img"]')
-    sales_add_cart_sunglass = (By.CSS_SELECTOR, 'button[class="buy-button js-to-basket"]')
-    all_sales_prods = (By.CSS_SELECTOR, 'a[class="fat-button orange"]')
+    banner_points = (By.CSS_SELECTOR, 'div.blocks-holder > div > div.button-holder > a')
+    amount_product = (By.CSS_SELECTOR, 'div.h-holder > div.amount')
+    sales_banners = (By.CSS_SELECTOR, 'div.main-content')
+    sales_sunglass = (By.CSS_SELECTOR, 'div.product-item.sunglasses > div.main-content > a.img')
+    sales_add_cart_sunglass = (By.CSS_SELECTOR, 'button.buy-button.js-to-basket')
+    all_sales_prods = (By.CSS_SELECTOR, 'a.fat-button.orange')
 
     # PopUp cart locators
     move_to_cart_popup = (
-        By.CSS_SELECTOR, 'div[id="product-added-to-cart-popup"]>div>div>div>div>div[class="popup-infop"]>a')
-    close_cart_popup = (By.CSS_SELECTOR,
-                        'div[id="product-added-to-cart-popup"]>div>div>div>div>div[class="close-popup js-close-popup"]>svg')
-    amount_cart = (By.CSS_SELECTOR, 'div[class="icons-panel"]>a[class="cart"]>span[class="total-in-cart"]')
+        By.CSS_SELECTOR, '#product-added-to-cart-popup > div > div > div > div > div.popup-infop > a')
+    close_cart_popup = (
+        By.CSS_SELECTOR, '#product-added-to-cart-popup > div > div > div > div > div.close-popup.js-close-popup > svg')
+    amount_cart = (By.CSS_SELECTOR, 'div.icons-panel > a.cart > span.total-in-cart')
 
     # Love brand locators
     love_brands_sunglasses = (By.XPATH, '//*[@id="content-wrapper"]/section[2]/div[1]/div/div[1]')
@@ -84,23 +84,18 @@ class StartLocators:
     blog_card_1 = (By.XPATH, '//*[@id="content-wrapper"]/section[4]/div[2]/a[1]/div[2]/div[1]')
     blog_card_2 = (By.XPATH, '//*[@id="content-wrapper"]/section[4]/div[2]/a[2]/div[2]/div[1]')
     blog_card_3 = (By.XPATH, '//*[@id="content-wrapper"]/section[4]/div[2]/a[3]/div[2]/div[1]')
-    blog_btn = (By.CSS_SELECTOR, 'section[class="main-blog"] > div[class="button-holder"] > a')
-    blog_title = (By.CSS_SELECTOR, 'div[class="article-top"] > h1')
+    blog_btn = (By.CSS_SELECTOR, 'section.main-blog > div.button-holder > a')
+    blog_title = (By.CSS_SELECTOR, 'div.article-top > h1')
     # About Us locators
-    about_left_btn = (By.CSS_SELECTOR, 'section[class="about-us-main"] > div[class="left"] > div[class="details"] > a')
-    about_right_btn = (By.CSS_SELECTOR, 'section[class="about-us-main"] > div[class="right"] > a')
+    about_left_btn = (By.CSS_SELECTOR, 'section.about-us-main > div.left > div.details > a')
+    about_right_btn = (By.CSS_SELECTOR, 'section.about-us-main > div.right > a')
 
     # FOOTERS LOCATORS
-    footers_left_btns = (
-        By.CSS_SELECTOR, 'div[class="footer-top"] > div[class="left"] > ul[class="footer-menu"] > li > a')
-    footers_right_btns = (
-        By.CSS_SELECTOR, 'div[class="footer-top"] > div[class="right"] > ul[class="footer-menu"] > li > a')
-    footer_middle_btns = (
-        By.CSS_SELECTOR, 'div[class="footer-middle"] > div[class="item"] > a')
-    footer_bottom_left_btn = (
-        By.CSS_SELECTOR, 'div[class="footer-bottom"] > div[class="left"] > a[class="desk"]')
-    footer_bottom_right_btn = (
-        By.CSS_SELECTOR, 'div[class="footer-bottom"] > div[class="right"] > a')
+    footers_left_btns = (By.CSS_SELECTOR, 'div.footer-top > div.left > ul.footer-menu > li > a')
+    footers_right_btns = (By.CSS_SELECTOR, 'div.footer-top > div.right > ul.footer-menu > li > a')
+    footer_middle_btns = (By.CSS_SELECTOR, 'div.footer-middle > div.item > a')
+    footer_bottom_left_btn = (By.CSS_SELECTOR, 'div.footer-bottom > div.left > a.desk')
+    footer_bottom_right_btn = (By.CSS_SELECTOR, 'div.footer-bottom > div.right > a')
 
 
 class StartLocatorsMobile:

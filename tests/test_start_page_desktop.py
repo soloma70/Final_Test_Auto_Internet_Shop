@@ -1,140 +1,31 @@
 # -*- encoding=utf8 -*-
 
-import time, pytest
+import time
 from pages.start_page import StartPage
 from pages.locators import StartLocators
 from pages.url_list import LinsaUa
 from selenium.webdriver.common.action_chains import ActionChains
 from settings import registr_name, registr_phone, registr_passw
-from pages.aux_metods import AuxMetods
-
-
-# Тестирование десктопной версии сайта
-def test_start_page(web_driver_desktop):
-    """Тест проверяет кликабельность лого сайта и перезагрузку его стартовой страницы"""
-
-    page_start = StartPage(web_driver_desktop)
-    page_start.start_img_click()
-    assert page_start.get_relative_link() == '/' or \
-           page_start.get_relative_link() == '/uk/', 'Transition error'
-
-
-@pytest.mark.parametrize("test_search_p", ['линзы', 'lens', 123], ids=['search ru', 'search en', 'search digit'])
-def test_search_start_page_positive(web_driver_desktop, test_search_p):
-    """Тест проверяет работу поиска с различными позитивными данными"""
-
-    page_start = StartPage(web_driver_desktop, 5)
-    page_start.search_field_click(test_search_p)
-    amount = int(web_driver_desktop.find_element(*StartLocators.search_result).text)
-    assert amount > 0, 'Field "Search" working unsucсess'
-
-
-@pytest.mark.parametrize("test_search",
-                        ['123456', AuxMetods.generate_string(255), AuxMetods.generate_string(1001)
-                        , AuxMetods.russian_chars(), AuxMetods.russian_chars().upper(), AuxMetods.chinese_chars()
-                        , AuxMetods.special_chars()]
-                        , ids=['any', '255 sym', '> 1000 sym', 'russian', 'RUSSIAN', 'chinese', 'specials'])
-def test_search_start_page_negative(web_driver_desktop, test_search):
-    """Тест проверяет поле поиска с различными негативными данными и корректность обработки запроса"""
-
-    page_start = StartPage(web_driver_desktop, 5)
-    page_start.search_field_click(test_search)
-    amount = int(web_driver_desktop.find_element(*StartLocators.search_result).text)
-    assert amount == 0, 'Field "Search" working unsucсess'
-
-
-def test_callback_btn_start_page(web_driver_desktop):
-    """Тест проверяет кликабельность "Перезвоните мне" и загрузку формы обратного звонка, после чего закрывает ее"""
-
-    page_start = StartPage(web_driver_desktop, 5)
-    page_start.callback_btn_click()
-    time.sleep(2)
-    assert web_driver_desktop.find_element(*StartLocators.callback_form_submit).is_enabled()\
-        , 'Transition error'
-    web_driver_desktop.find_element(*StartLocators.callback_form_close).click()
-    time.sleep(2)
-
-
-def test_login_btn_start_page(web_driver_desktop):
-    """Тест проверяет кликабельность "Вход" """
-
-    page_start = StartPage(web_driver_desktop, 5)
-    page_start.login_btn_click()
-    assert web_driver_desktop.find_element(*StartLocators.login_submit).is_enabled()\
-        , 'Transition error'
-    web_driver_desktop.find_element(*StartLocators.login_close).click()
-
-
-def test_wishlist_btn_start_page(web_driver_desktop):
-    """Тест проверяет кликабельность "Список желаний" без авторизации"""
-
-    page_start = StartPage(web_driver_desktop, 5)
-    page_start.wishlist_btn_click()
-    assert web_driver_desktop.find_element(*StartLocators.login_submit).is_enabled()\
-        , 'Transition error'
-    web_driver_desktop.find_element(*StartLocators.login_close).click()
-
-
-def test_cart_start_page(web_driver_desktop):
-    """Тест проверяет кликабельность "Корзина" без авторизации"""
-
-    page_start = StartPage(web_driver_desktop, 5)
-    page_start.cart_btn_click()
-    assert page_start.get_relative_link() == '/ru/cart/' \
-           or page_start.get_relative_link() == '/uk/cart/', 'Transition error'
-    web_driver_desktop.find_element(*StartLocators.logo_img).click()
-
-
-def test_lang_start_page(web_driver_desktop):
-    """Тест проверяет переключение языков сайта Рус и Укр"""
-
-    page_start = StartPage(web_driver_desktop, 5)
-    page_start.lang_btn_click()
-    page_start.lang_uk_btn_click()
-    assert page_start.get_relative_link() == '/uk/', 'Transition error'
-    web_driver_desktop.find_element(*StartLocators.lang_btn_active).click()
-    web_driver_desktop.find_element(*StartLocators.lang_btn_ru).click()
-    assert page_start.get_relative_link() == '/', 'Transition error'
-
-
-def test_menu_start_page(web_driver_desktop):
-    """Тест проверяет кликабельность меню и переход на соответствующие страницы меню, закрытие меню"""
-
-    page_start = StartPage(web_driver_desktop, 5)
-    page_start.menu_btn_click()
-    page_start.menu_close_btn_click()
-    assert page_start.get_relative_link() == '/' or \
-           page_start.get_relative_link() == '/uk/', 'Transition error'
-
-    # Перебор в цикле пунктов меню
-    menu_points = page_start.menu_points
-    for index in range(len(menu_points)):
-        web_driver_desktop.find_element(*StartLocators.menu_button).click()
-        web_driver_desktop.find_elements(*StartLocators.menu_points)[index].click()
-        time.sleep(2)
-        assert page_start.get_relative_link() == LinsaUa.right_menu_urls[index][0] or \
-               page_start.get_relative_link() == LinsaUa.right_menu_urls[index][1], 'Transition error'
-        web_driver_desktop.find_element(*StartLocators.logo_img).click()
 
 
 def test_main_menu_start_page(web_driver_desktop):
     """Тест проверяет кликабельность главного меню и переход на соответствующие страницы меню"""
 
-    page_start = StartPage(web_driver_desktop, 5)
+    page = StartPage(web_driver_desktop, 5)
 
     # Перебор в цикле пунктов главного меню
     for index in range(6):
         web_driver_desktop.find_elements(*StartLocators.main_menu_points)[index].click()
         time.sleep(2)
-        assert page_start.get_relative_link() == LinsaUa.main_menu_urls[index][0] or \
-               page_start.get_relative_link() == LinsaUa.main_menu_urls[index][1], 'Transition error'
-        web_driver_desktop.find_element(*StartLocators.logo_img).click()
-        time.sleep(2)
+        assert page.get_relative_link() == LinsaUa.main_menu_urls[index][0] or \
+               page.get_relative_link() == LinsaUa.main_menu_urls[index][1], 'Transition error'
+        page.get_url(page.url)
+
 
 def test_banners_start_page(web_driver_desktop):
     """Тест проверяет кликабельность баннеров и переход на соответствующие страницы"""
 
-    page_start = StartPage(web_driver_desktop, 5)
+    page = StartPage(web_driver_desktop, 5)
 
     # Перебор в цикле баннеры
     for index in range(3):
@@ -143,11 +34,11 @@ def test_banners_start_page(web_driver_desktop):
         web_driver_desktop.find_elements(*StartLocators.banner_points)[index].click()
         time.sleep(2)
         amount_page = int(web_driver_desktop.find_element(*StartLocators.amount_product).text.strip())
-        assert page_start.get_relative_link() == LinsaUa.banners_urls[index][0] or \
-               page_start.get_relative_link() == LinsaUa.banners_urls[index][1], 'Transition error'
+        assert page.get_relative_link() == LinsaUa.banners_urls[index][0] or \
+               page.get_relative_link() == LinsaUa.banners_urls[index][1], 'Transition error'
         assert amount_banner == amount_page, f'Different quantity: declared {amount_banner}, in fact {amount_page}'
-        web_driver_desktop.find_element(*StartLocators.logo_img).click()
-        time.sleep(2)
+        page.get_url(page.url)
+
 
 def test_action_banners_start_page(web_driver_desktop):
     """Тест проверяет кликабельность акционного баннера и переход на соответствующую страницу,
@@ -268,49 +159,5 @@ def test_about_start_page(web_driver_desktop):
            page_start.get_relative_link() == LinsaUa.main_menu_urls[3][1] \
         , f'ERROR! Bad transaction for {page_start.get_relative_link()}'
     web_driver_desktop.find_element(*StartLocators.logo_img).click()
-
-
-def test_footer_start_page(web_driver_desktop):
-    """Тест проверяет кликабельность блоков в footers
-    и корректность перехода по ссылкам """
-
-    page_start = StartPage(web_driver_desktop, 10)
-    pages_footers = []
-    footers_left = page_start.footers_left_btns
-    footers_right = page_start.footers_right_btns
-
-    for index, locator in enumerate(footers_left):
-        web_driver_desktop.find_elements(*StartLocators.footers_left_btns)[index].click()
-        pages_footers.append(page_start.get_relative_link())
-        web_driver_desktop.find_element(*StartLocators.logo_img).click()
-
-    for index, locator in enumerate(footers_right):
-        web_driver_desktop.find_elements(*StartLocators.footers_right_btns)[index].click()
-        pages_footers.append(page_start.get_relative_link())
-        web_driver_desktop.find_element(*StartLocators.logo_img).click()
-
-    web_driver_desktop.find_element(*StartLocators.footer_bottom_left_btn).click()
-    pages_footers.append(page_start.get_relative_link())
-    web_driver_desktop.find_element(*StartLocators.logo_img).click()
-
-    web_driver_desktop.find_element(*StartLocators.footer_bottom_right_btn).click()
-    pages_footers.append(page_start.get_relative_link())
-    web_driver_desktop.find_element(*StartLocators.logo_img).click()
-
-    for index in range(2):
-        web_driver_desktop.find_elements(*StartLocators.footer_middle_btns)[index].click()
-        windows = web_driver_desktop.window_handles
-        web_driver_desktop.switch_to.window(windows[1])
-        pages_footers.append(web_driver_desktop.current_url)
-        web_driver_desktop.close()
-        time.sleep(2)
-        web_driver_desktop.switch_to.window(windows[0])
-        web_driver_desktop.find_element(*StartLocators.logo_img).click()
-
-    # Переход на страницу инстаграм не проверяется, требует логин инстаграм
-    for index in range(11):
-        assert pages_footers[index] == LinsaUa.footers_menu_urls[index][0] or \
-                pages_footers[index] == LinsaUa.footers_menu_urls[index][1] \
-             , f'ERROR! Bad transaction for {pages_footers[index]}'
 
 

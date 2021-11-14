@@ -15,3 +15,6 @@ class LensSets:
 
     O2O2 = ['', 'O2O2', 'Торические', 'Месяц', '8.6', '14.2', ''
         , 'Контактные линзы O2O2 Toric', 'INTEROJO']
+
+class SearchSets:
+    pass
