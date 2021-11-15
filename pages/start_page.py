@@ -2,7 +2,7 @@ from time import sleep
 from selenium.webdriver.remote.webelement import WebElement
 from pages.base_page import BasePage
 from pages.url_list import LinsaUa
-from pages.locators import StartLocators
+from pages.locators import StartLocators, StartLocatorsMobile
 
 
 class StartPage(BasePage):
@@ -21,6 +21,9 @@ class StartPage(BasePage):
 
     def logo_img(self) -> WebElement:
         return self.driver.find_element(*StartLocators.logo_img)
+
+    def logo_img_mob(self) -> WebElement:
+        return self.driver.find_element(*StartLocatorsMobile.logo_img_mobile)
 
     def win_scroll_begin(self):
         self.driver.execute_script("window.scrollTo(0, 0)")
