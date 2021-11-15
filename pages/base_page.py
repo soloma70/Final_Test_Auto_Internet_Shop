@@ -34,4 +34,10 @@ class BasePage(object):
         self.driver.find_element(*CartLocators.close_popup_cart).click()
         sleep(1)
 
-
+    def add_cart_sunglass(self, index: int):
+        element = self.driver.find_elements(*ProductLocators.products)[index]
+        ActionChains(self.driver).move_to_element(element).perform()
+        self.driver.find_elements(*ProductLocators.products_buy)[index].click()
+        sleep(2)
+        self.driver.find_element(*CartLocators.close_popup_cart).click()
+        sleep(1)
