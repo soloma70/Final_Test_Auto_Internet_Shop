@@ -222,18 +222,20 @@ class ProductLensLocators:
     # Product card
     name = (By.CSS_SELECTOR, 'div.card-section > div.title-card-holder > h1')
 
-    rating = (By.CSS_SELECTOR, 'div[class="card-section"] > div[class="card-rating"] > div > div[class="rev-amount"]')
-    add_review = (By.CSS_SELECTOR, 'div[class="card-section"] > div[class="card-rating"] > div > a[class="add-review js-add-review"]')
+    rating = (By.CSS_SELECTOR, '#content-wrapper > div.card-section > div.card-rating > div > div.rev-amount')
+    add_review = (By.CSS_SELECTOR, '#content-wrapper > div.card-section > div.card-rating > div > a')
 
-    main = (By.CSS_SELECTOR, 'div[class="card-section"] > div[class="card-menu"] > nav > a[data-tab="main"]')
-    char = (By.CSS_SELECTOR, 'div[class="card-section"] > div[class="card-menu"] > nav > a[data-tab="characteristics"]')
-    photo = (By.CSS_SELECTOR, 'div[class="card-section"] > div[class="card-menu"] > nav > a[data-tab="photo"]')
-    desc = (By.CSS_SELECTOR, 'div[class="card-section"] > div[class="card-menu"] > nav > a[data-tab="description"]')
-    reviews = (By.CSS_SELECTOR, 'div[class="card-section"] > div[class="card-menu"] > nav > a[data-tab="reviews"]')
+    main = (By.CSS_SELECTOR, '#tabs-anchors-wrapper > a[data-tab="main"]')
+    char = (By.CSS_SELECTOR, '#tabs-anchors-wrapper > a[data-tab="characteristics"]')
+    photo = (By.CSS_SELECTOR, '#tabs-anchors-wrapper > a[data-tab="photo"]')
+    desc = (By.CSS_SELECTOR, '#tabs-anchors-wrapper > a[data-tab="description"]')
+    reviews = (By.CSS_SELECTOR, '#tabs-anchors-wrapper > a[data-tab="reviews"]')
 
     price = (By.CSS_SELECTOR, '#js-goods-price-value')
+
     # Same eyes
-    same_eyes = (By.CSS_SELECTOR, 'div[id="js-same-eyes"] > div > div > div > div > a[1] > svg')
+    same_eyes = (
+        By.CSS_SELECTOR, '#js-different-eyes > div > div.titles-row > div.label > div > > a[href="#js-same-eyes"] > svg')
     dioptr_same = (By.CSS_SELECTOR, '#lenses-selects-form-same > div:nth-child(3) > div > div.selectric > span')
     dioptr_list = (
         By.CSS_SELECTOR, '#lenses-selects-form-same > div:nth-child(3) > div > div.selectric-items > div > ul > li')
@@ -242,20 +244,19 @@ class ProductLensLocators:
     curv_list = (
         By.CSS_SELECTOR, '#lenses-selects-form-same > div:nth-child(4) > div > div.selectric-items > div > ul > li')
     pack_one_same = (
-        By.CSS_SELECTOR, 'div[id="lenses-quantity-block-same"] > div[class="quantity-label"] > div > label[class="goods-round"] > span[class="round"]')
+        By.CSS_SELECTOR, '#lenses-quantity-block-same > div.quantity-label > div > label.goods-round > span.round')
     pack_mul_same = (
-        By.CSS_SELECTOR, 'div[id="lenses-quantity-block-same"] > div[class="quantity-label"] > div > label[class="goods-round append"] > span[class="round"]')
+        By.CSS_SELECTOR, '#lenses-quantity-block-same > div.quantity-label > div > label.goods-round append > span.round')
     amount_same = (
         By.CSS_SELECTOR, '#product-quantity-same')
     amount_minus_same = (
-        By.CSS_SELECTOR,
-        '#lenses-quantity-block-same > div.quan-wrapper-cell > div > div.minus.js-sub-product-quantity')
+        By.CSS_SELECTOR, '#lenses-quantity-block-same > div.quan-wrapper-cell > div > div.minus.js-sub-product-quantity')
     amount_plus_same = (
-        By.CSS_SELECTOR,
-        '#lenses-quantity-block-same > div.quan-wrapper-cell > div > div.plus.js-add-product-quantity')
+        By.CSS_SELECTOR, '#lenses-quantity-block-same > div.quan-wrapper-cell > div > div.plus.js-add-product-quantity')
+
     # Different eyes
     diff_eyes = (
-        By.CSS_SELECTOR, 'form[id="js-different-eyes"] > div > div > div > div > a[2] > svg')
+        By.CSS_SELECTOR, '#js-same-eyes > div > div.titles-row > div > div > a[href="#js-different-eyes"] > svg')
     dioptr_left = (
         By.CSS_SELECTOR, 'form[id="lenses-selects-form-left"] > div[1] > div > div[class="selectric"] > span')
     dioptr_right = (
@@ -265,8 +266,7 @@ class ProductLensLocators:
     curv_right = (
         By.CSS_SELECTOR, 'form[id="lenses-selects-form-right"] > div[2] > div > div[class="selectric"] > span')
     pack_one_left = (
-        By.CSS_SELECTOR,
-        'div[id="lenses-quantity-block-left"] > div[class="quantity-label"] > div > label[class="goods-round"] > span[class="round"]')
+        By.CSS_SELECTOR, '#lenses-quantity-block-left > div.quantity-label > div > label.goods-round > span.round')
     pack_one_right = (
         By.CSS_SELECTOR,
         'div[id="lenses-quantity-block-right"] > div[class="quantity-label"] > div > label[class="goods-round"] > span[class="round"]')

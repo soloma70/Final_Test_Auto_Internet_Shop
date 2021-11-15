@@ -1,7 +1,5 @@
-from telnetlib import EC
-
-from selenium.webdriver.support.wait import WebDriverWait
-
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 from pages.base_page import BasePage
 from pages.url_list import LinsaUa
 from pages.locators import LensLocators, ProductLocators
@@ -85,7 +83,7 @@ class LensPage(BasePage):
         return filter_val
 
     def search_result(self) -> [list, list]:
-        search_result_brands = self.driver.find_elements(*LensLocators.cards_lens_name_brand)
+        search_result_brands = self.driver.find_elements(*LensLocators.cards_lens_brand)
         search_result_brand = [search_result_brands[k].text for k in range(len(search_result_brands))]
         search_result_names = self.driver.find_elements(*LensLocators.cards_lens_name)
         search_result_name = [search_result_names[k].text for k in range(len(search_result_names))]
@@ -96,8 +94,11 @@ class LensPage(BasePage):
 
     def sorted_by_on_page(self, index: int):
         self.driver.find_elements(*LensLocators.sort_by)[index].click()
+        sleep(2)
 
     def get_lens_list_on_page(self) -> [list]:
+        # WebDriverWait(self.driver, 10).until(EC.presence_of_element_located((
+        #    By.CSS_SELECTOR, '#content-wrapper > section.sort_panel > a.sort.active')))
         lens_price = self.driver.find_elements(*LensLocators.card_lens_price)
         list_price = [int(lens_price[i].text.split()[0]) for i in range(8)]
         return list_price

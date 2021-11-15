@@ -1,5 +1,7 @@
 # -*- encoding=utf8 -*-
-
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.common.by import By
 import pytest
 from pages.test_sets import LensSets
 from time import sleep
@@ -73,10 +75,8 @@ def test_sort_lens_page(web_driver_desktop):
     ВНИМАНИЕ!!! Необходимо убрать курсор мышки из поля страницы браузера!"""
 
     page = LensPage(web_driver_desktop, 10)
-    print()
     # Сортировка по снижению
     page.sorted_by_on_page(1)
-    sleep(3)
     page.save_screen_browser('test_sort_lens_decrease')
     list_price = page.get_lens_list_on_page()
     list_sort = sorted(list_price)
@@ -84,18 +84,15 @@ def test_sort_lens_page(web_driver_desktop):
     assert list_price == list_sort, "'ERROR! Position don't sorted"
     # Сортировка по новизне
     page.sorted_by_on_page(3)
-    sleep(3)
     page.save_screen_browser('test_sort_lens_novelty')
     # Сортировка по возрастанию
     page.sorted_by_on_page(2)
-    sleep(3)
     page.save_screen_browser('test_sort_lens_increase')
     list_price = page.get_lens_list_on_page()
     list_sort = sorted(list_price)
     assert list_price == list_sort, "'ERROR! Position don't sorted"
     # Сортировка по популярности
     page.sorted_by_on_page(0)
-    sleep(3)
     page.save_screen_browser('test_sort_lens_popularity')
 
 
