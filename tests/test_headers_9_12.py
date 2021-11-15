@@ -29,10 +29,10 @@ def test_search_start_page_positive(web_driver_desktop, test_search):
 
 
 @pytest.mark.parametrize("test_search",
-                        ['123456', AuxMetods.generate_string(255), AuxMetods.generate_string(1001)
-                        , AuxMetods.russian_chars(), AuxMetods.russian_chars().upper(), AuxMetods.chinese_chars()
-                        , AuxMetods.special_chars()]
-                        , ids=['any', '255 sym', '> 1000 sym', 'russian', 'RUSSIAN', 'chinese', 'specials'])
+                         ['123456', AuxMetods.generate_string(255), AuxMetods.generate_string(1001)
+                             , AuxMetods.russian_chars(), AuxMetods.russian_chars().upper(), AuxMetods.chinese_chars()
+                             , AuxMetods.special_chars()]
+    , ids=['any', '255 sym', '> 1000 sym', 'russian', 'RUSSIAN', 'chinese', 'specials'])
 def test_search_start_page_negative(web_driver_desktop, test_search):
     """Тест проверяет поле поиска с различными негативными данными и корректность обработки запроса"""
 
@@ -56,7 +56,7 @@ def test_login_start_page(web_driver_desktop):
 
     page = Headers(web_driver_desktop, 5)
     page.login_btn_click()
-    assert web_driver_desktop.find_element(*StartLocators.login_submit).is_enabled()\
+    assert web_driver_desktop.find_element(*StartLocators.login_submit).is_enabled() \
         , 'Transition error'
     web_driver_desktop.find_element(*StartLocators.login_close).click()
 
@@ -76,7 +76,7 @@ def test_cart_start_page(web_driver_desktop):
     page = Headers(web_driver_desktop, 5)
     page.cart_btn_click()
     assert page.get_relative_link() == '/ru/cart/' \
-        or page.get_relative_link() == '/uk/cart/', 'Transition error'
+           or page.get_relative_link() == '/uk/cart/', 'Transition error'
     page.get_url(page.url)
 
 
