@@ -1,6 +1,5 @@
 from time import sleep
 from pages.base_page import BasePage
-from pages.product_page import ProductPage
 from pages.url_list import LinsaUa
 from pages.locators import SalesLocators, ProductLocators
 from selenium.webdriver.remote.webelement import WebElement
