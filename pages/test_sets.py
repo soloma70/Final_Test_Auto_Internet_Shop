@@ -1,7 +1,10 @@
-class RegistrationSets:
-    registr_name = 'Пупкин Василий Васильевич'
-    registr_phone = '0505555555'
-    registr_passw = 'V123456'
+class RegSets:
+    reg_name = 'Пупкин Василий Васильевич'
+    reg_phone = '0505555555'
+    reg_passw = 'V123456'
+
+class MainMenuSets:
+    amount_menu_points = 6
 
 class LensSets:
     interogo = ['INTEROJO', 'Fusion', 'Сферические', 'Месяц', '8.6', '14.2', ''
