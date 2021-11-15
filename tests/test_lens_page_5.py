@@ -5,9 +5,7 @@ import pytest
 from pages.test_sets import LensSets
 from time import sleep
 from pages.lens_page import LensPage
-from pages.locators import LensLocators, ProductLensLocators
-from pages.url_list import LinsaUa
-from selenium.webdriver.common.action_chains import ActionChains
+from pages.locators import LensLocators
 
 
 def test_amount_lens_page(web_driver_desktop):
