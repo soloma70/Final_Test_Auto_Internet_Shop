@@ -105,3 +105,6 @@ class LensPage(BasePage):
     def rand_lens_card(self, amount: int) ->list:
         index = [randint(0, amount), randint(0, amount), randint(0, amount)]
         return index
+
+    def find_lens_name(self):
+        return self.driver.find_element(*LensLocators.name)
