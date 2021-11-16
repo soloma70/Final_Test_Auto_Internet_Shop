@@ -1,5 +1,3 @@
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
 from pages.base_page import BasePage
 from pages.url_list import LinsaUa
 from pages.locators import LensLocators, ProductLocators
@@ -9,7 +7,7 @@ from random import randint
 
 
 class LensPage(BasePage):
-    """Класс создает экземпляр страницы акций сайта (десктопная версия), свойства и функции поиска элеменов
+    """Класс создает экземпляр страницы сайта Линзы (десктопная версия), переменные и методы поиска элеменов
     на странице """
 
     def __init__(self, driver, timeout=5):
@@ -22,13 +20,13 @@ class LensPage(BasePage):
 
         # Filter elements
         self.filters = driver.find_elements(*LensLocators.filters)
-        self.brands = driver.find_elements(*LensLocators.filter_list[0])
-        self.lines = driver.find_elements(*LensLocators.filter_list[1])
-        self.type_lens = driver.find_elements(*LensLocators.filter_list[2])
-        self.repl_mode = driver.find_elements(*LensLocators.filter_list[3])
-        self.base_curv = driver.find_elements(*LensLocators.filter_list[4])
-        self.diameter = driver.find_elements(*LensLocators.filter_list[5])
-        self.dioptr = driver.find_elements(*LensLocators.filter_list[6])
+        # self.brands = driver.find_elements(*LensLocators.filter_list[0])
+        # self.lines = driver.find_elements(*LensLocators.filter_list[1])
+        # self.type_lens = driver.find_elements(*LensLocators.filter_list[2])
+        # self.repl_mode = driver.find_elements(*LensLocators.filter_list[3])
+        # self.base_curv = driver.find_elements(*LensLocators.filter_list[4])
+        # self.diameter = driver.find_elements(*LensLocators.filter_list[5])
+        # self.dioptr = driver.find_elements(*LensLocators.filter_list[6])
 
         # Sort elements
         self.sort_by = driver.find_elements(*LensLocators.sort_by)
@@ -36,14 +34,17 @@ class LensPage(BasePage):
         # Card elements
         self.amount_total_on_page = driver.find_element(*LensLocators.amount_lens)
         self.cards_lens_url = driver.find_elements(*LensLocators.cards_lens_url)
-        self.card_lens_amount = driver.find_elements(*LensLocators.card_lens_amount)
-        self.card_lens_price = driver.find_elements(*LensLocators.card_lens_price)
+        # self.card_lens_amount = driver.find_elements(*LensLocators.card_lens_amount)
+        # self.card_lens_price = driver.find_elements(*LensLocators.card_lens_price)
 
         # Pagination
         self.pagination = driver.find_elements(*LensLocators.pagination)
 
     def amount_on_page(self, index: int) -> int:
-        self.driver.get(self.driver.find_elements(*LensLocators.pagination)[index].get_attribute('href'))
+        if index == 0:
+            self.driver.get(self.url)
+        else:
+            self.driver.get(f'{self.url}?page={index + 1}')
         amount_on_page = len(self.driver.find_elements(*LensLocators.cards_lens_url))
         return amount_on_page
 
@@ -73,6 +74,9 @@ class LensPage(BasePage):
             self.driver.find_element(By.CSS_SELECTOR, f'div.right-filter-cntrl.js-rf-cntrl-{index}.slick-arrow').click()
             filter_vals = self.driver.find_elements(*LensLocators.filter_list[index])
             filter_val = [filter_vals[k].get_attribute('title') for k in range(len(filter_vals))]
+            if test_set[index] not in filter_val and test_set[index] != '' and filter_vals != []:
+                print()
+                print(f'!!! Check test set {test_set[8]} - {test_set[index]} is absent among the available positions')
 
         if filter_vals != [] and test_set[index] != '':
             i = 0
@@ -95,10 +99,10 @@ class LensPage(BasePage):
     def sorted_by_on_page(self, index: int):
         self.driver.find_elements(*LensLocators.sort_by)[index].click()
         sleep(2)
+        # WebDriverWait(self.driver, 10).until(EC.invisibility_of_element((
+        #     By.CSS_SELECTOR('div.products-wrapper > div > div.main-content > a.img'))))
 
     def get_lens_list_on_page(self) -> [list]:
-        # WebDriverWait(self.driver, 10).until(EC.presence_of_element_located((
-        #    By.CSS_SELECTOR, '#content-wrapper > section.sort_panel > a.sort.active')))
         lens_price = self.driver.find_elements(*LensLocators.card_lens_price)
         list_price = [int(lens_price[i].text.split()[0]) for i in range(8)]
         return list_price
