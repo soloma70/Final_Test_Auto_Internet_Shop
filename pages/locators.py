@@ -389,3 +389,62 @@ class LensLocators:
     # Footer More info
     more_inf = (By.CSS_SELECTOR, 'div.footer_seotext > i')
 
+
+class FramesLocators:
+    # DESKTOP LOCATORS
+
+    # HEADERS LOCATORS: Start Image locator
+    logo_img = (By.CSS_SELECTOR, 'a.top-logo > img')
+
+    # Filter locators
+    filters = (By.CSS_SELECTOR, 'div.product-filters-titles.js-filter-toggle-items > div > span')  # 7 items
+    # brands 7/6, sex 4, temple_length 7/7/3, bridge_width 7/6, eyepiece_width 7/7/7,
+    # frame_shape 7/3, frame_type 2, dioptr 4, collection_year 7/6, polarization 1
+    filter_list = [
+        (By.CSS_SELECTOR, '#filter-tab-1 > div.filter-slider.slider.slick-initialized.slick-slider > div > div > div.slick-slide.slick-current.slick-active > div > div > label > a'),
+        (By.CSS_SELECTOR, '#filter-tab-2 > div.filter-slider.slider.slick-initialized.slick-slider > div > div > div.slick-slide.slick-current.slick-active > div > div > label > a'),
+        (By.CSS_SELECTOR, '#filter-tab-3 > div.filter-slider.slider.slick-initialized.slick-slider > div > div > div.slick-slide.slick-current.slick-active > div > div > label > a'),
+        (By.CSS_SELECTOR, '#filter-tab-4 > div.filter-slider.slider.slick-initialized.slick-slider > div > div > div.slick-slide.slick-current.slick-active > div > div > label > a'),
+        (By.CSS_SELECTOR, '#filter-tab-5 > div.filter-slider.slider.slick-initialized.slick-slider > div > div > div.slick-slide.slick-current.slick-active > div > div > label > a'),
+        (By.CSS_SELECTOR, '#filter-tab-6 > div.filter-slider.slider.slick-initialized.slick-slider > div > div > div.slick-slide.slick-current.slick-active > div > div > label > a'),
+        (By.CSS_SELECTOR, '#filter-tab-7 > div.filter-slider.slider.slick-initialized.slick-slider > div > div > div.slick-slide.slick-current.slick-active > div > div > label > a'),
+        (By.CSS_SELECTOR, '#filter-tab-8 > div.filter-slider.slider.slick-initialized.slick-slider > div > div > div.slick-slide.slick-current.slick-active > div > div > label > a'),
+        (By.CSS_SELECTOR, '#filter-tab-9 > div.filter-slider.slider.slick-initialized.slick-slider > div > div > div.slick-slide.slick-current.slick-active > div > div > label > a'),
+        (By.CSS_SELECTOR, '#filter-tab-10 > div.filter-slider.slider.slick-initialized.slick-slider > div > div > div.slick-slide.slick-current.slick-active > div > div > label > a')
+                ]
+    clear_all_filters = (By.CSS_SELECTOR, 'div.clear-all.js-remove-all-filters > div.delete-cross')
+
+
+    # Sort locators
+    sort_by = (By.CSS_SELECTOR, 'section.sort_panel > a') # 5 items
+
+    # Frames Card locator
+    name = (By.CSS_SELECTOR, 'h1.standard-title')
+    amount_frames = (By.CSS_SELECTOR, 'div.h-holder > div.amount')
+    card_frames_full = (By.CSS_SELECTOR, 'div.main-content')
+    card_frames_wishlist = (
+        By.CSS_SELECTOR, 'div.products-wrapper > div.product-item.frames > div.add-to-favorites.js-add-to-wishlist > svg')
+    cards_frames_brand = (
+        By.CSS_SELECTOR, 'div.products-wrapper > div.product-item.frames > div.main-content > a.top > span.product-type')
+    cards_frames_name = (
+        By.CSS_SELECTOR, 'div.products-wrapper > div.product-item.frames > div.main-content > a.top > span.title')
+    cards_frames_url = (
+        By.CSS_SELECTOR, 'div.products-wrapper > div.product-item.frames > div.main-content > a.top') # 16 items
+    card_frames_sex = (By.CSS_SELECTOR, 'div.products-wrapper > div.product-item.frames > div.main-content > div.bottom > div.glasses-size > div:nth-child(1)')
+    card_frames_temple_length = (By.CSS_SELECTOR, 'div.products-wrapper > div.product-item.frames > div.main-content > div.bottom > div.glasses-size > div:nth-child(2)')
+    card_frames_bridge_width = (By.CSS_SELECTOR, 'div.products-wrapper > div.product-item.frames > div.main-content > div.bottom > div.glasses-size > div:nth-child(3)')
+    card_frames_eyepiece_width = (By.CSS_SELECTOR, 'div.products-wrapper > div.product-item.frames > div.main-content > div.bottom > div.glasses-size > div:nth-child(4)')
+    card_frames_price = (By.CSS_SELECTOR, 'div.products-wrapper > div.product-item.frames > div.main-content > div.bottom > div.prices > div')
+
+    cards_frames_add_btn = (
+        By.CSS_SELECTOR, 'div.products-wrapper > div.product-item.frames > div.additional > a.buy-button ')  # 16 items
+
+    # Pagination locators
+    pagination = (By.CSS_SELECTOR, '#content-wrapper > div.pagination > a.page-number ')  # 87 pages + arrow (all 6 pages)
+    arrow_right = (By.CSS_SELECTOR, 'a.arrow-right-pagination > div')
+    arrow_left = (By.CSS_SELECTOR, 'a.arrow-left-pagination > div')
+
+    # Footer More info
+    more_inf = (By.CSS_SELECTOR, 'div.footer_seotext > i')
+
+
