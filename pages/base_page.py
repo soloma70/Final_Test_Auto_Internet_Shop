@@ -12,6 +12,12 @@ class BasePage(object):
         self.url = url
         self.driver.implicitly_wait(wait)
 
+    def win_scroll_begin(self):
+        self.driver.execute_script("window.scrollTo(0, 0)")
+
+    def win_scroll(self):
+        self.driver.execute_script("window.scrollTo(0, 3500)")
+
     def get_relative_link(self):
         url = urlparse(self.driver.current_url)
         return url.path
@@ -35,6 +41,14 @@ class BasePage(object):
         sleep(1)
 
     def add_cart_sunglass(self, index: int):
+        element = self.driver.find_elements(*ProductLocators.products)[index]
+        ActionChains(self.driver).move_to_element(element).perform()
+        self.driver.find_elements(*ProductLocators.products_buy)[index].click()
+        sleep(2)
+        self.driver.find_element(*CartLocators.close_popup_cart).click()
+        sleep(1)
+
+    def add_cart_frames(self, index: int):
         element = self.driver.find_elements(*ProductLocators.products)[index]
         ActionChains(self.driver).move_to_element(element).perform()
         self.driver.find_elements(*ProductLocators.products_buy)[index].click()

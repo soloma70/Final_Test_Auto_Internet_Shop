@@ -25,12 +25,6 @@ class StartPage(BasePage):
     def logo_img_mob(self) -> WebElement:
         return self.driver.find_element(*StartLocatorsMobile.logo_img_mobile)
 
-    def win_scroll_begin(self):
-        self.driver.execute_script("window.scrollTo(0, 0)")
-
-    def win_scroll(self):
-        self.driver.execute_script("window.scrollTo(0, 3500)")
-
     def main_menu_click(self, index: int):
         self.driver.find_elements(*StartLocators.main_menu_points)[index].click()
         sleep(1)
