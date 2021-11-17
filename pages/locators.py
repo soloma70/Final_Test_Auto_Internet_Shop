@@ -102,6 +102,8 @@ class StartLocators:
     footer_middle_btns = (By.CSS_SELECTOR, 'div.footer-middle > div.item > a')
     footer_bottom_left_btn = (By.CSS_SELECTOR, 'div.footer-bottom > div.left > a.desk')
     footer_bottom_right_btn = (By.CSS_SELECTOR, 'div.footer-bottom > div.right > a')
+    # Footer More info
+    more_inf = (By.CSS_SELECTOR, 'div.footer_seotext > i')
 
 
 class StartLocatorsMobile:
@@ -217,6 +219,12 @@ class ProductLocators:
     products = (By.CSS_SELECTOR, 'div.products-wrapper > div > div.main-content > a.img')
     products_buy = (By.CSS_SELECTOR, 'div.products-wrapper > div > div.additional > button')
     products_lens_buy = (By.CSS_SELECTOR, 'div.products-wrapper > div > div.additional.lens > a')
+
+class PaginLocators:
+    # Pagination locators
+    pagination = (By.CSS_SELECTOR, '#content-wrapper > div.pagination > a.page-number ')
+    arrow_right = (By.CSS_SELECTOR, 'a.arrow-right-pagination > div')
+    arrow_left = (By.CSS_SELECTOR, 'a.arrow-left-pagination > div')
 
 class ProductLensLocators:
     # Product card
@@ -381,14 +389,6 @@ class LensLocators:
     cards_lens_add_btn = (
         By.CSS_SELECTOR, 'div.products-wrapper > div.product-item.lens > div.additional.lens > a.buy-button ')  # 16 items
 
-    # Pagination locators
-    pagination = (By.CSS_SELECTOR, '#content-wrapper > div.pagination > a.page-number ')  # 5 pages + arrow (all 6 pages)
-    arrow_right = (By.CSS_SELECTOR, 'a.arrow-right-pagination > div')
-    arrow_left = (By.CSS_SELECTOR, 'a.arrow-left-pagination > div')
-
-    # Footer More info
-    more_inf = (By.CSS_SELECTOR, 'div.footer_seotext > i')
-
 
 class FramesLocators:
     # DESKTOP LOCATORS
@@ -439,12 +439,6 @@ class FramesLocators:
     cards_frames_add_btn = (
         By.CSS_SELECTOR, 'div.products-wrapper > div.product-item.frames > div.additional > a.buy-button ')  # 16 items
 
-    # Pagination locators
-    pagination = (By.CSS_SELECTOR, '#content-wrapper > div.pagination > a.page-number ')  # 87 pages + arrow (all 6 pages)
-    arrow_right = (By.CSS_SELECTOR, 'a.arrow-right-pagination > div')
-    arrow_left = (By.CSS_SELECTOR, 'a.arrow-left-pagination > div')
 
-    # Footer More info
-    more_inf = (By.CSS_SELECTOR, 'div.footer_seotext > i')
 
 
