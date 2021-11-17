@@ -14,9 +14,6 @@ class SalesPage(BasePage):
         self.url = LinsaUa.sales_url()
         driver.get(self.url)
 
-        # Header elements
-        self.start_img = driver.find_element(*SalesLocators.logo_img)
-
         # Sales Banners
         self.sales_banner_imgs = driver.find_elements(*SalesLocators.banner_imgs)
         self.sales_banner_btns = driver.find_elements(*SalesLocators.banner_btns)

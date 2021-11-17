@@ -24,7 +24,7 @@ def test_sales_banners_sales_page(web_driver_desktop):
 def test_sales_products_sales_page(web_driver_desktop):
     """Тест проверяет переход на страницу 1-го акционного товара и добавление его в корзину
     с параметрами по умолчанию (сложная проверка с изменениями диоптрий, кривизны, типа упаковки
-    и количества в отдельных тестах)"""
+    и количества в отдельных тестах), делает скриншот"""
 
     page = SalesPage(web_driver_desktop, 5)
     amount_cart_before = page.amount_cart()
@@ -36,6 +36,9 @@ def test_sales_products_sales_page(web_driver_desktop):
     page.add_cart_lens_def_par(0)
     amount_cart_after = page.amount_cart()
     assert amount_cart_before + 1 == amount_cart_after, "ERROR! Product don't add to cart"
+
+    page.win_scroll_begin()
+    page.save_screen_browser('add_cart_1_sales_prod')
 
     # Изменение параметров линзы - одинаковые линзы
     # price_before = int(web_driver_desktop.find_element(*ProductLensLocators.price).text)

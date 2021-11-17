@@ -17,9 +17,6 @@ class FramesPage(BasePage):
         self.url = LinsaUa.frames_url()
         driver.get(self.url)
 
-        # Header elements
-        self.start_img = driver.find_element(*FramesLocators.logo_img)
-
         # Filter elements
         self.filters = driver.find_elements(*FramesLocators.filters)
 

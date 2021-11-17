@@ -60,7 +60,7 @@ def test_filter_frames_page(web_driver_desktop, test_set):
 
     # Получаем результат применения фильтров и сравниваем с тестовым набором
     search_result_brand, search_result_name = page.search_result()
-    page.save_screen_browser(f'test_filter_frames_{test_set[11]}')
+    page.save_screen_browser(f'filter_frames_{test_set[11]}')
     assert search_result_name in test_set and \
            search_result_brand[0] in test_set[11]
 
@@ -76,26 +76,26 @@ def test_sort_frames_page(web_driver_desktop):
     page = FramesPage(web_driver_desktop, 10)
     # Сортировка по снижению
     page.sorted_by_on_page(1)
-    page.save_screen_browser('test_sort_frames_decrease')
+    page.save_screen_browser('sort_frames_decrease')
     list_price = page.get_frame_list_on_page()
     list_sort = sorted(list_price)
     list_sort.sort(reverse=True)
     assert list_price == list_sort, "'ERROR! Position don't sorted"
     # Сортировка по новизне
     page.sorted_by_on_page(3)
-    page.save_screen_browser('test_sort_frames_novelty')
+    page.save_screen_browser('sort_frames_novelty')
     # Сортировка по возрастанию
     page.sorted_by_on_page(2)
-    page.save_screen_browser('test_sort_frames_increase')
+    page.save_screen_browser('sort_frames_increase')
     list_price = page.get_frame_list_on_page()
     list_sort = sorted(list_price)
     assert list_price == list_sort, "'ERROR! Position don't sorted"
     # Сортировка по популярности
     page.sorted_by_on_page(0)
-    page.save_screen_browser('test_sort_frames_popularity')
+    page.save_screen_browser('sort_frames_popularity')
     # Сортировка по распродаже
     page.sorted_by_on_page(4)
-    page.save_screen_browser('test_sort_frames_sales')
+    page.save_screen_browser('sort_frames_sales')
 
 
 def test_add_in_cart_frames_page(web_driver_desktop):
@@ -120,4 +120,4 @@ def test_add_in_cart_frames_page(web_driver_desktop):
         amount_cart_before = amount_cart_after
 
     page.win_scroll_begin()
-    page.save_screen_browser('test_add_cart_6_frames')
+    page.save_screen_browser('add_cart_6_frames')

@@ -16,9 +16,6 @@ class LensPage(BasePage):
         self.url = LinsaUa.lens_url()
         driver.get(self.url)
 
-        # Header elements
-        self.start_img = driver.find_element(*LensLocators.logo_img)
-
         # Filter elements
         self.filters = driver.find_elements(*LensLocators.filters)
         # self.brands = driver.find_elements(*LensLocators.filter_list[0])
