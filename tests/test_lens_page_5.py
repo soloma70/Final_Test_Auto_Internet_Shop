@@ -1,4 +1,5 @@
 # -*- encoding=utf8 -*-
+import time
 
 import pytest
 from pages.test_sets import LensSets
@@ -93,23 +94,27 @@ def test_sort_lens_page(web_driver_desktop):
     page.save_screen_browser('test_sort_lens_popularity')
 
 
-@pytest.mark.parametrize("url_page", ['', '?page=3', '?page=5'], ids=['page 1', 'page 3', 'page 5'])
-def test_add_lens_in_cart_lens_page(web_driver_desktop, url_page):
+def test_add_lens_in_cart_lens_page(web_driver_desktop):
     """Тест проверяет добавление линз с 3-х рандомных позиций с 1-й, 3-й и 5-й карточки, переход на страницу
     линз и добавление их в корзину с параметрами по умолчанию (сложная проверка с изменениями диоптрий,
-    кривизны, типа упаковки и количества в отдельных тестах)"""
+    кривизны, типа упаковки и количества в отдельных тестах), делает скриншот"""
 
     page = LensPage(web_driver_desktop, 5)
-    page.get_url(f'{page.url}{url_page}')
     # Получение количества позиций в корзине перед добавлением
     amount_cart_before = page.amount_cart()
-    # Получение номеров тестируемых линз на странице
-    index = page.rand_lens_card(len(page.cards_lens_url))
-    # Добавление в корзину продукта с параметрами заказа по умолчанию
-    for i in range(3):
-        page.add_cart_lens_def_par(index[i])
-        # Получение количества позиций в корзине после добавления линз
-        amount_cart_after = page.amount_cart()
-        assert amount_cart_before + 1 == amount_cart_after, "ERROR! Product don't add to cart"
-        amount_cart_before = amount_cart_after
-        page.get_url(page.url)
+
+    for j in range(0, 5, 2):
+        # Переход на страницу и получение номеров тестируемых линз на странице
+        index = page.rand_lens_card(page.amount_on_page(j))
+
+        for i in range(3):
+            # Добавление в корзину продукта с параметрами заказа по умолчанию
+            page.add_cart_lens_def_par(index[i])
+            # Получение количества позиций в корзине после добавления линз
+            amount_cart_after = page.amount_cart()
+            assert amount_cart_before + 1 == amount_cart_after, "ERROR! Product don't add to cart"
+            amount_cart_before = amount_cart_after
+            page.get_url(page.goto_page(j + 1))
+
+    page.win_scroll_begin()
+    page.save_screen_browser('test_add_cart_9_lens')
