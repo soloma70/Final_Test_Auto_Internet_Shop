@@ -121,3 +121,6 @@ def test_add_in_cart_frames_page(web_driver_desktop):
 
     page.win_scroll_begin()
     page.save_screen_browser('add_cart_6_frames')
+
+
+# Добавить тесты выборки по бренду, по полу, длине заушины, ширине мостика, ширине окуляра

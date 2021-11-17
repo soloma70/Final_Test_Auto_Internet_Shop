@@ -88,3 +88,12 @@ class LinsaUa:
         else:
             lens_url = f'{LinsaUa.start_url}'
         return lens_url
+
+    def sunglass_url(lng='ru'):
+        if lng == 'ru':
+            lens_url = f'{LinsaUa.start_url}{LinsaUa.main_menu_urls[3][0]}'
+        elif lng == 'uk':
+            lens_url = f'{LinsaUa.start_url}{LinsaUa.main_menu_urls[3][1]}'
+        else:
+            lens_url = f'{LinsaUa.start_url}'
+        return lens_url
