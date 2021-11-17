@@ -10,44 +10,40 @@ def test_amount_sunglass_page(web_driver_desktop):
     с количеством очков в наименовании страницы"""
 
     page = SunglassPage(web_driver_desktop, 3)
-    amount_sunglass = int(page.amount_total_on_page.text)
-    amount_page = int(page.pagination[-1].text)
-    amount_total = 0
-    print()
-    print(amount_sunglass)
+    amount_total_sunglass = page.amount_total()
+    amount_page_total = page.amount_page_total()
+    amount_all_page = 0
 
-    for i in range(amount_page):
+    for i in range(amount_page_total):
         amount = page.amount_on_page(i)
-        amount_total += amount
+        amount_all_page += amount
 
-    print(amount_total)
-    assert amount_sunglass == amount_total, 'ERROR! Incorrect amount lens'
+    assert amount_total_sunglass == amount_all_page, 'ERROR! Incorrect amount lens'
 
 
-def test_pagination_frames_page(web_driver_desktop):
+def test_pagination_sunglass_page(web_driver_desktop):
     """Тест проверяет прямой переход по страницам раздела (в пределах 5 страниц), а так же переход с помощью
     стрелок (в пределах 5 страниц) и сравнивает фактический URL с ожидаемым"""
 
-    page = FramesPage(web_driver_desktop, 5)
-    amount_page_url = page.pagination
+    page = SunglassPage(web_driver_desktop, 5)
+    amount_page_test = page.amount_page_visible(page.url)
     # Переход по прямой ссылке
-    for i in range(len(amount_page_url)):
+    for i in range(amount_page_test):
         goto_url, current_url = page.get_page_urls(i)
-        assert goto_url == current_url and page.find_frames_name().is_displayed(), 'ERROR! Incorrect transaction'
+        assert goto_url == current_url and page.find_prod_name().is_displayed(), 'ERROR! Incorrect transaction'
 
-    page = FramesPage(web_driver_desktop, 5)
-    amount_page_url = page.pagination
+    page.get_url(page.url)
     # Переход кликом на правую стрелку
-    for i in range(len(amount_page_url) - 1):
+    for i in range(amount_page_test - 1):
         page_number = page.right_arrow_click()
-        assert i + 2 == page_number and page.find_frames_name().is_displayed(), 'ERROR! Incorrect transaction'
+        assert i + 2 == page_number and page.find_prod_name().is_displayed(), 'ERROR! Incorrect transaction'
     # Переход кликом на левую стрелку
-    for i in range(len(amount_page_url) - 2):
+    for i in range(amount_page_test - 2):
         page_number = page.left_arrow_click()
-        assert (len(amount_page_url) - 1) - i == page_number and page.find_frames_name().is_displayed() \
+        assert amount_page_test - 1 - i == page_number and page.find_prod_name().is_displayed() \
             , 'ERROR! Incorrect transaction'
 
-
+# !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 @pytest.mark.parametrize("test_set", [FramesSets.guess, FramesSets.police, FramesSets.ray_ban, FramesSets.sky],
                          ids=[FramesSets.guess[11], FramesSets.police[11], FramesSets.ray_ban[11], FramesSets.sky[11]])
 def test_filter_frames_page(web_driver_desktop, test_set):
