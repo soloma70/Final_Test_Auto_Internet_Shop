@@ -107,8 +107,6 @@ def test_add_in_cart_frames_page(web_driver_desktop):
     page = FramesPage(web_driver_desktop, 3)
     # Получение списка рандомных страниц для теста
     page_num = page.rand_frames_page(int(page.pagination[-1].text)-1)
-    print()
-    print(page_num)
     # Получение количества позиций в корзине перед добавлением
     amount_cart_before = page.amount_cart()
 
@@ -116,12 +114,12 @@ def test_add_in_cart_frames_page(web_driver_desktop):
         page.get_url(page.goto_page(page_num[i]))
         # Получение номеров тестируемых оправ на странице
         frame_num = page.rand_frames_card(page.card_frame_len())
-        print(f'{page_num[i]}: {frame_num+1}')
         # Добавление в корзину продукта с параметрами заказа по умолчанию
-        page.add_cart_frames(frame_num)
+        page.add_cart_product(frame_num)
         # Получение количества позиций в корзине после добавления оправы
         amount_cart_after = page.amount_cart()
         assert amount_cart_before + 1 == amount_cart_after, "ERROR! Product don't add to cart"
-        amount_cart_before = page.amount_cart()
+        amount_cart_before = amount_cart_after
+
     page.win_scroll_begin()
     page.save_screen_browser('test_add_cart_6_frames')
