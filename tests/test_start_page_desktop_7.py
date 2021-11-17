@@ -36,7 +36,7 @@ def test_banners_start_page(web_driver_desktop):
 
 def test_action_banners_start_page(web_driver_desktop):
     """Тест проверяет кликабельность акционного баннера и переход на соответствующую страницу,
-    добавление 1-й акционной позиции в корзину"""
+    добавление 1-й акционной позиции в корзину, делает скриншот"""
 
     page = StartPage(web_driver_desktop, 5)
     page.all_sales_prods_click()
@@ -45,10 +45,13 @@ def test_action_banners_start_page(web_driver_desktop):
     page.get_url(page.url)
     # Добавление в корзину солнечных очков - 1-я позиция
     amount_cart_before = page.amount_cart()
-    page.add_cart_sunglass(0)
+    page.add_cart_product(0)
     amount_cart_after = page.amount_cart()
-    page.win_scroll_begin()
     assert amount_cart_before + 1 == amount_cart_after, "ERROR! Product don't add to cart"
+
+    page.win_scroll_begin()
+    page.save_screen_browser('test_add_cart_1_sunglasses')
+
 
 
 def test_love_brands_start_page(web_driver_desktop):
