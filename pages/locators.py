@@ -217,6 +217,10 @@ class CartLocators:
 
 
 class ProductLocators:
+    # Page name & amount
+    name = (By.CSS_SELECTOR, 'h1.standard-title')
+    amount_prod = (By.CSS_SELECTOR, 'div.h-holder > div.amount')
+    #
     products = (By.CSS_SELECTOR, 'div.products-wrapper > div > div.main-content > a.img')
     products_buy = (By.CSS_SELECTOR, 'div.products-wrapper > div > div.additional > button')
     products_lens_buy = (By.CSS_SELECTOR, 'div.products-wrapper > div > div.additional.lens > a')
@@ -517,8 +521,6 @@ class SunglassLocators:
     sort_by = (By.CSS_SELECTOR, 'section.sort_panel > a')  # 5 items
 
     # Prod Card locator
-    name = (By.CSS_SELECTOR, 'h1.standard-title')
-    amount_prod = (By.CSS_SELECTOR, 'div.h-holder > div.amount')
     card_prod_full = (By.CSS_SELECTOR, 'div.main-content')
     card_prod_wishlist = (
         By.CSS_SELECTOR, 'div.products-wrapper > div > div.add-to-favorites.js-add-to-wishlist > svg')
