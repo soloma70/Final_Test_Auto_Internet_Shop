@@ -1,6 +1,6 @@
 from pages.base_page import BasePage
 from pages.url_list import LinsaUa
-from pages.locators import FramesLocators, PaginLocators
+from pages.locators import FramesLocators
 from time import sleep
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
@@ -23,36 +23,10 @@ class FramesPage(BasePage):
         # Sort elements
         self.sort_by = driver.find_elements(*FramesLocators.sort_by)
 
-        # Card elements
-        self.amount_total_on_page = driver.find_element(*FramesLocators.amount_frames)
-
-        # Pagination
-        self.pagination = driver.find_elements(*PaginLocators.pagination)
-
-
     def amount_on_page(self, index: int) -> int:
-        self.driver.get(super().goto_page(index+1))
+        self.driver.get(super().goto_page(index + 1))
         amount_on_page = len(self.driver.find_elements(*FramesLocators.cards_frames_url))
         return amount_on_page
-
-    def get_page_urls(self, index: int) -> [str, str]:
-        goto_url = self.driver.find_elements(*PaginLocators.pagination)[index].get_attribute('href')
-        self.driver.get(goto_url)
-        current_url = self.driver.current_url
-        return goto_url, current_url
-
-    def find_frames_name(self):
-        return self.driver.find_element(*FramesLocators.name)
-
-    def right_arrow_click(self) -> int:
-        self.driver.find_element(*PaginLocators.arrow_right).click()
-        page_number = int(self.driver.current_url.split('=')[1])
-        return page_number
-
-    def left_arrow_click(self) -> int:
-        self.driver.find_element(*PaginLocators.arrow_left).click()
-        page_number = int(self.driver.current_url.split('=')[1])
-        return page_number
 
     def filter_click_lens(self, index: int, test_set: list) -> list:
         self.driver.find_elements(*FramesLocators.filters)[index].click()
@@ -97,18 +71,4 @@ class FramesPage(BasePage):
         return list_price
 
     def card_frame_len(self) -> int:
-        return len(self.driver.find_elements(*FramesLocators.cards_frames_url))-1
-
-    def rand_frames_page(self, amount: int) -> [list]:
-        page_num = [1, amount]
-        for i in range(4):
-            page_num.append(randint(2, amount-1))
-            while page_num[-2] == page_num[-1]:
-                page_num.append(randint(2, amount - 1))
-        page_num.sort()
-        return page_num
-
-    def rand_frames_card(self, amount: int) -> int:
-        index = randint(0, amount)
-        return index
-
+        return len(self.driver.find_elements(*FramesLocators.cards_frames_url)) - 1

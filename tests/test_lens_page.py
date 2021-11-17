@@ -1,5 +1,4 @@
 # -*- encoding=utf8 -*-
-import time
 
 import pytest
 from pages.test_sets import LensSets
@@ -11,13 +10,15 @@ def test_amount_lens_page(web_driver_desktop):
     с количеством линз в наименовании страницы"""
 
     page = LensPage(web_driver_desktop, 5)
-    amount_lens = int(page.amount_total_on_page.text)
-    amount_page = int(page.pagination[-1].text)
-    amount_total = 0
-    for i in range(amount_page):
-        amount_total += page.amount_on_page(i)
+    amount_total_lens = page.amount_total()
+    amount_page_total = page.amount_page_total()
+    amount_all_page = 0
 
-    assert amount_lens == amount_total, 'ERROR! Incorrect amount lens'
+    for i in range(amount_page_total):
+        amount = page.amount_on_page(i)
+        amount_all_page += amount
+
+    assert amount_total_lens == amount_all_page, 'ERROR! Incorrect amount lens'
 
 
 def test_pagination_lens_page(web_driver_desktop):
@@ -25,22 +26,21 @@ def test_pagination_lens_page(web_driver_desktop):
     фактический URL с ожидаемым"""
 
     page = LensPage(web_driver_desktop, 5)
-    amount_page_url = page.pagination
+    amount_page_test = page.amount_page_visible(page.url)
     # Переход по прямой ссылке
-    for i in range(len(amount_page_url)):
+    for i in range(amount_page_test):
         goto_url, current_url = page.get_page_urls(i)
-        assert goto_url == current_url and page.find_lens_name().is_displayed(), 'ERROR! Incorrect transaction'
+        assert goto_url == current_url and page.find_prod_name().is_displayed(), 'ERROR! Incorrect transaction'
 
-    page = LensPage(web_driver_desktop, 5)
-    amount_page_url = page.pagination
+    page.get_url(page.url)
     # Переход кликом на правую стрелку
-    for i in range(len(amount_page_url) - 1):
+    for i in range(amount_page_test - 1):
         page_number = page.right_arrow_click()
-        assert i + 2 == page_number and page.find_lens_name().is_displayed(), 'ERROR! Incorrect transaction'
+        assert i + 2 == page_number and page.find_prod_name().is_displayed(), 'ERROR! Incorrect transaction'
     # Переход кликом на левую стрелку
-    for i in range(len(amount_page_url) - 2):
+    for i in range(amount_page_test - 2):
         page_number = page.left_arrow_click()
-        assert (len(amount_page_url) - 1) - i == page_number and page.find_lens_name().is_displayed() \
+        assert amount_page_test - 1 - i == page_number and page.find_prod_name().is_displayed() \
             , 'ERROR! Incorrect transaction'
 
 

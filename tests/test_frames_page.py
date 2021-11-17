@@ -10,14 +10,15 @@ def test_amount_frames_page(web_driver_desktop):
     с количеством оправ в наименовании страницы"""
 
     page = FramesPage(web_driver_desktop, 3)
-    amount_frames = int(page.amount_total_on_page.text)
-    amount_page = int(page.pagination[-1].text)
-    amount_total = 0
+    amount_total_frames = page.amount_total()
+    amount_page_total = page.amount_page_total()
+    amount_all_page = 0
 
-    for i in range(amount_page):
-        amount_total += page.amount_on_page(i)
+    for i in range(amount_page_total):
+        amount = page.amount_on_page(i)
+        amount_all_page += amount
 
-    assert amount_frames == amount_total, 'ERROR! Incorrect amount lens'
+    assert amount_total_frames == amount_all_page, 'ERROR! Incorrect amount lens'
 
 
 def test_pagination_frames_page(web_driver_desktop):
@@ -25,22 +26,21 @@ def test_pagination_frames_page(web_driver_desktop):
     стрелок (в пределах 5 страниц) и сравнивает фактический URL с ожидаемым"""
 
     page = FramesPage(web_driver_desktop, 5)
-    amount_page_url = page.pagination
+    amount_page_test = page.amount_page_visible(page.url)
     # Переход по прямой ссылке
-    for i in range(len(amount_page_url)):
+    for i in range(amount_page_test):
         goto_url, current_url = page.get_page_urls(i)
-        assert goto_url == current_url and page.find_frames_name().is_displayed(), 'ERROR! Incorrect transaction'
+        assert goto_url == current_url and page.find_prod_name().is_displayed(), 'ERROR! Incorrect transaction'
 
-    page = FramesPage(web_driver_desktop, 5)
-    amount_page_url = page.pagination
+    page.get_url(page.url)
     # Переход кликом на правую стрелку
-    for i in range(len(amount_page_url) - 1):
+    for i in range(amount_page_test - 1):
         page_number = page.right_arrow_click()
-        assert i + 2 == page_number and page.find_frames_name().is_displayed(), 'ERROR! Incorrect transaction'
+        assert i + 2 == page_number and page.find_prod_name().is_displayed(), 'ERROR! Incorrect transaction'
     # Переход кликом на левую стрелку
-    for i in range(len(amount_page_url) - 2):
+    for i in range(amount_page_test - 2):
         page_number = page.left_arrow_click()
-        assert (len(amount_page_url) - 1) - i == page_number and page.find_frames_name().is_displayed() \
+        assert amount_page_test - 1 - i == page_number and page.find_prod_name().is_displayed() \
             , 'ERROR! Incorrect transaction'
 
 
@@ -104,14 +104,14 @@ def test_add_in_cart_frames_page(web_driver_desktop):
 
     page = FramesPage(web_driver_desktop, 3)
     # Получение списка рандомных страниц для теста
-    page_num = page.rand_frames_page(int(page.pagination[-1].text)-1)
+    page_num = page.rand_prod_page(page.amount_page_total()-1)
     # Получение количества позиций в корзине перед добавлением
     amount_cart_before = page.amount_cart()
 
     for i in range(6):
         page.get_url(page.goto_page(page_num[i]))
         # Получение номеров тестируемых оправ на странице
-        frame_num = page.rand_frames_card(page.card_frame_len())
+        frame_num = page.rand_prod_card(page.card_frame_len())
         # Добавление в корзину продукта с параметрами заказа по умолчанию
         page.add_cart_product(frame_num)
         # Получение количества позиций в корзине после добавления оправы

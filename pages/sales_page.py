@@ -37,4 +37,4 @@ class SalesPage(BasePage):
         self.driver.find_elements(*ProductLocators.products)[index].click()
         sleep(1)
         url_page = self.driver.current_url
-        return url_banner, url_page
+        return url_page, url_banner
