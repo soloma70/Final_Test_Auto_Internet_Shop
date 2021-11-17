@@ -44,8 +44,6 @@ def test_pagination_frames_page(web_driver_desktop):
             , 'ERROR! Incorrect transaction'
 
 
-# ids=[FramesSets.police[12], FramesSets.guess[12], FramesSets.ray_ban[12], FramesSets.sky[12]])
-
 @pytest.mark.parametrize("test_set", [FramesSets.guess, FramesSets.police, FramesSets.ray_ban, FramesSets.sky],
                          ids=[FramesSets.guess[11], FramesSets.police[11], FramesSets.ray_ban[11], FramesSets.sky[11]])
 def test_filter_frames_page(web_driver_desktop, test_set):
