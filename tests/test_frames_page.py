@@ -100,22 +100,28 @@ def test_sort_frames_page(web_driver_desktop):
     page.save_screen_browser('test_sort_frames_sales')
 
 
-@pytest.mark.parametrize("url_page", ['', '?page=10', '?page=27', '?page=46', '?page=87'],
-                         ids=['page 1', 'page 10', 'page 27', 'page 46', 'page 87'])
-def test_add_in_cart_frames_page(web_driver_desktop, url_page):
-    """Тест проверяет добавление оправ с 1-й рандомной позиций с 1, 10, 27, 46 и 87 карточки, добавление в корзину
-    с параметрами по умолчанию """
+def test_add_in_cart_frames_page(web_driver_desktop):
+    """Тест проверяет добавление оправ 1-й рандомной позиций с 1, последней и 4-х рандомных страниц,
+    добавление в корзину с параметрами по умолчанию """
 
     page = FramesPage(web_driver_desktop, 3)
-    page.get_url(f'{page.url}{url_page}')
+    # Получение списка рандомных страниц для теста
+    page_num = page.rand_frames_page(int(page.pagination[-1].text)-1)
+    print()
+    print(page_num)
     # Получение количества позиций в корзине перед добавлением
     amount_cart_before = page.amount_cart()
-    # Получение номеров тестируемых линз на странице
-    index = page.rand_frames_card(page.card_frame_len())
-    # Добавление в корзину продукта с параметрами заказа по умолчанию
-    page.add_cart_frames(index)
-    # Получение количества позиций в корзине после добавления оправы
-    amount_cart_after = page.amount_cart()
-    assert amount_cart_before + 1 == amount_cart_after, "ERROR! Product don't add to cart"
+
+    for i in range(6):
+        page.get_url(page.goto_page(page_num[i]))
+        # Получение номеров тестируемых оправ на странице
+        frame_num = page.rand_frames_card(page.card_frame_len())
+        print(f'{page_num[i]}: {frame_num+1}')
+        # Добавление в корзину продукта с параметрами заказа по умолчанию
+        page.add_cart_frames(frame_num)
+        # Получение количества позиций в корзине после добавления оправы
+        amount_cart_after = page.amount_cart()
+        assert amount_cart_before + 1 == amount_cart_after, "ERROR! Product don't add to cart"
+        amount_cart_before = page.amount_cart()
     page.win_scroll_begin()
-    page.save_screen_browser('test_add_cart_5_items')
+    page.save_screen_browser('test_add_cart_6_frames')
