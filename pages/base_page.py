@@ -1,7 +1,7 @@
 from time import sleep
 from urllib.parse import urlparse
 from selenium.webdriver import ActionChains
-from pages.locators import CartLocators, ProductLocators, ProductLensLocators
+from pages.locators import CartLocators, ProductLocators, ProductLensLocators, PaginLocators
 
 
 class BasePage(object):
@@ -11,6 +11,7 @@ class BasePage(object):
         self.driver = driver
         self.url = url
         self.driver.implicitly_wait(wait)
+
 
     def win_scroll_begin(self):
         self.driver.execute_script("window.scrollTo(0, 0)")
@@ -24,6 +25,13 @@ class BasePage(object):
 
     def get_url(self, url: str):
         self.driver.get(url)
+
+    def goto_page(self, num: int) -> str:
+        if num == 1:
+            goto_url = self.url
+        else:
+            goto_url =  f'{self.url}?page={num}'
+        return goto_url
 
     def save_screen_browser(self, name: str):
         self.driver.save_screenshot(f'screenshots\\{name}.png')
