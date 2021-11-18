@@ -60,7 +60,7 @@ class BasePage(object):
         if num == 1:
             goto_url = self.url
         else:
-            goto_url =  f'{self.url}?page={num}'
+            goto_url = f'{self.url}?page={num}'
         return goto_url
 
     def save_screen_browser(self, name: str):

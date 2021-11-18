@@ -224,6 +224,36 @@ class ProductLocators:
     products = (By.CSS_SELECTOR, 'div.products-wrapper > div > div.main-content > a.img')
     products_buy = (By.CSS_SELECTOR, 'div.products-wrapper > div > div.additional > button')
     products_lens_buy = (By.CSS_SELECTOR, 'div.products-wrapper > div > div.additional.lens > a')
+    #
+    # Prod Card locator
+    card_prod_full = (By.CSS_SELECTOR, 'div.main-content')
+    card_prod_wishlist = (
+        By.CSS_SELECTOR, 'div.products-wrapper > div > div.add-to-favorites.js-add-to-wishlist > svg')
+    cards_prod_brand = (
+        By.CSS_SELECTOR, 'div.products-wrapper > div > div.main-content > a.top > span.product-type')
+    cards_prod_name = (
+        By.CSS_SELECTOR, 'div.products-wrapper > div > div.main-content > a.top > span.title')
+    cards_prod_url = (
+        By.CSS_SELECTOR, 'div.products-wrapper > div > div.main-content > a.top')  # 16 items
+    card_prod_sex = (
+    By.CSS_SELECTOR, 'div.products-wrapper > div > div.main-content > div.bottom > div.glasses-size > div:nth-child(1)')
+    card_prod_temple_length = (
+    By.CSS_SELECTOR, 'div.products-wrapper > div > div.main-content > div.bottom > div.glasses-size > div:nth-child(2)')
+    card_prod_bridge_width = (
+    By.CSS_SELECTOR, 'div.products-wrapper > div > div.main-content > div.bottom > div.glasses-size > div:nth-child(3)')
+    card_prod_eyepiece_width = (
+    By.CSS_SELECTOR, 'div.products-wrapper > div > div.main-content > div.bottom > div.glasses-size > div:nth-child(4)')
+    card_prod_price = (
+        By.CSS_SELECTOR, 'div.products-wrapper > div > div.main-content > div.bottom > div.prices > div.actual')
+    card_prod_price_old = (
+        By.CSS_SELECTOR, 'div.products-wrapper > div > div.main-content > div.bottom > div.prices > div.old')
+    #
+    block_1 = '#content-wrapper > section.products-section > div:nth-child(1)'
+    block_2 = '#content-wrapper > section.products-section > div:nth-child(2)'
+    price_act = 'div.main-content > div.bottom > div.prices > div.actual'
+    price_old = 'div.main-content > div.bottom > div.prices > div.old'
+    sale_banner = 'div.main-content > div.bottom > div.prices > div.percent_banner'
+
 
 
 class PaginLocators:
@@ -520,25 +550,4 @@ class SunglassLocators:
     # Sort locators
     sort_by = (By.CSS_SELECTOR, 'section.sort_panel > a')  # 5 items
 
-    # Prod Card locator
-    card_prod_full = (By.CSS_SELECTOR, 'div.main-content')
-    card_prod_wishlist = (
-        By.CSS_SELECTOR, 'div.products-wrapper > div > div.add-to-favorites.js-add-to-wishlist > svg')
-    cards_prod_brand = (
-        By.CSS_SELECTOR, 'div.products-wrapper > div > div.main-content > a.top > span.product-type')
-    cards_prod_name = (
-        By.CSS_SELECTOR, 'div.products-wrapper > div > div.main-content > a.top > span.title')
-    cards_prod_url = (
-        By.CSS_SELECTOR, 'div.products-wrapper > div > div.main-content > a.top')  # 16 items
-    card_prod_sex = (
-    By.CSS_SELECTOR, 'div.products-wrapper > div > div.main-content > div.bottom > div.glasses-size > div:nth-child(1)')
-    card_prod_temple_length = (
-    By.CSS_SELECTOR, 'div.products-wrapper > div > div.main-content > div.bottom > div.glasses-size > div:nth-child(2)')
-    card_prod_bridge_width = (
-    By.CSS_SELECTOR, 'div.products-wrapper > div > div.main-content > div.bottom > div.glasses-size > div:nth-child(3)')
-    card_prod_eyepiece_width = (
-    By.CSS_SELECTOR, 'div.products-wrapper > div > div.main-content > div.bottom > div.glasses-size > div:nth-child(4)')
-    card_prod_price = (By.CSS_SELECTOR, 'div.products-wrapper > div > div.main-content > div.bottom > div.prices > div')
-
-    cards_frames_add_btn = (
-        By.CSS_SELECTOR, 'div.products-wrapper > div.product-item.frames > div.additional > a.buy-button ')  # 16 items
+    #
