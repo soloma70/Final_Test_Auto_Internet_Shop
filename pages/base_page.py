@@ -13,7 +13,6 @@ class BasePage(object):
         self.url = url
         self.driver.implicitly_wait(wait)
 
-
     def win_scroll_begin(self):
         self.driver.execute_script("window.scrollTo(0, 0)")
 
@@ -86,12 +85,16 @@ class BasePage(object):
         self.driver.find_element(*CartLocators.close_popup_cart).click()
         sleep(1)
 
-    def rand_prod_page(self, amount: int) -> list[int]:
-        page_num = [1, amount]
-        for i in range(4):
-            page_num.append(randint(2, amount - 1))
+    def rand_prod_page(self, amount_page: int, amount_rand_page: int, last_page=False) -> list[int]:
+        if not last_page:
+            page_num = [1]
+        else:
+            page_num = [1, amount_page]
+
+        for i in range(amount_rand_page):
+            page_num.append(randint(2, amount_page))
             while page_num[-2] == page_num[-1]:
-                page_num.append(randint(2, amount - 1))
+                page_num.append(randint(2, amount_page))
         page_num.sort()
         return page_num
 

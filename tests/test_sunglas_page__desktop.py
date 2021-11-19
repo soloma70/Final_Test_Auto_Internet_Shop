@@ -43,6 +43,7 @@ def test_pagination_sunglass_page(web_driver_desktop):
         assert amount_page_test - 1 - i == page_number and page.find_prod_name().is_displayed() \
             , 'ERROR! Incorrect transaction'
 
+
 # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 @pytest.mark.parametrize("test_set", [FramesSets.guess, FramesSets.police, FramesSets.ray_ban, FramesSets.sky],
                          ids=[FramesSets.guess[11], FramesSets.police[11], FramesSets.ray_ban[11], FramesSets.sky[11]])
@@ -68,19 +69,22 @@ def test_filter_frames_page(web_driver_desktop, test_set):
     page.clear_all_filter()
 
 
-def test_sort_frames_page(web_driver_desktop):
-    """Тест проверяет сортировку на 1-й и последней странице по возрастанию и снижению цены (с проверкой цен),
+def test_sort_sunglass_page(web_driver_desktop):
+    """Тест проверяет сортировку на 1-й, последней и 1-й рандомной странице по возрастанию и снижению цены (с проверкой цен),
     по новизне и популярности, распродажа, делает скриншоты.
     ВНИМАНИЕ!!! Необходимо убрать курсор мышки из поля страницы браузера!"""
 
     page = SunglassPage(web_driver_desktop, 10)
-    print()
-    end_page = page.amount_page_total()
-    for i in range(0, end_page, end_page-1):
+    # Получение списка рандомных страниц для теста
+    page_num = page.rand_prod_page(page.amount_page_total(), 1, True)
+
+    for i in range(3):
+        # Переход на страницу сортировки
+        page.get_url(page.goto_page(page_num[i]))
+
         # Сортировка по снижению
-        page.get_url(page.goto_page(i+1))
         page.sorted_by_on_page(1)
-        page.save_screen_browser(f'sort_sunglass_decrease_{i+1}')
+        page.save_screen_browser(f'sort_sunglass_decrease_{i + 1}')
         list_price_decrease = page.get_sunglass_list_on_page()
         list_sort = sorted(list_price_decrease)
         list_sort.sort(reverse=True)
@@ -88,26 +92,25 @@ def test_sort_frames_page(web_driver_desktop):
 
         # Сортировка по новизне
         page.sorted_by_on_page(3)
-        page.save_screen_browser(f'sort_sunglass_novelty_{i+1}')
+        page.save_screen_browser(f'sort_sunglass_novelty_{i + 1}')
 
         # Сортировка по возрастанию
         page.sorted_by_on_page(2)
-        page.save_screen_browser(f'sort_sunglass_increase_{i+1}')
+        page.save_screen_browser(f'sort_sunglass_increase_{i + 1}')
         list_price_increase = page.get_sunglass_list_on_page()
         list_sort = sorted(list_price_increase)
         assert list_price_increase == list_sort, "ERROR! Position don't sorted"
 
         # Сортировка по популярности
         page.sorted_by_on_page(0)
-        page.save_screen_browser(f'sort_sunglass_popularity_{i+1}')
+        page.save_screen_browser(f'sort_sunglass_popularity_{i + 1}')
 
         if i == 0:
             # Сортировка по распродаже
             page.sorted_by_on_page(4)
-            page.save_screen_browser(f'sort_sunglass_sales_{i+1}')
+            page.save_screen_browser(f'sort_sunglass_sales_{i + 1}')
             present_banner = page.get_sunglass_list_sale_banner()
             assert all(present_banner), "ERROR! Position don't sorted"
-
 
 
 def test_add_in_cart_sunglass_page(web_driver_desktop):
@@ -116,14 +119,14 @@ def test_add_in_cart_sunglass_page(web_driver_desktop):
 
     page = SunglassPage(web_driver_desktop, 3)
     # Получение списка рандомных страниц для теста
-    page_num = page.rand_prod_page(page.amount_page_total()-1)
+    page_num = page.rand_prod_page(page.amount_page_total(), 4, True)
     # Получение количества позиций в корзине перед добавлением
     amount_cart_before = page.amount_cart()
 
     for i in range(6):
         page.get_url(page.goto_page(page_num[i]))
         # Получение номеров тестируемых оправ на странице
-        frame_num = page.rand_prod_card(page.card_sunglass_len()-1)
+        frame_num = page.rand_prod_card(page.card_sunglass_len() - 1)
         # Добавление в корзину продукта с параметрами заказа по умолчанию
         page.add_cart_product(frame_num)
         # Получение количества позиций в корзине после добавления оправы
@@ -133,6 +136,5 @@ def test_add_in_cart_sunglass_page(web_driver_desktop):
 
     page.win_scroll_begin()
     page.save_screen_browser('add_cart_6_sunglasses')
-
 
 # Добавить тесты выборки по бренду, по полу, длине заушины, ширине мостика, ширине окуляра
