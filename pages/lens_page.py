@@ -22,12 +22,6 @@ class LensPage(BasePage):
         # Sort elements
         self.sort_by = driver.find_elements(*LensLocators.sort_by)
 
-
-    def amount_on_page(self, index: int) -> int:
-        self.driver.get(super().goto_page(index + 1))
-        amount_on_page = len(self.driver.find_elements(*LensLocators.cards_lens_url))
-        return amount_on_page
-
     def filter_click_lens(self, index: int, test_set: list) -> list:
         self.driver.find_elements(*LensLocators.filters)[index].click()
         filter_vals = self.driver.find_elements(*LensLocators.filter_list[index])
@@ -67,11 +61,16 @@ class LensPage(BasePage):
         # WebDriverWait(self.driver, 10).until(EC.invisibility_of_element((
         #     By.CSS_SELECTOR('div.products-wrapper > div > div.main-content > a.img'))))
 
-    def get_lens_list_on_page(self) -> [list]:
+    def get_lens_list_on_page(self, amount_card: int) -> [list]:
         lens_price = self.driver.find_elements(*LensLocators.card_lens_price)
-        list_price = [int(lens_price[i].text.split()[0]) for i in range(8)]
+        list_price = [int(lens_price[i].text.split()[0]) for i in range(amount_card)]
         return list_price
 
-    def rand_lens_card(self, amount: int) -> list:
-        index = [randint(0, amount), randint(0, amount), randint(0, amount)]
-        return index
+    def rand_lens_card(self, amount_card: int, amount_rand_card: int) -> list[int]:
+        card_num = [randint(0, amount_card)]
+        while len(card_num) < amount_rand_card:
+            card_num.append(randint(0, amount_card))
+            card_num = list(set(card_num))
+
+        card_num.sort()
+        return card_num

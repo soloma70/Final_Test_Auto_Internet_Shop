@@ -38,6 +38,10 @@ class BasePage(object):
     def amount_page_total(self) -> int:
         return int(self.driver.find_elements(*PaginLocators.pagination)[-1].text)
 
+    def amount_on_page(self) -> int:
+        amount_on_page = len(self.driver.find_elements(*ProductLocators.cards_prod_url))
+        return amount_on_page
+
     def amount_page_visible(self, url: str) -> int:
         pagination = self.driver.find_elements(*PaginLocators.pagination)
         return len(pagination)
