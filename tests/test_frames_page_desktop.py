@@ -79,19 +79,17 @@ def test_sort_frames_page(web_driver_desktop):
     # Получение списка рандомных страниц для теста
     page_num = page.rand_prod_page(page.amount_page_total(), 1, True)
 
-    for i in range(1):
+    for i in range(3):
         # Переход на страницу сортировки (не перегружаем 1-ю страницу)
         if i != 0:
             page.get_url(page.goto_page(page_num[i]))
-        print()
+
         # Сортировка по снижению
         page.sorted_by_on_page(1)
         page.save_screen_browser(f'sort_frames_decrease_{page_num[i]}')
         list_price_decrease = page.get_prod_list_on_page()
         list_sort = sorted(list_price_decrease)
         list_sort.sort(reverse=True)
-        print(list_price_decrease)
-        print(list_sort)
         assert list_price_decrease == list_sort, "ERROR! Position don't sorted"
 
         # Сортировка по новизне
@@ -103,8 +101,6 @@ def test_sort_frames_page(web_driver_desktop):
         page.save_screen_browser(f'sort_frames_increase_{page_num[i]}')
         list_price_increase = page.get_prod_list_on_page()
         list_sort = sorted(list_price_increase)
-        print(list_price_increase)
-        print(list_sort)
         assert list_price_increase == list_sort, "ERROR! Position don't sorted"
 
         # Сортировка по популярности
