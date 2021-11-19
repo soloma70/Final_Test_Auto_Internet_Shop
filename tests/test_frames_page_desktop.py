@@ -67,7 +67,7 @@ def test_filter_frames_page(web_driver_desktop, test_set):
     # Очищаем все фильтры
     page.clear_all_filter()
 
-# !!! Убрать print
+
 def test_sort_frames_page(web_driver_desktop):
     """Тест проверяет сортировку на 1-й, последней и одной (1) рандомной странице по возрастанию и снижению цены
     (с проверкой цен), по новизне и популярности, распродажа (только на 1-й странице, дальше при сортировке включается
@@ -142,6 +142,5 @@ def test_add_in_cart_frames_page(web_driver_desktop):
 
     page.win_scroll_begin()
     page.save_screen_browser('add_cart_6_frames')
-
 
 # Добавить тесты выборки по бренду, по полу, длине заушины, ширине мостика, ширине окуляра
