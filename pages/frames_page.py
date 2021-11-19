@@ -24,11 +24,6 @@ class FramesPage(BasePage):
         # Sort elements
         self.sort_by = driver.find_elements(*FramesLocators.sort_by)
 
-    def amount_on_page(self, index: int) -> int:
-        self.driver.get(super().goto_page(index + 1))
-        amount_on_page = len(self.driver.find_elements(*FramesLocators.cards_frames_url))
-        return amount_on_page
-
     def filter_click_lens(self, index: int, test_set: list) -> list:
         self.driver.find_elements(*FramesLocators.filters)[index].click()
         filter_vals = self.driver.find_elements(*FramesLocators.filter_list[index])
@@ -53,14 +48,14 @@ class FramesPage(BasePage):
         return filter_val
 
     def search_result(self) -> [list, list]:
-        search_result_brands = self.driver.find_elements(*FramesLocators.cards_frames_brand)
+        search_result_brands = self.driver.find_elements(*ProductLocators.cards_prod_brand)
         search_result_brand = [search_result_brands[k].text for k in range(len(search_result_brands))]
-        search_result_names = self.driver.find_elements(*FramesLocators.cards_frames_name)
+        search_result_names = self.driver.find_elements(*ProductLocators.cards_prod_name)
         search_result_name = [search_result_names[k].text for k in range(len(search_result_names))]
         return search_result_brand, search_result_name
 
     def clear_all_filter(self):
-        self.driver.find_element(*FramesLocators.clear_all_filters).click()
+        self.driver.find_element(*ProductLocators.clear_all_filters).click()
 
     def sorted_by_on_page(self, index: int):
         self.driver.find_elements(*FramesLocators.sort_by)[index].click()

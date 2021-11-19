@@ -1,6 +1,6 @@
 from pages.base_page import BasePage
 from pages.url_list import LinsaUa
-from pages.locators import LensLocators
+from pages.locators import LensLocators, ProductLocators
 from time import sleep
 from selenium.webdriver.common.by import By
 from random import randint
@@ -52,7 +52,7 @@ class LensPage(BasePage):
         return search_result_brand, search_result_name
 
     def clear_all_filter(self):
-        self.driver.find_element(*LensLocators.clear_all_filters).click()
+        self.driver.find_element(*ProductLocators.clear_all_filters).click()
 
     def sorted_by_on_page(self, index: int):
         self.driver.find_elements(*LensLocators.sort_by)[index].click()
