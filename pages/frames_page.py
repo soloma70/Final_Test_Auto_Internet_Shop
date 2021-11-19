@@ -1,6 +1,8 @@
+from selenium.common.exceptions import NoSuchElementException
+
 from pages.base_page import BasePage
 from pages.url_list import LinsaUa
-from pages.locators import FramesLocators
+from pages.locators import FramesLocators, ProductLocators
 from time import sleep
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
@@ -64,10 +66,32 @@ class FramesPage(BasePage):
         self.driver.find_elements(*FramesLocators.sort_by)[index].click()
         sleep(2)
 
-    def get_frame_list_on_page(self) -> [list]:
-        lens_price = self.driver.find_elements(*FramesLocators.card_frames_price)
-        list_price = [int(lens_price[i].text.split()[0]) for i in range(8)]
-        return list_price
+    def get_frames_list_sale_banner(self) -> list:
+        """ Метод собирает со страницы продукта наличие/отсутсвие баннера с % скидки, формирует и возвращает
+        список True/False"""
 
-    def card_frame_len(self) -> int:
-        return len(self.driver.find_elements(*FramesLocators.cards_frames_url)) - 1
+        amount = self.card_prod_len()
+        if amount <= 8:
+            list_banner = self.part_card_banner(
+                amount, ProductLocators.block_1, ProductLocators.sale_banner)
+        if amount > 8:
+            list_banner = self.part_card_banner(
+                8, ProductLocators.block_1, ProductLocators.sale_banner)
+            list_banner += self.part_card_banner(
+                amount - 8, ProductLocators.block_2, ProductLocators.sale_banner)
+        return list_banner
+
+    def part_card_banner(self, iter_card: int, block: str, banner: str) -> list:
+        """ Метод формирует список True/False в зависимости от того, есть баннер скидки у продукта или нет.
+        Так как у некоторых продуктов может не быть баннера, применяется блок try-except для обработки исключения,
+        предотвращения аварийного завершения кода и формирования правильного списка"""
+
+        list_banner = []
+        for i in range(iter_card):
+            sale_banner = f'{block} > div:nth-child({i + 1}) > {banner}'
+            try:
+                sale_banner = self.driver.find_element(By.CSS_SELECTOR, sale_banner).is_displayed()
+            except NoSuchElementException:
+                sale_banner = False
+            list_banner.append(sale_banner)
+        return list_banner

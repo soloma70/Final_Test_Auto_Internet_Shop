@@ -1,6 +1,9 @@
 from time import sleep
 from urllib.parse import urlparse
+
+from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver import ActionChains
+from selenium.webdriver.common.by import By
 from pages.locators import CartLocators, ProductLocators, ProductLensLocators, PaginLocators
 from random import randint
 
@@ -101,3 +104,50 @@ class BasePage(object):
     def rand_prod_card(self, amount: int) -> int:
         index = randint(0, amount)
         return index
+
+    def card_prod_len(self) -> int:
+        return len(self.driver.find_elements(*ProductLocators.cards_prod_url))
+
+    def get_prod_list_on_page(self) -> list:
+        """ Метод собирает со страницы продукта цены со скидкой (actual) и без скидки (old), формирует список
+        из цен old (если две цены) и цен actual (если цена одна). Сортировка на сойте осуществляется по old
+        (если две цены) и цен actual (если цена одна)
+        Возвращает список цен в соответствии с условиями сортировки"""
+
+        amount = self.card_prod_len()
+        if amount <= 8:
+            list_price = self.part_card_price(
+                amount, ProductLocators.block_1, ProductLocators.price_act, ProductLocators.price_old)
+        if amount > 8:
+            list_price = self.part_card_price(
+                8, ProductLocators.block_1, ProductLocators.price_act, ProductLocators.price_old)
+            list_price += self.part_card_price(
+                amount - 8, ProductLocators.block_2, ProductLocators.price_act, ProductLocators.price_old)
+        return list_price
+
+    def part_card_price(self, iter_card: int, block: str, price_act: str, price_old: str) -> list:
+        """ Метод формирует список цен на продукты со страницы продукта. Так как некоторые цены отсутствуют у продукта,
+        применяется блок try-except для обработки исключения, предотвращения аварийного завершения кода
+        и формирования правильного списка цен"""
+
+        list_pre = []
+        for i in range(iter_card):
+            full_price_act = f'{block} > div:nth-child({i + 1}) > {price_act}'
+            full_price_old = f'{block} > div:nth-child({i + 1}) > {price_old}'
+            actual_price = int(self.driver.find_element(By.CSS_SELECTOR, full_price_act).text.split()[0])
+            try:
+                old_price = int(self.driver.find_element(By.CSS_SELECTOR, full_price_old).text.split()[0])
+            except NoSuchElementException:
+                old_price = 0
+            list_pre.append([old_price, actual_price])
+
+        list_price = []
+        for i in range(iter_card):
+            if list_pre[i][0] == 0:
+                list_price.append(list_pre[i][1])
+            else:
+                list_price.append(list_pre[i][0])
+        return list_price
+
+
+

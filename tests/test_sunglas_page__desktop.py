@@ -70,8 +70,10 @@ def test_filter_frames_page(web_driver_desktop, test_set):
 
 
 def test_sort_sunglass_page(web_driver_desktop):
-    """Тест проверяет сортировку на 1-й, последней и 1-й рандомной странице по возрастанию и снижению цены (с проверкой цен),
-    по новизне и популярности, распродажа, делает скриншоты.
+    """Тест проверяет сортировку на 1-й, последней и одной (1) рандомной странице по возрастанию
+    и снижению цены (с проверкой цен), по новизне и популярности, распродажа (только на 1-й странице,
+    дальше при сортировке включается позиции без распродажи???), делает скриншоты.
+    Комментарий: Сортировка организована по ценам без учета скидки (old price) - баг или фича?
     ВНИМАНИЕ!!! Необходимо убрать курсор мышки из поля страницы браузера!"""
 
     page = SunglassPage(web_driver_desktop, 10)
@@ -79,36 +81,37 @@ def test_sort_sunglass_page(web_driver_desktop):
     page_num = page.rand_prod_page(page.amount_page_total(), 1, True)
 
     for i in range(3):
-        # Переход на страницу сортировки
-        page.get_url(page.goto_page(page_num[i]))
+        # Переход на страницу сортировки (не перегружаем 1-ю страницу)
+        if i != 0:
+            page.get_url(page.goto_page(page_num[i]))
 
         # Сортировка по снижению
         page.sorted_by_on_page(1)
-        page.save_screen_browser(f'sort_sunglass_decrease_{i + 1}')
-        list_price_decrease = page.get_sunglass_list_on_page()
+        page.save_screen_browser(f'sort_sunglass_decrease_{page_num[i]}')
+        list_price_decrease = page.get_prod_list_on_page()
         list_sort = sorted(list_price_decrease)
         list_sort.sort(reverse=True)
         assert list_price_decrease == list_sort, "ERROR! Position don't sorted"
 
         # Сортировка по новизне
         page.sorted_by_on_page(3)
-        page.save_screen_browser(f'sort_sunglass_novelty_{i + 1}')
+        page.save_screen_browser(f'sort_sunglass_novelty_{page_num[i]}')
 
         # Сортировка по возрастанию
         page.sorted_by_on_page(2)
-        page.save_screen_browser(f'sort_sunglass_increase_{i + 1}')
-        list_price_increase = page.get_sunglass_list_on_page()
+        page.save_screen_browser(f'sort_sunglass_increase_{page_num[i]}')
+        list_price_increase = page.get_prod_list_on_page()
         list_sort = sorted(list_price_increase)
         assert list_price_increase == list_sort, "ERROR! Position don't sorted"
 
         # Сортировка по популярности
         page.sorted_by_on_page(0)
-        page.save_screen_browser(f'sort_sunglass_popularity_{i + 1}')
+        page.save_screen_browser(f'sort_sunglass_popularity_{page_num[i]}')
 
         if i == 0:
             # Сортировка по распродаже
             page.sorted_by_on_page(4)
-            page.save_screen_browser(f'sort_sunglass_sales_{i + 1}')
+            page.save_screen_browser(f'sort_sunglass_sales_{page_num[i]}')
             present_banner = page.get_sunglass_list_sale_banner()
             assert all(present_banner), "ERROR! Position don't sorted"
 
@@ -124,9 +127,11 @@ def test_add_in_cart_sunglass_page(web_driver_desktop):
     amount_cart_before = page.amount_cart()
 
     for i in range(6):
-        page.get_url(page.goto_page(page_num[i]))
+        # Переход на страницу сортировки (не перегружаем 1-ю страницу)
+        if i != 0:
+            page.get_url(page.goto_page(page_num[i]))
         # Получение номеров тестируемых оправ на странице
-        frame_num = page.rand_prod_card(page.card_sunglass_len() - 1)
+        frame_num = page.rand_prod_card(page.card_prod_len() - 1)
         # Добавление в корзину продукта с параметрами заказа по умолчанию
         page.add_cart_product(frame_num)
         # Получение количества позиций в корзине после добавления оправы
@@ -135,6 +140,7 @@ def test_add_in_cart_sunglass_page(web_driver_desktop):
         amount_cart_before = amount_cart_after
 
     page.win_scroll_begin()
-    page.save_screen_browser('add_cart_6_sunglasses')
+    page.save_screen_browser('add_cart_6_sunglass')
+
 
 # Добавить тесты выборки по бренду, по полу, длине заушины, ширине мостика, ширине окуляра
