@@ -26,6 +26,7 @@ def web_driver_desktop(request):
     option = webdriver.ChromeOptions()
     user_agent = random.choice(ChromeSet.chrome_user_agent)
     option.add_argument(f"User-Agent={user_agent}")
+    option.add_argument("--disable-notifications")
     web_driver = webdriver.Chrome(executable_path=ChromeSet.chrome_driver_path, options=option)
     web_driver.set_window_size(1280, 960)
     web_driver.delete_all_cookies()

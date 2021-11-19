@@ -24,14 +24,17 @@ class SunglassPage(BasePage):
         # Sort elements
         self.sort_by = driver.find_elements(*SunglassLocators.sort_by)
 
-    def filter_click(self, index: int, test_set: str):
-        if index == 0:
-            self.driver.find_elements(*SunglassLocators.filters)[index].click()
-            sleep(2)
-            # WebDriverWait(self.driver, 10).until(EC.invisibility_of_element((
-            #     By.CSS_SELECTOR('div.products-wrapper > div > div.main-content > a.img'))))
-            self.driver.get(self.url)
+    def pass_popup_banner(self):
+        self.driver.find_elements(*SunglassLocators.filters)[0].click()
 
+        # sleep(6)
+        # self.driver.find_element(By.CSS_SELECTOR,
+        #                       'div.close-btn-x-new-dot.click-lgwg-dot-close-lock.animClass03').click()
+        wait = WebDriverWait(self.driver, 10)
+        wait.until(EC.visibility_of(By.ID('visualBlockWidgetLGWGPopff808d04311853ba8d1fa98b93462108')))
+        self.driver.get(self.url)
+
+    def filter_click(self, index: int, test_set: str):
         self.driver.find_elements(*SunglassLocators.filters)[index].click()
         filter_vals = self.driver.find_elements(*SunglassLocators.filter_list[index])
         filter_val = [filter_vals[k].get_attribute('title') for k in range(len(filter_vals))]

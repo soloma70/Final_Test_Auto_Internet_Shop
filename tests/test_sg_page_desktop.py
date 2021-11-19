@@ -55,7 +55,10 @@ def test_filter_sg_page(web_driver_desktop, set_test):
     page = SunglassPage(web_driver_desktop, 5)
     filters = page.filters
     print()
-    page.get_url(page.url)
+    # Убираем всплывающий баннер
+    if set_test == SunglassSets.versace:
+        page.pass_popup_banner()
+
     # Добавляем фильтры согласно тестовым наборам и получаем списки фильтров
     for i in range(len(filters)):
         page.filter_click(i, set_test[i])
