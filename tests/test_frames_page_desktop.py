@@ -15,7 +15,9 @@ def test_amount_frames_page(web_driver_desktop):
     amount_all_page = 0
 
     for i in range(amount_page_total):
-        amount = page.amount_on_page(i)
+        if i != 0:
+            page.get_url(page.goto_page(i+1))
+        amount = page.amount_on_page()
         amount_all_page += amount
 
     assert amount_total_frames == amount_all_page, 'ERROR! Incorrect amount lens'
@@ -52,7 +54,6 @@ def test_filter_frames_page(web_driver_desktop, test_set):
 
     page = FramesPage(web_driver_desktop, 5)
     filters = page.filters
-    filter_list = [fl.text for fl in filters]
 
     # Добавляем фильтры согласно тестовым наборам и получаем списки фильтров
     for i in range(len(filters)):
