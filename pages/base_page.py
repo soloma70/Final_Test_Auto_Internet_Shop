@@ -97,11 +97,9 @@ class BasePage(object):
             page_num = [1]
         else:
             page_num = [1, amount_page]
-
-        for i in range(amount_rand_page):
-            page_num.append(randint(2, amount_page))
-            while page_num[-2] == page_num[-1]:
-                page_num.append(randint(2, amount_page))
+        while len(page_num) < amount_rand_page + 2:
+            page_num.append(randint(0, amount_page))
+            page_num = list(set(page_num))
         page_num.sort()
         return page_num
 
@@ -152,6 +150,3 @@ class BasePage(object):
             else:
                 list_price.append(list_pre[i][0])
         return list_price
-
-
-
