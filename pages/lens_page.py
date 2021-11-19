@@ -1,7 +1,6 @@
 from pages.base_page import BasePage
 from pages.url_list import LinsaUa
-from pages.locators import LensLocators, ProductLocators, ProductLensLocators, CartLocators, PaginLocators
-from selenium.webdriver import ActionChains
+from pages.locators import LensLocators
 from time import sleep
 from selenium.webdriver.common.by import By
 from random import randint
@@ -71,6 +70,5 @@ class LensPage(BasePage):
         while len(card_num) < amount_rand_card:
             card_num.append(randint(0, amount_card))
             card_num = list(set(card_num))
-
         card_num.sort()
         return card_num
