@@ -64,8 +64,8 @@ def test_filter_lens_page(web_driver_desktop, test_set):
 
     # Получаем результат применения фильтров и сравниваем с тестовым набором
     search_result_brand, search_result_name = page.search_result()
-    assert search_result_name[0] in test_set[7] and \
-           search_result_brand[0] in test_set[8]
+    assert search_result_name[0] == test_set[7] and search_result_brand[0] in test_set[8], \
+        f'ERROR! Filtering error or Chek test set {test_set[8]}'
 
     # Очищаем все фильтры
     page.clear_all_filter()

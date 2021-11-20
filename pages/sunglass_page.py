@@ -26,12 +26,11 @@ class SunglassPage(BasePage):
 
     def pass_popup_banner(self):
         self.driver.find_elements(*SunglassLocators.filters)[0].click()
-
-        # sleep(6)
+        sleep(6)
         # self.driver.find_element(By.CSS_SELECTOR,
         #                       'div.close-btn-x-new-dot.click-lgwg-dot-close-lock.animClass03').click()
-        wait = WebDriverWait(self.driver, 10)
-        wait.until(EC.visibility_of(By.ID('visualBlockWidgetLGWGPopff808d04311853ba8d1fa98b93462108')))
+        # wait = WebDriverWait(self.driver, 10)
+        # wait.until(EC.visibility_of(By.ID('visualBlockWidgetLGWGPopff808d04311853ba8d1fa98b93462108')))
         self.driver.get(self.url)
 
     def filter_click(self, index: int, test_set: str):

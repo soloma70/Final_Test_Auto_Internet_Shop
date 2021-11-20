@@ -45,33 +45,34 @@ def test_pagination_sunglass_page(web_driver_desktop):
         assert amount_page_test - 1 - i == page_number and page.find_prod_name().is_displayed() \
             , 'ERROR! Incorrect transaction'
 
-# !!!! Всплывающий баннер !!!!!
-@pytest.mark.parametrize("set_test",
-        [SunglassSets.versace, SunglassSets.police, SunglassSets.ray_ban, SunglassSets.furla, SunglassSets.polaroid])
-def test_filter_sg_page(web_driver_desktop, set_test):
+
+@pytest.mark.parametrize("test_set",
+                         [SunglassSets.versace, SunglassSets.police, SunglassSets.ray_ban, SunglassSets.furla,
+                          SunglassSets.polaroid],
+                         ids=[SunglassSets.versace[9], SunglassSets.police[9], SunglassSets.ray_ban[9],
+                              SunglassSets.furla[9], SunglassSets.polaroid[9]])
+def test_filter_sg_page(web_driver_desktop, test_set):
     """Тест проверяет фильтры на странице и выборку согласно критериям фильтрации.
     ВНИМАНИЕ!!! Необходимо убрать курсор мышки из поля страницы браузера!"""
 
     page = SunglassPage(web_driver_desktop, 5)
     filters = page.filters
-    print()
+
     # Убираем всплывающий баннер
-    if set_test == SunglassSets.versace:
+    if test_set == SunglassSets.versace:
         page.pass_popup_banner()
 
     # Добавляем фильтры согласно тестовым наборам и получаем списки фильтров
     for i in range(len(filters)):
-        page.filter_click(i, set_test[i])
+        page.filter_click(i, test_set[i])
+
+    # Делаем скриншот
+    page.save_screen_browser(f'filter_sg_{test_set[9]}')
 
     # Получаем результат применения фильтров и сравниваем с тестовым набором
     search_result_brand, search_result_name = page.search_result()
-    print(search_result_brand)
-    print(set_test[9])
-    print(search_result_name)
-    print(set_test[8])
-    page.save_screen_browser(f'filter_sg_{set_test[9]}')
-    # assert search_result_name in set_test and \
-    #        search_result_brand[0] in set_test[9]
+    assert search_result_name == test_set[8] and search_result_brand[0] == test_set[9], \
+        f'ERROR! Filtering error or Chek test set {test_set[9]}'
 
     # Очищаем все фильтры
     page.clear_all_filter()
@@ -149,6 +150,5 @@ def test_add_in_cart_sunglass_page(web_driver_desktop):
 
     page.win_scroll_begin()
     page.save_screen_browser('add_cart_6_sg')
-
 
 # Добавить тесты выборки по бренду, по полу, длине заушины, ширине мостика, ширине окуляра

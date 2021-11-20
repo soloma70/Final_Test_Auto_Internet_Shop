@@ -44,7 +44,7 @@ class LensPage(BasePage):
                 filter_vals[i].click()
         return filter_val
 
-    def search_result(self) -> [list, list]:
+    def search_result(self) -> [str, str]:
         search_result_brands = self.driver.find_elements(*LensLocators.cards_lens_brand)
         search_result_brand = [search_result_brands[k].text for k in range(len(search_result_brands))]
         search_result_names = self.driver.find_elements(*LensLocators.cards_lens_name)

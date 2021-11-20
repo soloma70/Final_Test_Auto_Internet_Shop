@@ -64,8 +64,8 @@ def test_filter_frames_page(web_driver_desktop, test_set):
 
     # Получаем результат применения фильтров и сравниваем с тестовым набором
     search_result_brand, search_result_name = page.search_result()
-    assert search_result_name in test_set and \
-           search_result_brand[0] in test_set[11]
+    assert search_result_name == test_set[10] and search_result_brand[0] in test_set[11], \
+        f'ERROR! Filtering error or Chek test set {test_set[9]}'
 
     # Очищаем все фильтры
     page.clear_all_filter()
