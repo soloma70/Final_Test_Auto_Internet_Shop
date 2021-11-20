@@ -58,14 +58,20 @@ class SunglassPage(BasePage):
         search_result_name = [search_result_names[k].text for k in range(len(search_result_names))]
         return search_result_brand, search_result_name
 
+    def search_result_single(self, index: int) -> list:
+        search_result_brands = self.driver.find_elements(*ProductLocators.card_prod_filters[index])
+        search_result_brand = [search_result_brands[k].text for k in range(len(search_result_brands))]
+        return search_result_brand
+
+    def filter_prod_not_found(self) -> str:
+        return self.driver.find_element(*ProductLocators.card_prod_not_found).text
+
     def clear_all_filter(self):
         self.driver.find_element(*ProductLocators.clear_all_filters).click()
 
     def sorted_by_on_page(self, index: int):
         self.driver.find_elements(*SunglassLocators.sort_by)[index].click()
         sleep(2)
-
-
 
     def get_sunglass_list_sale_banner(self) -> list:
         """ Метод собирает со страницы продукта наличие/отсутсвие баннера с % скидки, формирует и возвращает

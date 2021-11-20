@@ -235,14 +235,6 @@ class ProductLocators:
         By.CSS_SELECTOR, 'div.products-wrapper > div > div.main-content > a.top > span.title')
     cards_prod_url = (
         By.CSS_SELECTOR, 'div.products-wrapper > div > div.main-content > a.top')  # 16 items
-    card_prod_sex = (
-    By.CSS_SELECTOR, 'div.products-wrapper > div > div.main-content > div.bottom > div.glasses-size > div:nth-child(1)')
-    card_prod_temple_length = (
-    By.CSS_SELECTOR, 'div.products-wrapper > div > div.main-content > div.bottom > div.glasses-size > div:nth-child(2)')
-    card_prod_bridge_width = (
-    By.CSS_SELECTOR, 'div.products-wrapper > div > div.main-content > div.bottom > div.glasses-size > div:nth-child(3)')
-    card_prod_eyepiece_width = (
-    By.CSS_SELECTOR, 'div.products-wrapper > div > div.main-content > div.bottom > div.glasses-size > div:nth-child(4)')
     card_prod_price = (
         By.CSS_SELECTOR, 'div.products-wrapper > div > div.main-content > div.bottom > div.prices > div.actual')
     card_prod_price_old = (
@@ -255,7 +247,20 @@ class ProductLocators:
     sale_banner = 'div.main-content > div.bottom > div.prices > div.percent_banner'
     #
     clear_all_filters = (By.CSS_SELECTOR, 'div.clear-all.js-remove-all-filters > div.delete-cross')
-
+    # 0 - brand, 1 - sex, 2 - temple length, 3 - bridge width, 4 - eyepiece width
+    card_prod_filters = [
+        (By.CSS_SELECTOR,
+            'div.products-wrapper > div > div.main-content > a.top > span.product-type'),
+        (By.CSS_SELECTOR,
+            'div.products-wrapper > div > div.main-content > div.bottom > div.glasses-size > div:nth-child(1)'),
+        (By.CSS_SELECTOR,
+            'div.products-wrapper > div > div.main-content > div.bottom > div.glasses-size > div:nth-child(2)'),
+        (By.CSS_SELECTOR,
+            'div.products-wrapper > div > div.main-content > div.bottom > div.glasses-size > div:nth-child(3)'),
+        (By.CSS_SELECTOR,
+            'div.products-wrapper > div > div.main-content > div.bottom > div.glasses-size > div:nth-child(4)')
+                        ]
+    card_prod_not_found = (By.CSS_SELECTOR, 'div.not-found')
 
 class ProductLensLocators:
     # Product card

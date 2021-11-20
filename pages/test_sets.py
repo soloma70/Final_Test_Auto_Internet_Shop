@@ -56,6 +56,23 @@ class SunglassSets:
     versace = ['VERSACE', 'женские', '120', '', '', '', '', '',
               ['Солнцезащитные очки VE 4393 533587 46', 'Солнцезащитные очки VE 4393 52171W 46'], 'VERSACE']
 
+    # brands 5, sex 4, temple length 4, bridge width 2, eyepiece width 2
+    filter_set_positive = [
+        ['ALEXANDER MCQUEEN', 'GUCCI', 'MICHAEL KORS', 'PUMA', 'VOGUE'],
+        ['мужские', 'женские', 'детские', 'унисекс'],
+        ['120', '135', '142', '152'],
+        ['1', '133'],
+        ['35', '55']
+    ]
+
+    filter_set_negative = [
+        ['BALENCIAGA'],
+        [''],
+        ['160'],
+        ['138'],
+        ['40']
+    ]
+
 
 class SearchSets:
     pass
