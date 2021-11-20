@@ -34,6 +34,31 @@ class FramesSets:
     sky = ['', 'детские', '140', '16', '', 'квадратная', 'Повноободкова', '', '', 'Нет'
         , ['Оправа SKY SKO 0922 BLU'], 'SKY']
 
+    # brands 2, sex 4, temple length 3, bridge width 2, eyepiece width 2
+    filter_set_positive = [
+        ['FURLA', 'SKY'],
+        ['мужские', 'женские', 'детские', 'унисекс'],
+        ['130', '145', '150'],
+        ['15', '21'],
+        ['45', '59']
+    ]
+
+    filter_set_negative = [
+        [''],
+        [''],
+        ['144'],
+        ['12'],
+        ['60']
+    ]
+
+    filter_set_uc = [
+        ['CARRERA'],
+        ['мужские'],
+        ['145'],
+        ['20'],
+        ['50']
+    ]
+
 
 class SunglassSets:
     police = ['POLICE', 'мужские', '', '', '', 'маска', '', '',
