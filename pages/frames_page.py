@@ -36,15 +36,12 @@ class FramesPage(BasePage):
 
         if filter_vals != [] and test_set != '':
             i = 0
-            ts = test_set
             while filter_vals[i].get_attribute('title') != test_set:
-                fv_title = filter_vals[i].get_attribute('title')
                 i += 1
             else:
-                fv_title = filter_vals[i].get_attribute('title')
                 filter_vals[i].click()
 
-    def search_result(self) -> [list, list]:
+    def search_result(self) -> [str, str]:
         search_result_brands = self.driver.find_elements(*ProductLocators.cards_prod_brand)
         search_result_brand = [search_result_brands[k].text for k in range(len(search_result_brands))]
         search_result_names = self.driver.find_elements(*ProductLocators.cards_prod_name)
