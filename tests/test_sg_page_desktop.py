@@ -98,8 +98,8 @@ def test_positive_filter_single_sg_page(web_driver_desktop):
             # Делаем скриншот
             page.save_screen_browser(f'filter_pos_single_sg_{filter_set[j]}')
             # Получаем результат применения фильтров и сравниваем с тестовым набором
-            search_result_brand = page.search_result_single(i)
-            assert filter_set[j] in search_result_brand and all(search_result_brand), f'ERROR! Filtering error'
+            search_result = page.search_result_single(i)
+            assert filter_set[j] in search_result and all(search_result), f'ERROR! Filtering error'
 
             # Очищаем все фильтры
             page.clear_all_filter()
