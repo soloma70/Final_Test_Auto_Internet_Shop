@@ -57,7 +57,7 @@ def test_filter_lens_page(web_driver_desktop, test_set):
 
     # Добавляем фильтры согласно тестовым наборам и получаем списки фильтров
     for i in range(len(filters)):
-        page.filter_click_lens(i, test_set)
+        page.filter_click_lens(i, test_set[i])
 
     # Делаем скриншот
     page.save_screen_browser(f'filter_lens_{test_set[8]}')
@@ -69,6 +69,57 @@ def test_filter_lens_page(web_driver_desktop, test_set):
 
     # Очищаем все фильтры
     page.clear_all_filter()
+
+
+def test_positive_filter_single_fr_page(web_driver_desktop):
+    """Тест проверяет фильтр на странице отдельно по брендам, линейкам, типу линзы, режиму замены, базовой кривизне,
+    диаметру и диоптрийности и выборку согласно критерию фильтрации.
+    В зависимости от прокруток ленты используются от 2 - 3 параметра фильтрации.
+    Проверяються только первые два критерия фильтрации (остальные нет возможности проверить).
+    ВНИМАНИЕ!!! Необходимо убрать курсор мышки из поля страницы браузера!"""
+
+    page = LensPage(web_driver_desktop, 5)
+
+    for i in range(7):
+        filter_set = LensSets.filter_set_positive[i]
+
+        for j in range(len(filter_set)):
+            # Добавляем фильтр по бренду согласно тестовым наборам и получаем списки фильтров
+            page.filter_click_lens(i, filter_set[j])
+            # Делаем скриншот
+            page.save_screen_browser(f'filter_pos_single_lens_{filter_set[j]}')
+            if 0 <= i <= 1:
+                # Получаем результат применения 2-х фильтров (по бренду и линейке) и сравниваем с тестовым набором
+                search_result = ', '.join(page.search_result_single(i)).lower()
+                assert filter_set[j].lower() in search_result, f'ERROR! Filtering error'
+
+            # Очищаем все фильтры
+            page.clear_all_filter()
+
+
+def test_negative_filter_single_fr_page(web_driver_desktop):
+    """Тест проверяет фильтр на странице по брендам, полу, длинне заушника, ширине мостика и ширине окуляра
+    и выборку согласно критерию фильтрации.
+    В зависимости от прокруток ленты используются от 5 до 1 параметра фильтрации.
+    ВНИМАНИЕ!!! Необходимо убрать курсор мышки из поля страницы браузера!"""
+
+    page = FramesPage(web_driver_desktop, 5)
+
+    for i in range(5):
+        filter_set = FramesSets.filter_set_negative[i]
+
+        for j in range(len(filter_set)):
+            if filter_set[j]:
+                # Добавляем фильтр по бренду согласно тестовым наборам и получаем списки фильтров
+                page.filter_click(i, filter_set[j])
+                # Делаем скриншот
+                page.save_screen_browser(f'filter_neg_single_fr_{filter_set[j]}')
+                # Получаем результат применения фильтров и сравниваем с тестовым набором
+                search_result_brand = page.search_result_single(i)
+                assert page.filter_prod_not_found() == 'Товаров не найдено', f'ERROR! Filtering error'
+
+                # Очищаем все фильтры
+                page.clear_all_filter()
 
 
 def test_sort_lens_page(web_driver_desktop):

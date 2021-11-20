@@ -198,18 +198,6 @@ class StartLocatorsMobile:
         By.CSS_SELECTOR, 'div[class="footer-bottom"] > div[class="right"] > a')
 
 
-class SalesLocators:
-    # DESKTOP LOCATORS
-
-    # HEADERS LOCATORS
-    # Start Image locator
-    logo_img = (By.CSS_SELECTOR, 'a.top-logo > img')
-
-    # Sales Banners locator
-    banner_imgs = (By.CSS_SELECTOR, 'div.sales-banner > div.top > div.img-banner > div')
-    banner_btns = (By.CSS_SELECTOR, 'div.sales-banner > div.bottom > div.right > a.typical-button.juicy-green')
-
-
 class CartLocators:
     amount_cart_header = (By.CSS_SELECTOR, 'div.icons-panel > a.cart > span.total-in-cart')
     close_popup_cart = (By.CSS_SELECTOR,
@@ -373,6 +361,18 @@ class PaginLocators:
     arrow_left = (By.CSS_SELECTOR, 'a.arrow-left-pagination > div')
 
 
+class SalesLocators:
+    # DESKTOP LOCATORS
+
+    # HEADERS LOCATORS
+    # Start Image locator
+    logo_img = (By.CSS_SELECTOR, 'a.top-logo > img')
+
+    # Sales Banners locator
+    banner_imgs = (By.CSS_SELECTOR, 'div.sales-banner > div.top > div.img-banner > div')
+    banner_btns = (By.CSS_SELECTOR, 'div.sales-banner > div.bottom > div.right > a.typical-button.juicy-green')
+
+
 class BlogLocators:
     # DESKTOP LOCATORS
 
@@ -391,9 +391,6 @@ class BlogLocators:
 
 class LensLocators:
     # DESKTOP LOCATORS
-
-    # HEADERS LOCATORS: Start Image locator
-    logo_img = (By.CSS_SELECTOR, 'a.top-logo > img')
 
     # Filter locators
     filters = (By.CSS_SELECTOR, 'div.product-filters-titles.js-filter-toggle-items > div > span')  # 7 items
@@ -414,7 +411,6 @@ class LensLocators:
         (By.CSS_SELECTOR, '#filter-tab-6 > div.filter-slider.slider.slick-initialized.slick-slider > div > div > '
                           'div.slick-slide.slick-current.slick-active > div > div > label > a')
     ]
-
 
     # Sort locators
     sort_by = (By.CSS_SELECTOR, 'section.sort_panel > a')  # 4 items
@@ -439,6 +435,15 @@ class LensLocators:
     cards_lens_add_btn = (
         By.CSS_SELECTOR,
         'div.products-wrapper > div.product-item.lens > div.additional.lens > a.buy-button ')  # 16 items
+
+    # 0 - brand, 1 - name (contains product line)
+    card_lens_filters = [
+        (By.CSS_SELECTOR,
+         'div.products-wrapper > div.product-item.lens > div.main-content > a.top > span.product-type'),
+        (By.CSS_SELECTOR,
+         'div.products-wrapper > div.product-item.lens > div.main-content > a.top > span.title'),
+                        ]
+
 
 
 class FramesLocators:

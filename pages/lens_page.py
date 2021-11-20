@@ -21,28 +21,23 @@ class LensPage(BasePage):
         # Sort elements
         self.sort_by = driver.find_elements(*LensLocators.sort_by)
 
-    def filter_click_lens(self, index: int, test_set: list) -> list:
+    def filter_click_lens(self, index: int, test_set: list):
         self.driver.find_elements(*LensLocators.filters)[index].click()
         filter_vals = self.driver.find_elements(*LensLocators.filter_list[index])
         filter_val = [filter_vals[k].get_attribute('title') for k in range(len(filter_vals))]
 
-        if test_set[index] not in filter_val and test_set[index] != '' and filter_vals != []:
-            sleep(1)
+        while test_set not in filter_val and test_set != '' and filter_vals != []:
             self.driver.find_element(By.CSS_SELECTOR,
                                      f'div.right-filter-cntrl.js-rf-cntrl-{index}.slick-arrow').click()
             filter_vals = self.driver.find_elements(*LensLocators.filter_list[index])
             filter_val = [filter_vals[k].get_attribute('title') for k in range(len(filter_vals))]
-            if test_set[index] not in filter_val and test_set[index] != '' and filter_vals != []:
-                print()
-                print(f'!!! Check test set {test_set[8]} - {test_set[index]} is absent among the available positions')
 
-        if filter_vals != [] and test_set[index] != '':
+        if filter_vals != [] and test_set != '':
             i = 0
-            while filter_vals[i].get_attribute('title') != test_set[index]:
+            while filter_vals[i].get_attribute('title') != test_set:
                 i += 1
             else:
                 filter_vals[i].click()
-        return filter_val
 
     def search_result(self) -> [str, str]:
         search_result_brands = self.driver.find_elements(*LensLocators.cards_lens_brand)
@@ -50,6 +45,14 @@ class LensPage(BasePage):
         search_result_names = self.driver.find_elements(*LensLocators.cards_lens_name)
         search_result_name = [search_result_names[k].text for k in range(len(search_result_names))]
         return search_result_brand, search_result_name
+
+    def search_result_single(self, index: int) -> list:
+        search_result = self.driver.find_elements(*LensLocators.card_lens_filters[index])
+        search_result = [search_result[k].text for k in range(len(search_result))]
+        return search_result
+
+    def filter_prod_not_found(self) -> str:
+        return self.driver.find_element(*ProductLocators.card_prod_not_found).text
 
     def clear_all_filter(self):
         self.driver.find_element(*ProductLocators.clear_all_filters).click()

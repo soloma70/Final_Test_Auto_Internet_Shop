@@ -19,6 +19,34 @@ class LensSets:
     O2O2 = ['', 'O2O2', 'Торические', 'Месяц', '8.6', '14.2', ''
         , 'Контактные линзы O2O2 Toric', 'INTEROJO']
 
+    # brands 3, line 3, type 3, repl mode 3, base curv 2, diameter 2, dioptr 3
+    filter_set_positive = [
+        ['BAUSCH+LOMB', 'GELFLEX', 'Maxima Optics'],
+        ['Fusion', 'Air Optix', 'FreshLook'],
+        ['Сферические', 'Мультифокальные', 'Карнавальные'],
+        ['Однодневные', 'Месяц', 'Полгода'],
+        ['8.4', '8.6'],
+        ['14.2', '14.5'],
+        ['-04.00', '+0.75', '-2.75']
+    ]
+
+    filter_set_negative = [
+        [''],
+        [''],
+        ['144'],
+        ['12'],
+        ['60']
+    ]
+
+    filter_set_uc = [
+        ['CARRERA'],
+        ['мужские'],
+        ['145'],
+        ['20'],
+        ['50']
+    ]
+
+
 class FramesSets:
     police = ['POLICE', 'мужские', '', '17', '', 'квадратная', 'Повноободкова', '', '', 'Нет'
         , ['Оправа Police VPL886 D82M 54', 'Оправа Police VPLA47 08H5 55', 'Оправа Police VPLA47 0301 55']
