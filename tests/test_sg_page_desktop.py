@@ -86,7 +86,6 @@ def test_positive_filter_single_sg_page(web_driver_desktop):
 
     page = SunglassPage(web_driver_desktop, 5)
 
-    print()
     for i in range(5):
         filter_set = SunglassSets.filter_set_positive[i]
         # Убираем всплывающий баннер
@@ -98,11 +97,8 @@ def test_positive_filter_single_sg_page(web_driver_desktop):
             page.filter_click(i, filter_set[j])
             # Делаем скриншот
             page.save_screen_browser(f'filter_pos_single_sg_{filter_set[j]}')
-            print(filter_set[j])
             # Получаем результат применения фильтров и сравниваем с тестовым набором
             search_result_brand = page.search_result_single(i)
-            print(search_result_brand)
-            print(all(search_result_brand))
             assert filter_set[j] in search_result_brand and all(search_result_brand), f'ERROR! Filtering error'
 
             # Очищаем все фильтры
@@ -117,7 +113,6 @@ def test_negative_filter_single_sg_page(web_driver_desktop):
 
     page = SunglassPage(web_driver_desktop, 5)
 
-    print()
     for i in range(5):
         filter_set = SunglassSets.filter_set_negative[i]
         # Убираем всплывающий баннер
@@ -130,52 +125,12 @@ def test_negative_filter_single_sg_page(web_driver_desktop):
                 page.filter_click(i, filter_set[j])
                 # Делаем скриншот
                 page.save_screen_browser(f'filter_neg_single_sg_{filter_set[j]}')
-                print(filter_set[j])
                 # Получаем результат применения фильтров и сравниваем с тестовым набором
                 search_result_brand = page.search_result_single(i)
-                print(search_result_brand)
-                print(all(search_result_brand))
                 assert page.filter_prod_not_found() == 'Товаров не найдено', f'ERROR! Filtering error'
 
                 # Очищаем все фильтры
                 page.clear_all_filter()
-
-
-def test_uc_filter_sg_page(web_driver_desktop):
-    """Тест UC "Я хочу найти..." проверяет фильтр по брендам, полу, длинне заушника, ширине мостика и ширине окуляра,
-    сортирует выбранные позиции возрастанию цены. .
-    ВНИМАНИЕ!!! Необходимо убрать курсор мышки из поля страницы браузера!"""
-
-    page = SunglassPage(web_driver_desktop, 5)
-
-    print()
-    for i in range(5):
-        filter_set = SunglassSets.filter_set_uc[i]
-        # Убираем всплывающий баннер
-        if i == 0:
-            page.pass_popup_banner()
-
-        for j in range(len(filter_set)):
-            # Добавляем фильтр по бренду согласно тестовым наборам и получаем списки фильтров
-            page.filter_click(i, filter_set[j])
-            print(filter_set[j])
-            # Получаем результат применения фильтров и сравниваем с тестовым набором
-            search_result_brand = page.search_result_single(i)
-            print(search_result_brand)
-            print(all(search_result_brand))
-            assert filter_set[j] in search_result_brand and all(search_result_brand), f'ERROR! Filtering error'
-
-            # Сортировка по возрастанию
-            page.sorted_by_on_page(2)
-            page.save_screen_browser(f'filter_pos_uc_increase_sg_{filter_set[j]}')
-            list_price_increase = page.get_prod_list_on_page()
-            list_sort = sorted(list_price_increase)
-            print(list_price_increase)
-            print(list_sort)
-            assert list_price_increase == list_sort, "ERROR! Position don't sorted"
-
-            # Очищаем все фильтры
-            page.clear_all_filter()
 
 
 def test_sort_sunglass_page(web_driver_desktop):
@@ -225,6 +180,37 @@ def test_sort_sunglass_page(web_driver_desktop):
             assert all(present_banner), "ERROR! Position don't sorted"
 
 
+def test_uc_filter_sg_page(web_driver_desktop):
+    """Тест UC "Я хочу найти..." проверяет фильтр по брендам, полу, длинне заушника, ширине мостика и ширине окуляра,
+    сортирует выбранные позиции возрастанию цены.
+    ВНИМАНИЕ!!! Необходимо убрать курсор мышки из поля страницы браузера!"""
+
+    page = SunglassPage(web_driver_desktop, 5)
+
+    for i in range(5):
+        filter_set = SunglassSets.filter_set_uc[i]
+        # Убираем всплывающий баннер
+        if i == 0:
+            page.pass_popup_banner()
+
+        for j in range(len(filter_set)):
+            # Добавляем фильтр по бренду согласно тестовым наборам и получаем списки фильтров
+            page.filter_click(i, filter_set[j])
+            # Получаем результат применения фильтров и сравниваем с тестовым набором
+            search_result_brand = page.search_result_single(i)
+            assert filter_set[j] in search_result_brand and all(search_result_brand), f'ERROR! Filtering error'
+
+            # Сортировка по возрастанию
+            page.sorted_by_on_page(2)
+            page.save_screen_browser(f'filter_pos_uc_increase_sg_{filter_set[j]}')
+            list_price_increase = page.get_prod_list_on_page()
+            list_sort = sorted(list_price_increase)
+            assert list_price_increase == list_sort, "ERROR! Position don't sorted"
+
+            # Очищаем все фильтры
+            page.clear_all_filter()
+
+
 def test_add_in_cart_sunglass_page(web_driver_desktop):
     """Тест проверяет добавление очков одной рандомной позиций с 1, последней и 4-х рандомных страниц,
     добавление в корзину с параметрами по умолчанию """
@@ -250,5 +236,3 @@ def test_add_in_cart_sunglass_page(web_driver_desktop):
 
     page.win_scroll_begin()
     page.save_screen_browser('add_cart_6_sg')
-
-# Добавить тесты выборки по бренду, по полу, длине заушины, ширине мостика, ширине окуляра

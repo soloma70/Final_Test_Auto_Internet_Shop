@@ -1,10 +1,9 @@
-from selenium.common.exceptions import NoSuchElementException
-
 from pages.base_page import BasePage
 from pages.url_list import LinsaUa
 from pages.locators import SunglassLocators, ProductLocators
 from time import sleep
 from selenium.webdriver.common.by import By
+from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
@@ -59,9 +58,9 @@ class SunglassPage(BasePage):
         return search_result_brand, search_result_name
 
     def search_result_single(self, index: int) -> list:
-        search_result_brands = self.driver.find_elements(*ProductLocators.card_prod_filters[index])
-        search_result_brand = [search_result_brands[k].text for k in range(len(search_result_brands))]
-        return search_result_brand
+        search_result = self.driver.find_elements(*ProductLocators.card_prod_filters[index])
+        search_result = [search_result[k].text for k in range(len(search_result))]
+        return search_result
 
     def filter_prod_not_found(self) -> str:
         return self.driver.find_element(*ProductLocators.card_prod_not_found).text
