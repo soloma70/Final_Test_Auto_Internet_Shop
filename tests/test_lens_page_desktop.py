@@ -59,9 +59,11 @@ def test_filter_lens_page(web_driver_desktop, test_set):
     for i in range(len(filters)):
         page.filter_click_lens(i, test_set)
 
+    # Делаем скриншот
+    page.save_screen_browser(f'filter_lens_{test_set[8]}')
+
     # Получаем результат применения фильтров и сравниваем с тестовым набором
     search_result_brand, search_result_name = page.search_result()
-    page.save_screen_browser(f'filter_lens_{test_set[8]}')
     assert search_result_name[0] in test_set[7] and \
            search_result_brand[0] in test_set[8]
 
