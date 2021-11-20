@@ -73,6 +73,14 @@ class SunglassSets:
         ['40']
     ]
 
+    filter_set_uc = [
+        ['GUCCI'],
+        ['женские'],
+        ['135'],
+        ['1'],
+        ['55']
+    ]
+
 
 class SearchSets:
     pass
