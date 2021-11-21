@@ -40,30 +40,6 @@ def test_sales_products_sales_page(web_driver_desktop):
     page.win_scroll_begin()
     page.save_screen_browser('add_cart_1_sales_prod')
 
-    # Изменение параметров линзы - одинаковые линзы
-    # price_before = int(web_driver_desktop.find_element(*ProductLensLocators.price).text)
-    # web_driver_desktop.find_element(*ProductLensLocators.dioptr_same).click()
-    # dioptr_list = web_driver_desktop.find_elements(*ProductLensLocators.dioptr_list)
-    # ActionChains(web_driver_desktop).move_to_element(dioptr_list[21]).click().perform()
-    # web_driver_desktop.find_element(*ProductLensLocators.curv_same).click()
-    # curv_list = web_driver_desktop.find_elements(*ProductLensLocators.curv_list)
-    # ActionChains(web_driver_desktop).move_to_element(curv_list[1]).click().perform()
-
-    # Тестирование изменений количества упаковок
-    # plus = web_driver_desktop.find_element(*ProductLensLocators.amount_plus_same)
-    # plus.click()
-    # plus.click()
-    # price_after = int(web_driver_desktop.find_element(*ProductLensLocators.price).text)
-    # assert price_after == price_before * 3, "ERROR! Sum's not eqw"
-    # #
-    # minus = web_driver_desktop.find_element(*ProductLensLocators.amount_minus_same)
-    # minus.click()
-    # minus.click()
-    # web_driver_desktop.find_element(*ProductLensLocators.buy_btn).click()
-    # web_driver_desktop.find_element(*ProductLensLocators.close_cart_popup).click()
-    # amount_cart_after2 = int(web_driver_desktop.find_element(*SalesLocators.amount_cart).text)
-    # assert amount_cart_after1 + 1 == amount_cart_after2, "ERROR! Product don't add to cart"
-
 
 def test_sales_prod_sales_page(web_driver_desktop):
     """Тест проверяет переход на соответствующие страницы акционных линз"""
