@@ -1,6 +1,5 @@
 from time import sleep
 from urllib.parse import urlparse
-
 from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver import ActionChains
 from selenium.webdriver.common.by import By
@@ -81,14 +80,6 @@ class BasePage(object):
         ActionChains(self.driver).move_to_element(element).perform()
         self.driver.find_elements(*ProductLocators.products_buy)[index].click()
         sleep(2)
-        self.driver.find_element(*CartLocators.close_popup_cart).click()
-        sleep(1)
-
-    def add_cart_lens_def_par(self, index: int):
-        element = self.driver.find_elements(*ProductLocators.products)[index]
-        ActionChains(self.driver).move_to_element(element).perform()
-        self.driver.find_elements(*ProductLocators.products_lens_buy)[index].click()
-        self.driver.find_element(*ProductLensLocators.buy_btn).click()
         self.driver.find_element(*CartLocators.close_popup_cart).click()
         sleep(1)
 
