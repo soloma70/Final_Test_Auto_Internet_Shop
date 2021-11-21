@@ -71,7 +71,7 @@ def test_filter_lens_page(web_driver_desktop, test_set):
     page.clear_all_filter()
 
 
-def test_positive_filter_single_fr_page(web_driver_desktop):
+def test_positive_filter_single_lens_page(web_driver_desktop):
     """Тест проверяет фильтр на странице отдельно по брендам, линейкам, типу линзы, режиму замены, базовой кривизне,
     диаметру и диоптрийности и выборку согласно критерию фильтрации.
     В зависимости от прокруток ленты используются от 2 - 3 параметра фильтрации.
@@ -88,8 +88,8 @@ def test_positive_filter_single_fr_page(web_driver_desktop):
             page.filter_click_lens(i, filter_set[j])
             # Делаем скриншот
             page.save_screen_browser(f'filter_pos_single_lens_{filter_set[j]}')
+            # Получаем результат применения 2-х фильтров (по бренду и линейке) и сравниваем с тестовым набором
             if 0 <= i <= 1:
-                # Получаем результат применения 2-х фильтров (по бренду и линейке) и сравниваем с тестовым набором
                 search_result = ', '.join(page.search_result_single(i)).lower()
                 assert filter_set[j].lower() in search_result, f'ERROR! Filtering error'
 
@@ -97,25 +97,23 @@ def test_positive_filter_single_fr_page(web_driver_desktop):
             page.clear_all_filter()
 
 
-def test_negative_filter_single_fr_page(web_driver_desktop):
-    """Тест проверяет фильтр на странице по брендам, полу, длинне заушника, ширине мостика и ширине окуляра
-    и выборку согласно критерию фильтрации.
-    В зависимости от прокруток ленты используются от 5 до 1 параметра фильтрации.
+def test_negative_filter_single_lens_page(web_driver_desktop):
+    """Тест проверяет фильтр на странице отдельно по брендам, линейкам, типу линзы, режиму замены, базовой кривизне,
+    диаметру и диоптрийности и выборку согласно критерию фильтрации.
+    Комментарий: Отсутствует тестовый набор для проверки, есть линзы по всем категориям фильтрации.
     ВНИМАНИЕ!!! Необходимо убрать курсор мышки из поля страницы браузера!"""
 
-    page = FramesPage(web_driver_desktop, 5)
+    page = LensPage(web_driver_desktop, 5)
 
-    for i in range(5):
-        filter_set = FramesSets.filter_set_negative[i]
+    for i in range(7):
+        filter_set = LensSets.filter_set_negative[i]
 
         for j in range(len(filter_set)):
             if filter_set[j]:
                 # Добавляем фильтр по бренду согласно тестовым наборам и получаем списки фильтров
-                page.filter_click(i, filter_set[j])
+                page.filter_click_lens(i, filter_set[j])
                 # Делаем скриншот
-                page.save_screen_browser(f'filter_neg_single_fr_{filter_set[j]}')
-                # Получаем результат применения фильтров и сравниваем с тестовым набором
-                search_result_brand = page.search_result_single(i)
+                page.save_screen_browser(f'filter_neg_single_lens_{filter_set[j]}')
                 assert page.filter_prod_not_found() == 'Товаров не найдено', f'ERROR! Filtering error'
 
                 # Очищаем все фильтры
@@ -148,7 +146,6 @@ def test_sort_lens_page(web_driver_desktop):
         list_price_decrease = page.get_lens_list_on_page(8)
         list_sort = sorted(list_price_decrease)
         list_sort.sort(reverse=True)
-
         assert list_price_decrease == list_sort, "'ERROR! Position don't sorted"
 
         # Сортировка по новизне
@@ -160,7 +157,6 @@ def test_sort_lens_page(web_driver_desktop):
         page.save_screen_browser(f'sort_lens_increase_{page_num[i]}')
         list_price_increase = page.get_lens_list_on_page(16)
         list_sort = sorted(list_price_increase)
-
         assert list_price_increase == list_sort, "'ERROR! Position don't sorted"
 
         # Сортировка по популярности
@@ -194,4 +190,58 @@ def test_add_lens_in_cart_lens_page(web_driver_desktop):
             page.get_url(page.goto_page(j + 1))
 
     page.win_scroll_begin()
-    page.save_screen_browser('add_cart_6lens')
+    page.save_screen_browser('add_cart_6_lens')
+
+
+def test_us_filter_lens_page(web_driver_desktop):
+    """Тест UC "Я хочу найти и купить..." проверяет фильтр по брендам, линейкам, типу линзы, режиму замены,
+    базовой кривизне, диаметру и диоптрийности, сортирует выбранные позиции возрастанию цены,
+    выбирает линзы и добавляет в корзину, применяя указанные параметры.
+    ВНИМАНИЕ!!! Необходимо убрать курсор мышки из поля страницы браузера!"""
+
+    page = LensPage(web_driver_desktop, 5)
+    us_set = LensSets.filter_set_uc
+
+    for i in range(6):
+
+        for j in range(len(us_set[i])):
+            # Добавляем фильтр по бренду согласно тестовому набору и получаем список фильтров
+            page.filter_click_lens(i, us_set[i][j])
+            # Получаем результат применения 2-х фильтров (по бренду и линейке) и сравниваем с тестовым набором
+            if 0 <= i <= 1:
+                search_result = ', '.join(page.search_result_single(i)).lower()
+                assert us_set[i][j].lower() in search_result, f'ERROR! Filtering error'
+
+
+    # Сортировка по возрастанию
+    page.sorted_by_on_page(2)
+    list_price_increase = page.get_lens_list_on_page(page.amount_on_page())
+    list_sort = sorted(list_price_increase)
+    assert list_price_increase == list_sort, "ERROR! Position don't sorted"
+
+    print()
+    # Получение количества позиций в корзине перед добавлением
+    amount_cart_before = page.amount_cart()
+    print(amount_cart_before)
+    # Добавление в корзину 1-го найденого продукта с параметрами заказа по умолчанию
+    page.add_cart_lens(0, us_set)
+    # Получение количества позиций в корзине после добавления линз
+    amount_cart_after = page.amount_cart()
+    print(amount_cart_after)
+    # assert amount_cart_before + 2 == amount_cart_after, "ERROR! Product don't add to cart"
+    amount_cart_before = amount_cart_after
+    page.get_url(page.goto_page(j + 1))
+
+
+            # # Добавление в корзину продукта с параметрами заказа по умолчанию
+            # page.add_cart_product(frame_num)
+            # # Получение количества позиций в корзине после добавления оправы
+            # amount_cart_after = page.amount_cart()
+            # assert amount_cart_before + 1 == amount_cart_after, "ERROR! Product don't add to cart"
+            # amount_cart_before = amount_cart_after
+            #
+            # page.win_scroll_begin()
+            # page.save_screen_browser(f'uc_add_cart_found_fr_{us_set[j]}')
+            #
+            # # Очищаем все фильтры
+            # page.clear_all_filter()
