@@ -98,7 +98,6 @@ def test_positive_filter_single_fr_page(web_driver_desktop):
 def test_negative_filter_single_fr_page(web_driver_desktop):
     """Тест проверяет фильтр на странице по брендам, полу, длинне заушника, ширине мостика и ширине окуляра
     и выборку согласно критерию фильтрации.
-    В зависимости от прокруток ленты используются от 5 до 1 параметра фильтрации.
     ВНИМАНИЕ!!! Необходимо убрать курсор мышки из поля страницы браузера!"""
 
     page = FramesPage(web_driver_desktop, 5)
@@ -112,8 +111,6 @@ def test_negative_filter_single_fr_page(web_driver_desktop):
                 page.filter_click(i, filter_set[j])
                 # Делаем скриншот
                 page.save_screen_browser(f'filter_neg_single_fr_{filter_set[j]}')
-                # Получаем результат применения фильтров и сравниваем с тестовым набором
-                search_result_brand = page.search_result_single(i)
                 assert page.filter_prod_not_found() == 'Товаров не найдено', f'ERROR! Filtering error'
 
                 # Очищаем все фильтры
