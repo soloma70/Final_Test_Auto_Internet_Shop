@@ -200,8 +200,29 @@ class StartLocatorsMobile:
 
 class CartLocators:
     amount_cart_header = (By.CSS_SELECTOR, 'div.icons-panel > a.cart > span.total-in-cart')
+    goto_cart_popup = (By.CSS_SELECTOR, '#product-added-to-cart-popup > div > div > div > a')
     close_popup_cart = (By.CSS_SELECTOR,
                         '#product-added-to-cart-popup > div > div > div > div > div.close-popup.js-close-popup > svg')
+    #
+    amount_cart = (By.ID, 'cart-total-goods')
+    sum_cart_top = (By.CSS_SELECTOR, '#content-wrapper > section > div > div.double-holder > div.left > div > div.amount.js-total-cart-price')
+    sum_cart_bottom = (By.CSS_SELECTOR, '#content-wrapper > section > div > div.summary > div.amount.js-total-cart-price')
+    clear_cart = (By.CSS_SELECTOR, '#content-wrapper > section > div > div.double-holder > div.right > a')
+    #
+    in_cart_prod_names = (By.CSS_SELECTOR, 'div.cart-item > div.info > a.ttl')
+    in_cart_prod_brands = (By.CSS_SELECTOR, 'div.cart-item > div.info > div.dscr')
+    in_cart_lens_sph = (By.CSS_SELECTOR, 'div.cart-item > div.info > div.dscr > text:nth-child(2)')
+    in_cart_lens_bc = (By.CSS_SELECTOR, 'div.cart-item > div.info > div.dscr > text:nth-child(3)')
+    #
+    in_cart_prod_sum = (By.CSS_SELECTOR, 'div.cart-item > div.price.js-cart-item-price')
+    in_cart_prod_del = (By.CSS_SELECTOR, 'div.cart-item > div.remove.js-remove-from-cart > svg')
+    #
+    checkout = (By.CSS_SELECTOR, '#content-wrapper > section > div > div:nth-child(7) > a')
+    #
+    input_name = (By.CSS_SELECTOR, 'div.step.step_1 > div:nth-child(2) > div.input-wrapper > input[type=text]')
+    input_email = (By.CSS_SELECTOR, 'div div.step.step_1 > div:nth-child(3) > div.input-wrapper > input[type=email]')
+    input_phone = (By.CSS_SELECTOR, 'div.step.step_1 > div:nth-child(4) > div.input-wrapper > input[type=text]')
+    next_step = (By.CSS_SELECTOR, 'div.left > div.button-holder > a')
 
 
 class ProductLocators:
@@ -322,28 +343,28 @@ class ProductLensLocators:
     plus_right = (By.CSS_SELECTOR,
                   '#lenses-quantity-block-right > div.quan-wrapper-cell > div > div.plus.js-add-product-quantity > span')
 
-    buy_btn = (By.CSS_SELECTOR, '#md-to-basket')
-    buy_one_click = (By.CSS_SELECTOR, 'a[id="one-click-buy js-lenses-quick-order"]')
-    buy_repeat_order = (By.CSS_SELECTOR, 'a[id="one-click-buy js-open-auth-popup "]')
+    buy_btn = (By.ID, 'md-to-basket')
+    buy_one_click = (By.CSS_SELECTOR, 'a.one-click-buy.js-lenses-quick-order')
+    buy_repeat_order = (By.CSS_SELECTOR, 'a.one-click-buy.js-open-auth-popup')
 
-    add_favorite = (By.CSS_SELECTOR, 'div[class="add-to-favorites js-add-to-wishlist"] > svg')  # 5 items
+    add_favorite = (By.CSS_SELECTOR, 'div.add-to-favorites.js-add-to-wishlist > svg')  # 5 items
 
-    alternative_name = (By.CSS_SELECTOR, 'div[class="md-title-goods"] > span')
+    alternative_name = (By.CSS_SELECTOR, 'div.md-title-goods > span')
     alternative_prods = (
-        By.CSS_SELECTOR,
-        'section[class="products-section promos-compact lenses-alt"] > div[class="products-wrapper"] > div')  # 4 items
-    alternative_more = (By.CSS_SELECTOR, 'a[class="fat-button blue"]')
+        By.CSS_SELECTOR, 'section.products-section.promos-compact.lenses-alt > div.products-wrapper > div')  # 4 items
+    alternative_more = (By.CSS_SELECTOR, 'a.fat-button blue')
 
-    viewed_name = (By.CSS_SELECTOR, 'div[class="standard-title"]')
+    viewed_name = (By.CSS_SELECTOR, 'div.standard-title')
     viewed_prods = (
-        By.CSS_SELECTOR,
-        'section[class="products-section promos-compact "] > div[class="products-wrapper"] > div')  # 3 items
-    viewed_more = (By.CSS_SELECTOR, 'a[class="fat-button blue"]')
+        By.CSS_SELECTOR, 'section.products-section.promos-compact > div.products-wrapper > div')  # 3 items
+    viewed_more = (By.CSS_SELECTOR, 'a.fat-button blue')
 
-    reviews_amount = (By.CSS_SELECTOR, 'div[class="reviews-title"]')
-    review_add = (By.CSS_SELECTOR, 'a[class="fat-button glow-button blue min_245 js-add-review"]')
-    reviews_block = (By.CSS_SELECTOR, 'div[class="reviews-block"] > div[class="review-item"]')  # 4 items
-    reviews_yet = (By.CSS_SELECTOR, 'div[class="reviews-block"] > div[class="button-holder"] > a')
+    reviews_amount = (By.CSS_SELECTOR, 'div.reviews-title')
+    review_add = (By.CSS_SELECTOR, 'a.fat-button.glow-button.blue min_245 js-add-review')
+    reviews_block = (By.CSS_SELECTOR, 'div.reviews-block > div.review-item')  # 4 items
+    reviews_yet = (By.CSS_SELECTOR, 'div.reviews-block > div.button-holder > a')
+
+    add_cart_sum = (By.ID, 'js-goods-price-value')
 
 
 class PaginLocators:

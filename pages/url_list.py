@@ -23,6 +23,8 @@ class LinsaUa:
         ['/ru/warranty/', '/uk/warranty/']
     ]
 
+    cart = ['/ru/cart/', '/uk/cart/']
+
     main_menu_urls = [
         ['/ru/sales/', '/uk/sales/'],
         ['/ru/contact-lenses/', '/uk/contact-lenses/'],
@@ -53,7 +55,16 @@ class LinsaUa:
         ['https://www.instagram.com/linza.ua/', 'https://www.instagram.com/linza.ua/'],
     ]
 
-    def sales_url(lng='ru'):
+    def cart_url(lng='ru') -> str:
+        if lng == 'ru':
+            cart_url = f'{LinsaUa.start_url}{LinsaUa.cart[0]}'
+        elif lng == 'uk':
+            cart_url = f'{LinsaUa.start_url}{LinsaUa.cart[1]}'
+        else:
+            cart_url = f'{LinsaUa.start_url}'
+        return cart_url
+
+    def sales_url(lng='ru') -> str:
         if lng == 'ru':
             sales_url = f'{LinsaUa.start_url}{LinsaUa.main_menu_urls[0][0]}'
         elif lng == 'uk':
@@ -62,7 +73,7 @@ class LinsaUa:
             sales_url = f'{LinsaUa.start_url}'
         return sales_url
 
-    def blog_url(lng='ru'):
+    def blog_url(lng='ru') -> str:
         if lng == 'ru':
             blog_url = f'{LinsaUa.start_url}{LinsaUa.main_menu_urls[5][0]}'
         elif lng == 'uk':
@@ -71,7 +82,7 @@ class LinsaUa:
             blog_url = f'{LinsaUa.start_url}'
         return blog_url
 
-    def lens_url(lng='ru'):
+    def lens_url(lng='ru') -> str:
         if lng == 'ru':
             lens_url = f'{LinsaUa.start_url}{LinsaUa.main_menu_urls[1][0]}'
         elif lng == 'uk':
@@ -80,7 +91,7 @@ class LinsaUa:
             lens_url = f'{LinsaUa.start_url}'
         return lens_url
 
-    def frames_url(lng='ru'):
+    def frames_url(lng='ru') -> str:
         if lng == 'ru':
             lens_url = f'{LinsaUa.start_url}{LinsaUa.main_menu_urls[2][0]}'
         elif lng == 'uk':
@@ -89,7 +100,7 @@ class LinsaUa:
             lens_url = f'{LinsaUa.start_url}'
         return lens_url
 
-    def sunglass_url(lng='ru'):
+    def sunglass_url(lng='ru') -> str:
         if lng == 'ru':
             lens_url = f'{LinsaUa.start_url}{LinsaUa.main_menu_urls[3][0]}'
         elif lng == 'uk':
