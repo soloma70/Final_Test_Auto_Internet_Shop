@@ -1,8 +1,9 @@
 # -*- encoding=utf8 -*-
 
 import pytest
-from pages.test_sets import LensSets
+from pages.test_sets import LensSets, SendOrderSets
 from pages.lens_page import LensPage
+from pages.cart_page import CartPage
 
 
 def test_amount_lens_page(web_driver_desktop):
@@ -220,10 +221,31 @@ def test_us_filter_lens_page(web_driver_desktop):
 
     # Получение количества позиций в корзине перед добавлением
     amount_cart_before = page.amount_cart()
-    # Добавление в корзину 1-го найденого продукта с параметрами заказа по умолчанию
-    page.add_cart_lens(0, us_set)
-    page.get_url(page.url)
-    # Получение количества позиций в корзине после добавления линз
-    amount_cart_after = page.amount_cart()
-    # page.save_screen_browser(f'uc_add_cart_found_fr_{us_set[j]}')
-    assert amount_cart_before + 2 == amount_cart_after, "ERROR! Product don't add to cart"
+    # Добавление в корзину 1-го найденого продукта с параметрами в us_set, переход в корзину, получение суммы заказа
+    add_cart_sum = page.add_cart_lens(0, us_set)
+    # Инициализация экземпляра корзины
+    page = CartPage(web_driver_desktop, 5)
+    # Получение данных из корзины
+    sum_cart_top, sum_cart_bottom, in_cart_prod_sum = page.sum_in_cart()
+    # Сравнение суммы выбраных линз и сумм в корзине
+    assert add_cart_sum == sum_cart_top and sum_cart_bottom == sum_cart_top and sum_cart_bottom == in_cart_prod_sum
+    # Получение данных по линзам из корзины по имени, бренду, sph, bc и сравнение с тестовым набором
+    for seq_num in range(len(page.prod_names)):
+        prod_name, prod_brand, lens_sph, lens_bc = page.param_lens(seq_num)
+        assert us_set[1][0].lower() in prod_name.lower()
+        assert us_set[0][0].lower() in prod_brand.lower()
+        assert us_set[6][seq_num] in lens_sph
+        assert us_set[4][0] in lens_bc
+
+    # Переход на страницу оформления заказа и заполнения всех данных
+    page.checkout_click()
+    page.input_data(SendOrderSets.name, SendOrderSets.email, SendOrderSets.phone)
+
+
+
+
+    # page.get_url(page.url)
+    # # Получение количества позиций в корзине после добавления линз
+    # amount_cart_after = page.amount_cart()
+    # page.save_screen_browser(f'uc_add_cart_lens_{us_set[1]}')
+    # assert amount_cart_before + 2 == amount_cart_after, "ERROR! Product don't add to cart"

@@ -1,12 +1,9 @@
-from selenium.webdriver.support.select import Select
-
 from pages.base_page import BasePage
 from pages.url_list import LinsaUa
 from pages.locators import LensLocators, ProductLocators, ProductLensLocators, CartLocators
 from time import sleep
 from selenium.webdriver.common.by import By
 from selenium.webdriver import ActionChains
-from selenium.webdriver.common.keys import Keys
 from random import randint
 
 
@@ -80,7 +77,7 @@ class LensPage(BasePage):
         card_num.sort()
         return card_num
 
-    def add_cart_lens(self, index: int, us_set: list):
+    def add_cart_lens(self, index: int, us_set: list) -> int:
         element = self.driver.find_elements(*ProductLocators.products)[index]
         ActionChains(self.driver).move_to_element(element).perform()
         self.driver.find_elements(*ProductLocators.products_lens_buy)[index].click()
@@ -106,12 +103,14 @@ class LensPage(BasePage):
         self.driver.find_element(*ProductLensLocators.pack_mul_left).click()
         self.driver.find_element(*ProductLensLocators.pack_mul_right).click()
         #
+        add_cart_sum = int(self.driver.find_element(*ProductLensLocators.add_cart_sum).text)
         sleep(2)
         #
         self.driver.find_element(*ProductLensLocators.buy_btn).click()
         sleep(2)
-        self.driver.find_element(*CartLocators.close_popup_cart).click()
+        self.driver.find_element(*CartLocators.goto_cart_popup).click()
         #
+        return add_cart_sum
 
     def choise_param(self, us_set: str, list_it: list):
         i = 0
