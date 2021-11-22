@@ -224,7 +224,7 @@ def test_us_filter_lens_page(web_driver_desktop):
     # Добавление в корзину 1-го найденого продукта с параметрами в us_set, переход в корзину, получение суммы заказа
     add_cart_sum = page.add_cart_lens(0, us_set)
     # Инициализация экземпляра корзины
-    page = CartPage(web_driver_desktop, 5)
+    page = CartPage(web_driver_desktop, 10)
     # Получение данных из корзины
     sum_cart_top, sum_cart_bottom, in_cart_prod_sum = page.sum_in_cart()
     # Сравнение суммы выбраных линз и сумм в корзине

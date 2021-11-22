@@ -104,10 +104,8 @@ class LensPage(BasePage):
         self.driver.find_element(*ProductLensLocators.pack_mul_right).click()
         #
         add_cart_sum = int(self.driver.find_element(*ProductLensLocators.add_cart_sum).text)
-        sleep(2)
         #
         self.driver.find_element(*ProductLensLocators.buy_btn).click()
-        sleep(2)
         self.driver.find_element(*CartLocators.goto_cart_popup).click()
         #
         return add_cart_sum

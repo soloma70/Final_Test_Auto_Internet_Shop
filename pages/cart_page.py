@@ -59,6 +59,7 @@ class CartPage(BasePage):
 
     def input_delivery_np(self, city: str, branch: str):
         self.driver.find_element(*CartLocators.input_city).click()
+        sleep(1)
         #
         city_list = self.driver.find_elements(*CartLocators.city_list)
         city_name = [name_city.text.strip() for name_city in city_list]
@@ -66,7 +67,9 @@ class CartPage(BasePage):
         city_list[index].click()
         #
         self.driver.find_element(*CartLocators.dilivery_np).click()
+        sleep(1)
         self.driver.find_element(*CartLocators.np_branch).click()
+        sleep(1)
         #
         branch_list = self.driver.find_elements(*CartLocators.branch_list)
         num_brahch = [num.text.split('№')[1].split()[0] for num in branch_list]
