@@ -48,8 +48,37 @@ class CartPage(BasePage):
         input_phone = self.driver.find_element(*CartLocators.input_phone)
         input_phone.clear()
         input_phone.send_keys(phone)
-        sleep(3)
-        self.driver.find_element(*CartLocators.next_step).click()
+        sleep(1)
+        self.driver.find_element(*CartLocators.next_step_delivery).click()
+
+    def search_item_in_list(self, test_item: str, item_list: list) -> int:
+        i = 0
+        while test_item != item_list[i]:
+            i += 1
+        return i
+
+    def input_delivery_np(self, city: str, branch: str):
+        self.driver.find_element(*CartLocators.input_city).click()
+        #
+        city_list = self.driver.find_elements(*CartLocators.city_list)
+        city_name = [name_city.text.strip() for name_city in city_list]
+        index = self.search_item_in_list(city, city_name)
+        city_list[index].click()
+        #
+        self.driver.find_element(*CartLocators.dilivery_np).click()
+        self.driver.find_element(*CartLocators.np_branch).click()
+        #
+        branch_list = self.driver.find_elements(*CartLocators.branch_list)
+        num_brahch = [num.text.split('№')[1].split()[0] for num in branch_list]
+        index = self.search_item_in_list(branch, num_brahch)
+        branch_list[index].click()
+        sleep(1)
+        #
+        self.driver.find_element(*CartLocators.next_step_pay).click()
         sleep(5)
+
+
+
+
 
 

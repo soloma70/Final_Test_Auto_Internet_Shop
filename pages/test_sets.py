@@ -8,6 +8,11 @@ class SendOrderSets:
     name = 'Пупкин Василий Васильевич'
     email = 'vasja_pupkin@gmail.com'
     phone = '0505555555'
+    courier = [['Харьков', 'просп. Гагаріна', '72', '25'],
+               ['Запорожье', 'вул. Цитрусова', '4', '56']]
+    nova_poshta = [['Харьков', '39'],
+                   ['Запорожье', '22']]
+
 
 
 class MainMenuSets:

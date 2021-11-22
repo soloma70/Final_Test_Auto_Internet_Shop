@@ -240,6 +240,7 @@ def test_us_filter_lens_page(web_driver_desktop):
     # Переход на страницу оформления заказа и заполнения всех данных
     page.checkout_click()
     page.input_data(SendOrderSets.name, SendOrderSets.email, SendOrderSets.phone)
+    page.input_delivery_np(SendOrderSets.nova_poshta[0][0], SendOrderSets.nova_poshta[0][1],)
 
 
 

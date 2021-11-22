@@ -222,7 +222,25 @@ class CartLocators:
     input_name = (By.CSS_SELECTOR, 'div.step.step_1 > div:nth-child(2) > div.input-wrapper > input[type=text]')
     input_email = (By.CSS_SELECTOR, 'div div.step.step_1 > div:nth-child(3) > div.input-wrapper > input[type=email]')
     input_phone = (By.CSS_SELECTOR, 'div.step.step_1 > div:nth-child(4) > div.input-wrapper > input[type=text]')
-    next_step = (By.CSS_SELECTOR, 'div.left > div.button-holder > a')
+    next_step_delivery = (By.CSS_SELECTOR, 'div.left > div.button-holder > a')
+    #
+    input_city = (By.CSS_SELECTOR, 'div.selectize-control.single > div.selectize-input.items.has-options.full.has-items')
+    city_list = (By.CSS_SELECTOR, 'div.selectize-dropdown.single > div.selectize-dropdown-content > div.option')
+    # div.selectize-dropdown.single > div > div:nth-child(1)
+    fast_change_city = (By.CSS_SELECTOR, 'div.step.step_2 > div:nth-child(3) > div > label > input[type=radio]')
+    #
+    dilivery_cour = (By.CSS_SELECTOR, 'div.delivery-radio-wrapper > table > tr:nth-child(2) > td:nth-child(1) > label > span.round')
+    input_street = (By.CSS_SELECTOR, 'div.input-block.street > div.select-wrapper.department > div > div.selectize-input.items.has-options.full.has-items')
+    street_list = (By.CSS_SELECTOR, 'div.input-block.street > div.select-wrapper.department > div > div.selectize-dropdown.single > div > div')
+    input_house = (By.CSS_SELECTOR, 'div.input-block.house > div.input-wrapper > input[type=text]')
+    input_flat = (By.CSS_SELECTOR, 'div.input-block.flat > div.input-wrapper > input[type=text]')
+    #
+    dilivery_np = (By.CSS_SELECTOR, 'div.delivery-radio-wrapper > table > tr:nth-child(3) > td:nth-child(1) > label > span.round')
+    np_branch = (By.CSS_SELECTOR, 'div.select-wrapper.department > div > div.selectize-input.items.has-options.not-full > input[type=text]')
+    branch_list = (By.CSS_SELECTOR, 'div.select-wrapper.department > div > div.selectize-dropdown.single > div > div')
+    #
+    next_step_pay = (By.CSS_SELECTOR, 'form.ecom_steps > div > div.left > div.button-holder > a')
+
 
 
 class ProductLocators:
