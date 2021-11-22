@@ -16,7 +16,7 @@ def test_amount_lens_page(web_driver_desktop):
 
     for i in range(amount_page_total):
         if i != 0:
-            page.get_url(page.goto_page(i+1))
+            page.get_url(page.goto_page(i + 1))
         amount = page.amount_on_page()
         amount_all_page += amount
 
@@ -176,13 +176,13 @@ def test_add_lens_in_cart_lens_page(web_driver_desktop):
     for j in range(0, 5, 2):
         # Переход на страницу и получение номеров тестируемых линз на странице
         if j != 0:
-            page.get_url(page.goto_page(j+1))
+            page.get_url(page.goto_page(j + 1))
 
         card_num = page.rand_lens_card(page.amount_on_page(), 3)
 
         for i in range(2):
             # Добавление в корзину продукта с параметрами заказа по умолчанию
-            page.add_cart_lens_def_par(card_num[i]-1)
+            page.add_cart_lens_def_par(card_num[i] - 1)
             # Получение количества позиций в корзине после добавления линз
             amount_cart_after = page.amount_cart()
             assert amount_cart_before + 1 == amount_cart_after, "ERROR! Product don't add to cart"
@@ -212,36 +212,18 @@ def test_us_filter_lens_page(web_driver_desktop):
                 search_result = ', '.join(page.search_result_single(i)).lower()
                 assert us_set[i][j].lower() in search_result, f'ERROR! Filtering error'
 
-
     # Сортировка по возрастанию
     page.sorted_by_on_page(2)
     list_price_increase = page.get_lens_list_on_page(page.amount_on_page())
     list_sort = sorted(list_price_increase)
     assert list_price_increase == list_sort, "ERROR! Position don't sorted"
 
-    print()
     # Получение количества позиций в корзине перед добавлением
     amount_cart_before = page.amount_cart()
-    print(amount_cart_before)
     # Добавление в корзину 1-го найденого продукта с параметрами заказа по умолчанию
     page.add_cart_lens(0, us_set)
+    page.get_url(page.url)
     # Получение количества позиций в корзине после добавления линз
     amount_cart_after = page.amount_cart()
-    print(amount_cart_after)
-    # assert amount_cart_before + 2 == amount_cart_after, "ERROR! Product don't add to cart"
-    amount_cart_before = amount_cart_after
-    page.get_url(page.goto_page(j + 1))
-
-
-            # # Добавление в корзину продукта с параметрами заказа по умолчанию
-            # page.add_cart_product(frame_num)
-            # # Получение количества позиций в корзине после добавления оправы
-            # amount_cart_after = page.amount_cart()
-            # assert amount_cart_before + 1 == amount_cart_after, "ERROR! Product don't add to cart"
-            # amount_cart_before = amount_cart_after
-            #
-            # page.win_scroll_begin()
-            # page.save_screen_browser(f'uc_add_cart_found_fr_{us_set[j]}')
-            #
-            # # Очищаем все фильтры
-            # page.clear_all_filter()
+    # page.save_screen_browser(f'uc_add_cart_found_fr_{us_set[j]}')
+    assert amount_cart_before + 2 == amount_cart_after, "ERROR! Product don't add to cart"

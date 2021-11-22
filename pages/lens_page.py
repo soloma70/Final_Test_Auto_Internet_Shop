@@ -83,76 +83,39 @@ class LensPage(BasePage):
     def add_cart_lens(self, index: int, us_set: list):
         element = self.driver.find_elements(*ProductLocators.products)[index]
         ActionChains(self.driver).move_to_element(element).perform()
-        sleep(1)
         self.driver.find_elements(*ProductLocators.products_lens_buy)[index].click()
-        sleep(1)
         # Страница линзы
         self.driver.find_element(*ProductLensLocators.diff_eyes).click()
         #
         self.driver.find_element(*ProductLensLocators.dioptr_left).click()
-        sleep(1)
         dioptr_left_list = self.driver.find_elements(*ProductLensLocators.dioptr_left_list)
         self.choise_param(us_set[6][0], dioptr_left_list)
-        sleep(1)
         #
         self.driver.find_element(*ProductLensLocators.dioptr_right).click()
-        sleep(1)
         dioptr_right_list = self.driver.find_elements(*ProductLensLocators.dioptr_right_list)
         self.choise_param(us_set[6][1], dioptr_right_list)
-        sleep(1)
         #
         self.driver.find_element(*ProductLensLocators.curv_left).click()
-        sleep(1)
         curv_left_list = self.driver.find_elements(*ProductLensLocators.curv_left_list)
-        self.choise_param(us_set[4], curv_left_list)
-        sleep(1)
+        self.choise_param(us_set[4][0], curv_left_list)
         #
         self.driver.find_element(*ProductLensLocators.curv_right).click()
-        sleep(1)
         curv_right_list = self.driver.find_elements(*ProductLensLocators.curv_right_list)
-        self.choise_param(us_set[4], curv_right_list)
-        sleep(1)
+        self.choise_param(us_set[4][0], curv_right_list)
         #
         self.driver.find_element(*ProductLensLocators.pack_mul_left).click()
         self.driver.find_element(*ProductLensLocators.pack_mul_right).click()
         #
-        sleep(1)
+        sleep(2)
         #
         self.driver.find_element(*ProductLensLocators.buy_btn).click()
+        sleep(2)
         self.driver.find_element(*CartLocators.close_popup_cart).click()
-        sleep(1)
         #
 
     def choise_param(self, us_set: str, list_it: list):
-        print(us_set)
-        list_j = [list_i.text for list_i in list_it]
-        print(list_j)
         i = 0
         while us_set != list_it[i].text:
-            print(list_it[i].text)
             i += 1
         list_it[i].click()
 
-    # Изменение параметров линзы - одинаковые линзы
-    # price_before = int(web_driver_desktop.find_element(*ProductLensLocators.price).text)
-    # web_driver_desktop.find_element(*ProductLensLocators.dioptr_same).click()
-    # dioptr_list = web_driver_desktop.find_elements(*ProductLensLocators.dioptr_list)
-    # ActionChains(web_driver_desktop).move_to_element(dioptr_list[21]).click().perform()
-    # web_driver_desktop.find_element(*ProductLensLocators.curv_same).click()
-    # curv_list = web_driver_desktop.find_elements(*ProductLensLocators.curv_list)
-    # ActionChains(web_driver_desktop).move_to_element(curv_list[1]).click().perform()
-
-    # Тестирование изменений количества упаковок
-    # plus = web_driver_desktop.find_element(*ProductLensLocators.amount_plus_same)
-    # plus.click()
-    # plus.click()
-    # price_after = int(web_driver_desktop.find_element(*ProductLensLocators.price).text)
-    # assert price_after == price_before * 3, "ERROR! Sum's not eqw"
-    # #
-    # minus = web_driver_desktop.find_element(*ProductLensLocators.amount_minus_same)
-    # minus.click()
-    # minus.click()
-    # web_driver_desktop.find_element(*ProductLensLocators.buy_btn).click()
-    # web_driver_desktop.find_element(*ProductLensLocators.close_cart_popup).click()
-    # amount_cart_after2 = int(web_driver_desktop.find_element(*SalesLocators.amount_cart).text)
-    # assert amount_cart_after1 + 1 == amount_cart_after2, "ERROR! Product don't add to cart"
