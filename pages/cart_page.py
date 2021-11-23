@@ -1,8 +1,11 @@
 from pages.base_page import BasePage
 from pages.url_list import LinsaUa
-from pages.locators import LensLocators, ProductLocators, ProductLensLocators, CartLocators
+from pages.locators import CartLocators
 from time import sleep
 from selenium.webdriver.common.by import By
+from selenium.webdriver.support.wait import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.remote.webelement import WebElement
 from selenium.webdriver import ActionChains
 from random import randint
 
@@ -48,8 +51,6 @@ class CartPage(BasePage):
         input_phone = self.driver.find_element(*CartLocators.input_phone)
         input_phone.clear()
         input_phone.send_keys(phone)
-        sleep(1)
-        self.driver.find_element(*CartLocators.next_step_delivery).click()
 
     def search_item_in_list(self, test_item: str, item_list: list) -> int:
         i = 0
@@ -57,31 +58,41 @@ class CartPage(BasePage):
             i += 1
         return i
 
+    def goto_delivery(self):
+        self.driver.find_element(*CartLocators.next_step_delivery).click()
+
     def input_delivery_np(self, city: str, branch: str):
         self.driver.find_element(*CartLocators.input_city).click()
-        sleep(1)
         #
         city_list = self.driver.find_elements(*CartLocators.city_list)
         city_name = [name_city.text.strip() for name_city in city_list]
         index = self.search_item_in_list(city, city_name)
         city_list[index].click()
-        #
+        sleep(1)
         self.driver.find_element(*CartLocators.dilivery_np).click()
-        sleep(1)
+        # wait = WebDriverWait(self.driver, 10)
+        # wait.until(EC.element_to_be_clickable((CartLocators.np_branch)))
         self.driver.find_element(*CartLocators.np_branch).click()
-        sleep(1)
         #
         branch_list = self.driver.find_elements(*CartLocators.branch_list)
         num_brahch = [num.text.split('№')[1].split()[0] for num in branch_list]
         index = self.search_item_in_list(branch, num_brahch)
         branch_list[index].click()
-        sleep(1)
-        #
+
+    def goto_pay(self):
         self.driver.find_element(*CartLocators.next_step_pay).click()
-        sleep(5)
 
+    def input_pay_after_receiving(self, comment='', call='n'):
+        self.driver.find_element(*CartLocators.pay_rec_order).click()
+        self.driver.find_element(*CartLocators.comment_order).send_keys(comment)
+        if call == 'n':
+            self.driver.find_element(*CartLocators.dont_call).click()
 
+    def goto_benefit(self):
+        self.driver.find_element(*CartLocators.next_step_benefit).click()
 
-
-
-
+    def input_benefit(self, promo_code='') -> WebElement:
+        self.driver.find_element(*CartLocators.input_promo).send_keys(promo_code)
+        self.driver.find_element(*CartLocators.confirm_promo).click()
+        wrong_promo = self.driver.find_element(*CartLocators.wrong_promo)
+        return wrong_promo

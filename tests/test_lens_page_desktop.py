@@ -223,6 +223,7 @@ def test_us_filter_lens_page(web_driver_desktop):
     amount_cart_before = page.amount_cart()
     # Добавление в корзину 1-го найденого продукта с параметрами в us_set, переход в корзину, получение суммы заказа
     add_cart_sum = page.add_cart_lens(0, us_set)
+
     # Инициализация экземпляра корзины
     page = CartPage(web_driver_desktop, 10)
     # Получение данных из корзины
@@ -238,15 +239,15 @@ def test_us_filter_lens_page(web_driver_desktop):
         assert us_set[4][0] in lens_bc
 
     # Переход на страницу оформления заказа и заполнения всех данных
+    page.save_screen_browser(f'us_1_cart_chekout_{us_set[0][0]}')
     page.checkout_click()
     page.input_data(SendOrderSets.name, SendOrderSets.email, SendOrderSets.phone)
-    page.input_delivery_np(SendOrderSets.nova_poshta[0][0], SendOrderSets.nova_poshta[0][1],)
-
-
-
-
-    # page.get_url(page.url)
-    # # Получение количества позиций в корзине после добавления линз
-    # amount_cart_after = page.amount_cart()
-    # page.save_screen_browser(f'uc_add_cart_lens_{us_set[1]}')
-    # assert amount_cart_before + 2 == amount_cart_after, "ERROR! Product don't add to cart"
+    page.save_screen_browser(f'us_2_data_chekout_{us_set[0][0]}')
+    page.goto_delivery()
+    page.input_delivery_np(SendOrderSets.nova_poshta[0][0], SendOrderSets.nova_poshta[0][1])
+    page.save_screen_browser(f'us_3_delivery_chekout_{us_set[0][0]}')
+    page.goto_pay()
+    page.input_pay_after_receiving()
+    page.save_screen_browser(f'us_4_pay_chekout_{us_set[0][0]}')
+    page.goto_benefit()
+    page.save_screen_browser(f'us_5_confitm_chekout_{us_set[0][0]}')

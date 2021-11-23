@@ -205,8 +205,10 @@ class CartLocators:
                         '#product-added-to-cart-popup > div > div > div > div > div.close-popup.js-close-popup > svg')
     #
     amount_cart = (By.ID, 'cart-total-goods')
-    sum_cart_top = (By.CSS_SELECTOR, '#content-wrapper > section > div > div.double-holder > div.left > div > div.amount.js-total-cart-price')
-    sum_cart_bottom = (By.CSS_SELECTOR, '#content-wrapper > section > div > div.summary > div.amount.js-total-cart-price')
+    sum_cart_top = (By.CSS_SELECTOR,
+                    '#content-wrapper > section > div > div.double-holder > div.left > div > div.amount.js-total-cart-price')
+    sum_cart_bottom = (
+        By.CSS_SELECTOR, '#content-wrapper > section > div > div.summary > div.amount.js-total-cart-price')
     clear_cart = (By.CSS_SELECTOR, '#content-wrapper > section > div > div.double-holder > div.right > a')
     #
     in_cart_prod_names = (By.CSS_SELECTOR, 'div.cart-item > div.info > a.ttl')
@@ -218,29 +220,50 @@ class CartLocators:
     in_cart_prod_del = (By.CSS_SELECTOR, 'div.cart-item > div.remove.js-remove-from-cart > svg')
     #
     checkout = (By.CSS_SELECTOR, '#content-wrapper > section > div > div:nth-child(7) > a')
-    #
+    # Recipient's data
     input_name = (By.CSS_SELECTOR, 'div.step.step_1 > div:nth-child(2) > div.input-wrapper > input[type=text]')
     input_email = (By.CSS_SELECTOR, 'div div.step.step_1 > div:nth-child(3) > div.input-wrapper > input[type=email]')
     input_phone = (By.CSS_SELECTOR, 'div.step.step_1 > div:nth-child(4) > div.input-wrapper > input[type=text]')
     next_step_delivery = (By.CSS_SELECTOR, 'div.left > div.button-holder > a')
-    #
-    input_city = (By.CSS_SELECTOR, 'div.selectize-control.single > div.selectize-input.items.has-options.full.has-items')
+    # Delivery
+    input_city = (
+        By.CSS_SELECTOR, 'div.selectize-control.single > div.selectize-input.items.has-options.full.has-items')
     city_list = (By.CSS_SELECTOR, 'div.selectize-dropdown.single > div.selectize-dropdown-content > div.option')
-    # div.selectize-dropdown.single > div > div:nth-child(1)
     fast_change_city = (By.CSS_SELECTOR, 'div.step.step_2 > div:nth-child(3) > div > label > input[type=radio]')
     #
-    dilivery_cour = (By.CSS_SELECTOR, 'div.delivery-radio-wrapper > table > tr:nth-child(2) > td:nth-child(1) > label > span.round')
-    input_street = (By.CSS_SELECTOR, 'div.input-block.street > div.select-wrapper.department > div > div.selectize-input.items.has-options.full.has-items')
-    street_list = (By.CSS_SELECTOR, 'div.input-block.street > div.select-wrapper.department > div > div.selectize-dropdown.single > div > div')
+    dilivery_cour = (
+        By.CSS_SELECTOR, 'div.delivery-radio-wrapper > table > tr:nth-child(2) > td:nth-child(1) > label > span.round')
+    input_street = (By.CSS_SELECTOR,
+                    'div.input-block.street > div.select-wrapper.department > div > div.selectize-input.items.has-options.full.has-items')
+    street_list = (By.CSS_SELECTOR,
+                   'div.input-block.street > div.select-wrapper.department > div > div.selectize-dropdown.single > div > div')
     input_house = (By.CSS_SELECTOR, 'div.input-block.house > div.input-wrapper > input[type=text]')
     input_flat = (By.CSS_SELECTOR, 'div.input-block.flat > div.input-wrapper > input[type=text]')
     #
-    dilivery_np = (By.CSS_SELECTOR, 'div.delivery-radio-wrapper > table > tr:nth-child(3) > td:nth-child(1) > label > span.round')
-    np_branch = (By.CSS_SELECTOR, 'div.select-wrapper.department > div > div.selectize-input.items.has-options.not-full > input[type=text]')
+    dilivery_np = (
+        By.CSS_SELECTOR, 'div.delivery-radio-wrapper > table > tr:nth-child(3) > td:nth-child(1) > label > span.round')
+
+    np_branch = (By.CSS_SELECTOR,
+                 'div.select-wrapper.department > div > div.selectize-input.items.has-options.not-full > input[type=text]')
     branch_list = (By.CSS_SELECTOR, 'div.select-wrapper.department > div > div.selectize-dropdown.single > div > div')
     #
     next_step_pay = (By.CSS_SELECTOR, 'form.ecom_steps > div > div.left > div.button-holder > a')
-
+    # Pay
+    pay_rec_order = (
+        By.CSS_SELECTOR, 'div.delivery-radio-wrapper > table:nth-child(1) > tr:nth-child(1) > td > label > span.round')
+    pay_on_site = (
+        By.CSS_SELECTOR, 'div.delivery-radio-wrapper > table:nth-child(1) > tr:nth-child(2) > td > label > span.round')
+    comment_order = (By.ID, 'cabinet-message')
+    dont_call = (By.CSS_SELECTOR, 'div.delivery-radio-wrapper > table:nth-child(3) > tr > td > label > span.round')
+    next_step_benefit = (By.CSS_SELECTOR, 'form.ecom_steps > div > div.left > div.button-holder > a')
+    # Benefits
+    input_promo = (By.CSS_SELECTOR,
+                   'div.double-checkout-block > div.left > div.step.step_4 > div.input-block > div > input[type=text]')
+    confirm_promo = (
+        By.CSS_SELECTOR, 'div.double-checkout-block > div.left > div.step.step_4 > div.input-block > button')
+    wrong_promo = (
+        By.CSS_SELECTOR, 'div.double-checkout-block > div.left > div.step.step_4 > div.input-block > div > div > span')
+    checkout_btn = (By.CSS_SELECTOR, 'div.double-checkout-block > div.left > div.button-holder > button')
 
 
 class ProductLocators:
@@ -309,19 +332,21 @@ class ProductLensLocators:
     same_eyes = (By.CSS_SELECTOR, '#js-different-eyes > div > div.titles-row > div.label > div > a:nth-child(1) > svg')
     dioptr_same = (By.CSS_SELECTOR, '#lenses-selects-form-same > div:nth-child(3) > div > div.selectric > span')
     dioptr_list = (
-    By.CSS_SELECTOR, '#lenses-selects-form-same > div:nth-child(3) > div > div.selectric-items > div > ul > li')
+        By.CSS_SELECTOR, '#lenses-selects-form-same > div:nth-child(3) > div > div.selectric-items > div > ul > li')
     curv_same = (By.CSS_SELECTOR, '#lenses-selects-form-same > div:nth-child(4) > div > div.selectric > div')
     curv_list = (
-    By.CSS_SELECTOR, '#lenses-selects-form-same > div:nth-child(4) > div > div.selectric-items > div > ul > li')
+        By.CSS_SELECTOR, '#lenses-selects-form-same > div:nth-child(4) > div > div.selectric-items > div > ul > li')
     pack_one_same = (
-    By.CSS_SELECTOR, '#lenses-quantity-block-same > div.quantity-label > div > label.goods-round > span.round')
+        By.CSS_SELECTOR, '#lenses-quantity-block-same > div.quantity-label > div > label.goods-round > span.round')
     pack_mul_same = (
-    By.CSS_SELECTOR, '#lenses-quantity-block-same > div.quantity-label > div > label.goods-round.append > span.round')
+        By.CSS_SELECTOR,
+        '#lenses-quantity-block-same > div.quantity-label > div > label.goods-round.append > span.round')
     amount_same = (By.CSS_SELECTOR, '#product-quantity-same')
     minus_same = (
-    By.CSS_SELECTOR, '#lenses-quantity-block-same > div.quan-wrapper-cell > div > div.minus.js-sub-product-quantity')
+        By.CSS_SELECTOR,
+        '#lenses-quantity-block-same > div.quan-wrapper-cell > div > div.minus.js-sub-product-quantity')
     plus_same = (
-    By.CSS_SELECTOR, '#lenses-quantity-block-same > div.quan-wrapper-cell > div > div.plus.js-add-product-quantity')
+        By.CSS_SELECTOR, '#lenses-quantity-block-same > div.quan-wrapper-cell > div > div.plus.js-add-product-quantity')
 
     # Different eyes
     # diff_eyes = (By.CSS_SELECTOR, '#js-different-eyes > div > div.titles-row > div.label > div > a.active')
@@ -329,25 +354,27 @@ class ProductLensLocators:
 
     dioptr_left = (By.CSS_SELECTOR, '#lenses-selects-form-left > div:nth-child(3) > div > div.selectric > span')
     dioptr_left_list = (
-    By.CSS_SELECTOR, '#lenses-selects-form-left > div:nth-child(3) > div > div.selectric-items > div > ul > li')
+        By.CSS_SELECTOR, '#lenses-selects-form-left > div:nth-child(3) > div > div.selectric-items > div > ul > li')
     dioptr_right = (By.CSS_SELECTOR, '#lenses-selects-form-right > div:nth-child(3) > div > div.selectric > span')
     dioptr_right_list = (
-    By.CSS_SELECTOR, '#lenses-selects-form-right > div:nth-child(3) > div > div.selectric-items > div > ul > li')
+        By.CSS_SELECTOR, '#lenses-selects-form-right > div:nth-child(3) > div > div.selectric-items > div > ul > li')
     curv_left = (By.CSS_SELECTOR, '#lenses-selects-form-left > div:nth-child(4) > div > div.selectric > span')
     curv_left_list = (
-    By.CSS_SELECTOR, '#lenses-selects-form-left > div:nth-child(4) > div > div.selectric-items > div > ul > li')
+        By.CSS_SELECTOR, '#lenses-selects-form-left > div:nth-child(4) > div > div.selectric-items > div > ul > li')
     curv_right = (By.CSS_SELECTOR, '#lenses-selects-form-right > div:nth-child(4) > div > div.selectric > span')
     curv_right_list = (
-    By.CSS_SELECTOR, '#lenses-selects-form-right > div:nth-child(4) > div > div.selectric-items > div > ul > li')
+        By.CSS_SELECTOR, '#lenses-selects-form-right > div:nth-child(4) > div > div.selectric-items > div > ul > li')
 
     pack_one_left = (
-    By.CSS_SELECTOR, '#lenses-quantity-block-left > div.quantity-label > div > label.goods-round > span.round')
+        By.CSS_SELECTOR, '#lenses-quantity-block-left > div.quantity-label > div > label.goods-round > span.round')
     pack_one_right = (
-    By.CSS_SELECTOR, '#lenses-quantity-block-right > div.quantity-label > div > label.goods-round > span.round')
+        By.CSS_SELECTOR, '#lenses-quantity-block-right > div.quantity-label > div > label.goods-round > span.round')
     pack_mul_left = (
-    By.CSS_SELECTOR, '#lenses-quantity-block-left > div.quantity-label > div > label.goods-round.append > span.round')
+        By.CSS_SELECTOR,
+        '#lenses-quantity-block-left > div.quantity-label > div > label.goods-round.append > span.round')
     pack_mul_right = (
-    By.CSS_SELECTOR, '#lenses-quantity-block-right > div.quantity-label > div > label.goods-round.append > span.round')
+        By.CSS_SELECTOR,
+        '#lenses-quantity-block-right > div.quantity-label > div > label.goods-round.append > span.round')
 
     amount_left = (By.CSS_SELECTOR, '#product-quantity-left')
     minus_left = (By.CSS_SELECTOR,
