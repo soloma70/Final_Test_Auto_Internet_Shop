@@ -92,12 +92,12 @@ class SunglassPage(BasePage):
         Так как у некоторых продуктов может не быть баннера, применяется блок try-except для обработки исключения,
         предотвращения аварийного завершения кода и формирования правильного списка"""
 
-        list_banner = []
+        list_ban = []
         for i in range(iter_card):
             sale_banner = f'{block} > div:nth-child({i + 1}) > {banner}'
             try:
                 sale_banner = self.driver.find_element(By.CSS_SELECTOR, sale_banner).is_displayed()
             except NoSuchElementException:
                 sale_banner = False
-            list_banner.append(sale_banner)
-        return list_banner
+            list_ban.append(sale_banner)
+        return list_ban
