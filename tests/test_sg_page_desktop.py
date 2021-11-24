@@ -56,14 +56,14 @@ def test_positive_filter_sg_page(web_driver_desktop, test_set):
     ВНИМАНИЕ!!! Необходимо убрать курсор мышки из поля страницы браузера!"""
 
     page = SunglassPage(web_driver_desktop, 5)
-    filters = page.filters
 
+    amount_filter = len(page.filters)
     # Убираем всплывающий баннер
     if test_set == SunglassSets.versace:
         page.pass_popup_banner()
 
     # Добавляем фильтры согласно тестовым наборам и получаем списки фильтров
-    for i in range(len(filters)):
+    for i in range(amount_filter):
         page.filter_click(i, test_set[i])
 
     # Делаем скриншот
@@ -86,7 +86,8 @@ def test_positive_filter_single_sg_page(web_driver_desktop):
 
     page = SunglassPage(web_driver_desktop, 5)
 
-    for i in range(5):
+    amount_filter = len(page.filters)
+    for i in range(amount_filter):
         filter_set = SunglassSets.filter_set_positive[i]
         # Убираем всплывающий баннер
         if i == 0:
@@ -112,7 +113,8 @@ def test_negative_filter_single_sg_page(web_driver_desktop):
 
     page = SunglassPage(web_driver_desktop, 5)
 
-    for i in range(5):
+    amount_filter = len(page.filters)
+    for i in range(amount_filter):
         filter_set = SunglassSets.filter_set_negative[i]
         # Убираем всплывающий баннер
         if i == 0:

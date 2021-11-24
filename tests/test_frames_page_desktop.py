@@ -53,10 +53,10 @@ def test_filter_frames_page(web_driver_desktop, test_set):
     ВНИМАНИЕ!!! Необходимо убрать курсор мышки из поля страницы браузера!"""
 
     page = FramesPage(web_driver_desktop, 5)
-    filters = page.filters
 
+    amount_filter = len(page.filters)
     # Добавляем фильтры согласно тестовым наборам и получаем списки фильтров
-    for i in range(len(filters)):
+    for i in range(amount_filter):
         page.filter_click(i, test_set[i])
 
     # Делаем скриншот
@@ -79,7 +79,8 @@ def test_positive_filter_single_fr_page(web_driver_desktop):
 
     page = FramesPage(web_driver_desktop, 5)
 
-    for i in range(5):
+    amount_filter = len(page.filters)
+    for i in range(amount_filter):
         filter_set = FramesSets.filter_set_positive[i]
 
         for j in range(len(filter_set)):
@@ -102,7 +103,8 @@ def test_negative_filter_single_fr_page(web_driver_desktop):
 
     page = FramesPage(web_driver_desktop, 5)
 
-    for i in range(5):
+    amount_filter = len(page.filters)
+    for i in range(amount_filter):
         filter_set = FramesSets.filter_set_negative[i]
 
         for j in range(len(filter_set)):
