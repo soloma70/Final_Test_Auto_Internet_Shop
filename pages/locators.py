@@ -270,6 +270,10 @@ class ProductLocators:
     # Page name & amount
     name = (By.CSS_SELECTOR, 'h1.standard-title')
     amount_prod = (By.CSS_SELECTOR, 'div.h-holder > div.amount')
+    # Filter locators
+    filters = (By.CSS_SELECTOR, 'div.product-filters-titles.js-filter-toggle-items > div > span')
+    # Sort locators
+    sort_by = (By.CSS_SELECTOR, 'section.sort_panel > a')  # 4 items
     #
     products = (By.CSS_SELECTOR, 'div.products-wrapper > div > div.main-content > a.img')
     products_buy = (By.CSS_SELECTOR, 'div.products-wrapper > div > div.additional > button')
@@ -285,6 +289,8 @@ class ProductLocators:
         By.CSS_SELECTOR, 'div.products-wrapper > div > div.main-content > a.top > span.title')
     cards_prod_url = (
         By.CSS_SELECTOR, 'div.products-wrapper > div > div.main-content > a.top')  # 16 items
+    card_prod_vol = (
+        By.CSS_SELECTOR, 'div.products-wrapper > div > div.main-content > div > div > div:nth-child(1) > div > div.amount')  # 16 items
     card_prod_price = (
         By.CSS_SELECTOR, 'div.products-wrapper > div > div.main-content > div.bottom > div.prices > div.actual')
     card_prod_price_old = (
@@ -302,13 +308,13 @@ class ProductLocators:
         (By.CSS_SELECTOR,
          'div.products-wrapper > div > div.main-content > a.top > span.product-type'),
         (By.CSS_SELECTOR,
-         'div.products-wrapper > div > div.main-content > div.bottom > div.glasses-size > div:nth-child(1)'),
+         'div.products-wrapper > div > div.main-content > div > div > div:nth-child(1)'),
         (By.CSS_SELECTOR,
-         'div.products-wrapper > div > div.main-content > div.bottom > div.glasses-size > div:nth-child(2)'),
+         'div.products-wrapper > div > div.main-content > div > div > div:nth-child(2)'),
         (By.CSS_SELECTOR,
-         'div.products-wrapper > div > div.main-content > div.bottom > div.glasses-size > div:nth-child(3)'),
+         'div.products-wrapper > div > div.main-content > div > div > div:nth-child(3)'),
         (By.CSS_SELECTOR,
-         'div.products-wrapper > div > div.main-content > div.bottom > div.glasses-size > div:nth-child(4)')
+         'div.products-wrapper > div > div.main-content > div > div > div:nth-child(4)')
     ]
     card_prod_not_found = (By.CSS_SELECTOR, 'div.not-found')
 
@@ -449,9 +455,6 @@ class BlogLocators:
 
 class LensLocators:
     # DESKTOP LOCATORS
-
-    # Filter locators
-    filters = (By.CSS_SELECTOR, 'div.product-filters-titles.js-filter-toggle-items > div > span')  # 7 items
     # brands 7, lines 7, type_lens 5, repl_mode 5, base_curv 7, diameter 6, dioptr 7
     filter_list = [
         (By.CSS_SELECTOR, '#filter-tab-0 > div.filter-slider.slider.js-slide-0.slick-initialized.slick-slider > div > '
@@ -469,10 +472,6 @@ class LensLocators:
         (By.CSS_SELECTOR, '#filter-tab-6 > div.filter-slider.slider.slick-initialized.slick-slider > div > div > '
                           'div.slick-slide.slick-current.slick-active > div > div > label > a')
     ]
-
-    # Sort locators
-    sort_by = (By.CSS_SELECTOR, 'section.sort_panel > a')  # 4 items
-
     # Lens Card locator
     name = (By.CSS_SELECTOR, 'h1.standard-title')
     amount_lens = (By.CSS_SELECTOR, 'div.h-holder > div.amount')
@@ -486,9 +485,11 @@ class LensLocators:
     cards_lens_url = (
         By.CSS_SELECTOR, 'div.products-wrapper > div.product-item.lens > div.main-content > a.top')  # 16 items
     card_lens_amount = (By.CSS_SELECTOR,
-                        'div.products-wrapper > div.product-item.lens > div.main-content > div.bottom > div.lenses_sizes > div:nth-child(1) > div > div.amount')
+                        'div.products-wrapper > div.product-item.lens > div.main-content > div.bottom > '
+                        'div.lenses_sizes > div:nth-child(1) > div > div.amount')
     card_lens_price = (By.CSS_SELECTOR,
-                       'div.products-wrapper > div.product-item.lens > div.main-content > div.bottom > div.lenses_sizes > div:nth-child(1) > div > div.add-price')
+                       'div.products-wrapper > div.product-item.lens > div.main-content > div.bottom > '
+                       'div.lenses_sizes > div:nth-child(1) > div > div.add-price')
 
     cards_lens_add_btn = (
         By.CSS_SELECTOR,
@@ -505,9 +506,6 @@ class LensLocators:
 
 class FramesLocators:
     # DESKTOP LOCATORS
-
-    # Filter locators
-    filters = (By.CSS_SELECTOR, 'div.product-filters-titles.js-filter-toggle-items > div > span')  # 7 items
     # brands 7/6, sex 4, temple_length 7/7/3, bridge_width 7/6, eyepiece_width 7/7/7,
     # frame_shape 7/3, frame_type 2, dioptr 4, collection_year 7/6, polarization 1
     filter_list = [
@@ -543,15 +541,9 @@ class FramesLocators:
          'iv.slick-slide.slick-current.slick-active > div > div > label > a')
     ]
 
-    # Sort locators
-    sort_by = (By.CSS_SELECTOR, 'section.sort_panel > a')  # 5 items
-
 
 class SunglassLocators:
     # DESKTOP LOCATORS
-
-    # Filter locators
-    filters = (By.CSS_SELECTOR, 'div.product-filters-titles.js-filter-toggle-items > div > span')  # 7 items
     # brands 7/7/7/7/2, sex 4, temple_length 7/7/7/7/2, bridge_width 7/7/7/7/7/3, eyepiece_width 7/7/7/7/7/7/2,
     # frame_shape 7/4, collection_year 7/7/5, frame_color
     filter_list = [
@@ -581,5 +573,24 @@ class SunglassLocators:
          'div.slick-slide.slick-current.slick-active > div > div > label > a')
     ]
 
-    # Sort locators
-    sort_by = (By.CSS_SELECTOR, 'section.sort_panel > a')  # 5 items
+
+class CareLocators:
+    # DESKTOP LOCATORS
+    # brands 7/6, volume 7/7/5, type 6
+    filter_list = [
+        (By.CSS_SELECTOR,
+         '#filter-tab-0 > div.filter-slider.slider.js-slide-0.slick-initialized.slick-slider > div > div > '
+         'div.slick-slide.slick-current.slick-active > div > div > label > a'),
+        (By.CSS_SELECTOR,
+         '#filter-tab-1 > div.filter-slider.slider.slick-initialized.slick-slider > div > div > '
+         'div.slick-slide.slick-current.slick-active > div > div > label > a'),
+        (By.CSS_SELECTOR,
+         '#filter-tab-2 > div.filter-slider.slider.slick-initialized.slick-slider > div > div > div > div > '
+         'div > label > a'),
+    ]
+    card_prod_filters_care = [
+        (By.CSS_SELECTOR,
+         'div.products-wrapper > div > div.main-content > a.top > span.product-type'),
+        (By.CSS_SELECTOR,
+         'div.products-wrapper > div > div.main-content > div > div > div:nth-child(1) > div > div.amount'),
+    ]

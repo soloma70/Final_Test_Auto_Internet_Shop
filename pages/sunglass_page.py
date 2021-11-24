@@ -18,13 +18,13 @@ class SunglassPage(BasePage):
         driver.get(self.url)
 
         # Filter elements
-        self.filters = driver.find_elements(*SunglassLocators.filters)
+        self.filters = driver.find_elements(*ProductLocators.filters)
 
         # Sort elements
-        self.sort_by = driver.find_elements(*SunglassLocators.sort_by)
+        self.sort_by = driver.find_elements(*ProductLocators.sort_by)
 
     def pass_popup_banner(self):
-        self.driver.find_elements(*SunglassLocators.filters)[0].click()
+        self.driver.find_elements(*ProductLocators.filters)[0].click()
         sleep(6)
         # self.driver.find_element(By.CSS_SELECTOR,
         #                       'div.close-btn-x-new-dot.click-lgwg-dot-close-lock.animClass03').click()
@@ -33,7 +33,7 @@ class SunglassPage(BasePage):
         self.driver.get(self.url)
 
     def filter_click(self, index: int, test_set: str):
-        self.driver.find_elements(*SunglassLocators.filters)[index].click()
+        self.driver.find_elements(*ProductLocators.filters)[index].click()
         filter_vals = self.driver.find_elements(*SunglassLocators.filter_list[index])
         filter_val = [filter_vals[k].get_attribute('title') for k in range(len(filter_vals))]
 
@@ -69,7 +69,7 @@ class SunglassPage(BasePage):
         self.driver.find_element(*ProductLocators.clear_all_filters).click()
 
     def sorted_by_on_page(self, index: int):
-        self.driver.find_elements(*SunglassLocators.sort_by)[index].click()
+        self.driver.find_elements(*ProductLocators.sort_by)[index].click()
         sleep(2)
 
     def get_sunglass_list_sale_banner(self) -> list:

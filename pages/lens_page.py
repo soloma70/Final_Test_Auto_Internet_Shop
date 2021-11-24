@@ -17,13 +17,13 @@ class LensPage(BasePage):
         driver.get(self.url)
 
         # Filter elements
-        self.filters = driver.find_elements(*LensLocators.filters)
+        self.filters = driver.find_elements(*ProductLocators.filters)
 
         # Sort elements
-        self.sort_by = driver.find_elements(*LensLocators.sort_by)
+        self.sort_by = driver.find_elements(*ProductLocators.sort_by)
 
     def filter_click_lens(self, index: int, test_set: list):
-        self.driver.find_elements(*LensLocators.filters)[index].click()
+        self.driver.find_elements(*ProductLocators.filters)[index].click()
         filter_vals = self.driver.find_elements(*LensLocators.filter_list[index])
         filter_val = [filter_vals[k].get_attribute('title') for k in range(len(filter_vals))]
 
@@ -59,7 +59,7 @@ class LensPage(BasePage):
         self.driver.find_element(*ProductLocators.clear_all_filters).click()
 
     def sorted_by_on_page(self, index: int):
-        self.driver.find_elements(*LensLocators.sort_by)[index].click()
+        self.driver.find_elements(*ProductLocators.sort_by)[index].click()
         sleep(2)
         # WebDriverWait(self.driver, 10).until(EC.invisibility_of_element((
         #     By.CSS_SELECTOR('div.products-wrapper > div > div.main-content > a.img'))))

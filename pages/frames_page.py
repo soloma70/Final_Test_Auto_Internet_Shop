@@ -18,13 +18,13 @@ class FramesPage(BasePage):
         driver.get(self.url)
 
         # Filter elements
-        self.filters = driver.find_elements(*FramesLocators.filters)
+        self.filters = driver.find_elements(*ProductLocators.filters)
 
         # Sort elements
-        self.sort_by = driver.find_elements(*FramesLocators.sort_by)
+        self.sort_by = driver.find_elements(*ProductLocators.sort_by)
 
     def filter_click(self, index: int, test_set: list):
-        self.driver.find_elements(*FramesLocators.filters)[index].click()
+        self.driver.find_elements(*ProductLocators.filters)[index].click()
         filter_vals = self.driver.find_elements(*FramesLocators.filter_list[index])
         filter_val = [filter_vals[k].get_attribute('title') for k in range(len(filter_vals))]
 
@@ -60,7 +60,7 @@ class FramesPage(BasePage):
         self.driver.find_element(*ProductLocators.clear_all_filters).click()
 
     def sorted_by_on_page(self, index: int):
-        self.driver.find_elements(*FramesLocators.sort_by)[index].click()
+        self.driver.find_elements(*ProductLocators.sort_by)[index].click()
         sleep(2)
 
     def get_frames_list_sale_banner(self) -> list:
