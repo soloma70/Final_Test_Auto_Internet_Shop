@@ -69,8 +69,8 @@ class FramesSets:
         , ['Оправа Police VPL886 D82M 54', 'Оправа Police VPLA47 08H5 55', 'Оправа Police VPLA47 0301 55']
         , ' POLICE ']
 
-    guess = ['GUESS', 'женские', '135', '17', '48', '', '', '', '', 'Нет'
-        , ['Оправа GUESS GU2670 032 52', 'Оправа GUESS GU2658 052 50'], 'GUESS']
+    guess = ['GUESS', 'женские', '', '15', '', '', '', '', '', 'Нет'
+        , ['Оправа GUESS GU2699 070 54'], 'GUESS']
 
     ray_ban = ['RAY-BAN', 'унисекс', '130', '18', '48', '', '', '', '', 'Нет'
         , ['Оправа RY 1601 3685 48', 'Оправа RY 1601 3811 48', 'Оправа RY 1601 3813 48']
@@ -152,5 +152,25 @@ class SunglassSets:
     ]
 
 
-class SearchSets:
-    pass
+class CareSets:
+    soleko = ['SOLEKO', '20мл', 'УВЛАЖНЯЮЩИЕ КАПЛИ',
+              ['Капли Ekinos drops', 'Капли Queens I-Fresh Yal drops 20ml'], 'SOLEKO', 'SOLEKO']
+
+    alcon = ['ALCON', '120мл', 'МНОГОФУНКЦИОНАЛЬНЫЙ РАСТВОР',
+              ['Alcon Opti-Free Express'], 'ALCON', 'ALCON']
+
+    olmi = ['ТОВ "ОЛМІ"', '', 'Контейнер',
+             ['Контейнер для линз B&L'], 'ТОВ "ОЛМІ"', 'OLMI']
+
+    # brands 5, sex 4, temple length 4, bridge width 2, eyepiece width 2
+    filter_set_positive = [
+        ['Menicon Co., Ltd', 'INTEROJO', 'AVIZOR', 'Фармзавод Єльфа А.Т.'],
+        ['100мл', '350мл', '3мл'],
+        ['Дорожный набор', 'ДЛЯ ЖЕСТКИХ ЛИНЗ (GPL)', 'УВЛАЖНЯЮЩИЕ КАПЛИ'],
+    ]
+
+    filter_set_negative = [
+        [''],
+        ['300мл', '50мл'],
+        [''],
+    ]
