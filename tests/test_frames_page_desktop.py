@@ -227,7 +227,6 @@ def test_us_filter_fr_page(web_driver_desktop):
     # Получение количества позиций в корзине после добавления оправы
     amount_cart_after = page.amount_cart()
     assert amount_cart_before + 1 == amount_cart_after, "ERROR! Product don't add to cart"
-    amount_cart_before = amount_cart_after
 
     page.win_scroll_begin()
     page.save_screen_browser(f'uc_add_cart_fr_{FramesSets.filter_set_uc[0]}')

@@ -1,8 +1,9 @@
 # -*- encoding=utf8 -*-
 
 import pytest
-from pages.test_sets import SunglassSets
+from pages.test_sets import SunglassSets, SendOrderSets
 from pages.sunglass_page import SunglassPage
+from pages.cart_page import CartPage
 
 
 def test_amount_sunglass_page(web_driver_desktop):
@@ -213,19 +214,19 @@ def test_us_filter_sg_page(web_driver_desktop):
 
     page = SunglassPage(web_driver_desktop, 5)
 
-    filter_set = SunglassSets.filter_set_uc
-    for i in range(len(filter_set)):
+    us_set = SunglassSets.filter_set_uc
+    for i in range(len(us_set)):
 
         # Убираем всплывающий баннер
         if i == 0:
             page.pass_popup_banner()
 
         # Добавляем фильтр по бренду согласно тестовым наборам и получаем списки фильтров
-        page.filter_click(i, filter_set[i])
+        page.filter_click(i, us_set[i])
         # Получаем результат применения фильтров и сравниваем с тестовым набором
         search_result_brand = page.search_result_single(i)
-        if filter_set[i] != '':
-            assert filter_set[i] in search_result_brand, f'ERROR! Filtering error'
+        if us_set[i] != '':
+            assert us_set[i] in search_result_brand, f'ERROR! Filtering error'
 
     # Сортировка по возрастанию
     page.sorted_by_on_page(2)
@@ -237,15 +238,44 @@ def test_us_filter_sg_page(web_driver_desktop):
     amount_cart_before = page.amount_cart()
     # Получение номеров тестируемых оправ на странице
     frame_num = page.rand_prod_card(page.card_prod_len() - 1)
+
     # Добавление в корзину продукта с параметрами заказа по умолчанию
     page.add_cart_product(frame_num)
     # Получение количества позиций в корзине после добавления очков
     amount_cart_after = page.amount_cart()
     assert amount_cart_before + 1 == amount_cart_after, "ERROR! Product don't add to cart"
-    amount_cart_before = amount_cart_after
 
-    page.win_scroll_begin()
     page.save_screen_browser(f'uc_add_cart_sg_{SunglassSets.filter_set_uc[0]}')
 
     # Очищаем все фильтры
     page.clear_all_filter()
+
+    # Инициализация экземпляра корзины
+    page = CartPage(web_driver_desktop, 10)
+    # Получение данных из корзины
+    sum_cart_top, sum_cart_bottom, in_cart_prod_sum = page.sum_in_cart()
+    # Сравнение суммы выбраных продуктов и сумм в корзине
+    assert sum_cart_bottom == sum_cart_top and sum_cart_bottom == in_cart_prod_sum
+    # Получение данных по продуктам из корзины по имени, бренду и сравнение с тестовым набором
+    print(len(page.prod_names))
+    for seq_num in range(len(page.prod_names)):
+        prod_param = page.param_prod(seq_num)
+        print()
+        print(us_set)
+        print(prod_param)
+        # for i in range(len(prod_param)):
+        #     assert us_set[i] in prod_param[i]
+
+    # Переход на страницу оформления заказа и заполнения всех данных
+    # page.save_screen_browser(f'us_1_cart_chekout_{us_set[0]}')
+    # page.checkout_click()
+    # page.input_data(SendOrderSets.name, SendOrderSets.email, SendOrderSets.phone)
+    # page.save_screen_browser(f'us_2_data_chekout_{us_set[0]}')
+    # page.goto_delivery()
+    # page.input_delivery_np(SendOrderSets.nova_poshta[1][0], SendOrderSets.nova_poshta[1][1])
+    # page.save_screen_browser(f'us_3_delivery_chekout_{us_set[0]}')
+    # page.goto_pay()
+    # page.input_pay_after_receiving()
+    # page.save_screen_browser(f'us_4_pay_chekout_{us_set[0]}')
+    # page.goto_benefit()
+    # page.save_screen_browser(f'us_5_confitm_chekout_{us_set[0]}')
