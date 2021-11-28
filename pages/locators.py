@@ -290,7 +290,8 @@ class ProductLocators:
     cards_prod_url = (
         By.CSS_SELECTOR, 'div.products-wrapper > div > div.main-content > a.top')  # 16 items
     card_prod_vol = (
-        By.CSS_SELECTOR, 'div.products-wrapper > div > div.main-content > div > div > div:nth-child(1) > div > div.amount')  # 16 items
+        By.CSS_SELECTOR,
+        'div.products-wrapper > div > div.main-content > div > div > div:nth-child(1) > div > div.amount')  # 16 items
     card_prod_price = (
         By.CSS_SELECTOR, 'div.products-wrapper > div > div.main-content > div.bottom > div.prices > div.actual')
     card_prod_price_old = (
@@ -594,3 +595,14 @@ class CareLocators:
         (By.CSS_SELECTOR,
          'div.products-wrapper > div > div.main-content > div > div > div:nth-child(1) > div > div.amount'),
     ]
+
+    card_care_amount = (By.CSS_SELECTOR, 'div.products-wrapper > div.product-item > div.main-content > div.bottom')
+    loc_price1 = 'div.main-content > div > div > div > div > div.add-price'
+    loc_price2 = 'div.main-content > div > div > div.actual'
+    loc_begin = '#content-wrapper > section.products-section'
+
+    choice_volume = (By.CSS_SELECTOR,
+                    'div.char-card-block.glasses > div > div.select-cell.size > div > div.selectric > span')
+    list_volume = (By.CSS_SELECTOR,
+                  'div.char-card-block.glasses > div > div.select-cell.size > div > div.selectric-items > div > ul > li')
+    buy_btn = (By.ID, 'md-to-basket')

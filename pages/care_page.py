@@ -1,11 +1,12 @@
+from selenium.webdriver import ActionChains
+
 from pages.base_page import BasePage
 from pages.url_list import LinsaUa
-from pages.locators import CareLocators, ProductLocators
+from pages.locators import CareLocators, ProductLocators, CartLocators
 from time import sleep
 from selenium.webdriver.common.by import By
+from selenium.webdriver.remote.webelement import WebElement
 from selenium.common.exceptions import NoSuchElementException
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
 
 
 class CarePage(BasePage):
@@ -23,21 +24,12 @@ class CarePage(BasePage):
         # Sort elements
         self.sort_by = driver.find_elements(*ProductLocators.sort_by)
 
-    def pass_popup_banner(self):
-        self.driver.find_elements(*ProductLocators.filters)[0].click()
-        sleep(6)
-        # self.driver.find_element(By.CSS_SELECTOR,
-        #                       'div.close-btn-x-new-dot.click-lgwg-dot-close-lock.animClass03').click()
-        # wait = WebDriverWait(self.driver, 10)
-        # wait.until(EC.visibility_of(By.ID('visualBlockWidgetLGWGPopff808d04311853ba8d1fa98b93462108')))
-        self.driver.get(self.url)
-
     def filter_click(self, index: int, test_set: str):
         self.driver.find_elements(*ProductLocators.filters)[index].click()
         filter_vals = self.driver.find_elements(*CareLocators.filter_list[index])
         filter_val = [filter_vals[k].get_attribute('title') for k in range(len(filter_vals))]
 
-        while test_set not in filter_val and test_set != '' and filter_vals != []:
+        while test_set not in filter_val and (test_set != '' or filter_vals != []):
             self.driver.find_element(By.CSS_SELECTOR,
                                      f'div.right-filter-cntrl.js-rf-cntrl-{index}.slick-arrow').click()
             filter_vals = self.driver.find_elements(*CareLocators.filter_list[index])
@@ -72,32 +64,56 @@ class CarePage(BasePage):
         self.driver.find_elements(*ProductLocators.sort_by)[index].click()
         sleep(2)
 
-    def get_sunglass_list_sale_banner(self) -> list:
-        """ Метод собирает со страницы продукта наличие/отсутсвие баннера с % скидки, формирует и возвращает
-        список True/False"""
+    def add_cart_lens(self, index: int, volume: str):
+        element = self.driver.find_elements(*ProductLocators.products)[index]
+        ActionChains(self.driver).move_to_element(element).perform()
+        self.driver.find_elements(*ProductLocators.products_lens_buy)[index].click()
+        #
+        self.driver.find_element(*CareLocators.choice_volume).click()
+        list_volume = self.driver.find_elements(*CareLocators.list_volume)
+        self.choise_param(volume, list_volume)
+        #
+        self.driver.find_element(*CareLocators.buy_btn).click()
+        self.driver.find_element(*CartLocators.close_popup_cart).click()
+        sleep(1)
 
-        amount = self.card_prod_len()
-        if amount <= 8:
-            list_banner = self.part_card_banner(
-                amount, ProductLocators.block_1, ProductLocators.sale_banner)
-        if amount > 8:
-            list_banner = self.part_card_banner(
-                8, ProductLocators.block_1, ProductLocators.sale_banner)
-            list_banner += self.part_card_banner(
-                amount - 8, ProductLocators.block_2, ProductLocators.sale_banner)
-        return list_banner
+    def choise_param(self, us_set: str, list_it: list):
+        i = 0
+        while us_set != list_it[i].text:
+            i += 1
+        list_it[i].click()
 
-    def part_card_banner(self, iter_card: int, block: str, banner: str) -> list:
-        """ Метод формирует список True/False в зависимости от того, есть баннер скидки у продукта или нет.
-        Так как у некоторых продуктов может не быть баннера, применяется блок try-except для обработки исключения,
-        предотвращения аварийного завершения кода и формирования правильного списка"""
+    def get_care_list_on_page(self) -> [list]:
+        amount_card = len(self.driver.find_elements(*CareLocators.card_care_amount))
+        list_price = self.part_card_price_care(amount_card, CareLocators.loc_begin, CareLocators.loc_price1,
+                                               CareLocators.loc_price2)
+        return list_price
 
-        list_ban = []
-        for i in range(iter_card):
-            sale_banner = f'{block} > div:nth-child({i + 1}) > {banner}'
-            try:
-                sale_banner = self.driver.find_element(By.CSS_SELECTOR, sale_banner).is_displayed()
-            except NoSuchElementException:
-                sale_banner = False
-            list_ban.append(sale_banner)
-        return list_ban
+    def part_card_price_care(self, iter_card: int, loc_begin: str, loc_price_1: str, loc_price_2: str) -> list:
+        """ Метод формирует список цен на продукты со страницы продукта. Так как некоторые цены отсутствуют у продукта,
+        применяется блок try-except для обработки исключения, предотвращения аварийного завершения кода
+        и формирования правильного списка цен"""
+
+        list_price = []
+        if iter_card < 8:
+            for i in range(iter_card):
+                price = self.search_price_care(1, i + 1, loc_begin, loc_price_1, loc_price_2)
+                list_price.append(int(price.text.split()[0]))
+        elif iter_card >= 8:
+            for i in range(8):
+                price = self.search_price_care(1, i + 1, loc_begin, loc_price_1, loc_price_2)
+                list_price.append(int(price.text.split()[0]))
+            for i in range(iter_card - 8):
+                price = self.search_price_care(2, i + 1, loc_begin, loc_price_1, loc_price_2)
+                list_price.append(int(price.text.split()[0]))
+        return list_price
+
+    def search_price_care(self, i1: int, i2: int, loc_b: str, loc_p_1: str, loc_p_2: str) -> WebElement:
+        try:
+            elem_price = self.driver.find_element(By.CSS_SELECTOR,
+                                                  f'{loc_b} > div:nth-child({i1}) > div:nth-child({i2}) > {loc_p_1}')
+        except NoSuchElementException:
+            elem_price = self.driver.find_element(By.CSS_SELECTOR,
+                                                  f'{loc_b} > div:nth-child({i1}) > div:nth-child({i2}) > {loc_p_2}')
+        return elem_price
+

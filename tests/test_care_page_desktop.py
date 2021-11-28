@@ -99,7 +99,7 @@ def test_positive_filter_single_care_page(web_driver_desktop):
             page.clear_all_filter()
 
 
-def test_negative_filter_single_sg_page(web_driver_desktop):
+def test_negative_filter_single_care_page(web_driver_desktop):
     """Тест проверяет фильтр на странице по брендам, полу, длинне заушника, ширине мостика и ширине окуляра
     и выборку согласно критерию фильтрации.
     ВНИМАНИЕ!!! Необходимо убрать курсор мышки из поля страницы браузера!"""
@@ -122,11 +122,9 @@ def test_negative_filter_single_sg_page(web_driver_desktop):
                 page.clear_all_filter()
 
 
-def test_sort_sunglass_page(web_driver_desktop):
+def test_sort_care_page(web_driver_desktop):
     """Тест проверяет сортировку на 1-й, последней и одной (1) рандомной странице по возрастанию
-    и снижению цены (с проверкой цен), по новизне и популярности, распродажа (только на 1-й странице,
-    дальше при сортировке включается позиции без распродажи???), делает скриншоты.
-    Комментарий: Сортировка организована по ценам без учета скидки (old price) - баг или фича?
+    и снижению цены (с проверкой цен), по новизне и популярности, делает скриншоты.
     ВНИМАНИЕ!!! Необходимо убрать курсор мышки из поля страницы браузера!"""
 
     page = CarePage(web_driver_desktop, 10)
@@ -140,101 +138,94 @@ def test_sort_sunglass_page(web_driver_desktop):
 
         # Сортировка по снижению
         page.sorted_by_on_page(1)
-        page.save_screen_browser(f'sort_sg_decrease_{page_num[i]}')
-        list_price_decrease = page.get_prod_list_on_page()
+        page.save_screen_browser(f'sort_care_decrease_{page_num[i]}')
+        list_price_decrease = page.get_care_list_on_page()
         list_sort = sorted(list_price_decrease)
         list_sort.sort(reverse=True)
         assert list_price_decrease == list_sort, "ERROR! Position don't sorted"
 
         # Сортировка по новизне
         page.sorted_by_on_page(3)
-        page.save_screen_browser(f'sort_sg_novelty_{page_num[i]}')
+        page.save_screen_browser(f'sort_care_novelty_{page_num[i]}')
 
         # Сортировка по возрастанию
         page.sorted_by_on_page(2)
-        page.save_screen_browser(f'sort_sg_increase_{page_num[i]}')
-        list_price_increase = page.get_prod_list_on_page()
+        page.save_screen_browser(f'sort_care_increase_{page_num[i]}')
+        list_price_increase = page.get_care_list_on_page()
         list_sort = sorted(list_price_increase)
         assert list_price_increase == list_sort, "ERROR! Position don't sorted"
 
         # Сортировка по популярности
         page.sorted_by_on_page(0)
-        page.save_screen_browser(f'sort_sg_popularity_{page_num[i]}')
-
-        if i == 0:
-            # Сортировка по распродаже
-            page.sorted_by_on_page(4)
-            page.save_screen_browser(f'sort_sg_sales_{page_num[i]}')
-            present_banner = page.get_sunglass_list_sale_banner()
-            assert all(present_banner), "ERROR! Position don't sorted"
+        page.save_screen_browser(f'sort_care_popularity_{page_num[i]}')
 
 
-def test_add_in_cart_sunglass_page(web_driver_desktop):
-    """Тест проверяет добавление очков одной рандомной позиций с 1, последней и 4-х рандомных страниц,
+def test_add_in_cart_care_page(web_driver_desktop):
+    """Тест проверяет добавление одной рандомной позиций с 1, последней и 1-й рандомной страницы,
     добавление в корзину с параметрами по умолчанию """
 
     page = CarePage(web_driver_desktop, 3)
-    # Получение списка рандомных страниц для теста
-    page_num = page.rand_prod_page(page.amount_page_total(), 4, True)
+    # Получение списка рандомной страниц для теста
+    page_num = page.rand_prod_page(page.amount_page_total(), 1, True)
+
     # Получение количества позиций в корзине перед добавлением
     amount_cart_before = page.amount_cart()
 
-    for i in range(6):
+    for i in range(3):
         # Переход на страницу сортировки (не перегружаем 1-ю страницу)
         if i != 0:
             page.get_url(page.goto_page(page_num[i]))
-        # Получение номеров тестируемых оправ на странице
-        frame_num = page.rand_prod_card(page.card_prod_len() - 1)
+        # Получение номеров продуктов на странице
+        care_num = page.rand_prod_card(page.card_prod_len() - 1)
+
         # Добавление в корзину продукта с параметрами заказа по умолчанию
-        page.add_cart_product(frame_num)
+        page.add_cart_lens_def_par(care_num)
         # Получение количества позиций в корзине после добавления оправы
         amount_cart_after = page.amount_cart()
+
         assert amount_cart_before + 1 == amount_cart_after, "ERROR! Product don't add to cart"
         amount_cart_before = amount_cart_after
 
     page.win_scroll_begin()
-    page.save_screen_browser('add_cart_6_sg')
+    page.save_screen_browser('add_cart_3_care')
 
 
-def test_us_filter_sg_page(web_driver_desktop):
-    """Тест UC "Я хочу найти и купить..." проверяет фильтр по брендам, полу, длинне заушника, ширине мостика и ширине окуляра,
-    сортирует выбранные позиции возрастанию цены, выбирает рандомные очки и добавляет в корзину.
+def test_us_filter_care_page(web_driver_desktop):
+    """Тест UC "Я хочу найти и купить..." проверяет фильтр по брендам, объему и типу, сортирует
+    выбранные позиции возрастанию цены, выбирает рандомную позицию и добавляет в корзину.
     ВНИМАНИЕ!!! Необходимо убрать курсор мышки из поля страницы браузера!"""
 
     page = CarePage(web_driver_desktop, 5)
 
-    for i in range(5):
-        filter_set = CarePage.filter_set_uc[i]
-        # Убираем всплывающий баннер
-        if i == 0:
-            page.pass_popup_banner()
+    filter_set = CareSets.filter_set_uc
+    for i in range(len(filter_set)):
 
-        for j in range(len(filter_set)):
-            # Добавляем фильтр по бренду согласно тестовым наборам и получаем списки фильтров
-            page.filter_click(i, filter_set[j])
-            # Получаем результат применения фильтров и сравниваем с тестовым набором
+        # Добавляем фильтр по бренду согласно тестовым наборам и получаем списки фильтров
+        page.filter_click(i, filter_set[i])
+        # Получаем результат применения фильтров и сравниваем с тестовым набором
+        if filter_set[i] != '' and i <= 1:
             search_result_brand = page.search_result_single(i)
-            assert filter_set[j] in search_result_brand and all(search_result_brand), f'ERROR! Filtering error'
+            assert filter_set[i] in search_result_brand, f'ERROR! Filtering error'
 
-            # Сортировка по возрастанию
-            page.sorted_by_on_page(2)
-            list_price_increase = page.get_prod_list_on_page()
-            list_sort = sorted(list_price_increase)
-            assert list_price_increase == list_sort, "ERROR! Position don't sorted"
+    # Сортировка по возрастанию
+    page.sorted_by_on_page(2)
+    list_price_increase = page.get_care_list_on_page()
+    list_sort = sorted(list_price_increase)
+    assert list_price_increase == list_sort, "ERROR! Position don't sorted"
 
-            # Получение количества позиций в корзине перед добавлением
-            amount_cart_before = page.amount_cart()
-            # Получение номеров тестируемых оправ на странице
-            frame_num = page.rand_prod_card(page.card_prod_len() - 1)
-            # Добавление в корзину продукта с параметрами заказа по умолчанию
-            page.add_cart_product(frame_num)
-            # Получение количества позиций в корзине после добавления оправы
-            amount_cart_after = page.amount_cart()
-            assert amount_cart_before + 1 == amount_cart_after, "ERROR! Product don't add to cart"
-            amount_cart_before = amount_cart_after
+    # Получение количества позиций в корзине перед добавлением
+    amount_cart_before = page.amount_cart()
+    # Получение номера продукта на странице
+    frame_num = page.rand_prod_card(page.card_prod_len() - 1)
+    # Добавление в корзину 1-го продукта с параметрами заказа по умолчанию
+    page.add_cart_lens(frame_num, CareSets.set_vol)
+    # Получение количества позиций в корзине после добавления оправы
+    amount_cart_after = page.amount_cart()
+    assert amount_cart_before + 1 == amount_cart_after, "ERROR! Product don't add to cart"
+    amount_cart_before = amount_cart_after
 
-            page.win_scroll_begin()
-            page.save_screen_browser(f'uc_add_cart_found_fr_{filter_set[j]}')
+    page.save_screen_browser(f'uc_add_cart_care_{CareSets.filter_set_uc[0]}')
+    page.get_url(page.url)
 
-            # Очищаем все фильтры
-            page.clear_all_filter()
+
+
