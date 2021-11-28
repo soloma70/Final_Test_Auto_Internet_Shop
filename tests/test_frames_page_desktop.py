@@ -202,35 +202,35 @@ def test_us_filter_fr_page(web_driver_desktop):
 
     page = FramesPage(web_driver_desktop, 5)
 
-    for i in range(5):
-        filter_set = FramesSets.filter_set_uc[i]
+    filter_set = FramesSets.filter_set_uc
+    for i in range(len(filter_set)):
 
-        for j in range(len(filter_set)):
-            # Добавляем фильтр по бренду согласно тестовым наборам и получаем списки фильтров
-            page.filter_click(i, filter_set[j])
-            # Получаем результат применения фильтров и сравниваем с тестовым набором
-            search_result_brand = page.search_result_single(i)
-            assert filter_set[j] in search_result_brand and all(search_result_brand), f'ERROR! Filtering error'
+        # Добавляем фильтр по бренду согласно тестовым наборам и получаем списки фильтров
+        page.filter_click(i, filter_set[i])
+        # Получаем результат применения фильтров и сравниваем с тестовым набором
+        search_result_brand = page.search_result_single(i)
+        if filter_set[i] != '':
+            assert filter_set[i] in search_result_brand, f'ERROR! Filtering error'
 
-            # Сортировка по возрастанию
-            page.sorted_by_on_page(2)
-            list_price_increase = page.get_prod_list_on_page()
-            list_sort = sorted(list_price_increase)
-            assert list_price_increase == list_sort, "ERROR! Position don't sorted"
+    # Сортировка по возрастанию
+    page.sorted_by_on_page(2)
+    list_price_increase = page.get_prod_list_on_page()
+    list_sort = sorted(list_price_increase)
+    assert list_price_increase == list_sort, "ERROR! Position don't sorted"
 
-            # Получение количества позиций в корзине перед добавлением
-            amount_cart_before = page.amount_cart()
-            # Получение номеров тестируемых оправ на странице
-            frame_num = page.rand_prod_card(page.card_prod_len() - 1)
-            # Добавление в корзину продукта с параметрами заказа по умолчанию
-            page.add_cart_product(frame_num)
-            # Получение количества позиций в корзине после добавления оправы
-            amount_cart_after = page.amount_cart()
-            assert amount_cart_before + 1 == amount_cart_after, "ERROR! Product don't add to cart"
-            amount_cart_before = amount_cart_after
+    # Получение количества позиций в корзине перед добавлением
+    amount_cart_before = page.amount_cart()
+    # Получение номеров тестируемых оправ на странице
+    frame_num = page.rand_prod_card(page.card_prod_len() - 1)
+    # Добавление в корзину продукта с параметрами заказа по умолчанию
+    page.add_cart_product(frame_num)
+    # Получение количества позиций в корзине после добавления оправы
+    amount_cart_after = page.amount_cart()
+    assert amount_cart_before + 1 == amount_cart_after, "ERROR! Product don't add to cart"
+    amount_cart_before = amount_cart_after
 
-            page.win_scroll_begin()
-            page.save_screen_browser(f'uc_add_cart_found_fr_{filter_set[j]}')
+    page.win_scroll_begin()
+    page.save_screen_browser(f'uc_add_cart_fr_{FramesSets.filter_set_uc[0]}')
 
-            # Очищаем все фильтры
-            page.clear_all_filter()
+    # Очищаем все фильтры
+    page.clear_all_filter()

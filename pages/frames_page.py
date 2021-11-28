@@ -28,7 +28,7 @@ class FramesPage(BasePage):
         filter_vals = self.driver.find_elements(*FramesLocators.filter_list[index])
         filter_val = [filter_vals[k].get_attribute('title') for k in range(len(filter_vals))]
 
-        while test_set not in filter_val and test_set != '' and filter_vals != []:
+        while test_set not in filter_val and (test_set != '' or filter_vals != []):
             self.driver.find_element(By.CSS_SELECTOR,
                                      f'div.right-filter-cntrl.js-rf-cntrl-{index + 1}.slick-arrow').click()
             filter_vals = self.driver.find_elements(*FramesLocators.filter_list[index])
