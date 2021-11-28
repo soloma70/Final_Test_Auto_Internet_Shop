@@ -1,8 +1,9 @@
 # -*- encoding=utf8 -*-
 
 import pytest
-from pages.test_sets import CareSets
+from pages.test_sets import CareSets, SendOrderSets
 from pages.care_page import CarePage
+from pages.cart_page import CartPage
 
 
 def test_amount_care_page(web_driver_desktop):
@@ -195,17 +196,17 @@ def test_us_filter_care_page(web_driver_desktop):
     выбранные позиции возрастанию цены, выбирает рандомную позицию и добавляет в корзину.
     ВНИМАНИЕ!!! Необходимо убрать курсор мышки из поля страницы браузера!"""
 
-    page = CarePage(web_driver_desktop, 5)
+    page = CarePage(web_driver_desktop, 7)
 
-    filter_set = CareSets.filter_set_uc
-    for i in range(len(filter_set)):
+    us_set = CareSets.filter_set_uc
+    for i in range(len(us_set)):
 
         # Добавляем фильтр по бренду согласно тестовым наборам и получаем списки фильтров
-        page.filter_click(i, filter_set[i])
+        page.filter_click(i, us_set[i])
         # Получаем результат применения фильтров и сравниваем с тестовым набором
-        if filter_set[i] != '' and i <= 1:
+        if us_set[i] != '' and i <= 1:
             search_result_brand = page.search_result_single(i)
-            assert filter_set[i] in search_result_brand, f'ERROR! Filtering error'
+            assert us_set[i] in search_result_brand, f'ERROR! Filtering error'
 
     # Сортировка по возрастанию
     page.sorted_by_on_page(2)
@@ -218,14 +219,37 @@ def test_us_filter_care_page(web_driver_desktop):
     # Получение номера продукта на странице
     frame_num = page.rand_prod_card(page.card_prod_len() - 1)
     # Добавление в корзину 1-го продукта с параметрами заказа по умолчанию
-    page.add_cart_lens(frame_num, CareSets.set_vol)
+    add_cart_sum = page.add_cart_care(frame_num, CareSets.set_vol)
     # Получение количества позиций в корзине после добавления оправы
     amount_cart_after = page.amount_cart()
     assert amount_cart_before + 1 == amount_cart_after, "ERROR! Product don't add to cart"
-    amount_cart_before = amount_cart_after
 
     page.save_screen_browser(f'uc_add_cart_care_{CareSets.filter_set_uc[0]}')
-    page.get_url(page.url)
 
+    # Инициализация экземпляра корзины
+    page = CartPage(web_driver_desktop, 10)
+    # Получение данных из корзины
+    sum_cart_top, sum_cart_bottom, in_cart_prod_sum = page.sum_in_cart()
+    # Сравнение суммы выбраных продуктов и сумм в корзине
+    assert add_cart_sum == sum_cart_top and sum_cart_bottom == sum_cart_top and sum_cart_bottom == in_cart_prod_sum
+    # Получение данных по продуктам из корзины по имени, бренду и сравнение с тестовым набором
+    for seq_num in range(len(page.prod_names)):
+        prod_name, prod_brand = page.param_care(seq_num)
+        assert us_set[0].lower() in prod_brand.lower()
+
+
+    # Переход на страницу оформления заказа и заполнения всех данных
+    page.save_screen_browser(f'us_1_cart_chekout_{us_set[0]}')
+    page.checkout_click()
+    page.input_data(SendOrderSets.name, SendOrderSets.email, SendOrderSets.phone)
+    page.save_screen_browser(f'us_2_data_chekout_{us_set[0]}')
+    page.goto_delivery()
+    page.input_delivery_np(SendOrderSets.nova_poshta[1][0], SendOrderSets.nova_poshta[1][1])
+    page.save_screen_browser(f'us_3_delivery_chekout_{us_set[0]}')
+    page.goto_pay()
+    page.input_pay_after_receiving()
+    page.save_screen_browser(f'us_4_pay_chekout_{us_set[0]}')
+    page.goto_benefit()
+    page.save_screen_browser(f'us_5_confitm_chekout_{us_set[0]}')
 
 

@@ -211,15 +211,25 @@ class CartLocators:
         By.CSS_SELECTOR, '#content-wrapper > section > div > div.summary > div.amount.js-total-cart-price')
     clear_cart = (By.CSS_SELECTOR, '#content-wrapper > section > div > div.double-holder > div.right > a')
     #
-    in_cart_prod_names = (By.CSS_SELECTOR, 'div.cart-item > div.info > a.ttl')
-    in_cart_prod_brands = (By.CSS_SELECTOR, 'div.cart-item > div.info > div.dscr')
+    in_cart_prod_name1 = (By.CSS_SELECTOR, 'div.cart-item > div.info > a.ttl')
+    in_cart_prod_name2 = (By.CSS_SELECTOR, 'div.cart-item > div.info > div.dscr')
     in_cart_lens_sph = (By.CSS_SELECTOR, 'div.cart-item > div.info > div.dscr > text:nth-child(2)')
     in_cart_lens_bc = (By.CSS_SELECTOR, 'div.cart-item > div.info > div.dscr > text:nth-child(3)')
+    # # 0 - brand, 1 - sex, 2 - temple length, 3 - bridge width, 4 - eyepiece width
+    in_cart_sex = (By.CSS_SELECTOR, 'div.cart-block > div > div.info > div.dscr > br:nth-child(1) > text')
+    in_cart_temple_length = (By.CSS_SELECTOR, 'div.cart-block > div > div.info > div.dscr > br:nth-child(3) > text')
+    in_cart_bridge_width = (By.CSS_SELECTOR, 'div.cart-block > div > div.info > div.dscr > br:nth-child(5) > text')
+    in_cart_eyepiece_width = (By.CSS_SELECTOR, 'div.cart-block > div > div.info > div.dscr > br:nth-child(7) > text')
+    in_cart_brand = (By.CSS_SELECTOR, 'div.cart-block > div > div.info > div.dscr > br:nth-child(9) > text')
+    #
+    in_cart_volume = (By.CSS_SELECTOR, 'div.cart-block > div > div.info > div.dscr > br:nth-child(1)')
+    in_cart_type = (By.CSS_SELECTOR, 'div.cart-block > div > div.info > div.dscr > br:nth-child(3)')
+    in_cart_line = (By.CSS_SELECTOR, 'div.cart-block > div > div.info > div.dscr > br:nth-child(5)')
     #
     in_cart_prod_sum = (By.CSS_SELECTOR, 'div.cart-item > div.price.js-cart-item-price')
     in_cart_prod_del = (By.CSS_SELECTOR, 'div.cart-item > div.remove.js-remove-from-cart > svg')
     #
-    checkout = (By.CSS_SELECTOR, '#content-wrapper > section > div > div:nth-child(7) > a')
+    checkout = (By.CSS_SELECTOR, '#content-wrapper > section > div > div.button-holder > a')
     # Recipient's data
     input_name = (By.CSS_SELECTOR, 'div.step.step_1 > div:nth-child(2) > div.input-wrapper > input[type=text]')
     input_email = (By.CSS_SELECTOR, 'div div.step.step_1 > div:nth-child(3) > div.input-wrapper > input[type=email]')
@@ -605,4 +615,6 @@ class CareLocators:
                     'div.char-card-block.glasses > div > div.select-cell.size > div > div.selectric > span')
     list_volume = (By.CSS_SELECTOR,
                   'div.char-card-block.glasses > div > div.select-cell.size > div > div.selectric-items > div > ul > li')
+
     buy_btn = (By.ID, 'md-to-basket')
+    add_cart_sum = (By.CSS_SELECTOR, '#product-prices > div > div.price > span')

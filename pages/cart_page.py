@@ -19,27 +19,43 @@ class CartPage(BasePage):
         self.url = LinsaUa.cart_url()
         driver.get(self.url)
 
-        self.prod_names = self.driver.find_elements(*CartLocators.in_cart_prod_names)
-        self.prod_content = self.driver.find_elements(*CartLocators.in_cart_prod_brands)
+        self.prod_names = self.driver.find_elements(*CartLocators.in_cart_prod_name1)
+        self.prod_content = self.driver.find_elements(*CartLocators.in_cart_prod_name2)
 
-    def sum_in_cart(self) -> [int, int, int]:
-        sum_cart_top = int(self.driver.find_element(*CartLocators.sum_cart_top).text.split()[0])
-        sum_cart_bottom = int(self.driver.find_element(*CartLocators.sum_cart_bottom).text.split()[0])
+    def sum_in_cart(self) -> [float, float, float]:
+        sum_cart_top = float(self.driver.find_element(*CartLocators.sum_cart_top).text.split()[0])
+        sum_cart_bottom = float(self.driver.find_element(*CartLocators.sum_cart_bottom).text.split()[0])
         prods_sum = self.driver.find_elements(*CartLocators.in_cart_prod_sum)
-        in_cart_prod_sum = sum([int(prod_sum.text.split()[0]) for prod_sum in prods_sum])
+        in_cart_prod_sum = sum([float(prod_sum.text.split()[0]) for prod_sum in prods_sum])
         return sum_cart_top, sum_cart_bottom, in_cart_prod_sum
 
     def param_lens(self, index: int) -> [str, str, str, str]:
-        prod_name = self.driver.find_elements(*CartLocators.in_cart_prod_names)[index].text
-        prod_content = self.driver.find_elements(*CartLocators.in_cart_prod_brands)[index].text
+        prod_name = self.driver.find_elements(*CartLocators.in_cart_prod_name1)[index].text
+        prod_content = self.driver.find_elements(*CartLocators.in_cart_prod_name2)[index].text
         prod_brand = prod_content.split('\n')[0]
         lens_sph = (prod_content.split('\n')[1]).split()[2]
         lens_bc = (prod_content.split('\n')[2]).split()[3]
-        # self.checkout_click()
         return prod_name, prod_brand, lens_sph, lens_bc
 
+    def param_prod(self, index: int) -> list:
+        # prod_name1 = self.driver.find_elements(*CartLocators.in_cart_prod_name1)[index].text
+        # prod_name2 = self.driver.find_elements(*CartLocators.in_cart_prod_name1)[index].text
+        # prod_name = f'{prod_name1} {prod_name2}'
+        prod_brand = self.driver.find_elements(*CartLocators.in_cart_brand)
+        prod_sex = self.driver.find_elements(*CartLocators.in_cart_sex)
+        prod_temple_length = self.driver.find_elements(*CartLocators.in_cart_temple_length)
+        prod_bridge_width = self.driver.find_elements(*CartLocators.in_cart_bridge_width)
+        prod_eyepiece_width = self.driver.find_elements(*CartLocators.in_cart_temple_length)
+        return [prod_brand, prod_sex, prod_temple_length, prod_bridge_width, prod_eyepiece_width]
+
+    def param_care(self, index: int) -> [str, str]:
+        prod_name = self.driver.find_elements(*CartLocators.in_cart_prod_name1)[index].text
+        prod_content = self.driver.find_elements(*CartLocators.in_cart_prod_name2)[index].text
+        prod_brand = prod_content.split('\n')[0]
+        return prod_name, prod_brand
+
     def checkout_click(self):
-        self.driver.find_element(*CartLocators.checkout).click()
+        self.driver.find_elements(*CartLocators.checkout)[1].click()
 
     def input_data(self, name: str, email: str, phone: str):
         input_name = self.driver.find_element(*CartLocators.input_name)
