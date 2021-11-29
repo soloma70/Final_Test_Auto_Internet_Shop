@@ -257,25 +257,23 @@ def test_us_filter_sg_page(web_driver_desktop):
     # Сравнение суммы выбраных продуктов и сумм в корзине
     assert sum_cart_bottom == sum_cart_top and sum_cart_bottom == in_cart_prod_sum
     # Получение данных по продуктам из корзины по имени, бренду и сравнение с тестовым набором
-    print(len(page.prod_names))
     for seq_num in range(len(page.prod_names)):
-        prod_param = page.param_prod(seq_num)
-        print()
-        print(us_set)
-        print(prod_param)
-        # for i in range(len(prod_param)):
-        #     assert us_set[i] in prod_param[i]
+        prod_content = page.param_prod(seq_num)
+        for i in range(len(prod_content)):
+            if us_set[i] != '':
+                assert us_set[i] in prod_content[i]
 
     # Переход на страницу оформления заказа и заполнения всех данных
-    # page.save_screen_browser(f'us_1_cart_chekout_{us_set[0]}')
-    # page.checkout_click()
-    # page.input_data(SendOrderSets.name, SendOrderSets.email, SendOrderSets.phone)
-    # page.save_screen_browser(f'us_2_data_chekout_{us_set[0]}')
-    # page.goto_delivery()
-    # page.input_delivery_np(SendOrderSets.nova_poshta[1][0], SendOrderSets.nova_poshta[1][1])
-    # page.save_screen_browser(f'us_3_delivery_chekout_{us_set[0]}')
-    # page.goto_pay()
-    # page.input_pay_after_receiving()
-    # page.save_screen_browser(f'us_4_pay_chekout_{us_set[0]}')
-    # page.goto_benefit()
-    # page.save_screen_browser(f'us_5_confitm_chekout_{us_set[0]}')
+    page.save_screen_browser(f'us_1_cart_chekout_{us_set[0]}')
+    page.checkout_click()
+    page.input_data(SendOrderSets.name, SendOrderSets.email, SendOrderSets.phone)
+    page.save_screen_browser(f'us_2_data_chekout_{us_set[0]}')
+    page.goto_delivery()
+    page.input_delivery_courier(SendOrderSets.courier[0][0], SendOrderSets.courier[0][1], SendOrderSets.courier[0][2],
+                                SendOrderSets.courier[0][3])
+    page.save_screen_browser(f'us_3_delivery_chekout_{us_set[0]}')
+    page.goto_pay()
+    page.input_pay_after_receiving()
+    page.save_screen_browser(f'us_4_pay_chekout_{us_set[0]}')
+    page.goto_benefit()
+    page.save_screen_browser(f'us_5_confitm_chekout_{us_set[0]}')

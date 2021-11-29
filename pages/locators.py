@@ -211,16 +211,11 @@ class CartLocators:
         By.CSS_SELECTOR, '#content-wrapper > section > div > div.summary > div.amount.js-total-cart-price')
     clear_cart = (By.CSS_SELECTOR, '#content-wrapper > section > div > div.double-holder > div.right > a')
     #
-    in_cart_prod_name1 = (By.CSS_SELECTOR, 'div.cart-item > div.info > a.ttl')
-    in_cart_prod_name2 = (By.CSS_SELECTOR, 'div.cart-item > div.info > div.dscr')
+    in_cart_prod_name = (By.CSS_SELECTOR, 'div.cart-item > div.info > a.ttl')
+    in_cart_prod_content = (By.CSS_SELECTOR, 'div.cart-item > div.info > div.dscr')
     in_cart_lens_sph = (By.CSS_SELECTOR, 'div.cart-item > div.info > div.dscr > text:nth-child(2)')
     in_cart_lens_bc = (By.CSS_SELECTOR, 'div.cart-item > div.info > div.dscr > text:nth-child(3)')
     # # 0 - brand, 1 - sex, 2 - temple length, 3 - bridge width, 4 - eyepiece width
-    in_cart_sex = (By.CSS_SELECTOR, 'div.cart-block > div > div.info > div.dscr > br:nth-child(1) > text')
-    in_cart_temple_length = (By.CSS_SELECTOR, 'div.cart-block > div > div.info > div.dscr > br:nth-child(3) > text')
-    in_cart_bridge_width = (By.CSS_SELECTOR, 'div.cart-block > div > div.info > div.dscr > br:nth-child(5) > text')
-    in_cart_eyepiece_width = (By.CSS_SELECTOR, 'div.cart-block > div > div.info > div.dscr > br:nth-child(7) > text')
-    in_cart_brand = (By.CSS_SELECTOR, 'div.cart-block > div > div.info > div.dscr > br:nth-child(9) > text')
     #
     in_cart_volume = (By.CSS_SELECTOR, 'div.cart-block > div > div.info > div.dscr > br:nth-child(1)')
     in_cart_type = (By.CSS_SELECTOR, 'div.cart-block > div > div.info > div.dscr > br:nth-child(3)')
@@ -244,11 +239,11 @@ class CartLocators:
     dilivery_cour = (
         By.CSS_SELECTOR, 'div.delivery-radio-wrapper > table > tr:nth-child(2) > td:nth-child(1) > label > span.round')
     input_street = (By.CSS_SELECTOR,
-                    'div.input-block.street > div.select-wrapper.department > div > div.selectize-input.items.has-options.full.has-items')
+                    'div.input-block.street > div.select-wrapper.department > div > div.selectize-input.items.not-full > input')
     street_list = (By.CSS_SELECTOR,
                    'div.input-block.street > div.select-wrapper.department > div > div.selectize-dropdown.single > div > div')
-    input_house = (By.CSS_SELECTOR, 'div.input-block.house > div.input-wrapper > input[type=text]')
-    input_flat = (By.CSS_SELECTOR, 'div.input-block.flat > div.input-wrapper > input[type=text]')
+    input_house = (By.CSS_SELECTOR, 'div.input-block.house > div.input-wrapper > input')
+    input_flat = (By.CSS_SELECTOR, 'div.input-block.flat > div.input-wrapper > input')
     #
     dilivery_np = (
         By.CSS_SELECTOR, 'div.delivery-radio-wrapper > table > tr:nth-child(3) > td:nth-child(1) > label > span.round')

@@ -19,8 +19,8 @@ class CartPage(BasePage):
         self.url = LinsaUa.cart_url()
         driver.get(self.url)
 
-        self.prod_names = self.driver.find_elements(*CartLocators.in_cart_prod_name1)
-        self.prod_content = self.driver.find_elements(*CartLocators.in_cart_prod_name2)
+        self.prod_names = self.driver.find_elements(*CartLocators.in_cart_prod_name)
+        self.prod_content = self.driver.find_elements(*CartLocators.in_cart_prod_content)
 
     def sum_in_cart(self) -> [float, float, float]:
         sum_cart_top = float(self.driver.find_element(*CartLocators.sum_cart_top).text.split()[0])
@@ -30,27 +30,28 @@ class CartPage(BasePage):
         return sum_cart_top, sum_cart_bottom, in_cart_prod_sum
 
     def param_lens(self, index: int) -> [str, str, str, str]:
-        prod_name = self.driver.find_elements(*CartLocators.in_cart_prod_name1)[index].text
-        prod_content = self.driver.find_elements(*CartLocators.in_cart_prod_name2)[index].text
+        prod_name = self.driver.find_elements(*CartLocators.in_cart_prod_name)[index].text
+        prod_content = self.driver.find_elements(*CartLocators.in_cart_prod_content)[index].text
         prod_brand = prod_content.split('\n')[0]
         lens_sph = (prod_content.split('\n')[1]).split()[2]
         lens_bc = (prod_content.split('\n')[2]).split()[3]
         return prod_name, prod_brand, lens_sph, lens_bc
 
     def param_prod(self, index: int) -> list:
-        # prod_name1 = self.driver.find_elements(*CartLocators.in_cart_prod_name1)[index].text
-        # prod_name2 = self.driver.find_elements(*CartLocators.in_cart_prod_name1)[index].text
-        # prod_name = f'{prod_name1} {prod_name2}'
-        prod_brand = self.driver.find_elements(*CartLocators.in_cart_brand)
-        prod_sex = self.driver.find_elements(*CartLocators.in_cart_sex)
-        prod_temple_length = self.driver.find_elements(*CartLocators.in_cart_temple_length)
-        prod_bridge_width = self.driver.find_elements(*CartLocators.in_cart_bridge_width)
-        prod_eyepiece_width = self.driver.find_elements(*CartLocators.in_cart_temple_length)
+        prod_name = self.driver.find_elements(*CartLocators.in_cart_prod_name)[index].text
+        content = self.driver.find_elements(*CartLocators.in_cart_prod_content)[index].text
+        content_list = content.split('\n')
+        content_dict = {content_list[i].split(': ')[0]: content_list[i].split(': ')[1] for i in range(1, len(content_list))}
+        prod_brand = content_dict.get('Бренд', '')
+        prod_sex = content_dict.get('Пол', '')
+        prod_temple_length = content_dict.get('Длина заушника', '')
+        prod_bridge_width = content_dict.get('Ширина мостика', '')
+        prod_eyepiece_width = content_dict.get('Ширина окуляра', '')
         return [prod_brand, prod_sex, prod_temple_length, prod_bridge_width, prod_eyepiece_width]
 
     def param_care(self, index: int) -> [str, str]:
-        prod_name = self.driver.find_elements(*CartLocators.in_cart_prod_name1)[index].text
-        prod_content = self.driver.find_elements(*CartLocators.in_cart_prod_name2)[index].text
+        prod_name = self.driver.find_elements(*CartLocators.in_cart_prod_name)[index].text
+        prod_content = self.driver.find_elements(*CartLocators.in_cart_prod_content)[index].text
         prod_brand = prod_content.split('\n')[0]
         return prod_name, prod_brand
 
@@ -94,6 +95,28 @@ class CartPage(BasePage):
         num_brahch = [num.text.split('№')[1].split()[0] for num in branch_list]
         index = self.search_item_in_list(branch, num_brahch)
         branch_list[index].click()
+
+    def input_delivery_courier(self, city: str, street: str, house: str, flat: str):
+        self.driver.find_element(*CartLocators.input_city).click()
+        #
+        city_list = self.driver.find_elements(*CartLocators.city_list)
+        city_name = [name_city.text.strip() for name_city in city_list]
+        index = self.search_item_in_list(city, city_name)
+        city_list[index].click()
+        # sleep(1)
+        self.driver.find_element(*CartLocators.dilivery_cour).click()
+        # wait = WebDriverWait(self.driver, 10)
+        # wait.until(EC.element_to_be_clickable((CartLocators.np_branch)))
+        part_street = street.split()[1]
+        self.driver.find_element(*CartLocators.input_street).send_keys(part_street)
+        # sleep(1)
+        #
+        street_list = self.driver.find_elements(*CartLocators.street_list)
+        srteet_l = [street.text for street in street_list]
+        index = self.search_item_in_list(street, srteet_l)
+        street_list[index].click()
+        self.driver.find_element(*CartLocators.input_house).send_keys(house)
+        self.driver.find_element(*CartLocators.input_flat).send_keys(flat)
 
     def goto_pay(self):
         self.driver.find_element(*CartLocators.next_step_pay).click()
