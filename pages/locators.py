@@ -314,13 +314,13 @@ class ProductLocators:
         (By.CSS_SELECTOR,
          'div.products-wrapper > div > div.main-content > a.top > span.product-type'),
         (By.CSS_SELECTOR,
-         'div.products-wrapper > div > div.main-content > div > div > div:nth-child(1)'),
+         'div.products-wrapper > div > div.main-content > div > div.glasses-size > div:nth-child(1)'),
         (By.CSS_SELECTOR,
-         'div.products-wrapper > div > div.main-content > div > div > div:nth-child(2)'),
+         'div.products-wrapper > div > div.main-content > div > div.glasses-size > div:nth-child(2)'),
         (By.CSS_SELECTOR,
-         'div.products-wrapper > div > div.main-content > div > div > div:nth-child(3)'),
+         'div.products-wrapper > div > div.main-content > div > div.glasses-size > div:nth-child(3)'),
         (By.CSS_SELECTOR,
-         'div.products-wrapper > div > div.main-content > div > div > div:nth-child(4)')
+         'div.products-wrapper > div > div.main-content > div > div.glasses-size > div:nth-child(4)')
     ]
     card_prod_not_found = (By.CSS_SELECTOR, 'div.not-found')
 
