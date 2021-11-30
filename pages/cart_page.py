@@ -2,12 +2,9 @@ from pages.base_page import BasePage
 from pages.url_list import LinsaUa
 from pages.locators import CartLocators
 from time import sleep
-from selenium.webdriver.common.by import By
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.remote.webelement import WebElement
-from selenium.webdriver import ActionChains
-from random import randint
 
 
 class CartPage(BasePage):
@@ -103,13 +100,12 @@ class CartPage(BasePage):
         city_name = [name_city.text.strip() for name_city in city_list]
         index = self.search_item_in_list(city, city_name)
         city_list[index].click()
-        # sleep(1)
+        sleep(1)
         self.driver.find_element(*CartLocators.dilivery_cour).click()
         # wait = WebDriverWait(self.driver, 10)
         # wait.until(EC.element_to_be_clickable((CartLocators.np_branch)))
         part_street = street.split()[1]
         self.driver.find_element(*CartLocators.input_street).send_keys(part_street)
-        # sleep(1)
         #
         street_list = self.driver.find_elements(*CartLocators.street_list)
         srteet_l = [street.text for street in street_list]
