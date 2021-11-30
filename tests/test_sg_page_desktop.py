@@ -2,7 +2,7 @@
 
 import pytest
 from pages.test_sets import SunglassSets, SendOrderSets
-from pages.sunglass_page import SunglassPage
+from pages.product_page import ProductPage
 from pages.cart_page import CartPage
 
 
@@ -10,7 +10,7 @@ def test_amount_sunglass_page(web_driver_desktop):
     """Тест проверяет количество позиций на странице, суммирует по всем страницам и сравнивает
     с количеством очков в наименовании страницы"""
 
-    page = SunglassPage(web_driver_desktop, 3)
+    page = ProductPage(web_driver_desktop, 'sg', 3)
     amount_total_sunglass = page.amount_total()
     amount_page_total = page.amount_page_total()
     amount_all_page = 0
@@ -28,7 +28,7 @@ def test_pagination_sunglass_page(web_driver_desktop):
     """Тест проверяет прямой переход по страницам раздела (в пределах 5 страниц), а так же переход с помощью
     стрелок (в пределах 5 страниц) и сравнивает фактический URL с ожидаемым"""
 
-    page = SunglassPage(web_driver_desktop, 5)
+    page = ProductPage(web_driver_desktop, 'sg')
     amount_page_test = page.amount_page_visible(page.url)
     # Переход по прямой ссылке
     for i in range(amount_page_test):
@@ -56,7 +56,7 @@ def test_positive_filter_sg_page(web_driver_desktop, test_set):
     """Тест проверяет фильтры на странице и выборку согласно критериям фильтрации.
     ВНИМАНИЕ!!! Необходимо убрать курсор мышки из поля страницы браузера!"""
 
-    page = SunglassPage(web_driver_desktop, 5)
+    page = ProductPage(web_driver_desktop, 'sg')
 
     amount_filter = len(page.filters)
     # Убираем всплывающий баннер
@@ -65,7 +65,7 @@ def test_positive_filter_sg_page(web_driver_desktop, test_set):
 
     # Добавляем фильтры согласно тестовым наборам и получаем списки фильтров
     for i in range(amount_filter):
-        page.filter_click(i, test_set[i])
+        page.filter_click(i, test_set[i], 'sg')
 
     # Делаем скриншот
     page.save_screen_browser(f'filter_pos_sg_{test_set[9]}')
@@ -85,10 +85,9 @@ def test_positive_filter_single_sg_page(web_driver_desktop):
     В зависимости от прокруток ленты используются от 5 до 1 параметра фильтрации.
     ВНИМАНИЕ!!! Необходимо убрать курсор мышки из поля страницы браузера!"""
 
-    page = SunglassPage(web_driver_desktop, 5)
+    page = ProductPage(web_driver_desktop, 'sg')
 
-    amount_filter = len(page.filters)
-    for i in range(amount_filter):
+    for i in range(len(SunglassSets.filter_set_positive)):
         filter_set = SunglassSets.filter_set_positive[i]
         # Убираем всплывающий баннер
         if i == 0:
@@ -96,7 +95,7 @@ def test_positive_filter_single_sg_page(web_driver_desktop):
 
         for j in range(len(filter_set)):
             # Добавляем фильтр по бренду согласно тестовым наборам и получаем списки фильтров
-            page.filter_click(i, filter_set[j])
+            page.filter_click(i, filter_set[j], 'sg')
             # Делаем скриншот
             page.save_screen_browser(f'filter_pos_single_sg_{filter_set[j]}')
             # Получаем результат применения фильтров и сравниваем с тестовым набором
@@ -112,7 +111,7 @@ def test_negative_filter_single_sg_page(web_driver_desktop):
     и выборку согласно критерию фильтрации.
     ВНИМАНИЕ!!! Необходимо убрать курсор мышки из поля страницы браузера!"""
 
-    page = SunglassPage(web_driver_desktop, 5)
+    page = ProductPage(web_driver_desktop, 'sg')
 
     amount_filter = len(page.filters)
     for i in range(amount_filter):
@@ -124,7 +123,7 @@ def test_negative_filter_single_sg_page(web_driver_desktop):
         for j in range(len(filter_set)):
             if filter_set[j]:
                 # Добавляем фильтр по бренду согласно тестовым наборам и получаем списки фильтров
-                page.filter_click(i, filter_set[j])
+                page.filter_click(i, filter_set[j], 'sg')
                 # Делаем скриншот
                 page.save_screen_browser(f'filter_neg_single_sg_{filter_set[j]}')
                 assert page.filter_prod_not_found() == 'Товаров не найдено', f'ERROR! Filtering error'
@@ -140,7 +139,7 @@ def test_sort_sunglass_page(web_driver_desktop):
     Комментарий: Сортировка организована по ценам без учета скидки (old price) - баг или фича?
     ВНИМАНИЕ!!! Необходимо убрать курсор мышки из поля страницы браузера!"""
 
-    page = SunglassPage(web_driver_desktop, 10)
+    page = ProductPage(web_driver_desktop, 'sg', 10)
     # Получение списка рандомных страниц для теста
     page_num = page.rand_prod_page(page.amount_page_total(), 1, True)
 
@@ -176,7 +175,7 @@ def test_sort_sunglass_page(web_driver_desktop):
             # Сортировка по распродаже
             page.sorted_by_on_page(4)
             page.save_screen_browser(f'sort_sg_sales_{page_num[i]}')
-            present_banner = page.get_sunglass_list_sale_banner()
+            present_banner = page.get_product_list_sale_banner()
             assert all(present_banner), "ERROR! Position don't sorted"
 
 
@@ -184,7 +183,7 @@ def test_add_in_cart_sunglass_page(web_driver_desktop):
     """Тест проверяет добавление очков одной рандомной позиций с 1, последней и 4-х рандомных страниц,
     добавление в корзину с параметрами по умолчанию """
 
-    page = SunglassPage(web_driver_desktop, 3)
+    page = ProductPage(web_driver_desktop, 'sg', 3)
     # Получение списка рандомных страниц для теста
     page_num = page.rand_prod_page(page.amount_page_total(), 4, True)
     # Получение количества позиций в корзине перед добавлением
@@ -212,7 +211,7 @@ def test_us_filter_sg_page(web_driver_desktop):
     сортирует выбранные позиции возрастанию цены, выбирает рандомные очки и добавляет в корзину.
     ВНИМАНИЕ!!! Необходимо убрать курсор мышки из поля страницы браузера!"""
 
-    page = SunglassPage(web_driver_desktop, 5)
+    page = ProductPage(web_driver_desktop, 'sg')
 
     us_set = SunglassSets.filter_set_uc
     for i in range(len(us_set)):
@@ -222,7 +221,7 @@ def test_us_filter_sg_page(web_driver_desktop):
             page.pass_popup_banner()
 
         # Добавляем фильтр по бренду согласно тестовым наборам и получаем списки фильтров
-        page.filter_click(i, us_set[i])
+        page.filter_click(i, us_set[i], 'sg')
         # Получаем результат применения фильтров и сравниваем с тестовым набором
         search_result_brand = page.search_result_single(i)
         if us_set[i] != '':
@@ -245,7 +244,7 @@ def test_us_filter_sg_page(web_driver_desktop):
     amount_cart_after = page.amount_cart()
     assert amount_cart_before + 1 == amount_cart_after, "ERROR! Product don't add to cart"
 
-    page.save_screen_browser(f'uc_add_cart_sg_{SunglassSets.filter_set_uc[0]}')
+    page.save_screen_browser(f'uc_add_cart_sg_{us_set[0]}')
 
     # Очищаем все фильтры
     page.clear_all_filter()

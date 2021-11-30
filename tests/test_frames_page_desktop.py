@@ -1,15 +1,16 @@
 # -*- encoding=utf8 -*-
 
 import pytest
-from pages.test_sets import FramesSets
-from pages.frames_page import FramesPage
+from pages.cart_page import CartPage
+from pages.test_sets import FramesSets, SendOrderSets
+from pages.product_page import ProductPage
 
 
 def test_amount_frames_page(web_driver_desktop):
     """Тест проверяет количество позиций на странице, суммирует по всем страницам и сравнивает
     с количеством оправ в наименовании страницы"""
 
-    page = FramesPage(web_driver_desktop, 3)
+    page = ProductPage(web_driver_desktop, 'fr', 3)
     amount_total_frames = page.amount_total()
     amount_page_total = page.amount_page_total()
     amount_all_page = 0
@@ -27,7 +28,7 @@ def test_pagination_frames_page(web_driver_desktop):
     """Тест проверяет прямой переход по страницам раздела (в пределах 5 страниц), а так же переход с помощью
     стрелок (в пределах 5 страниц) и сравнивает фактический URL с ожидаемым"""
 
-    page = FramesPage(web_driver_desktop, 5)
+    page = ProductPage(web_driver_desktop, 'fr')
     amount_page_test = page.amount_page_visible(page.url)
     # Переход по прямой ссылке
     for i in range(amount_page_test):
@@ -52,12 +53,12 @@ def test_filter_frames_page(web_driver_desktop, test_set):
     """Тест проверяет фильтры на странице и выборку согласно критериям фильтрации.
     ВНИМАНИЕ!!! Необходимо убрать курсор мышки из поля страницы браузера!"""
 
-    page = FramesPage(web_driver_desktop, 5)
+    page = ProductPage(web_driver_desktop, 'fr')
 
     amount_filter = len(page.filters)
     # Добавляем фильтры согласно тестовым наборам и получаем списки фильтров
     for i in range(amount_filter):
-        page.filter_click(i, test_set[i])
+        page.filter_click(i, test_set[i], 'fr')
 
     # Делаем скриншот
     page.save_screen_browser(f'filter_fr_{test_set[11]}')
@@ -77,15 +78,14 @@ def test_positive_filter_single_fr_page(web_driver_desktop):
     В зависимости от прокруток ленты используются от 5 до 1 параметра фильтрации.
     ВНИМАНИЕ!!! Необходимо убрать курсор мышки из поля страницы браузера!"""
 
-    page = FramesPage(web_driver_desktop, 5)
+    page = ProductPage(web_driver_desktop, 'fr')
 
-    amount_filter = len(page.filters)
-    for i in range(amount_filter):
+    for i in range(len(FramesSets.filter_set_positive)):
         filter_set = FramesSets.filter_set_positive[i]
 
         for j in range(len(filter_set)):
             # Добавляем фильтр по бренду согласно тестовым наборам и получаем списки фильтров
-            page.filter_click(i, filter_set[j])
+            page.filter_click(i, filter_set[j], 'fr')
             # Делаем скриншот
             page.save_screen_browser(f'filter_pos_single_fr_{filter_set[j]}')
             # Получаем результат применения фильтров и сравниваем с тестовым набором
@@ -101,7 +101,7 @@ def test_negative_filter_single_fr_page(web_driver_desktop):
     и выборку согласно критерию фильтрации.
     ВНИМАНИЕ!!! Необходимо убрать курсор мышки из поля страницы браузера!"""
 
-    page = FramesPage(web_driver_desktop, 5)
+    page = ProductPage(web_driver_desktop, 'fr')
 
     amount_filter = len(page.filters)
     for i in range(amount_filter):
@@ -110,7 +110,7 @@ def test_negative_filter_single_fr_page(web_driver_desktop):
         for j in range(len(filter_set)):
             if filter_set[j]:
                 # Добавляем фильтр по бренду согласно тестовым наборам и получаем списки фильтров
-                page.filter_click(i, filter_set[j])
+                page.filter_click(i, filter_set[j], 'fr')
                 # Делаем скриншот
                 page.save_screen_browser(f'filter_neg_single_fr_{filter_set[j]}')
                 assert page.filter_prod_not_found() == 'Товаров не найдено', f'ERROR! Filtering error'
@@ -126,7 +126,7 @@ def test_sort_frames_page(web_driver_desktop):
     Комментарий: Сортировка организована по ценам без учета скидки (old price) - баг или фича?
     ВНИМАНИЕ!!! Необходимо убрать курсор мышки из поля страницы браузера!"""
 
-    page = FramesPage(web_driver_desktop, 10)
+    page = ProductPage(web_driver_desktop, 'fr', 10)
     # Получение списка рандомных страниц для теста
     page_num = page.rand_prod_page(page.amount_page_total(), 1, True)
 
@@ -162,9 +162,7 @@ def test_sort_frames_page(web_driver_desktop):
             # Сортировка по распродаже
             page.sorted_by_on_page(4)
             page.save_screen_browser(f'sort_frames_sales_{page_num[i]}')
-            present_banner = page.get_frames_list_sale_banner()
-            print(present_banner)
-            print(any(present_banner))
+            present_banner = page.get_product_list_sale_banner()
             assert any(present_banner), "ERROR! Position don't sorted"
 
 
@@ -172,7 +170,7 @@ def test_add_in_cart_frames_page(web_driver_desktop):
     """Тест проверяет добавление оправ 1-й рандомной позиций с 1, последней и 4-х рандомных страниц,
     добавление в корзину с параметрами по умолчанию """
 
-    page = FramesPage(web_driver_desktop, 3)
+    page = ProductPage(web_driver_desktop, 'fr', 3)
     # Получение списка рандомных страниц для теста
     page_num = page.rand_prod_page(page.amount_page_total(), 4, True)
     # Получение количества позиций в корзине перед добавлением
@@ -200,17 +198,17 @@ def test_us_filter_fr_page(web_driver_desktop):
     сортирует выбранные позиции возрастанию цены, выбирает рандомную оправу и добавляет в корзину.
     ВНИМАНИЕ!!! Необходимо убрать курсор мышки из поля страницы браузера!"""
 
-    page = FramesPage(web_driver_desktop, 5)
+    page = ProductPage(web_driver_desktop, 'fr')
 
-    filter_set = FramesSets.filter_set_uc
-    for i in range(len(filter_set)):
+    us_set = FramesSets.filter_set_uc
+    for i in range(len(us_set)):
 
         # Добавляем фильтр по бренду согласно тестовым наборам и получаем списки фильтров
-        page.filter_click(i, filter_set[i])
+        page.filter_click(i, us_set[i], 'fr')
         # Получаем результат применения фильтров и сравниваем с тестовым набором
         search_result_brand = page.search_result_single(i)
-        if filter_set[i] != '':
-            assert filter_set[i] in search_result_brand, f'ERROR! Filtering error'
+        if us_set[i] != '':
+            assert us_set[i] in search_result_brand, f'ERROR! Filtering error'
 
     # Сортировка по возрастанию
     page.sorted_by_on_page(2)
@@ -222,14 +220,42 @@ def test_us_filter_fr_page(web_driver_desktop):
     amount_cart_before = page.amount_cart()
     # Получение номеров тестируемых оправ на странице
     frame_num = page.rand_prod_card(page.card_prod_len() - 1)
+
     # Добавление в корзину продукта с параметрами заказа по умолчанию
     page.add_cart_product(frame_num)
     # Получение количества позиций в корзине после добавления оправы
     amount_cart_after = page.amount_cart()
     assert amount_cart_before + 1 == amount_cart_after, "ERROR! Product don't add to cart"
 
-    page.win_scroll_begin()
-    page.save_screen_browser(f'uc_add_cart_fr_{FramesSets.filter_set_uc[0]}')
+    page.save_screen_browser(f'uc_add_cart_fr_{us_set[0]}')
 
     # Очищаем все фильтры
     page.clear_all_filter()
+
+    # Инициализация экземпляра корзины
+    page = CartPage(web_driver_desktop, 10)
+    # Получение данных из корзины
+    sum_cart_top, sum_cart_bottom, in_cart_prod_sum = page.sum_in_cart()
+    # Сравнение суммы выбраных продуктов и сумм в корзине
+    assert sum_cart_bottom == sum_cart_top and sum_cart_bottom == in_cart_prod_sum
+    # Получение данных по продуктам из корзины по имени, бренду и сравнение с тестовым набором
+    for seq_num in range(len(page.prod_names)):
+        prod_content = page.param_prod(seq_num)
+        for i in range(len(prod_content)):
+            if us_set[i] != '':
+                assert us_set[i] in prod_content[i]
+
+    # Переход на страницу оформления заказа и заполнения всех данных
+    page.save_screen_browser(f'us_1_cart_chekout_{us_set[0]}')
+    page.checkout_click()
+    page.input_data(SendOrderSets.name, SendOrderSets.email, SendOrderSets.phone)
+    page.save_screen_browser(f'us_2_data_chekout_{us_set[0]}')
+    page.goto_delivery()
+    page.input_delivery_courier(SendOrderSets.courier[1][0], SendOrderSets.courier[1][1], SendOrderSets.courier[1][2],
+                                SendOrderSets.courier[1][3])
+    page.save_screen_browser(f'us_3_delivery_chekout_{us_set[0]}')
+    page.goto_pay()
+    page.input_pay_after_receiving()
+    page.save_screen_browser(f'us_4_pay_chekout_{us_set[0]}')
+    page.goto_benefit()
+    page.save_screen_browser(f'us_5_confitm_chekout_{us_set[0]}')
