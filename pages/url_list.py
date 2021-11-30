@@ -23,7 +23,18 @@ class LinsaUa:
         ['/ru/warranty/', '/uk/warranty/']
     ]
 
-    cart = ['/ru/cart/', '/uk/cart/']
+    cabinet = [
+        ['/ru/cabinet/', '/uk/cabinet/'],
+        ['/ru/edit-profile/', '/uk/edit-profile/'],
+        ['/ru/wishlist/', '/uk/wishlist/'],
+        ['/ru/orders/', '/uk/orders/'],
+        ['/ru/addresses/', '/uk/addresses/'],
+        ['/ru/saved-news/', '/uk/saved-news/']
+    ]
+
+    cart = [
+        ['/ru/cart/', '/uk/cart/']
+    ]
 
     main_menu_urls = [
         ['/ru/sales/', '/uk/sales/'],
@@ -55,65 +66,63 @@ class LinsaUa:
         ['https://www.instagram.com/linza.ua/', 'https://www.instagram.com/linza.ua/'],
     ]
 
-    def cart_url(lng='ru') -> str:
+    def aggregation_urls(lng: str, locator: list, index: int) -> str:
         if lng == 'ru':
-            cart_url = f'{LinsaUa.start_url}{LinsaUa.cart[0]}'
+            url = f'{LinsaUa.start_url}{locator[index][0]}'
         elif lng == 'uk':
-            cart_url = f'{LinsaUa.start_url}{LinsaUa.cart[1]}'
+            url = f'{LinsaUa.start_url}{locator[index][1]}'
         else:
-            cart_url = f'{LinsaUa.start_url}'
-        return cart_url
+            url = f'{LinsaUa.start_url}'
+        return url
 
     def sales_url(lng='ru') -> str:
-        if lng == 'ru':
-            sales_url = f'{LinsaUa.start_url}{LinsaUa.main_menu_urls[0][0]}'
-        elif lng == 'uk':
-            sales_url = f'{LinsaUa.start_url}{LinsaUa.main_menu_urls[0][1]}'
-        else:
-            sales_url = f'{LinsaUa.start_url}'
+        sales_url = LinsaUa.aggregation_urls(lng, LinsaUa.main_menu_urls, 0)
         return sales_url
 
-    def blog_url(lng='ru') -> str:
-        if lng == 'ru':
-            blog_url = f'{LinsaUa.start_url}{LinsaUa.main_menu_urls[5][0]}'
-        elif lng == 'uk':
-            blog_url = f'{LinsaUa.start_url}{LinsaUa.main_menu_urls[5][1]}'
-        else:
-            blog_url = f'{LinsaUa.start_url}'
-        return blog_url
-
     def lens_url(lng='ru') -> str:
-        if lng == 'ru':
-            lens_url = f'{LinsaUa.start_url}{LinsaUa.main_menu_urls[1][0]}'
-        elif lng == 'uk':
-            lens_url = f'{LinsaUa.start_url}{LinsaUa.main_menu_urls[1][1]}'
-        else:
-            lens_url = f'{LinsaUa.start_url}'
+        lens_url = LinsaUa.aggregation_urls(lng, LinsaUa.main_menu_urls, 1)
         return lens_url
 
     def frames_url(lng='ru') -> str:
-        if lng == 'ru':
-            lens_url = f'{LinsaUa.start_url}{LinsaUa.main_menu_urls[2][0]}'
-        elif lng == 'uk':
-            lens_url = f'{LinsaUa.start_url}{LinsaUa.main_menu_urls[2][1]}'
-        else:
-            lens_url = f'{LinsaUa.start_url}'
-        return lens_url
+        frame_url = LinsaUa.aggregation_urls(lng, LinsaUa.main_menu_urls, 2)
+        return frame_url
 
     def sunglass_url(lng='ru') -> str:
-        if lng == 'ru':
-            lens_url = f'{LinsaUa.start_url}{LinsaUa.main_menu_urls[3][0]}'
-        elif lng == 'uk':
-            lens_url = f'{LinsaUa.start_url}{LinsaUa.main_menu_urls[3][1]}'
-        else:
-            lens_url = f'{LinsaUa.start_url}'
-        return lens_url
+        sunglass_url = LinsaUa.aggregation_urls(lng, LinsaUa.main_menu_urls, 3)
+        return sunglass_url
 
     def care_url(lng='ru') -> str:
-        if lng == 'ru':
-            lens_url = f'{LinsaUa.start_url}{LinsaUa.main_menu_urls[4][0]}'
-        elif lng == 'uk':
-            lens_url = f'{LinsaUa.start_url}{LinsaUa.main_menu_urls[4][1]}'
-        else:
-            lens_url = f'{LinsaUa.start_url}'
-        return lens_url
+        care_url = LinsaUa.aggregation_urls(lng, LinsaUa.main_menu_urls, 4)
+        return care_url
+
+    def blog_url(lng='ru') -> str:
+        blog_url = LinsaUa.aggregation_urls(lng, LinsaUa.main_menu_urls, 5)
+        return blog_url
+
+    def cart_url(lng='ru') -> str:
+        cart_url = LinsaUa.aggregation_urls(lng, LinsaUa.cart, 0)
+        return cart_url
+
+    def cabinet_url(lng='ru') -> str:
+        cabinet_url = LinsaUa.aggregation_urls(lng, LinsaUa.cabinet, 0)
+        return cabinet_url
+
+    def edit_profile_url(lng='ru') -> str:
+        edit_profile_url = LinsaUa.aggregation_urls(lng, LinsaUa.cabinet, 1)
+        return edit_profile_url
+
+    def wishlist_url(lng='ru') -> str:
+        wishlist_url = LinsaUa.aggregation_urls(lng, LinsaUa.cabinet, 2)
+        return wishlist_url
+
+    def orders_url(lng='ru') -> str:
+        orders_url = LinsaUa.aggregation_urls(lng, LinsaUa.cabinet, 3)
+        return orders_url
+
+    def addresses_url(lng='ru') -> str:
+        addresses_url = LinsaUa.aggregation_urls(lng, LinsaUa.cabinet, 4)
+        return addresses_url
+
+    def saved_new_url(lng='ru') -> str:
+        saved_new_url = LinsaUa.aggregation_urls(lng, LinsaUa.cabinet, 4)
+        return saved_new_url
