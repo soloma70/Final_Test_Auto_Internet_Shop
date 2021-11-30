@@ -13,7 +13,7 @@ class CabinetPage(BasePage):
 
     def __init__(self, driver, timeout=5):
         super().__init__(driver, timeout)
-        self.url = LinsaUa.cart_url()
+        self.url = LinsaUa.cabinet_url()
         driver.get(self.url)
 
         self.prod_names = self.driver.find_elements(*CartLocators.in_cart_prod_name)
