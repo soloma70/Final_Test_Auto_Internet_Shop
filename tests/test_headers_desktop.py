@@ -2,7 +2,7 @@
 
 import pytest
 from pages.headers import Headers
-from pages.locators import StartLocators
+from pages.locators import StartLocators, RegLocators
 from pages.url_list import LinsaUa
 from pages.aux_metods import AuxMetods
 
@@ -56,9 +56,8 @@ def test_login_start_page(web_driver_desktop):
 
     page = Headers(web_driver_desktop, 5)
     page.login_btn_click()
-    assert web_driver_desktop.find_element(*StartLocators.login_submit).is_enabled() \
-        , 'Transition error'
-    web_driver_desktop.find_element(*StartLocators.login_close).click()
+    assert web_driver_desktop.find_element(*RegLocators.login_submit).is_enabled(), 'Transition error'
+    web_driver_desktop.find_element(*RegLocators.login_close).click()
 
 
 def test_wishlist_start_page(web_driver_desktop):
