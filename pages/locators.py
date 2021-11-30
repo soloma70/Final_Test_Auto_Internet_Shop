@@ -18,13 +18,6 @@ class StartLocators:
     callback_form_submit = (By.CSS_SELECTOR, 'button.b24-form-btn')
     callback_form_close = (By.CSS_SELECTOR, 'div.b24-window-panel.b24-window-panel-pos-right > button')
 
-    # Login locators
-    login_btn = (By.CSS_SELECTOR, 'a.enter.md-cab-link.js-open-auth-popup')
-    login_name = (By.CSS_SELECTOR, 'input[name="login"]')
-    login_pass = (By.CSS_SELECTOR, 'input[name="password"]')
-    login_submit = (By.CSS_SELECTOR, 'input[id="auth-submit"]')
-    login_close = (By.CSS_SELECTOR, 'div.close-popup.js-close-popup > svg')
-
     # Wishlist locator
     wishlist_btns = (By.CSS_SELECTOR, 'div. icons-panel > a > svg')
 
@@ -70,16 +63,6 @@ class StartLocators:
     img_menicon = (By.CSS_SELECTOR, 'img[title="Menicon Progent"]')
     img_okvision = (By.CSS_SELECTOR, 'img[title="okvision I CARE"]')
 
-    # PopUp Registration locators
-    registr_btn = (By.CSS_SELECTOR, 'a.fat-button.black.js-open-auth-popup')
-    registr_popup_windows = (By.CSS_SELECTOR, '#auth-popup > div > div > div.popup-window')
-    registr_popup_name = (By.CSS_SELECTOR, 'div.input-wrapper.green > input[name="name"]')
-    registr_popup_phone = (By.CSS_SELECTOR, 'div.input-wrapper.green > input[name="phone"]')
-    registr_popup_passw = (By.CSS_SELECTOR, 'div.input-wrapper.green > input[name="password"]')
-    registr_popup_chec = (By.CSS_SELECTOR, 'label.check-label > input[type="checkbox"]')
-    registr_popup_add = (By.CSS_SELECTOR, 'label.submit-popup > input[type="submit"]')
-    registr_popup_close = (By.CSS_SELECTOR, '#auth-popup > div > div > div > div.top > div > svg')
-
     # Blogs locators
     blog_cards = [
         (By.CSS_SELECTOR,
@@ -103,6 +86,34 @@ class StartLocators:
     footer_bottom_right_btn = (By.CSS_SELECTOR, 'div.footer-bottom > div.right > a')
     # Footer More info
     more_inf = (By.CSS_SELECTOR, 'div.footer_seotext > i')
+
+
+class RegLocators:
+    # Login locators
+    login_btn = (By.CSS_SELECTOR, 'a.enter.md-cab-link.js-open-auth-popup')
+    #
+    auth_facebook = (By.CSS_SELECTOR, '#auth-component > div > div > div.socials-enter > a')
+    login_name = (By.CSS_SELECTOR, 'input[name="login"]')
+    login_pass = (By.CSS_SELECTOR, 'input[name="password"]')
+    login_submit = (By.CSS_SELECTOR, 'input[id="auth-submit"]')
+    login_close = (By.CSS_SELECTOR, 'div.close-popup.js-close-popup > svg')
+    #
+    reg_link = (By.CSS_SELECTOR, '#auth-component > div > div > div.links-panel > a')
+    reg_name = (By.CSS_SELECTOR, 'div.auth-inputs > div > div > input[name="name"]')
+    reg_phone = (By.CSS_SELECTOR, 'div.auth-inputs > div > div > input[name="phone"]')
+    reg_passw = (By.CSS_SELECTOR, 'div.auth-inputs > div > div > input[name="password"]')
+    reg_pesr_date = (By.CSS_SELECTOR, 'div.auth-inputs > div > div > input[type="checkbox"]')
+    reg_submit = (By.CSS_SELECTOR, '#auth-component > div > div > form > label > input[type=submit]')
+    #
+    # PopUp Registration locators
+    registr_btn = (By.CSS_SELECTOR, 'a.fat-button.black.js-open-auth-popup')
+    registr_popup_windows = (By.CSS_SELECTOR, '#auth-popup > div > div > div.popup-window')
+    registr_popup_name = (By.CSS_SELECTOR, 'div.input-wrapper.green > input[name="name"]')
+    registr_popup_phone = (By.CSS_SELECTOR, 'div.input-wrapper.green > input[name="phone"]')
+    registr_popup_passw = (By.CSS_SELECTOR, 'div.input-wrapper.green > input[name="password"]')
+    registr_popup_chec = (By.CSS_SELECTOR, 'label.check-label > input[type="checkbox"]')
+    registr_popup_add = (By.CSS_SELECTOR, 'label.submit-popup > input[type="submit"]')
+    registr_popup_close = (By.CSS_SELECTOR, '#auth-popup > div > div > div > div.top > div > svg')
 
 
 class StartLocatorsMobile:
@@ -206,7 +217,8 @@ class CartLocators:
     #
     amount_cart = (By.ID, 'cart-total-goods')
     sum_cart_top = (By.CSS_SELECTOR,
-                    '#content-wrapper > section > div > div.double-holder > div.left > div > div.amount.js-total-cart-price')
+                    '#content-wrapper > section > div > div.double-holder > div.left > div > '
+                    'div.amount.js-total-cart-price')
     sum_cart_bottom = (
         By.CSS_SELECTOR, '#content-wrapper > section > div > div.summary > div.amount.js-total-cart-price')
     clear_cart = (By.CSS_SELECTOR, '#content-wrapper > section > div > div.double-holder > div.right > a')
@@ -239,9 +251,11 @@ class CartLocators:
     dilivery_cour = (
         By.CSS_SELECTOR, 'div.delivery-radio-wrapper > table > tr:nth-child(2) > td:nth-child(1) > label > span.round')
     input_street = (By.CSS_SELECTOR,
-                    'div.input-block.street > div.select-wrapper.department > div > div.selectize-input.items.not-full > input')
+                    'div.input-block.street > div.select-wrapper.department > div > '
+                    'div.selectize-input.items.not-full > input')
     street_list = (By.CSS_SELECTOR,
-                   'div.input-block.street > div.select-wrapper.department > div > div.selectize-dropdown.single > div > div')
+                   'div.input-block.street > div.select-wrapper.department > div > div.selectize-dropdown.single > '
+                   'div > div')
     input_house = (By.CSS_SELECTOR, 'div.input-block.house > div.input-wrapper > input')
     input_flat = (By.CSS_SELECTOR, 'div.input-block.flat > div.input-wrapper > input')
     #
@@ -249,7 +263,8 @@ class CartLocators:
         By.CSS_SELECTOR, 'div.delivery-radio-wrapper > table > tr:nth-child(3) > td:nth-child(1) > label > span.round')
 
     np_branch = (By.CSS_SELECTOR,
-                 'div.select-wrapper.department > div > div.selectize-input.items.has-options.not-full > input[type=text]')
+                 'div.select-wrapper.department > div > div.selectize-input.items.has-options.not-full > input['
+                 'type=text]')
     branch_list = (By.CSS_SELECTOR, 'div.select-wrapper.department > div > div.selectize-dropdown.single > div > div')
     #
     next_step_pay = (By.CSS_SELECTOR, 'form.ecom_steps > div > div.left > div.button-holder > a')
@@ -396,7 +411,8 @@ class ProductLensLocators:
 
     amount_right = (By.CSS_SELECTOR, '#product-quantity-right')
     minus_right = (By.CSS_SELECTOR,
-                   '#lenses-quantity-block-right > div.quan-wrapper-cell > div > div.minus.js-sub-product-quantity > span')
+                   '#lenses-quantity-block-right > div.quan-wrapper-cell > div > div.minus.js-sub-product-quantity > '
+                   'span')
     plus_right = (By.CSS_SELECTOR,
                   '#lenses-quantity-block-right > div.quan-wrapper-cell > div > div.plus.js-add-product-quantity > span')
 
@@ -607,9 +623,121 @@ class CareLocators:
     loc_begin = '#content-wrapper > section.products-section'
 
     choice_volume = (By.CSS_SELECTOR,
-                    'div.char-card-block.glasses > div > div.select-cell.size > div > div.selectric > span')
+                     'div.char-card-block.glasses > div > div.select-cell.size > div > div.selectric > span')
     list_volume = (By.CSS_SELECTOR,
-                  'div.char-card-block.glasses > div > div.select-cell.size > div > div.selectric-items > div > ul > li')
+                   'div.char-card-block.glasses > div > div.select-cell.size > div > div.selectric-items > div > ul > '
+                   'li')
 
     buy_btn = (By.ID, 'md-to-basket')
     add_cart_sum = (By.CSS_SELECTOR, '#product-prices > div > div.price > span')
+
+
+class CabinetLocators:
+    # /ru/cabinet/ 0 Кабинет 1 Личные данные 2 Список желаний 3 Мои заказы 4 Адреса доставки 5 Сохраненные статьи Выйти
+    cabinet = (By.CSS_SELECTOR, '#content-wrapper > section > aside > ul > li:nth-child(1) > a')
+    pers_data = (By.CSS_SELECTOR, '#content-wrapper > section > aside > ul > li:nth-child(2) > a')
+    wishlist = (By.CSS_SELECTOR, '#content-wrapper > section > aside > ul > li:nth-child(3) > a')
+    orders = (By.CSS_SELECTOR, '#content-wrapper > section > aside > ul > li:nth-child(4) > a')
+    adresses = (By.CSS_SELECTOR, '#content-wrapper > section > aside > ul > li:nth-child(5) > a')
+    saved_articles = (By.CSS_SELECTOR, '#content-wrapper > section > aside > ul > li:nth-child(6) > a')
+    exit_cabinet = (By.CSS_SELECTOR, '#content-wrapper > section > aside > div > a')
+
+    # Кабинет ФИО Тел. Почта Адрес доставки Текущая скидка Редактировать данные Изменить пароль
+    fio = (By.CSS_SELECTOR, '#content-wrapper > section > main > div.cards-wrapper > div:nth-child(1) > div.card-name')
+    phone = (By.CSS_SELECTOR,
+             '#content-wrapper > section > main > div.cards-wrapper > div:nth-child(1) > div.info-holder > '
+             'div:nth-child(1) > div.value')
+    email = (By.CSS_SELECTOR,
+             '#content-wrapper > section > main > div.cards-wrapper > div:nth-child(1) > div.info-holder > '
+             'div:nth-child(2) > div.value')
+    delivery_adr = (By.CSS_SELECTOR,
+                    '#content-wrapper > section > main > div.cards-wrapper > div:nth-child(1) > div.info-holder > '
+                    'div.item.w100 > div.value')
+    discont = (By.CSS_SELECTOR,
+               '#content-wrapper > section > main > div.cards-wrapper > div:nth-child(2) > '
+               'div.info-holder.bonuses-holder > div > div.percent')
+    edit_data = (By.CSS_SELECTOR,
+                 '#content-wrapper > section > main > div.cards-wrapper > div:nth-child(1) > div.card-controls > '
+                 'a:nth-child(1) > span')
+    change_passw = (By.CSS_SELECTOR,
+                    '#content-wrapper > section > main > div.cards-wrapper > div:nth-child(1) > div.card-controls > '
+                    'a:nth-child(2) > span')
+
+    # Личные данные
+    # Фамилия Имя Телефон емейл День рождения Язык по умолч.укр/рус Сохранить Отмена Изменить пароль Редактировать данные
+    last_name = (By.CSS_SELECTOR,
+                 '#content-wrapper > section > main > form > div.left-column > div:nth-child(1) > div > div > input['
+                 'type=text]')
+    first_name = (By.CSS_SELECTOR,
+                  '#content-wrapper > section > main > form > div.left-column > div:nth-child(2) > div > div > input['
+                  'type=text]')
+    my_phone = (By.CSS_SELECTOR,
+                '#content-wrapper > section > main > form > div.left-column > div:nth-child(3) > div > div > input')
+    my_email = (By.CSS_SELECTOR,
+                '#content-wrapper > section > main > form > div.left-column > div:nth-child(4) > div > div > input['
+                'type=email]')
+    my_birthday = (By.ID, 'datetimepicker')
+    my_lang_uk = (By.ID, 'lang_uk')
+    my_lang_ru = (By.ID, 'lang_ru')
+    my_saved = (By.CSS_SELECTOR, '#content-wrapper > section > main > div.cabinet-control-buttons > label')
+    my_cancel = (By.CSS_SELECTOR, '#content-wrapper > section > main > div.cabinet-control-buttons > a')
+    my_change_passw = (
+        By.CSS_SELECTOR, '#content-wrapper > section > main > div.edit-top-panel > div.ctrl-panel > a:nth-child(1)')
+    my_edit_data = (
+        By.CSS_SELECTOR, '#content-wrapper > section > main > div.edit-top-panel > div.ctrl-panel > a:nth-child(2)')
+
+    # Список желаний
+    # Список Добавить список Название Добавить Закрыть Удалить список Вернуться на главную
+    my_wishlist = (By.CSS_SELECTOR, '#wishlist-wrapper > div.products-control-panel > div.info > a.item.active')
+    my_add_wishlist = (
+        By.CSS_SELECTOR, '#wishlist-wrapper > div.products-control-panel > div.info > a.item.js-create-wishlist')
+    my_name_wishlist = (
+        By.CSS_SELECTOR, '#add-wishlist-popup > div > div > div > form > div > div > div > input[type=text]')
+    my_add_name_wishlist = (By.CSS_SELECTOR, '#add-wishlist-popup > div > div > div > form > button')
+    my_close_name_wishlist = (
+        By.CSS_SELECTOR, '#add-wishlist-popup > div > div > div > div > div.close-popup.js-close-popup > svg')
+    my_delete_wishlist = (
+        By.CSS_SELECTOR, '#wishlist-wrapper > div.products-information > div.delete-all-wishlist.js-delete-wishlist')
+    my_goto_start_page = (By.CSS_SELECTOR, '#content-wrapper > section > main > div.double-no-goods > div.left > a')
+
+    # Адреса доставки
+    # Добавить новый адрес Город Список городов Киев Днепр Харьков Улица Список улиц Дом Квартира Добавить Закрыть
+    # Успешно добавлен Закрыть "Успешно" По умолчанию
+    my_add_new_delivery = (By.CSS_SELECTOR,
+                           '#content-wrapper > section > main > div.cabinet-delivery-top > '
+                           'div.add-address.js-add-address-btn')
+    my_city = (By.CSS_SELECTOR,
+               '#add-address-popup > div > div > div > form > div:nth-child(2) > div:nth-child(1) > div > div > '
+               'div.selectize-input.items.full.has-options.has-items > div')
+    city_list = (By.CSS_SELECTOR,
+                 '#add-address-popup > div > div > div > form > div:nth-child(2) > div:nth-child(1) > div > div > '
+                 'div.selectize-dropdown.single.addresses-city > div > div')
+    city_kiev = (By.CSS_SELECTOR,
+                 '#add-address-popup > div > div > div > form > div:nth-child(2) > div:nth-child(2) > div > '
+                 'label:nth-child(1) > input')
+    city_dnepr = (By.CSS_SELECTOR,
+                  '#add-address-popup > div > div > div > form > div:nth-child(2) > div:nth-child(2) > div > '
+                  'label:nth-child(2) > input')
+    city_kharkiv = (By.CSS_SELECTOR,
+                    '#add-address-popup > div > div > div > form > div:nth-child(2) > div:nth-child(2) > div > '
+                    'label:nth-child(3) > input')
+    my_street = (By.CSS_SELECTOR,
+                 '#add-address-popup > div > div > div > form > div:nth-child(3) > div.input-block > div > div > '
+                 'div.selectize-input.items.not-full > input[type=text]')
+    street_list = (By.CSS_SELECTOR,
+                   '#add-address-popup > div > div > div > form > div:nth-child(3) > div.input-block > div > div > '
+                   'div.selectize-dropdown.single.addresses-street > div > div')
+    my_house = (By.CSS_SELECTOR,
+                '#add-address-popup > div > div > div > form > div:nth-child(3) > div.double-inputs-address > '
+                'div:nth-child(1) > input[type=text]')
+    my_flat = (By.CSS_SELECTOR,
+               '#add-address-popup > div > div > div > form > div:nth-child(3) > div.double-inputs-address > '
+               'div:nth-child(2) > input[type=text]')
+    my_add_addr = (By.CSS_SELECTOR, '#add-address-popup > div > div > div > form > button')
+    my_close_addr = (
+        By.CSS_SELECTOR, '#add-address-popup > div > div > div > div > div.close-popup.js-close-popup > svg')
+    my_add_sucsess = (By.CSS_SELECTOR, '#success-notification-popup > div > div > div > div.popup-title')  # Успешно
+    my_close_sucsess = (By.CSS_SELECTOR, '#success-notification-popup > div > div > div > div.top > div > svg')
+    my_def_addr = (By.CSS_SELECTOR,
+                   '#content-wrapper > section > main > div.addresses-section > div > div > div.bottom > label > '
+                   'span.round')
