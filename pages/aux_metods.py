@@ -1,7 +1,7 @@
 class AuxMetods:
     """Класс вспомагательные медоты, используемые в параметризации поиска, для добавления различных строк"""
 
-    def generate_string(n):
+    def generate_string(n: int):
         return "x" * n
 
     def russian_chars():

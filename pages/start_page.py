@@ -2,7 +2,7 @@ from time import sleep
 from selenium.webdriver.remote.webelement import WebElement
 from pages.base_page import BasePage
 from pages.url_list import LinsaUa
-from pages.locators import StartLocators, StartLocatorsMobile
+from pages.locators import StartLocators, StartLocatorsMobile, RegLocators
 
 
 class StartPage(BasePage):
@@ -63,22 +63,22 @@ class StartPage(BasePage):
         return okvision[2], okvision[4]
 
     def reg_btn_click(self) -> WebElement:
-        self.driver.find_element(*StartLocators.registr_btn).click()
-        return self.driver.find_element(*StartLocators.registr_popup_windows)
+        self.driver.find_element(*RegLocators.registr_btn).click()
+        return self.driver.find_element(*RegLocators.registr_popup_windows)
 
     def input_reg_data(self, r_name: str, r_phone: str, r_passw: str):
-        name = self.driver.find_element(*StartLocators.registr_popup_name)
+        name = self.driver.find_element(*RegLocators.registr_popup_name)
         name.clear()
         name.send_keys(r_name)
-        phone = self.driver.find_element(*StartLocators.registr_popup_phone)
+        phone = self.driver.find_element(*RegLocators.registr_popup_phone)
         phone.clear()
         phone.send_keys(r_phone)
-        passw = self.driver.find_element(*StartLocators.registr_popup_passw)
+        passw = self.driver.find_element(*RegLocators.registr_popup_passw)
         passw.clear()
         passw.send_keys(r_passw)
-        self.driver.find_element(*StartLocators.registr_popup_chec).click()
+        self.driver.find_element(*RegLocators.registr_popup_chec).click()
         super().save_screen_browser('test_registration_start_page')
-        self.driver.find_element(*StartLocators.registr_popup_close)
+        self.driver.find_element(*RegLocators.registr_popup_close)
 
     # Blog elements
     def blog_card_name(self) ->[str, str, str]:

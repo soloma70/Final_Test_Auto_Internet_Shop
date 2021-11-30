@@ -3,7 +3,7 @@ from selenium.webdriver.remote.webelement import WebElement
 from selenium.webdriver.common.keys import Keys
 from pages.base_page import BasePage
 from pages.url_list import LinsaUa
-from pages.locators import StartLocators
+from pages.locators import StartLocators, RegLocators
 
 
 class Headers(BasePage):
@@ -35,17 +35,17 @@ class Headers(BasePage):
         self.driver.find_element(*StartLocators.callback_form_close).click()
 
     def login_btn_click(self):
-        self.driver.find_element(*StartLocators.login_btn).click()
+        self.driver.find_element(*RegLocators.login_btn).click()
 
     def wishlist_btn_click(self):
         self.driver.find_element(*StartLocators.wishlist_btns).click()
         sleep(1)
 
     def search_login_submit(self) -> WebElement:
-        return self.driver.find_element(*StartLocators.login_submit)
+        return self.driver.find_element(*RegLocators.login_submit)
 
     def login_close(self):
-        self.driver.find_element(*StartLocators.login_close).click()
+        self.driver.find_element(*RegLocators.login_close).click()
 
     def cart_btn_click(self):
         self.driver.find_element(*StartLocators.cart_btn).click()
