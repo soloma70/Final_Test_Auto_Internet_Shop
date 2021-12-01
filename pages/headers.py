@@ -1,9 +1,11 @@
 from time import sleep
 from selenium.webdriver.remote.webelement import WebElement
 from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.support.wait import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 from pages.base_page import BasePage
 from pages.url_list import LinsaUa
-from pages.locators import StartLocators, RegLocators
+from pages.locators import StartLocators, RegLocators, CabinetLocators
 
 
 class Headers(BasePage):
@@ -36,6 +38,34 @@ class Headers(BasePage):
 
     def login_btn_click(self):
         self.driver.find_element(*RegLocators.login_btn).click()
+
+    def registr_click(self):
+        self.driver.find_element(*RegLocators.login_btn).click()
+        self.driver.find_element(*RegLocators.reg_link).click()
+
+    def input_auth_data(self, phone: str, passw: str):
+        auth_login = self.driver.find_element(*RegLocators.login_name)
+        auth_login.clear()
+        auth_login.send_keys(phone)
+        auth_passw = self.driver.find_element(*RegLocators.login_pass)
+        auth_passw.clear()
+        auth_passw.send_keys(passw)
+        self.driver.find_element(*RegLocators.login_submit).click()
+        WebDriverWait(self.driver, 10).until(EC.visibility_of_element_located(CabinetLocators.cabinet_name))
+
+
+    def input_reg_data(self, name: str, phone: str, passw: str):
+        reg_name = self.driver.find_element(*RegLocators.reg_name)
+        reg_name.clear()
+        reg_name.send_keys(name)
+        reg_phone = self.driver.find_element(*RegLocators.reg_name)
+        reg_phone.clear()
+        reg_phone.send_keys(phone)
+        auth_passw = self.driver.find_element(*RegLocators.login_pass)
+        auth_passw.clear()
+        auth_passw.send_keys(passw)
+        self.driver.find_element(*RegLocators.reg_pesr_date).click()
+        self.driver.find_element(*RegLocators.reg_submit).click()
 
     def wishlist_btn_click(self):
         self.driver.find_element(*StartLocators.wishlist_btns).click()
