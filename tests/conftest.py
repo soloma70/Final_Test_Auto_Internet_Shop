@@ -33,6 +33,22 @@ def web_driver_desktop(request):
     yield web_driver
     web_driver.quit()
 
+@pytest.fixture(scope='module')
+def web_driver_auth_desktop(request):
+    """Фикстура рандомно передает в опции веб-драйвера браузера разные занчения User-Agent, загружает веб-драйвер Хром,
+    устанавливает размер окна как в десктопах (ПК, ноутбук), авторизуется в кабинете,
+    после выполнения основного кода закрывает браузер"""
+
+    option = webdriver.ChromeOptions()
+    user_agent = random.choice(ChromeSet.chrome_user_agent)
+    # option.add_argument(f"User-Agent={user_agent}")
+    option.add_argument("--disable-notifications")
+    web_driver = webdriver.Chrome(executable_path=ChromeSet.chrome_driver_path, options=option)
+    web_driver.set_window_size(1280, 960)
+    web_driver.delete_all_cookies()
+    yield web_driver
+    web_driver.quit()
+
 
 @pytest.fixture(scope='module')
 def web_driver_mobile(request):
