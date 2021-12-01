@@ -28,6 +28,9 @@ class BasePage(object):
     def get_url(self, url: str):
         self.driver.get(url)
 
+    def get_current_url(self) -> str:
+        return self.driver.current_url
+
     def find_prod_name(self):
         return self.driver.find_element(*ProductLocators.name)
 
@@ -116,6 +119,7 @@ class BasePage(object):
         Возвращает список цен в соответствии с условиями сортировки"""
 
         amount = self.card_prod_len()
+        list_price = []
         if amount <= 8:
             list_price = self.part_card_price(
                 amount, ProductLocators.block_1, ProductLocators.price_act, ProductLocators.price_old)
