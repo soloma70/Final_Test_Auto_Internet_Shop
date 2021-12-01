@@ -90,13 +90,15 @@ class StartLocators:
 
 class RegLocators:
     # Login locators
-    login_btn = (By.CSS_SELECTOR, 'a.enter.md-cab-link.js-open-auth-popup')
+    login_btn = (By.CSS_SELECTOR, '#content-wrapper > header > div.header-right > div.info-panel > div.cab-panel > a')
     #
+    win_popup_enter = (By.CSS_SELECTOR, '#auth-component > div > div > div.socials-enter > a')
     auth_facebook = (By.CSS_SELECTOR, '#auth-component > div > div > div.socials-enter > a')
     login_name = (By.CSS_SELECTOR, 'input[name="login"]')
     login_pass = (By.CSS_SELECTOR, 'input[name="password"]')
     login_submit = (By.CSS_SELECTOR, 'input[id="auth-submit"]')
     login_close = (By.CSS_SELECTOR, 'div.close-popup.js-close-popup > svg')
+    forgot_passw = (By.CSS_SELECTOR, '#auth-component > div > div > form > div.forgot-holder > a')
     #
     reg_link = (By.CSS_SELECTOR, '#auth-component > div > div > div.links-panel > a')
     reg_name = (By.CSS_SELECTOR, 'div.auth-inputs > div > div > input[name="name"]')
@@ -634,13 +636,10 @@ class CareLocators:
 
 class CabinetLocators:
     # /ru/cabinet/ 0 Кабинет 1 Личные данные 2 Список желаний 3 Мои заказы 4 Адреса доставки 5 Сохраненные статьи Выйти
-    cabinet = (By.CSS_SELECTOR, '#content-wrapper > section > aside > ul > li:nth-child(1) > a')
-    pers_data = (By.CSS_SELECTOR, '#content-wrapper > section > aside > ul > li:nth-child(2) > a')
-    wishlist = (By.CSS_SELECTOR, '#content-wrapper > section > aside > ul > li:nth-child(3) > a')
-    orders = (By.CSS_SELECTOR, '#content-wrapper > section > aside > ul > li:nth-child(4) > a')
-    adresses = (By.CSS_SELECTOR, '#content-wrapper > section > aside > ul > li:nth-child(5) > a')
-    saved_articles = (By.CSS_SELECTOR, '#content-wrapper > section > aside > ul > li:nth-child(6) > a')
+    cabinet = (By.CSS_SELECTOR, '#content-wrapper > section > aside > ul > li > a')
     exit_cabinet = (By.CSS_SELECTOR, '#content-wrapper > section > aside > div > a')
+
+    cabinet_name = (By.CSS_SELECTOR, 'div.toggler.js-open-cabinet-panel')
 
     # Кабинет ФИО Тел. Почта Адрес доставки Текущая скидка Редактировать данные Изменить пароль
     fio = (By.CSS_SELECTOR, '#content-wrapper > section > main > div.cards-wrapper > div:nth-child(1) > div.card-name')
@@ -665,18 +664,12 @@ class CabinetLocators:
 
     # Личные данные
     # Фамилия Имя Телефон емейл День рождения Язык по умолч.укр/рус Сохранить Отмена Изменить пароль Редактировать данные
-    last_name = (By.CSS_SELECTOR,
-                 '#content-wrapper > section > main > form > div.left-column > div:nth-child(1) > div > div > input['
-                 'type=text]')
-    first_name = (By.CSS_SELECTOR,
-                  '#content-wrapper > section > main > form > div.left-column > div:nth-child(2) > div > div > input['
-                  'type=text]')
-    my_phone = (By.CSS_SELECTOR,
-                '#content-wrapper > section > main > form > div.left-column > div:nth-child(3) > div > div > input')
-    my_email = (By.CSS_SELECTOR,
-                '#content-wrapper > section > main > form > div.left-column > div:nth-child(4) > div > div > input['
-                'type=email]')
-    my_birthday = (By.ID, 'datetimepicker')
+    my_data = (By.CSS_SELECTOR, 'div.left-column > div > div > div > input')
+    last_name = (By.CSS_SELECTOR, 'div.left-column > div:nth-child(1) > div > div > input')
+    first_name = (By.CSS_SELECTOR, 'div.left-column > div:nth-child(2) > div > div > input')
+    my_phone = (By.CSS_SELECTOR, 'div.left-column > div:nth-child(3) > div > div > input')
+    my_email = (By.CSS_SELECTOR, 'div.left-column > div:nth-child(4) > div > div > input')
+    my_birthday = (By.CSS_SELECTOR, 'div.left-column > div:nth-child(5) > div > div > input')
     my_lang_uk = (By.ID, 'lang_uk')
     my_lang_ru = (By.ID, 'lang_ru')
     my_saved = (By.CSS_SELECTOR, '#content-wrapper > section > main > div.cabinet-control-buttons > label')
@@ -703,9 +696,7 @@ class CabinetLocators:
     # Адреса доставки
     # Добавить новый адрес Город Список городов Киев Днепр Харьков Улица Список улиц Дом Квартира Добавить Закрыть
     # Успешно добавлен Закрыть "Успешно" По умолчанию
-    my_add_new_delivery = (By.CSS_SELECTOR,
-                           '#content-wrapper > section > main > div.cabinet-delivery-top > '
-                           'div.add-address.js-add-address-btn')
+    my_add_new_delivery = (By.CSS_SELECTOR, 'div.add-address.js-add-address-btn > svg:nth-child(1)')
     my_city = (By.CSS_SELECTOR,
                '#add-address-popup > div > div > div > form > div:nth-child(2) > div:nth-child(1) > div > div > '
                'div.selectize-input.items.full.has-options.has-items > div')
@@ -738,6 +729,13 @@ class CabinetLocators:
         By.CSS_SELECTOR, '#add-address-popup > div > div > div > div > div.close-popup.js-close-popup > svg')
     my_add_sucsess = (By.CSS_SELECTOR, '#success-notification-popup > div > div > div > div.popup-title')  # Успешно
     my_close_sucsess = (By.CSS_SELECTOR, '#success-notification-popup > div > div > div > div.top > div > svg')
-    my_def_addr = (By.CSS_SELECTOR,
-                   '#content-wrapper > section > main > div.addresses-section > div > div > div.bottom > label > '
-                   'span.round')
+    #
+    my_def_addr = (By.CSS_SELECTOR, 'label.address-round > span.round')
+    address_cities = (
+        By.CSS_SELECTOR, 'div.addresses-section > div > div > div.main-info > div.address-details > div.city')
+    address_streets = (
+        By.CSS_SELECTOR, 'div.addresses-section > div > div > div.main-info > div.address-details > div.street')
+
+    edit_my_adress = (By.CSS_SELECTOR, 'div.edit.js-edit-address-btn > svg')
+    delete_my_address = (By.CSS_SELECTOR, 'div.delete.js-delete-address-btn > svg')
+
