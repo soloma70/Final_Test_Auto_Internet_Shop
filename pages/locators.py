@@ -19,7 +19,7 @@ class StartLocators:
     callback_form_close = (By.CSS_SELECTOR, 'div.b24-window-panel.b24-window-panel-pos-right > button')
 
     # Wishlist locator
-    wishlist_btns = (By.CSS_SELECTOR, 'div. icons-panel > a > svg')
+    wishlist_btns = (By.CSS_SELECTOR, 'div.header-right > div.info-panel > div.icons-panel > a.favourites > svg')
 
     # Cart locator
     cart_btn = (By.CSS_SELECTOR, 'a.cart > svg')
@@ -365,6 +365,9 @@ class ProductLensLocators:
     curv_same = (By.CSS_SELECTOR, '#lenses-selects-form-same > div:nth-child(4) > div > div.selectric > div')
     curv_list = (
         By.CSS_SELECTOR, '#lenses-selects-form-same > div:nth-child(4) > div > div.selectric-items > div > ul > li')
+    color_same = (By.CSS_SELECTOR, '#lenses-selects-form-same > div:nth-child(5) > div > div.selectric > div')
+    color_list = (
+        By.CSS_SELECTOR, '#lenses-selects-form-same > div:nth-child(5) > div > div.selectric-items > div > ul > li')
     pack_one_same = (
         By.CSS_SELECTOR, '#lenses-quantity-block-same > div.quantity-label > div > label.goods-round > span.round')
     pack_mul_same = (
@@ -393,7 +396,12 @@ class ProductLensLocators:
     curv_right = (By.CSS_SELECTOR, '#lenses-selects-form-right > div:nth-child(4) > div > div.selectric > span')
     curv_right_list = (
         By.CSS_SELECTOR, '#lenses-selects-form-right > div:nth-child(4) > div > div.selectric-items > div > ul > li')
-
+    color_left = (By.CSS_SELECTOR, '#lenses-selects-form-left > div:nth-child(5) > div > div.selectric > div')
+    color_left_list = (
+        By.CSS_SELECTOR, '#lenses-selects-form-left > div:nth-child(5) > div > div.selectric-items > div > ul > li')
+    color_right = (By.CSS_SELECTOR, '#lenses-selects-form-right > div:nth-child(5) > div > div.selectric > div')
+    color_right_list = (
+        By.CSS_SELECTOR, '#lenses-selects-form-right > div:nth-child(5) > div > div.selectric-items > div > ul > li')
     pack_one_left = (
         By.CSS_SELECTOR, '#lenses-quantity-block-left > div.quantity-label > div > label.goods-round > span.round')
     pack_one_right = (
@@ -739,3 +747,56 @@ class CabinetLocators:
     edit_my_adress = (By.CSS_SELECTOR, 'div.edit.js-edit-address-btn > svg')
     delete_my_address = (By.CSS_SELECTOR, 'div.delete.js-delete-address-btn > svg')
 
+    # Список желаний
+    # Добавить список желаний
+    add_wishlist = (
+        By.CSS_SELECTOR, '#wishlist-wrapper > div.products-control-panel > div.info > a.item.js-create-wishlist')
+    list_wishlist = (By.CSS_SELECTOR, '#wishlist-wrapper > div.products-control-panel > div.info > a')
+    # Название
+    input_name_wishlist = (
+        By.CSS_SELECTOR, '#add-wishlist-popup > div > div > div > form > div > div > div > input[type=text]')
+    # Добавить
+    input_confirm = (By.CSS_SELECTOR, '#add-wishlist-popup > div > div > div > form > button')
+    # Успешно
+    title_success = (By.CSS_SELECTOR, '#success-notification-popup > div > div > div > div.popup-title')
+    close_success = (By.CSS_SELECTOR, '#success-notification-popup > div > div > div > div.top > div > svg')
+
+    # Пункты меню (0-5)
+    points_main_menu = (By.CSS_SELECTOR, '#content-wrapper > div.main-menu > ul > li > a')
+
+    # Вернуться на главную
+    goto_start_page = (By.CSS_SELECTOR, '#content-wrapper > section > main > div.double-no-goods > div.left > a')
+    # Переход на страницу линз
+    goto_lens_page = (By.CSS_SELECTOR, 'div.banner-block.js-banner-block.blue > div.button-holder > a')
+    # Переход на страницу очков
+    goto_sunglass_page = (By.CSS_SELECTOR, 'div.banner-block.js-banner-block.orange > div.button-holder > a')
+    # Переход на страницу оправ
+    goto_frames_page = (By.CSS_SELECTOR, 'div.banner-block.js-banner-block.grape > div.button-holder > a')
+
+    # Название списка
+    choise_name_wishlist = (By.CSS_SELECTOR, 'div.selectize-input.items.full.has-options.has-items > input')
+    # Выбор - Список списков
+    wishlists = (By.CSS_SELECTOR, 'div.selectize-dropdown.single.addresses-city > div > div')
+    # Добавить
+    add_in_wishlist = (By.CSS_SELECTOR, 'form > label.submit-popup > input[type=submit]')
+
+    # Перейти в список желаний
+    goto_wishlist = (By.CSS_SELECTOR, 'div.icons-panel > a.favourites > svg')
+
+    # Работа со списками - купить
+    lists_wishlist = (By.CSS_SELECTOR, '#wishlist-wrapper > div.products-control-panel > div.info > a')
+    prods_wishlist = (By.CSS_SELECTOR, 'div.wishlist-products-section > div > div > div.main-content > a.img')
+    lens_care_wishlist_buy = (By.CSS_SELECTOR, 'div.wishlist-products-section > div > div > div.additional.lens > a')
+    frame_sunglass_wishlist_buy = (
+        By.CSS_SELECTOR, 'div.wishlist-products-section > div > div > div.additional > button')
+
+    # Удалить из списка (список эл-тов в списке)
+    del_from_withlist = (
+        By.CSS_SELECTOR, 'div.wishlist-products-wrapper > div > div.delete.js-delete-product-from-wishlist > svg')
+    # Да
+    del_yes = (By.CSS_SELECTOR, 'div.swal2-actions > button.swal2-confirm.swal2-styled')
+    # Нет
+    del_no = (By.CSS_SELECTOR, 'div.swal2-actions > button.swal2-cancel.swal2-styled')
+
+    # Удалить список покупок
+    del_withlist = (By.CSS_SELECTOR, 'div.delete-all-wishlist.js-delete-wishlist > div > svg')

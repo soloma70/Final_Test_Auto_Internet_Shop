@@ -1,6 +1,6 @@
 from pages.base_page import BasePage
 from pages.url_list import LinsaUa
-from pages.locators import CartLocators, CabinetLocators
+from pages.locators import CartLocators, CabinetLocators, StartLocators, ProductLocators
 from time import sleep
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
@@ -106,3 +106,52 @@ class CabinetPage(BasePage):
 
     def cancel_personal_data(self):
         self.driver.find_element(*CabinetLocators.my_cancel).click()
+
+    def add_new_wishlist(self, name_wishlist: str) -> str:
+        self.driver.find_element(*CabinetLocators.add_wishlist).click()
+        self.driver.find_element(*CabinetLocators.input_name_wishlist).send_keys(name_wishlist)
+        self.driver.find_element(*CabinetLocators.input_confirm).click()
+        title_success = self.driver.find_element(*CabinetLocators.title_success).text
+        self.driver.find_element(*CabinetLocators.close_success).click()
+        return title_success
+
+    def choise_point_list(self, name_test: str, elem_list: list) -> int:
+        i = 0
+        while name_test != elem_list[i]:
+            i += 1
+        return i
+
+    def goto_wishlist(self, name_wishlist: str):
+        elem_wishlist = self.driver.find_elements(*CabinetLocators.lists_wishlist)
+        list_wishlist = [elem_wishlist[i].text.rsplit(' ', 1)[0] for i in range(len(elem_wishlist))]
+        index = self.choise_point_list(name_wishlist, list_wishlist)
+        elem_wishlist[index].click()
+
+    def goto_start_page(self):
+        self.driver.find_element(*CabinetLocators.goto_start_page).click()
+
+    def goto_lens_page(self):
+        self.driver.find_elements(*StartLocators.main_menu_points)[1].click()
+
+    def add_random_prod_wishlist(self, name_wishlist: str):
+        index = self.rand_prod_card(self.amount_on_page())
+        self.driver.find_elements(*ProductLocators.card_prod_wishlist)[index].click()
+        self.driver.find_element(*CabinetLocators.choise_name_wishlist).click()
+        wishlists = self.driver.find_elements(*CabinetLocators.wishlists)
+        list_wishlist = [wishlist.text for wishlist in wishlists]
+        i = self.choise_point_list(name_wishlist, list_wishlist)
+        wishlists[i].click()
+        self.driver.find_element(*CabinetLocators.add_in_wishlist).click()
+        title_success = self.driver.find_element(*CabinetLocators.title_success).text
+        self.driver.find_element(*CabinetLocators.close_success).click()
+        return title_success
+
+    def goto_wishlist_header(self):
+        self.driver.find_element(*StartLocators.wishlist_btns).click()
+
+    def delete_open_wishlist(self) -> str:
+        self.driver.find_element(*CabinetLocators.del_withlist).click()
+        self.driver.find_element(*CabinetLocators.del_yes).click()
+        title_success = self.driver.find_element(*CabinetLocators.title_success).text
+        self.driver.find_element(*CabinetLocators.close_success).click()
+        return title_success
