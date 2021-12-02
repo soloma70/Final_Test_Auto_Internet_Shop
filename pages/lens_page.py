@@ -101,6 +101,16 @@ class LensPage(BasePage):
         curv_right_list = self.driver.find_elements(*ProductLensLocators.curv_right_list)
         self.choise_param(us_set[4][0], curv_right_list)
         #
+        if len(us_set) == 8:
+            self.driver.find_element(*ProductLensLocators.curv_left).click()
+            curv_left_list = self.driver.find_elements(*ProductLensLocators.curv_left_list)
+            self.choise_param(us_set[7][0], curv_left_list)
+            sleep(1)
+            #
+            self.driver.find_element(*ProductLensLocators.curv_right).click()
+            curv_right_list = self.driver.find_elements(*ProductLensLocators.curv_right_list)
+            self.choise_param(us_set[7][0], curv_right_list)
+        #
         self.driver.find_element(*ProductLensLocators.pack_mul_left).click()
         self.driver.find_element(*ProductLensLocators.pack_mul_right).click()
         #
