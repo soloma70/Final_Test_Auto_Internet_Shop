@@ -1,9 +1,8 @@
 # -*- encoding=utf8 -*-
 
 import pytest
-from pages.test_sets import CareSets, SendOrderSets
+from pages.test_sets import CareSets
 from pages.care_page import CarePage
-from pages.cart_page import CartPage
 
 
 def test_amount_care_page(web_driver_desktop):
@@ -189,7 +188,3 @@ def test_add_in_cart_care_page(web_driver_desktop):
 
     page.win_scroll_begin()
     page.save_screen_browser('add_cart_3_care')
-
-
-
-
