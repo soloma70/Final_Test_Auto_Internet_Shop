@@ -51,8 +51,8 @@ class CabinetPage(BasePage):
         self.driver.find_element(*CabinetLocators.my_house).send_keys(house)
         self.driver.find_element(*CabinetLocators.my_flat).send_keys(flat)
         self.driver.find_element(*CabinetLocators.my_add_addr).click()
-        WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located(CabinetLocators.my_add_sucsess))
-        self.driver.find_element(*CabinetLocators.my_close_sucsess).click()
+        WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located(CabinetLocators.title_success))
+        self.driver.find_element(*CabinetLocators.close_success).click()
 
     def inst_default_address(self):
         self.driver.find_element(*CabinetLocators.my_def_addr).click()
@@ -67,8 +67,8 @@ class CabinetPage(BasePage):
 
     def delete_adress(self, index: int):
         self.driver.find_elements(*CabinetLocators.delete_my_address)[index].click()
-        WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located(CabinetLocators.my_add_sucsess))
-        self.driver.find_element(*CabinetLocators.my_close_sucsess).click()
+        WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located(CabinetLocators.title_success))
+        self.driver.find_element(*CabinetLocators.close_success).click()
 
     def add_email(self, email: str):
         field_email = self.driver.find_elements(*CabinetLocators.my_data)[3]
@@ -88,8 +88,8 @@ class CabinetPage(BasePage):
 
     def save_personal_data(self):
         self.driver.find_element(*CabinetLocators.my_saved).click()
-        WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located(CabinetLocators.my_add_sucsess))
-        self.driver.find_element(*CabinetLocators.my_close_sucsess).click()
+        WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located(CabinetLocators.title_success))
+        self.driver.find_element(*CabinetLocators.close_success).click()
 
     def list_personal_data(self) -> list:
         list_elements = self.driver.find_elements(*CabinetLocators.my_data)
@@ -101,8 +101,8 @@ class CabinetPage(BasePage):
         self.driver.find_elements(*CabinetLocators.my_data)[4].clear()
         self.change_default_lang('ru')
         self.driver.find_element(*CabinetLocators.my_saved).click()
-        WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located(CabinetLocators.my_add_sucsess))
-        self.driver.find_element(*CabinetLocators.my_close_sucsess).click()
+        WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located(CabinetLocators.title_success))
+        self.driver.find_element(*CabinetLocators.close_success).click()
 
     def cancel_personal_data(self):
         self.driver.find_element(*CabinetLocators.my_cancel).click()
@@ -142,7 +142,8 @@ class CabinetPage(BasePage):
         i = self.choise_point_list(name_wishlist, list_wishlist)
         wishlists[i].click()
         self.driver.find_element(*CabinetLocators.add_in_wishlist).click()
-        title_success = self.driver.find_element(*CabinetLocators.title_success).text
+        title_success = WebDriverWait(self.driver, 5).until(
+            EC.visibility_of_element_located(CabinetLocators.title_success)).text
         self.driver.find_element(*CabinetLocators.close_success).click()
         return title_success
 
@@ -152,6 +153,7 @@ class CabinetPage(BasePage):
     def delete_open_wishlist(self) -> str:
         self.driver.find_element(*CabinetLocators.del_withlist).click()
         self.driver.find_element(*CabinetLocators.del_yes).click()
-        title_success = self.driver.find_element(*CabinetLocators.title_success).text
+        title_success = WebDriverWait(self.driver, 5).until(
+            EC.visibility_of_element_located(CabinetLocators.title_success)).text
         self.driver.find_element(*CabinetLocators.close_success).click()
         return title_success

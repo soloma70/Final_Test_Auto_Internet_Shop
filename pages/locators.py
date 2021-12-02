@@ -735,8 +735,9 @@ class CabinetLocators:
     my_add_addr = (By.CSS_SELECTOR, '#add-address-popup > div > div > div > form > button')
     my_close_addr = (
         By.CSS_SELECTOR, '#add-address-popup > div > div > div > div > div.close-popup.js-close-popup > svg')
-    my_add_sucsess = (By.CSS_SELECTOR, '#success-notification-popup > div > div > div > div.popup-title')  # Успешно
-    my_close_sucsess = (By.CSS_SELECTOR, '#success-notification-popup > div > div > div > div.top > div > svg')
+    # Успешно
+    title_success = (By.CSS_SELECTOR, '#success-notification-popup > div > div > div > div.popup-title')
+    close_success = (By.CSS_SELECTOR, '#success-notification-popup > div > div > div > div.top > div > svg')
     #
     my_def_addr = (By.CSS_SELECTOR, 'label.address-round > span.round')
     address_cities = (
@@ -757,9 +758,6 @@ class CabinetLocators:
         By.CSS_SELECTOR, '#add-wishlist-popup > div > div > div > form > div > div > div > input[type=text]')
     # Добавить
     input_confirm = (By.CSS_SELECTOR, '#add-wishlist-popup > div > div > div > form > button')
-    # Успешно
-    title_success = (By.CSS_SELECTOR, '#success-notification-popup > div > div > div > div.popup-title')
-    close_success = (By.CSS_SELECTOR, '#success-notification-popup > div > div > div > div.top > div > svg')
 
     # Пункты меню (0-5)
     points_main_menu = (By.CSS_SELECTOR, '#content-wrapper > div.main-menu > ul > li > a')
