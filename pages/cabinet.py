@@ -1,6 +1,6 @@
 from pages.base_page import BasePage
 from pages.url_list import LinsaUa
-from pages.locators import CartLocators, CabinetLocators, StartLocators, ProductLocators
+from pages.locators import CartLocators, CabinetLocators, StartLocators, ProductLocators, BlogLocators
 from time import sleep
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
@@ -19,8 +19,14 @@ class CabinetPage(BasePage):
         self.cabinet = self.driver.find_elements(*CabinetLocators.cabinet)
         self.cabinet_name = self.driver.find_element(*CabinetLocators.cabinet_name)
 
-    def goto_menu(self, index: int):
+    def goto_cabinet_menu(self, index: int):
         self.driver.find_elements(*CabinetLocators.cabinet)[index].click()
+
+    def goto_cabinet_menu_header(self, index: int):
+        self.driver.find_element(*CabinetLocators.cabinet_name).click()
+        WebDriverWait(self.driver, 5).until(
+            EC.visibility_of_element_located(CabinetLocators.cabinet_menu_header))
+        self.driver.find_elements(*CabinetLocators.cabinet_menu_header)[index].click()
 
     def exit_cabinet(self):
         self.driver.find_element(*CabinetLocators.exit_cabinet).click()
@@ -130,8 +136,8 @@ class CabinetPage(BasePage):
     def goto_start_page(self):
         self.driver.find_element(*CabinetLocators.goto_start_page).click()
 
-    def goto_lens_page(self):
-        self.driver.find_elements(*StartLocators.main_menu_points)[1].click()
+    def goto_menu_page(self, index):
+        self.driver.find_elements(*StartLocators.main_menu_points)[index].click()
 
     def add_random_prod_wishlist(self, name_wishlist: str):
         index = self.rand_prod_card(self.amount_on_page())
@@ -157,3 +163,34 @@ class CabinetPage(BasePage):
             EC.visibility_of_element_located(CabinetLocators.title_success)).text
         self.driver.find_element(*CabinetLocators.close_success).click()
         return title_success
+
+    def add_article_in_favorites(self) -> str:
+        amount_articles_on_page = len(self.driver.find_elements(*BlogLocators.news))
+        index = self.rand_prod_card(amount_articles_on_page)-1
+        self.driver.find_elements(*BlogLocators.news)[index].click()
+        name_article = self.driver.find_element(*BlogLocators.news_name).text.lower()
+        elem_add = self.driver.find_element(*BlogLocators.add_favorite_text)
+        if elem_add.is_displayed():
+            self.driver.find_element(*BlogLocators.add_favorites).click()
+        WebDriverWait(self.driver, 5).until(
+            EC.visibility_of_element_located(BlogLocators.del_favorite_text))
+        return name_article
+
+    def list_article_in_favorite(self):
+        elem_articles = self.driver.find_elements(*CabinetLocators.list_saved_articles)
+        list_articles = [elem_article.text.lower() for elem_article in elem_articles]
+        return list_articles
+
+    def delete_add_article(self, name_article):
+        list_articles_begin = self.driver.find_elements(*CabinetLocators.list_saved_articles)
+        list_name_articles = [name.text.lower() for name in list_articles_begin]
+
+        i = 0
+        while name_article != list_name_articles[i]:
+            i += 1
+        self.driver.find_elements(*CabinetLocators.del_article)[i].click()
+
+        list_articles_end = self.driver.find_elements(*CabinetLocators.list_saved_articles)
+        while len(list_articles_begin) == len(list_articles_end):
+            list_articles_end = self.driver.find_elements(*CabinetLocators.list_saved_articles)
+

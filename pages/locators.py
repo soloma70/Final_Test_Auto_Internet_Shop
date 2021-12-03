@@ -479,6 +479,12 @@ class BlogLocators:
     news_tags = (By.CSS_SELECTOR, 'div.news-tags-wrapper > a')  # 8 tegs (href)
     news = (By.CSS_SELECTOR, 'div.news-wrapper > a')  # 9 blocks (href)
     news_name = (By.CSS_SELECTOR, 'h1.article-h1')
+    #
+    add_favorites = (By.CSS_SELECTOR, 'a.js-add-to-saved.share-links-save > img')
+    add_favorite_text = (By.CSS_SELECTOR, 'div.share-links > a > span.add')
+    del_favorites = (By.CSS_SELECTOR, 'a.share-links-save.js-delete-from-saved > img')
+    del_favorite_text = (By.CSS_SELECTOR, 'div.share-links > a > span.delete')
+
     # Pagination locators
     pagination = (By.CSS_SELECTOR, '#content-wrapper > div.pagination > a')  # 5 pages + arrow (all 11 pages)
     arrow_right = (By.CSS_SELECTOR, 'a.arrow-right-pagination > div')
@@ -646,8 +652,9 @@ class CabinetLocators:
     # /ru/cabinet/ 0 Кабинет 1 Личные данные 2 Список желаний 3 Мои заказы 4 Адреса доставки 5 Сохраненные статьи Выйти
     cabinet = (By.CSS_SELECTOR, '#content-wrapper > section > aside > ul > li > a')
     exit_cabinet = (By.CSS_SELECTOR, '#content-wrapper > section > aside > div > a')
-
+    # Cabinet menu Header
     cabinet_name = (By.CSS_SELECTOR, 'div.toggler.js-open-cabinet-panel')
+    cabinet_menu_header = (By.CSS_SELECTOR, '#cabinet-panel > ul > li > a')
 
     # Кабинет ФИО Тел. Почта Адрес доставки Текущая скидка Редактировать данные Изменить пароль
     fio = (By.CSS_SELECTOR, '#content-wrapper > section > main > div.cards-wrapper > div:nth-child(1) > div.card-name')
@@ -798,3 +805,7 @@ class CabinetLocators:
 
     # Удалить список покупок
     del_withlist = (By.CSS_SELECTOR, 'div.delete-all-wishlist.js-delete-wishlist > div > svg')
+
+    # Сохраненные статьи
+    list_saved_articles = (By.CSS_SELECTOR, 'div.cabinet-saved > ul > li > a[target="_blank"]')
+    del_article = (By.CSS_SELECTOR, 'div.cabinet-saved > ul > li > a.js-delete-from-saved')
