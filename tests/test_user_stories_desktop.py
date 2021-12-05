@@ -8,6 +8,8 @@ from pages.cart_page import CartPage
 from pages.test_sets import LensSets, SendOrderSets, FramesSets, SunglassSets, CareSets
 
 
+@pytest.mark.functional
+@pytest.mark.positive
 def test_us_filter_lens_page(web_driver_desktop):
     """Тест UC "Я хочу найти и купить линзы бренда INTEROJO, линейки Fusion, левая -4.00, правая -2.75"
     осуществляет поиск по брендам, линейкам, типу линзы, режиму замены, базовой кривизне, диаметру и диоптрийности,
@@ -67,6 +69,8 @@ def test_us_filter_lens_page(web_driver_desktop):
     page.save_screen_browser(f'us_5_confitm_chekout_{us_set[0][0]}')
 
 
+@pytest.mark.integration
+@pytest.mark.positive
 def test_us_filter_fr_page(web_driver_desktop):
     """Тест UC "Я хочу найти и купить оправу бренда CARRERA, мужскую, длина заушника/ширина мостика/ширина окуляра
     145/20/50" осуществляет поиск по брендам, полу, длинне заушника, ширине мостика и ширине окуляра,
@@ -136,6 +140,8 @@ def test_us_filter_fr_page(web_driver_desktop):
     page.save_screen_browser(f'us_5_confitm_chekout_{us_set[0]}')
 
 
+@pytest.mark.integration
+@pytest.mark.positive
 def test_us_filter_sg_page(web_driver_desktop):
     """Тест UC "Я хочу найти и купить сонцезащитные очки бренда VOGUE, женские, длина заушника/ширина мостика/
     ширина окуляра 160/138/40" осуществляет поиск по брендам, полу, длинне заушника, ширине мостика и ширине окуляра,
@@ -209,6 +215,8 @@ def test_us_filter_sg_page(web_driver_desktop):
     page.save_screen_browser(f'us_5_confitm_chekout_{us_set[0]}')
 
 
+@pytest.mark.integration
+@pytest.mark.positive
 def test_us_filter_care_page(web_driver_desktop):
     """Тест UC "Я хочу найти и купить..." проверяет фильтр по брендам, объему и типу, сортирует
     выбранные позиции возрастанию цены, выбирает рандомную позицию и добавляет в корзину.

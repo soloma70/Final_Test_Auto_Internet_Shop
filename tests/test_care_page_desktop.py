@@ -5,6 +5,8 @@ from pages.test_sets import CareSets
 from pages.care_page import CarePage
 
 
+@pytest.mark.smokie
+@pytest.mark.positive
 def test_amount_care_page(web_driver_desktop):
     """Тест проверяет количество позиций на странице, суммирует по всем страницам и сравнивает
     с количеством средств в наименовании страницы"""
@@ -23,6 +25,8 @@ def test_amount_care_page(web_driver_desktop):
     assert amount_total_care == amount_all_page, 'ERROR! Incorrect amount lens'
 
 
+@pytest.mark.smokie
+@pytest.mark.positive
 def test_pagination_care_page(web_driver_desktop):
     """Тест проверяет прямой переход по страницам раздела (в пределах 4 страниц), а так же переход с помощью
     стрелок (в пределах 4 страниц) и сравнивает фактический URL с ожидаемым"""
@@ -46,6 +50,7 @@ def test_pagination_care_page(web_driver_desktop):
             , 'ERROR! Incorrect transaction'
 
 
+@pytest.mark.positive
 @pytest.mark.parametrize("test_set",
                          [CareSets.soleko, CareSets.alcon, CareSets.olmi],
                          ids=[CareSets.soleko[4], CareSets.alcon[4], CareSets.olmi[5]])
@@ -73,7 +78,8 @@ def test_positive_filter_care_page(web_driver_desktop, test_set):
     page.clear_all_filter()
 
 
-def test_positive_filter_single_care_page(web_driver_desktop):
+@pytest.mark.positive
+def test_filter_single_positive_care_page(web_driver_desktop):
     """Тест проверяет фильтр на странице отдельно по брендам, объему и типу средства
     и выборку согласно критерию фильтрации (по типу средств не делается).
     В зависимости от прокруток ленты используются до 4 параметров фильтрации.
@@ -99,7 +105,8 @@ def test_positive_filter_single_care_page(web_driver_desktop):
             page.clear_all_filter()
 
 
-def test_negative_filter_single_care_page(web_driver_desktop):
+@pytest.mark.negative
+def test_filter_negative_single_care_page(web_driver_desktop):
     """Тест проверяет фильтр на странице по брендам, полу, длинне заушника, ширине мостика и ширине окуляра
     и выборку согласно критерию фильтрации.
     ВНИМАНИЕ!!! Необходимо убрать курсор мышки из поля страницы браузера!"""
@@ -122,6 +129,7 @@ def test_negative_filter_single_care_page(web_driver_desktop):
                 page.clear_all_filter()
 
 
+@pytest.mark.positive
 def test_sort_care_page(web_driver_desktop):
     """Тест проверяет сортировку на 1-й, последней и одной (1) рандомной странице по возрастанию
     и снижению цены (с проверкой цен), по новизне и популярности, делает скриншоты.
@@ -160,6 +168,8 @@ def test_sort_care_page(web_driver_desktop):
         page.save_screen_browser(f'sort_care_popularity_{page_num[i]}')
 
 
+@pytest.mark.smokie
+@pytest.mark.positive
 def test_add_in_cart_care_page(web_driver_desktop):
     """Тест проверяет добавление одной рандомной позиций с 1, последней и 1-й рандомной страницы,
     добавление в корзину с параметрами по умолчанию """
