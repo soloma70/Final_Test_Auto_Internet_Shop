@@ -12,11 +12,11 @@ from time import sleep
 
 @pytest.mark.smokie
 @pytest.mark.positive
-def test_authorization_valid(web_driver_auth_desktop):
+def test_authorization_valid(web_driver_desktop):
     """Тест проверяет авторизацию пользователя с валидными параметрами и переходит в кабинет,
     переходит на страницы бокового меню и меню в хедере"""
 
-    page = Headers(web_driver_auth_desktop, 10)
+    page = Headers(web_driver_desktop, 10)
     # Открытие всплывающего окна авторизации
     page.login_btn_click()
 
@@ -26,7 +26,7 @@ def test_authorization_valid(web_driver_auth_desktop):
     assert page.get_relative_link() == LinsaUa.cabinet[0][0] or page.get_relative_link() == LinsaUa.cabinet[0][
         1], 'ERROR! Bad transactoin!'
 
-    page = CabinetPage(web_driver_auth_desktop)
+    page = CabinetPage(web_driver_desktop)
     assert page.cabinet_name.text.strip() == AuthSets.auth_name.upper(), 'ERROR! Start Image is not displayed'
 
     # Переход по страницам бокового меню
@@ -41,11 +41,11 @@ def test_authorization_valid(web_driver_auth_desktop):
 
 
 @pytest.mark.positive
-def test_add_new_address(web_driver_auth_desktop):
+def test_add_new_address(web_driver_desktop):
     """Тест авторизует пользователя, переходит в кабинет, добавляет новый адрес доставки, делает скриншот и
     удаляет адрес, делает скришщот, выходит из кабинета"""
 
-    page = Headers(web_driver_auth_desktop, 10)
+    page = Headers(web_driver_desktop, 10)
 
     # Открытие всплывающего окна авторизации
     page.login_btn_click()
@@ -56,7 +56,7 @@ def test_add_new_address(web_driver_auth_desktop):
         1], 'ERROR! Bad transactoin!'
 
     # Инициализация экземпляра авторизованой страницы кабинета и проверка имени пользователя
-    page = CabinetPage(web_driver_auth_desktop)
+    page = CabinetPage(web_driver_desktop)
     assert page.cabinet_name.text.strip() == AuthSets.auth_name.upper(), 'ERROR! Start Image is not displayed'
     sleep(1)
 
@@ -79,11 +79,11 @@ def test_add_new_address(web_driver_auth_desktop):
 
 
 @pytest.mark.positive
-def test_edit_user_data(web_driver_auth_desktop):
+def test_edit_user_data(web_driver_desktop):
     """Тест авторизует пользователя, переходит в кабинет, переходит на страницу редактирования данных,добавляе емейл,
     дату рождения, меняет язык по умолчанию на украинский, сохраняет данные, делает скриншот и выходит из кабинета"""
 
-    page = Headers(web_driver_auth_desktop, 10)
+    page = Headers(web_driver_desktop, 10)
 
     # Открытие всплывающего окна авторизации
     page.login_btn_click()
@@ -94,7 +94,7 @@ def test_edit_user_data(web_driver_auth_desktop):
         1], 'ERROR! Bad transactoin!'
 
     # Инициализация экземпляра авторизованой страницы кабинета и проверка имени пользователя
-    page = CabinetPage(web_driver_auth_desktop)
+    page = CabinetPage(web_driver_desktop)
     assert page.cabinet_name.text.strip() == AuthSets.auth_name.upper(), 'ERROR! Start Image is not displayed'
 
     # Переход на страницу Личные данные и добавление емейл и дня рождения
@@ -115,12 +115,13 @@ def test_edit_user_data(web_driver_auth_desktop):
     page.exit_cabinet()
 
 
+@pytest.mark.integration
 @pytest.mark.positive
-def test_wishlist_user(web_driver_auth_desktop):
+def test_wishlist_user(web_driver_desktop):
     """Тест авторизует пользователя, переходит в кабинет, переходит на страницу списка желаний, находит продукты
     соответственно тестовым наборам, проверяет получившийся список, удаляет его и выходит из кабинета"""
 
-    page = Headers(web_driver_auth_desktop, 10)
+    page = Headers(web_driver_desktop, 10)
 
     # Открытие всплывающего окна авторизации
     page.login_btn_click()
@@ -131,7 +132,7 @@ def test_wishlist_user(web_driver_auth_desktop):
         1], 'ERROR! Bad transactoin!'
 
     # Инициализация экземпляра авторизованой страницы кабинета и проверка имени пользователя
-    page = CabinetPage(web_driver_auth_desktop)
+    page = CabinetPage(web_driver_desktop)
     assert page.cabinet_name.text.strip() == AuthSets.auth_name.upper(), 'ERROR! Start Image is not displayed'
 
     # Переход на страницу Список желаний и добавление нового списка
@@ -158,12 +159,13 @@ def test_wishlist_user(web_driver_auth_desktop):
     page.exit_cabinet()
 
 
+@pytest.mark.integration
 @pytest.mark.positive
-def test_add_article_in_favorite_user(web_driver_auth_desktop):
+def test_add_article_in_favorite_user(web_driver_desktop):
     """Тест авторизует пользователя, переходит в кабинет, переходит на страницу блогов, выбирает рандомный блог,
     добавляет в избраннае, переходит на страницу Сохраненные статьи и проверяет название статьи среди сохраненных"""
 
-    page = Headers(web_driver_auth_desktop, 10)
+    page = Headers(web_driver_desktop, 10)
 
     # Открытие всплывающего окна авторизации
     page.login_btn_click()
@@ -174,13 +176,12 @@ def test_add_article_in_favorite_user(web_driver_auth_desktop):
         1], 'ERROR! Bad transactoin!'
 
     # Инициализация экземпляра авторизованой страницы кабинета и проверка имени пользователя
-    page = CabinetPage(web_driver_auth_desktop)
+    page = CabinetPage(web_driver_desktop)
     assert page.cabinet_name.text.strip() == AuthSets.auth_name.upper(), 'ERROR! Start Image is not displayed'
 
     # Добавление новой рандомной статьи в избранное
     page.goto_menu_page(5)
     name_article = page.add_article_in_favorites()
-    print(name_article)
     page.goto_cabinet_menu_header(5)
     list_articles_add = page.list_article_in_favorite()
     page.save_screen_browser('add_new_article_favorites')
