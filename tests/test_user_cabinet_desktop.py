@@ -1,5 +1,4 @@
 # -*- encoding=utf8 -*-
-from urllib.parse import urlparse
 
 import pytest
 from pages.cabinet import CabinetPage
@@ -7,7 +6,6 @@ from pages.headers import Headers
 from pages.test_sets import AuthSets
 from pages.url_list import LinsaUa
 from pages.aux_metods import AuxMetods
-from time import sleep
 
 
 @pytest.mark.smokie
@@ -21,8 +19,10 @@ def test_authorization_valid(web_driver_desktop):
     page.login_btn_click()
 
     # Ввод данных авторизации, скриншот и переход в кабинет
-    page.input_auth_data(AuthSets.auth_phone, AuthSets.auth_passw)
+    page.input_login_passw(AuthSets.auth_phone, AuthSets.auth_passw)
     page.save_screen_browser('auth_cabinet')
+    page.auth_submit()
+    page.wait_download_cabinet()
     assert page.get_relative_link() == LinsaUa.cabinet[0][0] or page.get_relative_link() == LinsaUa.cabinet[0][
         1], 'ERROR! Bad transactoin!'
 
@@ -40,6 +40,30 @@ def test_authorization_valid(web_driver_desktop):
     page.exit_cabinet()
 
 
+@pytest.mark.negative
+@pytest.mark.parametrize("login",
+                         ['123456', AuxMetods.generate_number(50), AuxMetods.generate_string(255),
+                          AuxMetods.russian_chars(), AuxMetods.chinese_chars(), AuxMetods.special_chars()]
+    , ids=['6 int', 'random int', '255 sym', 'russian', 'chinese', 'specials'])
+@pytest.mark.parametrize("passw",
+                         ['123456', AuxMetods.generate_number(50), AuxMetods.generate_string(255),
+                          AuxMetods.russian_chars(), AuxMetods.chinese_chars(), AuxMetods.special_chars()]
+    , ids=['6 int', 'random int', '255 sym', 'russian', 'chinese', 'specials'])
+def test_authorization_non_valid(web_driver_desktop, login, passw):
+    """Тест проверяет авторизацию с не валидными параметрами"""
+
+    page = Headers(web_driver_desktop, 10)
+    # Открытие всплывающего окна авторизации
+    page.login_btn_click()
+
+    # Ввод данных авторизации, получение ответа и сравление с ожиданием
+    page.input_login_passw(login, passw)
+    page.auth_submit()
+    answer = page.answer_nonvalid_data()
+    page.auth_cancel()
+    assert answer == 'Проверьте правильность данных для входа'
+
+
 @pytest.mark.positive
 def test_add_new_address(web_driver_desktop):
     """Тест авторизует пользователя, переходит в кабинет, добавляет новый адрес доставки, делает скриншот и
@@ -51,14 +75,15 @@ def test_add_new_address(web_driver_desktop):
     page.login_btn_click()
 
     # Ввод данных авторизации, скриншот и переход в кабинет и проверка URL кабинета
-    page.input_auth_data(AuthSets.auth_phone, AuthSets.auth_passw)
+    page.input_login_passw(AuthSets.auth_phone, AuthSets.auth_passw)
+    page.auth_submit()
+    page.wait_download_cabinet()
     assert page.get_relative_link() == LinsaUa.cabinet[0][0] or page.get_relative_link() == LinsaUa.cabinet[0][
         1], 'ERROR! Bad transactoin!'
 
     # Инициализация экземпляра авторизованой страницы кабинета и проверка имени пользователя
     page = CabinetPage(web_driver_desktop)
     assert page.cabinet_name.text.strip() == AuthSets.auth_name.upper(), 'ERROR! Start Image is not displayed'
-    sleep(1)
 
     # Переход на страницу Адреса доставки и добавление адреса из тестового набора
     page.goto_cabinet_menu(4)
@@ -89,7 +114,9 @@ def test_edit_user_data(web_driver_desktop):
     page.login_btn_click()
 
     # Ввод данных авторизации, скриншот и переход в кабинет и проверка URL кабинета
-    page.input_auth_data(AuthSets.auth_phone, AuthSets.auth_passw)
+    page.input_login_passw(AuthSets.auth_phone, AuthSets.auth_passw)
+    page.auth_submit()
+    page.wait_download_cabinet()
     assert page.get_relative_link() == LinsaUa.cabinet[0][0] or page.get_relative_link() == LinsaUa.cabinet[0][
         1], 'ERROR! Bad transactoin!'
 
@@ -127,7 +154,9 @@ def test_wishlist_user(web_driver_desktop):
     page.login_btn_click()
 
     # Ввод данных авторизации, скриншот и переход в кабинет и проверка URL кабинета
-    page.input_auth_data(AuthSets.auth_phone, AuthSets.auth_passw)
+    page.input_login_passw(AuthSets.auth_phone, AuthSets.auth_passw)
+    page.auth_submit()
+    page.wait_download_cabinet()
     assert page.get_relative_link() == LinsaUa.cabinet[0][0] or page.get_relative_link() == LinsaUa.cabinet[0][
         1], 'ERROR! Bad transactoin!'
 
@@ -171,7 +200,9 @@ def test_add_article_in_favorite_user(web_driver_desktop):
     page.login_btn_click()
 
     # Ввод данных авторизации, скриншот и переход в кабинет и проверка URL кабинета
-    page.input_auth_data(AuthSets.auth_phone, AuthSets.auth_passw)
+    page.input_login_passw(AuthSets.auth_phone, AuthSets.auth_passw)
+    page.auth_submit()
+    page.wait_download_cabinet()
     assert page.get_relative_link() == LinsaUa.cabinet[0][0] or page.get_relative_link() == LinsaUa.cabinet[0][
         1], 'ERROR! Bad transactoin!'
 
