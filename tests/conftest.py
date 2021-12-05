@@ -1,21 +1,7 @@
-import pytest, random
+import pytest
 from selenium import webdriver
 from browser_set import ChromeSet
-
-
-@pytest.fixture(scope='module')
-def web_driver(request):
-    """Фикстура рандомно передает в опции веб-драйвера браузера разные занчения User-Agent, загружает веб-драйвер Хром,
-    меняет размер окна, после выполнения основного кода закрывает браузер"""
-
-    option = webdriver.ChromeOptions()
-    user_agent = random.choice(ChromeSet.chrome_user_agent)
-    option.add_argument(f"User-Agent={user_agent}")
-    web_driver = webdriver.Chrome(executable_path=ChromeSet.chrome_driver_path, options=option)
-    web_driver.set_window_size(1280, 960)
-    web_driver.delete_all_cookies()
-    yield web_driver
-    web_driver.quit()
+from fake_useragent import UserAgent
 
 
 @pytest.fixture(scope='module')
@@ -24,24 +10,8 @@ def web_driver_desktop(request):
     устанавливает размер окна как в десктопах (ПК, ноутбук), после выполнения основного кода закрывает браузер"""
 
     option = webdriver.ChromeOptions()
-    user_agent = random.choice(ChromeSet.chrome_user_agent)
-    option.add_argument(f"User-Agent={user_agent}")
-    option.add_argument("--disable-notifications")
-    web_driver = webdriver.Chrome(executable_path=ChromeSet.chrome_driver_path, options=option)
-    web_driver.set_window_size(1280, 960)
-    web_driver.delete_all_cookies()
-    yield web_driver
-    web_driver.quit()
-
-@pytest.fixture(scope='module')
-def web_driver_auth_desktop(request):
-    """Фикстура рандомно передает в опции веб-драйвера браузера разные занчения User-Agent, загружает веб-драйвер Хром,
-    устанавливает размер окна как в десктопах (ПК, ноутбук), авторизуется в кабинете,
-    после выполнения основного кода закрывает браузер"""
-
-    option = webdriver.ChromeOptions()
-    user_agent = random.choice(ChromeSet.chrome_user_agent)
-    # option.add_argument(f"User-Agent={user_agent}")
+    user_agent = UserAgent()
+    option.add_argument(f"User-Agent={user_agent.random}")
     option.add_argument("--disable-notifications")
     web_driver = webdriver.Chrome(executable_path=ChromeSet.chrome_driver_path, options=option)
     web_driver.set_window_size(1280, 960)
@@ -56,8 +26,9 @@ def web_driver_mobile(request):
     устанавливает размер окна как в мобильных устройствах, после выполнения основного кода закрывает браузер"""
 
     option = webdriver.ChromeOptions()
-    user_agent = random.choice(ChromeSet.chrome_user_agent)
+    user_agent = UserAgent()
     option.add_argument(f"User-Agent={user_agent}")
+    option.add_argument("--disable-notifications")
     web_driver = webdriver.Chrome(executable_path=ChromeSet.chrome_driver_path, options=option)
     web_driver.set_window_size(480, 960)
     web_driver.delete_all_cookies()
@@ -72,8 +43,9 @@ def web_driver_var_size(request, width):
     закрывает браузер"""
 
     option = webdriver.ChromeOptions()
-    user_agent = random.choice(ChromeSet.chrome_user_agent)
+    user_agent = UserAgent()
     option.add_argument(f"User-Agent={user_agent}")
+    option.add_argument("--disable-notifications")
     web_driver = webdriver.Chrome(executable_path=ChromeSet.chrome_driver_path, options=option)
     web_driver.set_window_size(width, 960)
     web_driver.delete_all_cookies()
