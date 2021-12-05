@@ -3,6 +3,7 @@
 import pytest
 from pages.headers import Headers
 from pages.locators import StartLocators, RegLocators
+from pages.test_sets import RegSets
 from pages.url_list import LinsaUa
 from pages.aux_metods import AuxMetods
 
@@ -22,7 +23,7 @@ def test_start_page(web_driver_desktop):
 @pytest.mark.positive
 @pytest.mark.parametrize("test_search", ['линзы', 'lens', 'ClearLux', 'линзы O2O2 Toric', 123]
     , ids=['lens_ru', 'lens_en', 'ClearLux', 'O2O2_Toric', 'digit'])
-def test_search_start_page(web_driver_desktop, test_search):
+def test_search_positive_start_page(web_driver_desktop, test_search):
     """Тест проверяет работу поиска с различными позитивными данными, делает скриншот"""
 
     page = Headers(web_driver_desktop, 5)
@@ -38,7 +39,7 @@ def test_search_start_page(web_driver_desktop, test_search):
                              , AuxMetods.russian_chars(), AuxMetods.russian_chars().upper(), AuxMetods.chinese_chars()
                              , AuxMetods.special_chars()]
     , ids=['any', '255 sym', '> 1000 sym', 'russian', 'RUSSIAN', 'chinese', 'specials'])
-def test_search_start_page(web_driver_desktop, test_search):
+def test_search_negative_start_page(web_driver_desktop, test_search):
     """Тест проверяет поле поиска с различными негативными данными и корректность обработки запроса"""
 
     page = Headers(web_driver_desktop, 5)
@@ -46,13 +47,17 @@ def test_search_start_page(web_driver_desktop, test_search):
     amount = int(web_driver_desktop.find_element(*StartLocators.search_result).text)
     assert amount == 0, 'Field "Search" working unsucсess'
 
-
+#!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 @pytest.mark.positive
 def test_callback_start_page(web_driver_desktop):
     """Тест проверяет кликабельность "Перезвоните мне" и загрузку формы обратного звонка, после чего закрывает ее"""
 
     page = Headers(web_driver_desktop, 5)
     page.callback_btn_click()
+    print()
+    print(RegSets.reg_name)
+    page.input_callback_data('Ваня', RegSets.reg_phone)
+    page.save_screen_browser('callback_form')
     assert page.search_callback_submit().is_enabled(), 'Transition error'
     page.callback_close()
 

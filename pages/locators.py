@@ -13,9 +13,9 @@ class StartLocators:
 
     # Callback locators
     callback_btn = (By.CSS_SELECTOR, 'a[href="#"]')
-    callback_form_name = (By.CSS_SELECTOR, 'input[name="name"]')
+    callback_form_name = (By.CSS_SELECTOR, 'div.b24-form-control-container.b24-form-control-icon-after > input[name="name"]')
     callback_form_phone = (By.CSS_SELECTOR, 'input[name="phone"]')
-    callback_form_submit = (By.CSS_SELECTOR, 'button.b24-form-btn')
+    callback_form_submit = (By.CSS_SELECTOR, 'form > div.b24-form-btn-container > div > button')
     callback_form_close = (By.CSS_SELECTOR, 'div.b24-window-panel.b24-window-panel-pos-right > button')
 
     # Wishlist locator
@@ -96,7 +96,8 @@ class RegLocators:
     auth_facebook = (By.CSS_SELECTOR, '#auth-component > div > div > div.socials-enter > a')
     login_name = (By.CSS_SELECTOR, 'input[name="login"]')
     login_pass = (By.CSS_SELECTOR, 'input[name="password"]')
-    login_submit = (By.CSS_SELECTOR, 'input[id="auth-submit"]')
+    login_submit = (By.ID, 'auth-submit')
+    login_answer = (By.CSS_SELECTOR, 'div.auth-inputs > div.input-block.error > div.error-block')
     login_close = (By.CSS_SELECTOR, 'div.close-popup.js-close-popup > svg')
     forgot_passw = (By.CSS_SELECTOR, '#auth-component > div > div > form > div.forgot-holder > a')
     #
@@ -104,8 +105,13 @@ class RegLocators:
     reg_name = (By.CSS_SELECTOR, 'div.auth-inputs > div > div > input[name="name"]')
     reg_phone = (By.CSS_SELECTOR, 'div.auth-inputs > div > div > input[name="phone"]')
     reg_passw = (By.CSS_SELECTOR, 'div.auth-inputs > div > div > input[name="password"]')
-    reg_pesr_date = (By.CSS_SELECTOR, 'div.auth-inputs > div > div > input[type="checkbox"]')
+    reg_pers_data = (By.CSS_SELECTOR, 'form > div > div.checkbox-block > label > input[type=checkbox]')
     reg_submit = (By.CSS_SELECTOR, '#auth-component > div > div > form > label > input[type=submit]')
+    reg_sms = '#auth-component > div > div > form > div > div > div > input[type=text]'
+    reg_sms_submit = 'auth-submit'
+    reg_non_sms = '#auth-component > div > div > div.help-panel > a'
+    start_shop_btn = '#auth-component > div > div > a'
+
     #
     # PopUp Registration locators
     registr_btn = (By.CSS_SELECTOR, 'a.fat-button.black.js-open-auth-popup')

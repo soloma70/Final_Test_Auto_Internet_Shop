@@ -1,4 +1,3 @@
-from time import sleep
 from selenium.webdriver.remote.webelement import WebElement
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.wait import WebDriverWait
@@ -28,7 +27,14 @@ class Headers(BasePage):
 
     def callback_btn_click(self):
         self.driver.find_element(*StartLocators.callback_btn).click()
-        sleep(1)
+        WebDriverWait(self.driver, 10).until(EC.visibility_of_element_located(StartLocators.callback_form_submit))
+#!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    def input_callback_data(self, name: str, phone: str):
+        print(name)
+        element = self.driver.find_element(*StartLocators.callback_form_name)
+        element.clear()
+        element.send_keys(name)
+        self.driver.find_element(*StartLocators.callback_form_phone).send_keys(phone)
 
     def search_callback_submit(self) -> WebElement:
         return self.driver.find_element(*StartLocators.callback_form_submit)
@@ -39,37 +45,57 @@ class Headers(BasePage):
     def login_btn_click(self):
         self.driver.find_element(*RegLocators.login_btn).click()
 
-    def registr_click(self):
-        self.driver.find_element(*RegLocators.login_btn).click()
-        self.driver.find_element(*RegLocators.reg_link).click()
-
-    def input_auth_data(self, phone: str, passw: str):
+    def input_login_passw(self, login: str, passw: str):
         auth_login = self.driver.find_element(*RegLocators.login_name)
         auth_login.clear()
-        auth_login.send_keys(phone)
+        auth_login.send_keys(login)
         auth_passw = self.driver.find_element(*RegLocators.login_pass)
         auth_passw.clear()
         auth_passw.send_keys(passw)
+
+    def auth_submit(self):
         self.driver.find_element(*RegLocators.login_submit).click()
+
+    def wait_download_cabinet(self):
         WebDriverWait(self.driver, 10).until(EC.visibility_of_element_located(CabinetLocators.cabinet_name))
 
+    def answer_nonvalid_data(self) -> str:
+        answer = self.driver.find_element(*RegLocators.login_answer).text
+        return answer
+
+    def auth_cancel(self):
+        self.driver.find_element(*RegLocators.login_close).click()
+
+    def registr_click(self):
+        self.driver.find_element(*RegLocators.login_btn).click()
+        self.driver.find_element(*RegLocators.reg_link).click()
 
     def input_reg_data(self, name: str, phone: str, passw: str):
         reg_name = self.driver.find_element(*RegLocators.reg_name)
         reg_name.clear()
         reg_name.send_keys(name)
-        reg_phone = self.driver.find_element(*RegLocators.reg_name)
+        reg_phone = self.driver.find_element(*RegLocators.reg_phone)
         reg_phone.clear()
         reg_phone.send_keys(phone)
         auth_passw = self.driver.find_element(*RegLocators.login_pass)
         auth_passw.clear()
         auth_passw.send_keys(passw)
-        self.driver.find_element(*RegLocators.reg_pesr_date).click()
+        self.driver.find_element(*RegLocators.reg_pers_data).click()
+
+    def reg_submit(self):
         self.driver.find_element(*RegLocators.reg_submit).click()
+        code_sms = input('Enter the received SMS code -> ')
+        self.driver.find_element(*RegLocators.reg_sms).send_keys(code_sms)
+        self.driver.find_element(*RegLocators.reg_sms_submit).click()
+        WebDriverWait(self.driver, 10).until(EC.visibility_of_element_located(RegLocators.start_shop_btn)).click()
+        WebDriverWait(self.driver, 10).until(EC.visibility_of_element_located(CabinetLocators.cabinet_name))
+
+    def reg_cancel(self):
+        self.driver.find_element(*RegLocators.registr_popup_close).click()
 
     def wishlist_btn_click(self):
         self.driver.find_element(*StartLocators.wishlist_btns).click()
-        sleep(1)
+        WebDriverWait(self.driver, 10).until(EC.visibility_of_element_located(RegLocators.login_submit))
 
     def search_login_submit(self) -> WebElement:
         return self.driver.find_element(*RegLocators.login_submit)
@@ -101,6 +127,6 @@ class Headers(BasePage):
 
     def goto_menu_point(self, index: int):
         self.driver.find_element(*StartLocators.menu_button).click()
-        sleep(1)
+        WebDriverWait(self.driver, 10).until(EC.visibility_of_element_located(StartLocators.menu_button_close))
         self.driver.find_elements(*StartLocators.menu_points)[index].click()
 
