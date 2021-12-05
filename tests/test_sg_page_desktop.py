@@ -1,11 +1,12 @@
 # -*- encoding=utf8 -*-
 
 import pytest
-from pages.test_sets import SunglassSets, SendOrderSets
+from pages.test_sets import SunglassSets
 from pages.product_page import ProductPage
-from pages.cart_page import CartPage
 
 
+@pytest.mark.smokie
+@pytest.mark.positive
 def test_amount_sunglass_page(web_driver_desktop):
     """Тест проверяет количество позиций на странице, суммирует по всем страницам и сравнивает
     с количеством очков в наименовании страницы"""
@@ -24,6 +25,8 @@ def test_amount_sunglass_page(web_driver_desktop):
     assert amount_total_sunglass == amount_all_page, 'ERROR! Incorrect amount lens'
 
 
+@pytest.mark.smokie
+@pytest.mark.positive
 def test_pagination_sunglass_page(web_driver_desktop):
     """Тест проверяет прямой переход по страницам раздела (в пределах 5 страниц), а так же переход с помощью
     стрелок (в пределах 5 страниц) и сравнивает фактический URL с ожидаемым"""
@@ -47,12 +50,13 @@ def test_pagination_sunglass_page(web_driver_desktop):
             , 'ERROR! Incorrect transaction'
 
 
+@pytest.mark.positive
 @pytest.mark.parametrize("test_set",
                          [SunglassSets.versace, SunglassSets.police, SunglassSets.ray_ban, SunglassSets.furla,
                           SunglassSets.polaroid],
                          ids=[SunglassSets.versace[9], SunglassSets.police[9], SunglassSets.ray_ban[9],
                               SunglassSets.furla[9], SunglassSets.polaroid[9]])
-def test_positive_filter_sg_page(web_driver_desktop, test_set):
+def test_filter_sg_page(web_driver_desktop, test_set):
     """Тест проверяет фильтры на странице и выборку согласно критериям фильтрации.
     ВНИМАНИЕ!!! Необходимо убрать курсор мышки из поля страницы браузера!"""
 
@@ -79,7 +83,8 @@ def test_positive_filter_sg_page(web_driver_desktop, test_set):
     page.clear_all_filter()
 
 
-def test_positive_filter_single_sg_page(web_driver_desktop):
+@pytest.mark.positive
+def test_filter_single_positive_sg_page(web_driver_desktop):
     """Тест проверяет фильтр на странице отдельно по брендам, полу, длинне заушника, ширине мостика и ширине окуляра
     и выборку согласно критерию фильтрации.
     В зависимости от прокруток ленты используются от 5 до 1 параметра фильтрации.
@@ -106,7 +111,8 @@ def test_positive_filter_single_sg_page(web_driver_desktop):
             page.clear_all_filter()
 
 
-def test_negative_filter_single_sg_page(web_driver_desktop):
+@pytest.mark.negative
+def test_filter_single_negative_sg_page(web_driver_desktop):
     """Тест проверяет фильтр на странице по брендам, полу, длинне заушника, ширине мостика и ширине окуляра
     и выборку согласно критерию фильтрации.
     ВНИМАНИЕ!!! Необходимо убрать курсор мышки из поля страницы браузера!"""
@@ -132,6 +138,7 @@ def test_negative_filter_single_sg_page(web_driver_desktop):
                 page.clear_all_filter()
 
 
+@pytest.mark.positive
 def test_sort_sunglass_page(web_driver_desktop):
     """Тест проверяет сортировку на 1-й, последней и одной (1) рандомной странице по возрастанию
     и снижению цены (с проверкой цен), по новизне и популярности, распродажа (только на 1-й странице,
@@ -179,6 +186,8 @@ def test_sort_sunglass_page(web_driver_desktop):
             assert all(present_banner), "ERROR! Position don't sorted"
 
 
+@pytest.mark.smokie
+@pytest.mark.positive
 def test_add_in_cart_sunglass_page(web_driver_desktop):
     """Тест проверяет добавление очков одной рандомной позиций с 1, последней и 4-х рандомных страниц,
     добавление в корзину с параметрами по умолчанию """

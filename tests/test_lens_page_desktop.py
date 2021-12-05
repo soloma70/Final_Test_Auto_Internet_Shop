@@ -1,11 +1,12 @@
 # -*- encoding=utf8 -*-
 
 import pytest
-from pages.test_sets import LensSets, SendOrderSets
+from pages.test_sets import LensSets
 from pages.lens_page import LensPage
-from pages.cart_page import CartPage
 
 
+@pytest.mark.smokie
+@pytest.mark.positive
 def test_amount_lens_page(web_driver_desktop):
     """Тест проверяет количество позиций на странице, суммирует по всем страницам и сравнивает
     с количеством линз в наименовании страницы"""
@@ -24,6 +25,8 @@ def test_amount_lens_page(web_driver_desktop):
     assert amount_total_lens == amount_all_page, 'ERROR! Incorrect amount lens'
 
 
+@pytest.mark.smokie
+@pytest.mark.positive
 def test_pagination_lens_page(web_driver_desktop):
     """Тест проверяет прямой переход по страницам раздела, а так же переход с помощью стрелок и сравнивает
     фактический URL с ожидаемым"""
@@ -47,6 +50,7 @@ def test_pagination_lens_page(web_driver_desktop):
             , 'ERROR! Incorrect transaction'
 
 
+@pytest.mark.positive
 @pytest.mark.parametrize("test_set", [LensSets.O2O2, LensSets.sauflon, LensSets.interogo, LensSets.cooper_vision],
                          ids=[LensSets.O2O2[1], LensSets.sauflon[8], LensSets.interogo[8], LensSets.cooper_vision[8]])
 def test_filter_lens_page(web_driver_desktop, test_set):
@@ -72,7 +76,8 @@ def test_filter_lens_page(web_driver_desktop, test_set):
     page.clear_all_filter()
 
 
-def test_positive_filter_single_lens_page(web_driver_desktop):
+@pytest.mark.positive
+def test_filter_single_positive_lens_page(web_driver_desktop):
     """Тест проверяет фильтр на странице отдельно по брендам, линейкам, типу линзы, режиму замены, базовой кривизне,
     диаметру и диоптрийности и выборку согласно критерию фильтрации.
     В зависимости от прокруток ленты используются от 2 - 3 параметра фильтрации.
@@ -99,7 +104,9 @@ def test_positive_filter_single_lens_page(web_driver_desktop):
             page.clear_all_filter()
 
 
-def test_negative_filter_single_lens_page(web_driver_desktop):
+@pytest.mark.skip
+@pytest.mark.negative
+def test_filter_single_negative_lens_page(web_driver_desktop):
     """Тест проверяет фильтр на странице отдельно по брендам, линейкам, типу линзы, режиму замены, базовой кривизне,
     диаметру и диоптрийности и выборку согласно критерию фильтрации.
     Комментарий: Отсутствует тестовый набор для проверки, есть линзы по всем категориям фильтрации.

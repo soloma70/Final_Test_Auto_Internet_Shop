@@ -1,11 +1,12 @@
 # -*- encoding=utf8 -*-
 
 import pytest
-from pages.cart_page import CartPage
-from pages.test_sets import FramesSets, SendOrderSets
+from pages.test_sets import FramesSets
 from pages.product_page import ProductPage
 
 
+@pytest.mark.smokie
+@pytest.mark.positive
 def test_amount_frames_page(web_driver_desktop):
     """Тест проверяет количество позиций на странице, суммирует по всем страницам и сравнивает
     с количеством оправ в наименовании страницы"""
@@ -24,6 +25,8 @@ def test_amount_frames_page(web_driver_desktop):
     assert amount_total_frames == amount_all_page, 'ERROR! Incorrect amount lens'
 
 
+@pytest.mark.smokie
+@pytest.mark.positive
 def test_pagination_frames_page(web_driver_desktop):
     """Тест проверяет прямой переход по страницам раздела (в пределах 5 страниц), а так же переход с помощью
     стрелок (в пределах 5 страниц) и сравнивает фактический URL с ожидаемым"""
@@ -47,6 +50,7 @@ def test_pagination_frames_page(web_driver_desktop):
             , 'ERROR! Incorrect transaction'
 
 
+@pytest.mark.positive
 @pytest.mark.parametrize("test_set", [FramesSets.guess, FramesSets.police, FramesSets.ray_ban, FramesSets.sky],
                          ids=[FramesSets.guess[11], FramesSets.police[11], FramesSets.ray_ban[11], FramesSets.sky[11]])
 def test_filter_frames_page(web_driver_desktop, test_set):
@@ -72,7 +76,8 @@ def test_filter_frames_page(web_driver_desktop, test_set):
     page.clear_all_filter()
 
 
-def test_positive_filter_single_fr_page(web_driver_desktop):
+@pytest.mark.positive
+def test_filter_single_positive_fr_page(web_driver_desktop):
     """Тест проверяет фильтр на странице отдельно по брендам, полу, длинне заушника, ширине мостика и ширине окуляра
     и выборку согласно критерию фильтрации.
     В зависимости от прокруток ленты используются от 5 до 1 параметра фильтрации.
@@ -96,7 +101,8 @@ def test_positive_filter_single_fr_page(web_driver_desktop):
             page.clear_all_filter()
 
 
-def test_negative_filter_single_fr_page(web_driver_desktop):
+@pytest.mark.negative
+def test_filter_single_negative_fr_page(web_driver_desktop):
     """Тест проверяет фильтр на странице по брендам, полу, длинне заушника, ширине мостика и ширине окуляра
     и выборку согласно критерию фильтрации.
     ВНИМАНИЕ!!! Необходимо убрать курсор мышки из поля страницы браузера!"""
@@ -119,6 +125,7 @@ def test_negative_filter_single_fr_page(web_driver_desktop):
                 page.clear_all_filter()
 
 
+@pytest.mark.positive
 def test_sort_frames_page(web_driver_desktop):
     """Тест проверяет сортировку на 1-й, последней и одной (1) рандомной странице по возрастанию и снижению цены
     (с проверкой цен), по новизне и популярности, распродажа (только на 1-й странице, дальше при сортировке включается
@@ -166,6 +173,8 @@ def test_sort_frames_page(web_driver_desktop):
             assert any(present_banner), "ERROR! Position don't sorted"
 
 
+@pytest.mark.smokie
+@pytest.mark.positive
 def test_add_in_cart_frames_page(web_driver_desktop):
     """Тест проверяет добавление оправ 1-й рандомной позиций с 1, последней и 4-х рандомных страниц,
     добавление в корзину с параметрами по умолчанию """

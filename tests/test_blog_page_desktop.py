@@ -4,6 +4,8 @@ from time import sleep
 from pages.blog_page import BlogPage
 
 
+@pytest.mark.smokie
+@pytest.mark.positive
 def test_news_tags_blog_page(web_driver_desktop):
     """Тест проверяет теги новостей и переход на соответствующие страницы блога с разных страниц тегов"""
 
@@ -15,6 +17,7 @@ def test_news_tags_blog_page(web_driver_desktop):
         assert decl_urls[index] == actual_url, 'ERROR! Transaction is bad'
 
 
+@pytest.mark.positive
 def test_news_blog_page(web_driver_desktop):
     """Тест проверяет блок новостей и переход на соответствующие страницы блога
     1-ю, среднюю (5) и последнюю (11) страницы, 1-ю, 5-ю и последнюю новость на каждой странице"""
@@ -35,6 +38,8 @@ def test_news_blog_page(web_driver_desktop):
             assert page.news_name().is_displayed(), 'ERROR! Transaction is bad'
 
 
+@pytest.mark.smokie
+@pytest.mark.positive
 @pytest.mark.parametrize("index", [-2, 0, 3], ids=['last page', 'first page', 'middle page'])
 def test_pagination_blog_page(web_driver_desktop, index):
     """Тест проверяет пагинацию и переход на соответствующие страницы блога"""
@@ -48,12 +53,14 @@ def test_pagination_blog_page(web_driver_desktop, index):
     assert decl_url == actual_url, 'ERROR! Transaction is bad'
 
 
+@pytest.mark.smokie
+@pytest.mark.positive
 def test_pagination_arrow_blog_page(web_driver_desktop):
     """Тест проверяет пагинацию и переход на соответствующие страницы блога"""
 
     page = BlogPage(web_driver_desktop, 5)
 
-    # Получение списка обїявленіх URL и проверка пагинации кликом стрелки вправо
+    # Получение списка объявленых URL и проверка пагинации кликом стрелки вправо
     decl_urls = [page.pagination[i].get_attribute('href') for i in range(len(page.pagination))]
     for index in range(3):
         page.arrow_right_click()
