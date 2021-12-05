@@ -1,9 +1,12 @@
 # -*- encoding=utf8 -*-
 
+import pytest
 from pages.footers import Footers
 from pages.url_list import LinsaUa
 
 
+@pytest.mark.smokie
+@pytest.mark.positive
 def test_footer_start_page(web_driver_desktop):
     """Тест проверяет кликабельность блоков в footers
     и корректность перехода по ссылкам """

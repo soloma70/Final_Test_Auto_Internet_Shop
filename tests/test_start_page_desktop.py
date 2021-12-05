@@ -1,11 +1,14 @@
 # -*- encoding=utf8 -*-
 
 from time import sleep
+import pytest
 from pages.start_page import StartPage
 from pages.url_list import LinsaUa
 from pages.test_sets import MainMenuSets, RegSets
 
 
+@pytest.mark.smokie
+@pytest.mark.positive
 def test_main_menu_start_page(web_driver_desktop):
     """Тест проверяет кликабельность главного меню и переход на соответствующие страницы меню"""
 
@@ -19,6 +22,7 @@ def test_main_menu_start_page(web_driver_desktop):
         page.get_url(page.url)
 
 
+@pytest.mark.positive
 def test_banners_start_page(web_driver_desktop):
     """Тест проверяет кликабельность баннеров и переход на соответствующие страницы"""
 
@@ -34,6 +38,7 @@ def test_banners_start_page(web_driver_desktop):
         page.get_url(page.url)
 
 
+@pytest.mark.positive
 def test_action_banners_start_page(web_driver_desktop):
     """Тест проверяет кликабельность акционного баннера и переход на соответствующую страницу,
     добавление 1-й акционной позиции в корзину, делает скриншот"""
@@ -53,7 +58,7 @@ def test_action_banners_start_page(web_driver_desktop):
     page.save_screen_browser('test_add_cart_1_sunglasses')
 
 
-
+@pytest.mark.positive
 def test_love_brands_start_page(web_driver_desktop):
     """Тест проверяет кликабельность баннеров "Любимые бренды"
     и отображение соответствующих им элементов в ленте"""
@@ -73,6 +78,7 @@ def test_love_brands_start_page(web_driver_desktop):
     assert page.logo_img().is_displayed(), 'ERROR! Start Image is not displayed'
 
 
+@pytest.mark.positive
 def test_registration_start_page(web_driver_desktop):
     """Тест проверяет кликабельность и заполнение полей формы регистрации на стартовой странице
     и делает скриншот"""
@@ -88,6 +94,7 @@ def test_registration_start_page(web_driver_desktop):
     assert page.logo_img().is_displayed(), 'ERROR! Start Image is not displayed'
 
 
+@pytest.mark.positive
 def test_blogs_start_page(web_driver_desktop):
     """Тест проверяет кликабельность блоков в разделе "Оптический блог"
     и корректность перехода по ссылкам """
@@ -110,6 +117,7 @@ def test_blogs_start_page(web_driver_desktop):
         , f'ERROR! Bad transaction for {blog_url}'
 
 
+@pytest.mark.positive
 def test_more_info_start_page(web_driver_desktop):
     """Тест проверяет раскрытие блока "Больше информации" и делает скрин"""
 

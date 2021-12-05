@@ -7,6 +7,8 @@ from pages.url_list import LinsaUa
 from pages.aux_metods import AuxMetods
 
 
+@pytest.mark.smokie
+@pytest.mark.positive
 def test_start_page(web_driver_desktop):
     """Тест проверяет кликабельность лого сайта и перезагрузку его стартовой страницы"""
 
@@ -16,9 +18,11 @@ def test_start_page(web_driver_desktop):
            page.get_relative_link() == '/uk/', 'Transition error'
 
 
+@pytest.mark.smokie
+@pytest.mark.positive
 @pytest.mark.parametrize("test_search", ['линзы', 'lens', 'ClearLux', 'линзы O2O2 Toric', 123]
     , ids=['lens_ru', 'lens_en', 'ClearLux', 'O2O2_Toric', 'digit'])
-def test_search_start_page_positive(web_driver_desktop, test_search):
+def test_search_start_page(web_driver_desktop, test_search):
     """Тест проверяет работу поиска с различными позитивными данными, делает скриншот"""
 
     page = Headers(web_driver_desktop, 5)
@@ -28,12 +32,13 @@ def test_search_start_page_positive(web_driver_desktop, test_search):
     assert amount > 0, 'Field "Search" working unsucсess'
 
 
+@pytest.mark.negative
 @pytest.mark.parametrize("test_search",
                          ['123456', AuxMetods.generate_string(255), AuxMetods.generate_string(1001)
                              , AuxMetods.russian_chars(), AuxMetods.russian_chars().upper(), AuxMetods.chinese_chars()
                              , AuxMetods.special_chars()]
     , ids=['any', '255 sym', '> 1000 sym', 'russian', 'RUSSIAN', 'chinese', 'specials'])
-def test_search_start_page_negative(web_driver_desktop, test_search):
+def test_search_start_page(web_driver_desktop, test_search):
     """Тест проверяет поле поиска с различными негативными данными и корректность обработки запроса"""
 
     page = Headers(web_driver_desktop, 5)
@@ -42,6 +47,7 @@ def test_search_start_page_negative(web_driver_desktop, test_search):
     assert amount == 0, 'Field "Search" working unsucсess'
 
 
+@pytest.mark.positive
 def test_callback_start_page(web_driver_desktop):
     """Тест проверяет кликабельность "Перезвоните мне" и загрузку формы обратного звонка, после чего закрывает ее"""
 
@@ -51,6 +57,8 @@ def test_callback_start_page(web_driver_desktop):
     page.callback_close()
 
 
+@pytest.mark.smokie
+@pytest.mark.positive
 def test_login_start_page(web_driver_desktop):
     """Тест проверяет кликабельность "Вход" """
 
@@ -60,6 +68,7 @@ def test_login_start_page(web_driver_desktop):
     web_driver_desktop.find_element(*RegLocators.login_close).click()
 
 
+@pytest.mark.positive
 def test_wishlist_start_page(web_driver_desktop):
     """Тест проверяет кликабельность "Список желаний" без авторизации"""
 
@@ -69,6 +78,8 @@ def test_wishlist_start_page(web_driver_desktop):
     page.login_close()
 
 
+@pytest.mark.smokie
+@pytest.mark.positive
 def test_cart_start_page(web_driver_desktop):
     """Тест проверяет кликабельность "Корзина" без авторизации"""
 
@@ -79,6 +90,8 @@ def test_cart_start_page(web_driver_desktop):
     page.get_url(page.url)
 
 
+@pytest.mark.smokie
+@pytest.mark.positive
 def test_lang_start_page(web_driver_desktop):
     """Тест проверяет переключение языков сайта Рус и Укр"""
 
@@ -91,6 +104,8 @@ def test_lang_start_page(web_driver_desktop):
     assert page.get_relative_link() == '/', 'Transition error'
 
 
+@pytest.mark.smokie
+@pytest.mark.positive
 def test_menu_start_page(web_driver_desktop):
     """Тест проверяет кликабельность бокового меню и переход на соответствующие страницы меню, закрытие меню"""
 
