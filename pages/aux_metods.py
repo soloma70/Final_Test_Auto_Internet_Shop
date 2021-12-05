@@ -1,5 +1,11 @@
+import random
+
+
 class AuxMetods:
     """Класс вспомагательные медоты, используемые в параметризации поиска, для добавления различных строк"""
+
+    def generate_number(n: int):
+        return random.randint(10, n) * n // 10
 
     def generate_string(n: int):
         return "x" * n
