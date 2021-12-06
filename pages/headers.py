@@ -27,17 +27,14 @@ class Headers(BasePage):
 
     def callback_btn_click(self):
         self.driver.find_element(*StartLocators.callback_btn).click()
-        WebDriverWait(self.driver, 10).until(EC.visibility_of_element_located(StartLocators.callback_form_submit))
-#!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
     def input_callback_data(self, name: str, phone: str):
-        print(name)
-        element = self.driver.find_element(*StartLocators.callback_form_name)
-        element.clear()
-        element.send_keys(name)
-        self.driver.find_element(*StartLocators.callback_form_phone).send_keys(phone)
+        self.driver.find_elements(*StartLocators.callback_form_name)[1].send_keys(Keys.ENTER)
+        self.driver.find_elements(*StartLocators.callback_form_name)[1].send_keys(name)
+        self.driver.find_elements(*StartLocators.callback_form_phone)[1].send_keys(phone)
 
     def search_callback_submit(self) -> WebElement:
-        return self.driver.find_element(*StartLocators.callback_form_submit)
+        return self.driver.find_elements(*StartLocators.callback_form_submit)[1]
 
     def callback_close(self):
         self.driver.find_element(*StartLocators.callback_form_close).click()
@@ -95,7 +92,7 @@ class Headers(BasePage):
 
     def wishlist_btn_click(self):
         self.driver.find_element(*StartLocators.wishlist_btns).click()
-        WebDriverWait(self.driver, 10).until(EC.visibility_of_element_located(RegLocators.login_submit))
+        WebDriverWait(self.driver, 10).until(EC.presence_of_element_located(RegLocators.login_submit))
 
     def search_login_submit(self) -> WebElement:
         return self.driver.find_element(*RegLocators.login_submit)

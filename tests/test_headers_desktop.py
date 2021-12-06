@@ -47,16 +47,17 @@ def test_search_negative_start_page(web_driver_desktop, test_search):
     amount = int(web_driver_desktop.find_element(*StartLocators.search_result).text)
     assert amount == 0, 'Field "Search" working unsucсess'
 
-#!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+@pytest.mark.xfail
 @pytest.mark.positive
 def test_callback_start_page(web_driver_desktop):
-    """Тест проверяет кликабельность "Перезвоните мне" и загрузку формы обратного звонка, после чего закрывает ее"""
+    """Тест проверяет кликабельность "Перезвоните мне" и загрузку формы обратного звонка, после чего закрывает ее
+    Обнаружен невоспроизводимый в ручном режиме баг: ввод имени в форму при выполнении автотеста возможен
+    только на латинице. Кирилические символы в автотесте не вводятся"""
 
     page = Headers(web_driver_desktop, 5)
     page.callback_btn_click()
-    print()
-    print(RegSets.reg_name)
-    page.input_callback_data('Ваня', RegSets.reg_phone)
+    page.input_callback_data(RegSets.reg_name, RegSets.reg_phone)
     page.save_screen_browser('callback_form')
     assert page.search_callback_submit().is_enabled(), 'Transition error'
     page.callback_close()
