@@ -1,5 +1,5 @@
 class AuthSets:
-    auth_name = 'Пупкин Василий Васильевич'
+    auth_name = 'Пупкин Василий'
     auth_phone = '+380668754059'
     auth_email = 'vasja_pupkin@gmail.com'
     auth_passw = 'vV123456'
@@ -9,10 +9,10 @@ class AuthSets:
     my_wish_list = 'Тестовый список желаний'
 
 class RegSets:
-    reg_name = 'Иванов Сергей Иванович'
+    reg_name = 'Иванов Сергей'
     # Для регистрации используется телефон без +380
     # При регистрации запрашивает код подтверждения по SMS - 6 цифр. Для успешной регистрации телефон д.б. реальным
-    reg_phone = '681474153'
+    reg_phone = '681474253'
     reg_passw = 'I123456i'
 
 
