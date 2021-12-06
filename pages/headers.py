@@ -68,6 +68,10 @@ class Headers(BasePage):
         self.driver.find_element(*RegLocators.login_btn).click()
         self.driver.find_element(*RegLocators.reg_link).click()
 
+    def wait_download_reg_win(self):
+        while self.driver.find_element(*RegLocators.reg_title).text != 'Регистрация':
+            sleep(0.1)
+
     def input_reg_data(self, name: str, phone: str, passw: str):
         reg_name = self.driver.find_element(*RegLocators.reg_name)
         reg_name.clear()
@@ -82,7 +86,10 @@ class Headers(BasePage):
 
     def reg_submit(self):
         self.driver.find_element(*RegLocators.reg_submit).click()
-        sleep(1)
+
+    def wait_reg_sms(self):
+        while self.driver.find_element(*RegLocators.reg_sms_title).text != 'Подтверждение регистрации':
+            sleep(0.1)
 
     def enter_sms_code(self, code_sms: str):
         self.driver.find_element(*RegLocators.reg_sms).send_keys(code_sms)

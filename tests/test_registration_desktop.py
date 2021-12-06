@@ -1,11 +1,8 @@
 # -*- encoding=utf8 -*-
-import time
 
 import pytest
-from pages.cabinet import CabinetPage
 from pages.headers import Headers
 from pages.test_sets import RegSets, AuthSets
-from pages.url_list import LinsaUa
 from pages.aux_metods import AuxMetods
 
 
@@ -21,9 +18,10 @@ def test_registration_valid(web_driver_desktop):
     page = Headers(web_driver_desktop, 10)
     # Открытие всплывающего окна авторизации и переход в окно регистрации
     page.registr_click()
+    page.wait_download_reg_win()
 
     # Ввод данных регистрации, скриншот и переход в кабинет
-    page.input_reg_data(RegSets.reg_name, RegSets.reg_phone, RegSets.reg_passw )
+    page.input_reg_data(RegSets.reg_name, RegSets.reg_phone, RegSets.reg_passw)
     page.save_screen_browser('reg_site')
     page.reg_submit()
 
@@ -43,16 +41,6 @@ def test_registration_valid(web_driver_desktop):
     #
     # page.exit_cabinet()
 
-#!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-# @pytest.mark.negative
-# @pytest.mark.parametrize("login",
-#                          ['123456', AuxMetods.generate_number(50), AuxMetods.generate_string(255),
-#                           AuxMetods.russian_chars(), AuxMetods.chinese_chars(), AuxMetods.special_chars()]
-#     , ids=['6 int', 'random int', '255 sym', 'russian', 'chinese', 'specials'])
-# @pytest.mark.parametrize("passw",
-#                          ['123456', AuxMetods.generate_number(50), AuxMetods.generate_string(255),
-#                           AuxMetods.russian_chars(), AuxMetods.chinese_chars(), AuxMetods.special_chars()]
-#     , ids=['6 int', 'random int', '255 sym', 'russian', 'chinese', 'specials'])
 
 @pytest.mark.negative
 def test_registration_already_registered_user(web_driver_desktop):
@@ -61,9 +49,63 @@ def test_registration_already_registered_user(web_driver_desktop):
     page = Headers(web_driver_desktop, 10)
     # Открытие всплывающего окна авторизации и переход в окно регистрации
     page.registr_click()
+    page.wait_download_reg_win()
 
     # Ввод данных авторизации, получение ответа и сравление с ожиданием
     page.input_reg_data(AuthSets.auth_name, AuthSets.auth_phone, AuthSets.auth_passw)
     page.reg_submit()
     answer = page.answer_nonvalid_registr()
     assert answer == '* Этот телефон уже занят'
+
+
+@pytest.mark.negative
+@pytest.mark.parametrize("phone",
+                         ['123456', AuxMetods.random_phone(10), AuxMetods.random_phone(255)]
+    , ids=['6 num', '10 num', '255 num'])
+def test_registration_nonvalid_phone_number(web_driver_desktop, phone):
+    """Тест проверяет регистрацию с валидными именем и паролем, неверным форматом номера телефона"""
+
+    page = Headers(web_driver_desktop, 10)
+    # Открытие всплывающего окна авторизации и переход в окно регистрации
+    page.registr_click()
+    page.wait_download_reg_win()
+
+    # Ввод данных авторизации, получение ответа и сравнение с ожиданием
+    page.input_reg_data(RegSets.reg_name, phone, RegSets.reg_passw)
+    page.reg_submit()
+    if len(phone) < 9:
+        answer = page.answer_nonvalid_registr()
+        assert answer == '* Неверный формат номера телефона'
+    else:
+        page.wait_reg_sms()
+        answer = page.enter_sms_code('123456')
+        page.reg_sms_close()
+        assert answer == 'Неверный код подтверждения'
+
+
+@pytest.mark.negative
+@pytest.mark.parametrize("passw",
+                         [AuxMetods.random_num(5), AuxMetods.random_num(6), AuxMetods.random_num(255),
+                          AuxMetods.random_num(1001), AuxMetods.random_chars(5), AuxMetods.random_chars(6),
+                          AuxMetods.generate_string(255), AuxMetods.russian_chars(), AuxMetods.chinese_chars(),
+                          AuxMetods.special_chars()]
+    , ids=['5 int', '6 int', '255 int', '>1000 int', '5 chars', '6 chars', '255 chars', 'russian', 'chinese',
+           'specials'])
+def test_registration_nonvalid_password(web_driver_desktop, passw):
+    """Тест проверяет регистрацию с валидными именем и телефоном, некорректным паролем
+    Пароль должен быть не менее 6 символов, содержать цифры и заглавные буквы латинского алфавита.
+    Опытным путем установлено, что пароль должен содержать заглавную и маленькую латинские буквы"""
+
+    page = Headers(web_driver_desktop, 10)
+    # Открытие всплывающего окна авторизации и переход в окно регистрации
+    page.registr_click()
+    page.wait_download_reg_win()
+
+    # Ввод данных авторизации, получение ответа и сравление с ожиданием
+    page.input_reg_data(RegSets.reg_name, RegSets.reg_phone, passw)
+    page.reg_submit()
+    answer = page.answer_nonvalid_registr()
+    if len(str(passw)) < 6:
+        assert answer == '* Слишком короткий пароль'
+    else:
+        assert answer == '* Используйте цифры и заглавные буквы (латинские)'
