@@ -1,7 +1,11 @@
 import pytest
+import requests
 from selenium import webdriver
 from browser_set import ChromeSet
 from fake_useragent import UserAgent
+from pages.headers import Headers
+from pages.test_sets import AuthSets
+from pages.url_list import LinsaUa
 
 
 @pytest.fixture(scope='module')
@@ -52,24 +56,32 @@ def web_driver_var_size(request, width):
     yield web_driver
     web_driver.quit()
 
-# @pytest.fixture(scope='module')
-# def web_driver_with_cookies(request):
-#     '''Фикстура загружает авторизуется, получает cookies и передает их в драйвер'''
-#
-#     print('\nПолучаем ключ авторизации и куки...')
-#     response = requests.post(url=PetFriend.LOGIN_URL
-#                              , data={"email": valid_email, "pass": valid_password})
-#     assert response.status_code == 200, 'Запрос выполнен неуспешно'
-#     assert 'Cookie' in response.request.headers, 'В запросе не передан ключ авторизации'
-#
-#     option = webdriver.ChromeOptions()
-#     option.add_argument(
-#         "User-Agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/95.0.4638.54 Safari/537.36")
-#     web_driver = webdriver.Chrome(executable_path=web_driver_path, options=option)
-#     web_driver.set_window_size(1280, 960)
-#     web_driver.implicitly_wait(3)
-#     web_driver.get(PetFriend.START_URL)
-#     cookie_list = response.request.headers.get('Cookie').split('=')
-#     web_driver.add_cookie({"name":cookie_list[0], "value":cookie_list[1]})
-#     yield web_driver
-#     web_driver.quit()
+@pytest.fixture(scope='module')
+def web_driver_auth_desktop(request):
+    """Фикстура рандомно передает в опции веб-драйвера браузера разные занчения User-Agent, загружает веб-драйвер Хром,
+    устанавливает размер окна как в десктопах (ПК, ноутбук), авторизует тестового пользователя, проверяет переход
+    в кабинет. После выполнения основного кода выходит из кабинета и закрывает браузер"""
+
+    option = webdriver.ChromeOptions()
+    user_agent = UserAgent()
+    option.add_argument(f"User-Agent={user_agent.random}")
+    option.add_argument("--disable-notifications")
+    web_driver = webdriver.Chrome(executable_path=ChromeSet.chrome_driver_path, options=option)
+    web_driver.set_window_size(1280, 960)
+    web_driver.delete_all_cookies()
+    #
+    page = Headers(web_driver, 10)
+    # Открытие всплывающего окна авторизации
+    page.login_btn_click()
+
+    # Ввод данных авторизации, скриншот и переход в кабинет
+    page.input_login_passw(AuthSets.auth_phone, AuthSets.auth_passw)
+    page.save_screen_browser('auth_cabinet')
+    page.auth_submit()
+    page.wait_download_cabinet()
+    assert page.get_relative_link() == LinsaUa.cabinet[0][0] or page.get_relative_link() == LinsaUa.cabinet[0][
+        1], 'ERROR! Bad transactoin!'
+
+    yield web_driver
+    page.exit_cabinet()
+    web_driver.quit()
