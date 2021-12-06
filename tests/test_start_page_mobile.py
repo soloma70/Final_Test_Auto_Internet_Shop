@@ -1,10 +1,11 @@
 # -*- encoding=utf8 -*-
 
-import time, pytest
+from time import sleep
+import pytest
 from pages.start_page_mobile import StartPage
 from pages.locators import StartLocatorsMobile
+from pages.test_sets import RegSets
 from pages.url_list import LinsaUa
-from settings import registr_name, registr_phone, registr_passw
 from pages.aux_metods import AuxMetods
 
 
@@ -128,13 +129,13 @@ def test_banners_start_page(web_driver_mobile):
     # Перебор в цикле баннеры
     for index in range(3):
         web_driver_mobile.find_elements(*StartLocatorsMobile.banner_points)[index].click()
-        time.sleep(2)
+        sleep(2)
         amount_page = int(web_driver_mobile.find_element(*StartLocatorsMobile.amount_product).text.strip())
         assert page_start.get_relative_link() == LinsaUa.banners_urls[index][0] or \
                page_start.get_relative_link() == LinsaUa.banners_urls[index][1], 'Transition error'
         assert amount_page > 0, f'Amount = 0, are not positions'
         web_driver_mobile.find_element(*StartLocatorsMobile.logo_img_mobile).click()
-        time.sleep(2)
+        sleep(2)
 
 
 @pytest.mark.positive
@@ -164,16 +165,16 @@ def test_love_brands_start_page(web_driver_mobile):
 
     page_start = StartPage(web_driver_mobile, 5)
     page_start.love_brands_lenses.click()
-    time.sleep(2)
+    sleep(2)
     assert page_start.avisor.is_displayed()
     page_start.love_brands_accessories.click()
-    time.sleep(2)
+    sleep(2)
     assert page_start.okvision[2].is_displayed() or page_start.okvision[1].is_displayed()
     page_start.love_brands_sunglasses.click()
-    time.sleep(2)
+    sleep(2)
     assert page_start.rayban.is_displayed()
     web_driver_mobile.execute_script("window.scrollTo(0, 0)")
-    time.sleep(2)
+    sleep(2)
     assert web_driver_mobile.find_element(*StartLocatorsMobile.logo_img_mobile).is_displayed() \
         , 'ERROR! Start Image is not displayed'
 
@@ -189,15 +190,15 @@ def test_registration_start_page(web_driver_mobile):
         'ERROR! PopUp Registration is not displayed'
     name = web_driver_mobile.find_element(*StartLocatorsMobile.registr_popup_name)
     name.clear()
-    name.send_keys(registr_name)
+    name.send_keys(RegSets.reg_name)
     phone = web_driver_mobile.find_element(*StartLocatorsMobile.registr_popup_phone)
     phone.clear()
-    phone.send_keys(registr_phone)
+    phone.send_keys(RegSets.reg_phone)
     passw = web_driver_mobile.find_element(*StartLocatorsMobile.registr_popup_passw)
     passw.clear()
-    passw.send_keys(registr_passw)
+    passw.send_keys(RegSets.reg_passw)
     web_driver_mobile.find_element(*StartLocatorsMobile.registr_popup_chec).click()
-    time.sleep(2)
+    sleep(2)
     page_start.close.click()
     web_driver_mobile.execute_script("window.scrollTo(0, 0)")
     assert web_driver_mobile.find_element(*StartLocatorsMobile.logo_img_mobile).is_displayed(), \
@@ -267,7 +268,7 @@ def test_footer_start_page(web_driver_mobile):
         web_driver_mobile.switch_to.window(windows[1])
         pages_footers.append(web_driver_mobile.current_url)
         web_driver_mobile.close()
-        time.sleep(2)
+        sleep(2)
         web_driver_mobile.switch_to.window(windows[0])
         web_driver_mobile.find_element(*StartLocatorsMobile.logo_img_mobile).click()
 
