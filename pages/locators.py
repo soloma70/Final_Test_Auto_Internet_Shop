@@ -102,11 +102,13 @@ class RegLocators:
     forgot_passw = (By.CSS_SELECTOR, '#auth-component > div > div > form > div.forgot-holder > a')
     #
     reg_link = (By.CSS_SELECTOR, '#auth-component > div > div > div.links-panel > a')
+    reg_title = (By.CSS_SELECTOR, '#auth-component > div > div > div.links-panel > span')
     reg_name = (By.CSS_SELECTOR, 'div.auth-inputs > div > div > input[name="name"]')
     reg_phone = (By.CSS_SELECTOR, 'div.auth-inputs > div > div > input[name="phone"]')
     reg_passw = (By.CSS_SELECTOR, 'div.auth-inputs > div > div > input[name="password"]')
     reg_pers_data = (By.CSS_SELECTOR, 'form > div > div.checkbox-block > label > input[type=checkbox]')
     reg_submit = (By.CSS_SELECTOR, '#auth-component > div > div > form > label > input[type=submit]')
+    reg_sms_title = (By.CSS_SELECTOR, '#auth-component > div > div > div.popup-title')
     reg_sms = (By.CSS_SELECTOR, 'div.input-wrapper.green > input[type=text]')
     reg_sms_submit = (By.ID, 'auth-submit')
     reg_non_sms = (By.CSS_SELECTOR, '#auth-component > div > div > div.help-panel > a')
