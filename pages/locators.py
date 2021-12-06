@@ -13,7 +13,7 @@ class StartLocators:
 
     # Callback locators
     callback_btn = (By.CSS_SELECTOR, 'a[href="#"]')
-    callback_form_name = (By.CSS_SELECTOR, 'div.b24-form-control-container.b24-form-control-icon-after > input[name="name"]')
+    callback_form_name = (By.CSS_SELECTOR, 'input[name="name"]')
     callback_form_phone = (By.CSS_SELECTOR, 'input[name="phone"]')
     callback_form_submit = (By.CSS_SELECTOR, 'form > div.b24-form-btn-container > div > button')
     callback_form_close = (By.CSS_SELECTOR, 'div.b24-window-panel.b24-window-panel-pos-right > button')
