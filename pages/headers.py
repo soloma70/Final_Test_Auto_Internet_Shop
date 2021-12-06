@@ -57,6 +57,9 @@ class Headers(BasePage):
     def wait_download_cabinet(self):
         WebDriverWait(self.driver, 10).until(EC.visibility_of_element_located(CabinetLocators.cabinet_name))
 
+    def exit_cabinet(self):
+        self.driver.find_element(*CabinetLocators.exit_cabinet).click()
+
     def answer_nonvalid_data(self) -> str:
         answer = self.driver.find_element(*RegLocators.login_answer).text
         return answer
