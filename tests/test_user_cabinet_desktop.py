@@ -8,45 +8,13 @@ from pages.url_list import LinsaUa
 from pages.aux_metods import AuxMetods
 
 
-@pytest.mark.smokie
-@pytest.mark.positive
-def test_authorization_valid(web_driver_desktop):
-    """Тест проверяет авторизацию пользователя с валидными параметрами и переходит в кабинет,
-    переходит на страницы бокового меню и меню в хедере"""
-
-    page = Headers(web_driver_desktop, 10)
-    # Открытие всплывающего окна авторизации
-    page.login_btn_click()
-
-    # Ввод данных авторизации, скриншот и переход в кабинет
-    page.input_login_passw(AuthSets.auth_phone, AuthSets.auth_passw)
-    page.save_screen_browser('auth_cabinet')
-    page.auth_submit()
-    page.wait_download_cabinet()
-    assert page.get_relative_link() == LinsaUa.cabinet[0][0] or page.get_relative_link() == LinsaUa.cabinet[0][
-        1], 'ERROR! Bad transactoin!'
-
-    page = CabinetPage(web_driver_desktop)
-    assert page.cabinet_name.text.strip() == AuthSets.auth_name.upper(), 'ERROR! Start Image is not displayed'
-
-    # Переход по страницам бокового меню
-    for i in range(1, len(page.cabinet)):
-        page.goto_cabinet_menu(i)
-
-    # Переход по страницам меню в хедере
-    for i in range(1, len(page.cabinet)):
-        page.goto_cabinet_menu_header(i)
-
-    page.exit_cabinet()
-
-
 @pytest.mark.negative
 @pytest.mark.parametrize("login",
-                         ['123456', AuxMetods.generate_number(50), AuxMetods.generate_string(255),
+                         ['123456', AuxMetods.random_num(20), AuxMetods.generate_string(255),
                           AuxMetods.russian_chars(), AuxMetods.chinese_chars(), AuxMetods.special_chars()]
     , ids=['6 int', 'random int', '255 sym', 'russian', 'chinese', 'specials'])
 @pytest.mark.parametrize("passw",
-                         ['123456', AuxMetods.generate_number(50), AuxMetods.generate_string(255),
+                         ['123456', AuxMetods.random_num(20), AuxMetods.generate_string(255),
                           AuxMetods.russian_chars(), AuxMetods.chinese_chars(), AuxMetods.special_chars()]
     , ids=['6 int', 'random int', '255 sym', 'russian', 'chinese', 'specials'])
 def test_authorization_non_valid(web_driver_desktop, login, passw):
@@ -64,26 +32,30 @@ def test_authorization_non_valid(web_driver_desktop, login, passw):
     assert answer == 'Проверьте правильность данных для входа'
 
 
+@pytest.mark.smokie
 @pytest.mark.positive
-def test_add_new_address(web_driver_desktop):
-    """Тест авторизует пользователя, переходит в кабинет, добавляет новый адрес доставки, делает скриншот и
-    удаляет адрес, делает скришщот, выходит из кабинета"""
+def test_authorization_valid(web_driver_auth_desktop):
+    """Тест открывает кабинет пользователя, переходит на страницы бокового меню и меню в хедере"""
 
-    page = Headers(web_driver_desktop, 10)
+    page = CabinetPage(web_driver_auth_desktop)
+    assert page.cabinet_name.text.strip() in AuthSets.auth_name.upper(), 'ERROR! Start Image is not displayed'
 
-    # Открытие всплывающего окна авторизации
-    page.login_btn_click()
+    # Переход по страницам бокового меню
+    for i in range(1, len(page.cabinet)):
+        page.goto_cabinet_menu(i)
 
-    # Ввод данных авторизации, скриншот и переход в кабинет и проверка URL кабинета
-    page.input_login_passw(AuthSets.auth_phone, AuthSets.auth_passw)
-    page.auth_submit()
-    page.wait_download_cabinet()
-    assert page.get_relative_link() == LinsaUa.cabinet[0][0] or page.get_relative_link() == LinsaUa.cabinet[0][
-        1], 'ERROR! Bad transactoin!'
+    # Переход по страницам меню в хедере
+    for i in range(1, len(page.cabinet)):
+        page.goto_cabinet_menu_header(i)
+
+
+@pytest.mark.positive
+def test_add_new_address(web_driver_auth_desktop):
+    """Тест загружает кабинет, добавляет новый адрес доставки, делает скриншот и удаляет адрес, делает скриншоот"""
 
     # Инициализация экземпляра авторизованой страницы кабинета и проверка имени пользователя
-    page = CabinetPage(web_driver_desktop)
-    assert page.cabinet_name.text.strip() == AuthSets.auth_name.upper(), 'ERROR! Start Image is not displayed'
+    page = CabinetPage(web_driver_auth_desktop)
+    assert page.cabinet_name.text.strip() in AuthSets.auth_name.upper(), 'ERROR! Start Image is not displayed'
 
     # Переход на страницу Адреса доставки и добавление адреса из тестового набора
     page.goto_cabinet_menu(4)
@@ -99,30 +71,15 @@ def test_add_new_address(web_driver_desktop):
     page.delete_adress(-1)
     page.save_screen_browser('delete_my_adress')
 
-    # Выход из кабинета
-    page.exit_cabinet()
-
 
 @pytest.mark.positive
-def test_edit_user_data(web_driver_desktop):
+def test_edit_user_data(web_driver_auth_desktop):
     """Тест авторизует пользователя, переходит в кабинет, переходит на страницу редактирования данных,добавляе емейл,
     дату рождения, меняет язык по умолчанию на украинский, сохраняет данные, делает скриншот и выходит из кабинета"""
 
-    page = Headers(web_driver_desktop, 10)
-
-    # Открытие всплывающего окна авторизации
-    page.login_btn_click()
-
-    # Ввод данных авторизации, скриншот и переход в кабинет и проверка URL кабинета
-    page.input_login_passw(AuthSets.auth_phone, AuthSets.auth_passw)
-    page.auth_submit()
-    page.wait_download_cabinet()
-    assert page.get_relative_link() == LinsaUa.cabinet[0][0] or page.get_relative_link() == LinsaUa.cabinet[0][
-        1], 'ERROR! Bad transactoin!'
-
     # Инициализация экземпляра авторизованой страницы кабинета и проверка имени пользователя
-    page = CabinetPage(web_driver_desktop)
-    assert page.cabinet_name.text.strip() == AuthSets.auth_name.upper(), 'ERROR! Start Image is not displayed'
+    page = CabinetPage(web_driver_auth_desktop)
+    assert page.cabinet_name.text.strip() in AuthSets.auth_name.upper(), 'ERROR! Start Image is not displayed'
 
     # Переход на страницу Личные данные и добавление емейл и дня рождения
     page.goto_cabinet_menu(1)
@@ -137,32 +94,19 @@ def test_edit_user_data(web_driver_desktop):
     assert list_data[3] == AuthSets.auth_email, 'ERROR! Bad last add email'
     assert list_data[4] == AuthSets.birthday, 'ERROR! Bad last add email'
 
-    # Очистка введеных полей и выход из кабинета
+    # Очистка введеных полей
     page.clear_email_birthday_lang()
-    page.exit_cabinet()
 
 
 @pytest.mark.integration
 @pytest.mark.positive
-def test_wishlist_user(web_driver_desktop):
+def test_wishlist_user(web_driver_auth_desktop):
     """Тест авторизует пользователя, переходит в кабинет, переходит на страницу списка желаний, находит продукты
     соответственно тестовым наборам, проверяет получившийся список, удаляет его и выходит из кабинета"""
 
-    page = Headers(web_driver_desktop, 10)
-
-    # Открытие всплывающего окна авторизации
-    page.login_btn_click()
-
-    # Ввод данных авторизации, скриншот и переход в кабинет и проверка URL кабинета
-    page.input_login_passw(AuthSets.auth_phone, AuthSets.auth_passw)
-    page.auth_submit()
-    page.wait_download_cabinet()
-    assert page.get_relative_link() == LinsaUa.cabinet[0][0] or page.get_relative_link() == LinsaUa.cabinet[0][
-        1], 'ERROR! Bad transactoin!'
-
     # Инициализация экземпляра авторизованой страницы кабинета и проверка имени пользователя
-    page = CabinetPage(web_driver_desktop)
-    assert page.cabinet_name.text.strip() == AuthSets.auth_name.upper(), 'ERROR! Start Image is not displayed'
+    page = CabinetPage(web_driver_auth_desktop)
+    assert page.cabinet_name.text.strip() in AuthSets.auth_name.upper(), 'ERROR! Start Image is not displayed'
 
     # Переход на страницу Список желаний и добавление нового списка
     page.goto_cabinet_menu(2)
@@ -176,6 +120,8 @@ def test_wishlist_user(web_driver_desktop):
     status_add_prod = page.add_random_prod_wishlist(AuthSets.my_wish_list)
     assert status_add_prod == 'Успешно', "ERROR! Wishlist don't add"
 
+# !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    # Добавить юзерстори, кде доб.еще продукті в вишлист и потом добавляются в корзину
     # Переход в wishlist через кнопку в хедере, переход в тестовый список
     page.goto_wishlist_header()
     page.goto_wishlist(AuthSets.my_wish_list)
@@ -185,30 +131,17 @@ def test_wishlist_user(web_driver_desktop):
     status_del = page.delete_open_wishlist()
     page.save_screen_browser('del_new_wishlist')
     assert status_del == 'Успешно', "ERROR! Wishlist don't add"
-    page.exit_cabinet()
 
 
 @pytest.mark.integration
 @pytest.mark.positive
-def test_add_article_in_favorite_user(web_driver_desktop):
+def test_add_article_in_favorite_user(web_driver_auth_desktop):
     """Тест авторизует пользователя, переходит в кабинет, переходит на страницу блогов, выбирает рандомный блог,
     добавляет в избраннае, переходит на страницу Сохраненные статьи и проверяет название статьи среди сохраненных"""
 
-    page = Headers(web_driver_desktop, 10)
-
-    # Открытие всплывающего окна авторизации
-    page.login_btn_click()
-
-    # Ввод данных авторизации, скриншот и переход в кабинет и проверка URL кабинета
-    page.input_login_passw(AuthSets.auth_phone, AuthSets.auth_passw)
-    page.auth_submit()
-    page.wait_download_cabinet()
-    assert page.get_relative_link() == LinsaUa.cabinet[0][0] or page.get_relative_link() == LinsaUa.cabinet[0][
-        1], 'ERROR! Bad transactoin!'
-
     # Инициализация экземпляра авторизованой страницы кабинета и проверка имени пользователя
-    page = CabinetPage(web_driver_desktop)
-    assert page.cabinet_name.text.strip() == AuthSets.auth_name.upper(), 'ERROR! Start Image is not displayed'
+    page = CabinetPage(web_driver_auth_desktop)
+    assert page.cabinet_name.text.strip() in AuthSets.auth_name.upper(), 'ERROR! Start Image is not displayed'
 
     # Добавление новой рандомной статьи в избранное
     page.goto_menu_page(5)
@@ -223,4 +156,3 @@ def test_add_article_in_favorite_user(web_driver_desktop):
     list_articles_del = page.list_article_in_favorite()
     page.save_screen_browser('del_add_article_favorites')
     assert name_article not in list_articles_del, "ERROR! New article don't del"
-    page.exit_cabinet()
