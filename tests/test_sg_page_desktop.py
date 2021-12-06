@@ -5,7 +5,7 @@ from pages.test_sets import SunglassSets
 from pages.product_page import ProductPage
 
 
-@pytest.mark.smokie
+@pytest.mark.smoke
 @pytest.mark.positive
 def test_amount_sunglass_page(web_driver_desktop):
     """Тест проверяет количество позиций на странице, суммирует по всем страницам и сравнивает
@@ -25,7 +25,7 @@ def test_amount_sunglass_page(web_driver_desktop):
     assert amount_total_sunglass == amount_all_page, 'ERROR! Incorrect amount lens'
 
 
-@pytest.mark.smokie
+@pytest.mark.smoke
 @pytest.mark.positive
 def test_pagination_sunglass_page(web_driver_desktop):
     """Тест проверяет прямой переход по страницам раздела (в пределах 5 страниц), а так же переход с помощью
@@ -186,7 +186,7 @@ def test_sort_sunglass_page(web_driver_desktop):
             assert all(present_banner), "ERROR! Position don't sorted"
 
 
-@pytest.mark.smokie
+@pytest.mark.smoke
 @pytest.mark.positive
 def test_add_in_cart_sunglass_page(web_driver_desktop):
     """Тест проверяет добавление очков одной рандомной позиций с 1, последней и 4-х рандомных страниц,
