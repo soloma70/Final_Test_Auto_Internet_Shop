@@ -8,7 +8,7 @@ from pages.url_list import LinsaUa
 from pages.aux_metods import AuxMetods
 
 
-@pytest.mark.smokie
+@pytest.mark.smoke
 @pytest.mark.positive
 def test_start_page(web_driver_desktop):
     """Тест проверяет кликабельность лого сайта и перезагрузку его стартовой страницы"""
@@ -19,7 +19,7 @@ def test_start_page(web_driver_desktop):
            page.get_relative_link() == '/uk/', 'Transition error'
 
 
-@pytest.mark.smokie
+@pytest.mark.smoke
 @pytest.mark.positive
 @pytest.mark.parametrize("test_search", ['линзы', 'lens', 'ClearLux', 'линзы O2O2 Toric', 123]
     , ids=['lens_ru', 'lens_en', 'ClearLux', 'O2O2_Toric', 'digit'])
@@ -63,7 +63,7 @@ def test_callback_start_page(web_driver_desktop):
     page.callback_close()
 
 
-@pytest.mark.smokie
+@pytest.mark.smoke
 @pytest.mark.positive
 def test_login_start_page(web_driver_desktop):
     """Тест проверяет кликабельность "Вход" """
@@ -84,7 +84,7 @@ def test_wishlist_start_page(web_driver_desktop):
     page.login_close()
 
 
-@pytest.mark.smokie
+@pytest.mark.smoke
 @pytest.mark.positive
 def test_cart_start_page(web_driver_desktop):
     """Тест проверяет кликабельность "Корзина" без авторизации"""
@@ -96,7 +96,7 @@ def test_cart_start_page(web_driver_desktop):
     page.get_url(page.url)
 
 
-@pytest.mark.smokie
+@pytest.mark.smoke
 @pytest.mark.positive
 def test_lang_start_page(web_driver_desktop):
     """Тест проверяет переключение языков сайта Рус и Укр"""
@@ -110,7 +110,7 @@ def test_lang_start_page(web_driver_desktop):
     assert page.get_relative_link() == '/', 'Transition error'
 
 
-@pytest.mark.smokie
+@pytest.mark.smoke
 @pytest.mark.positive
 def test_menu_start_page(web_driver_desktop):
     """Тест проверяет кликабельность бокового меню и переход на соответствующие страницы меню, закрытие меню"""

@@ -107,10 +107,12 @@ class RegLocators:
     reg_passw = (By.CSS_SELECTOR, 'div.auth-inputs > div > div > input[name="password"]')
     reg_pers_data = (By.CSS_SELECTOR, 'form > div > div.checkbox-block > label > input[type=checkbox]')
     reg_submit = (By.CSS_SELECTOR, '#auth-component > div > div > form > label > input[type=submit]')
-    reg_sms = '#auth-component > div > div > form > div > div > div > input[type=text]'
-    reg_sms_submit = 'auth-submit'
-    reg_non_sms = '#auth-component > div > div > div.help-panel > a'
-    start_shop_btn = '#auth-component > div > div > a'
+    reg_sms = (By.CSS_SELECTOR, 'div.input-wrapper.green > input[type=text]')
+    reg_sms_submit = (By.ID, 'auth-submit')
+    reg_non_sms = (By.CSS_SELECTOR, '#auth-component > div > div > div.help-panel > a')
+    reg_answer_sms = (By.CSS_SELECTOR, '#auth-component > div > div > form > div > div > div.error-block')
+    reg_sms_close = (By.CSS_SELECTOR, '#auth-popup > div > div > div > div.top > div > svg')
+    start_shop_btn = (By.CSS_SELECTOR, '#auth-component > div > div > a')
 
     #
     # PopUp Registration locators
@@ -122,6 +124,7 @@ class RegLocators:
     registr_popup_chec = (By.CSS_SELECTOR, 'label.check-label > input[type="checkbox"]')
     registr_popup_add = (By.CSS_SELECTOR, 'label.submit-popup > input[type="submit"]')
     registr_popup_close = (By.CSS_SELECTOR, '#auth-popup > div > div > div > div.top > div > svg')
+    reg_nonvalid_answer = (By.CSS_SELECTOR, 'div.auth-inputs > div.input-block.error > div.error-block')
 
 
 class StartLocatorsMobile:

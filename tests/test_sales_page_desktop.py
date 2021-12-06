@@ -4,7 +4,7 @@ import pytest
 from pages.sales_page import SalesPage
 
 
-@pytest.mark.smokie
+@pytest.mark.smoke
 @pytest.mark.positive
 def test_sales_banners_sales_page(web_driver_desktop):
     """Тест проверяет видимость акционных баннеров и переход на соответствующие страницы акций"""
@@ -25,7 +25,7 @@ def test_sales_banners_sales_page(web_driver_desktop):
         page.get_url(page.url)
 
 
-@pytest.mark.smokie
+@pytest.mark.smoke
 @pytest.mark.positive
 def test_sales_products_sales_page(web_driver_desktop):
     """Тест проверяет переход на страницу 1-го акционного товара и добавление его в корзину
@@ -47,7 +47,7 @@ def test_sales_products_sales_page(web_driver_desktop):
     page.save_screen_browser('add_cart_1_sales_prod')
 
 
-@pytest.mark.smokie
+@pytest.mark.smoke
 @pytest.mark.positive
 def test_sales_prod_sales_page(web_driver_desktop):
     """Тест проверяет переход на соответствующие страницы акционных линз"""

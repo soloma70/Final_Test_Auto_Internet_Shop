@@ -4,7 +4,7 @@ from time import sleep
 from pages.blog_page import BlogPage
 
 
-@pytest.mark.smokie
+@pytest.mark.smoke
 @pytest.mark.positive
 def test_news_tags_blog_page(web_driver_desktop):
     """Тест проверяет теги новостей и переход на соответствующие страницы блога с разных страниц тегов"""
@@ -38,7 +38,7 @@ def test_news_blog_page(web_driver_desktop):
             assert page.news_name().is_displayed(), 'ERROR! Transaction is bad'
 
 
-@pytest.mark.smokie
+@pytest.mark.smoke
 @pytest.mark.positive
 @pytest.mark.parametrize("index", [-2, 0, 3], ids=['last page', 'first page', 'middle page'])
 def test_pagination_blog_page(web_driver_desktop, index):
@@ -53,7 +53,7 @@ def test_pagination_blog_page(web_driver_desktop, index):
     assert decl_url == actual_url, 'ERROR! Transaction is bad'
 
 
-@pytest.mark.smokie
+@pytest.mark.smoke
 @pytest.mark.positive
 def test_pagination_arrow_blog_page(web_driver_desktop):
     """Тест проверяет пагинацию и переход на соответствующие страницы блога"""

@@ -4,12 +4,12 @@ import time, pytest
 from pages.start_page_mobile import StartPage
 from pages.locators import StartLocatorsMobile
 from pages.url_list import LinsaUa
-from selenium.webdriver.common.action_chains import ActionChains
 from settings import registr_name, registr_phone, registr_passw
 from pages.aux_metods import AuxMetods
 
 
-# Тестирование мобильной версии сайта
+@pytest.mark.smoke
+@pytest.mark.positive
 def test_start_page(web_driver_mobile):
     """Тест проверяет кликабельность лого сайта и перезагрузку его стартовой страницы"""
 
@@ -19,6 +19,7 @@ def test_start_page(web_driver_mobile):
            page_start.get_relative_link() == '/uk/', 'Transition error'
 
 
+@pytest.mark.positive
 def test_search_close_start_page(web_driver_mobile):
     """Тест проверяет клик на иконку поиска и закрытие окна"""
 
@@ -28,6 +29,7 @@ def test_search_close_start_page(web_driver_mobile):
            page_start.get_relative_link() == '/uk/', 'Transition error'
 
 
+@pytest.mark.positive
 @pytest.mark.parametrize("test_search_p", ['линзы', 'lens', 123], ids=['search ru', 'search en', 'search digit'])
 def test_search_start_page_positive(web_driver_mobile, test_search_p):
     """Тест проверяет работу поиска с различными позитивными данными"""
@@ -38,6 +40,7 @@ def test_search_start_page_positive(web_driver_mobile, test_search_p):
     assert amount > 0, 'Field "Search" working unsucсess'
 
 
+@pytest.mark.negative
 @pytest.mark.parametrize("test_search",
                          ['123456', AuxMetods.generate_string(255), AuxMetods.generate_string(1001)
                              , AuxMetods.russian_chars(), AuxMetods.russian_chars().upper(), AuxMetods.chinese_chars()
@@ -52,6 +55,7 @@ def test_search_start_page_negative(web_driver_mobile, test_search):
     assert amount == 0, 'Field "Search" working unsucсess'
 
 
+@pytest.mark.positive
 def test_wishlist_btn_start_page(web_driver_mobile):
     """Тест проверяет кликабельность "Список желаний" без авторизации"""
 
@@ -62,6 +66,8 @@ def test_wishlist_btn_start_page(web_driver_mobile):
     web_driver_mobile.find_element(*StartLocatorsMobile.login_close).click()
 
 
+@pytest.mark.smoke
+@pytest.mark.positive
 def test_cart_start_page(web_driver_mobile):
     """Тест проверяет кликабельность "Корзина" без авторизации"""
 
@@ -72,6 +78,7 @@ def test_cart_start_page(web_driver_mobile):
     web_driver_mobile.find_element(*StartLocatorsMobile.logo_img_mobile).click()
 
 
+@pytest.mark.positive
 def test_menu_start_page(web_driver_mobile):
     """Тест проверяет кликабельность меню и переход на соответствующие страницы меню, закрытие меню"""
 
@@ -112,6 +119,7 @@ def test_menu_start_page(web_driver_mobile):
         web_driver_mobile.find_element(*StartLocatorsMobile.logo_img_mobile).click()
 
 
+@pytest.mark.positive
 def test_banners_start_page(web_driver_mobile):
     """Тест проверяет кликабельность баннеров и переход на соответствующие страницы"""
 
@@ -129,6 +137,7 @@ def test_banners_start_page(web_driver_mobile):
         time.sleep(2)
 
 
+@pytest.mark.positive
 def test_action_banners_start_page(web_driver_mobile):
     """Тест проверяет кликабельность акционного баннера и переход на соответствующую страницу,
     добавление 1-й акционной позиции в корзину"""
@@ -148,6 +157,7 @@ def test_action_banners_start_page(web_driver_mobile):
     assert amount_cart_before + 1 == amount_cart_after, "ERROR! Product don't add to cart"
 
 
+@pytest.mark.positive
 def test_love_brands_start_page(web_driver_mobile):
     """Тест проверяет кликабельность баннеров "Любимые бренды"
     и отображение соответствующих им элементов в ленте"""
@@ -168,6 +178,8 @@ def test_love_brands_start_page(web_driver_mobile):
         , 'ERROR! Start Image is not displayed'
 
 
+@pytest.mark.smoke
+@pytest.mark.positive
 def test_registration_start_page(web_driver_mobile):
     """Тест проверяет кликабельность и заполнение полей формы регистрации на стартовой странице """
 
@@ -192,6 +204,7 @@ def test_registration_start_page(web_driver_mobile):
         'ERROR! Start Image is not displayed'
 
 
+@pytest.mark.positive
 def test_blogs_start_page(web_driver_mobile):
     """Тест проверяет кликабельность блоков в разделе "Оптический блог"
     и корректность перехода по ссылкам """
@@ -220,6 +233,7 @@ def test_blogs_start_page(web_driver_mobile):
         , f'ERROR! Bad transaction for {blog_url}'
 
 
+@pytest.mark.positive
 def test_footer_start_page(web_driver_mobile):
     """Тест проверяет кликабельность блоков в footers
     и корректность перехода по ссылкам """
@@ -256,8 +270,6 @@ def test_footer_start_page(web_driver_mobile):
         time.sleep(2)
         web_driver_mobile.switch_to.window(windows[0])
         web_driver_mobile.find_element(*StartLocatorsMobile.logo_img_mobile).click()
-
-    # print(pages_footers)
 
     # Переход на страницу инстаграм не проверяется, требует логин инстаграм
     for index in range(11):

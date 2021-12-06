@@ -5,7 +5,7 @@ from pages.test_sets import FramesSets
 from pages.product_page import ProductPage
 
 
-@pytest.mark.smokie
+@pytest.mark.smoke
 @pytest.mark.positive
 def test_amount_frames_page(web_driver_desktop):
     """Тест проверяет количество позиций на странице, суммирует по всем страницам и сравнивает
@@ -25,7 +25,7 @@ def test_amount_frames_page(web_driver_desktop):
     assert amount_total_frames == amount_all_page, 'ERROR! Incorrect amount lens'
 
 
-@pytest.mark.smokie
+@pytest.mark.smoke
 @pytest.mark.positive
 def test_pagination_frames_page(web_driver_desktop):
     """Тест проверяет прямой переход по страницам раздела (в пределах 5 страниц), а так же переход с помощью
@@ -173,7 +173,7 @@ def test_sort_frames_page(web_driver_desktop):
             assert any(present_banner), "ERROR! Position don't sorted"
 
 
-@pytest.mark.smokie
+@pytest.mark.smoke
 @pytest.mark.positive
 def test_add_in_cart_frames_page(web_driver_desktop):
     """Тест проверяет добавление оправ 1-й рандомной позиций с 1, последней и 4-х рандомных страниц,

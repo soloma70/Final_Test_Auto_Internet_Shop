@@ -5,6 +5,7 @@ from selenium.webdriver.support import expected_conditions as EC
 from pages.base_page import BasePage
 from pages.url_list import LinsaUa
 from pages.locators import StartLocators, RegLocators, CabinetLocators
+from time import sleep
 
 
 class Headers(BasePage):
@@ -81,14 +82,23 @@ class Headers(BasePage):
 
     def reg_submit(self):
         self.driver.find_element(*RegLocators.reg_submit).click()
-        code_sms = input('Enter the received SMS code -> ')
+        sleep(1)
+
+    def enter_sms_code(self, code_sms: str):
         self.driver.find_element(*RegLocators.reg_sms).send_keys(code_sms)
         self.driver.find_element(*RegLocators.reg_sms_submit).click()
-        WebDriverWait(self.driver, 10).until(EC.visibility_of_element_located(RegLocators.start_shop_btn)).click()
-        WebDriverWait(self.driver, 10).until(EC.visibility_of_element_located(CabinetLocators.cabinet_name))
+        answer = self.driver.find_element(*RegLocators.reg_answer_sms).text
+        return answer
+
+    def reg_sms_close(self):
+        self.driver.find_element(*RegLocators.reg_sms_close).click()
 
     def reg_cancel(self):
         self.driver.find_element(*RegLocators.registr_popup_close).click()
+
+    def answer_nonvalid_registr(self) -> str:
+        answer = self.driver.find_element(*RegLocators.reg_nonvalid_answer).text
+        return answer
 
     def wishlist_btn_click(self):
         self.driver.find_element(*StartLocators.wishlist_btns).click()

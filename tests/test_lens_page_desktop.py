@@ -5,7 +5,7 @@ from pages.test_sets import LensSets
 from pages.lens_page import LensPage
 
 
-@pytest.mark.smokie
+@pytest.mark.smoke
 @pytest.mark.positive
 def test_amount_lens_page(web_driver_desktop):
     """Тест проверяет количество позиций на странице, суммирует по всем страницам и сравнивает
@@ -25,7 +25,7 @@ def test_amount_lens_page(web_driver_desktop):
     assert amount_total_lens == amount_all_page, 'ERROR! Incorrect amount lens'
 
 
-@pytest.mark.smokie
+@pytest.mark.smoke
 @pytest.mark.positive
 def test_pagination_lens_page(web_driver_desktop):
     """Тест проверяет прямой переход по страницам раздела, а так же переход с помощью стрелок и сравнивает
@@ -130,6 +130,7 @@ def test_filter_single_negative_lens_page(web_driver_desktop):
                 page.clear_all_filter()
 
 
+@pytest.mark.positive
 def test_sort_lens_page(web_driver_desktop):
     """Тест проверяет сортировку на 1-й странице по возрастанию и снижению цены (с проверкой цен), по новизне
     и популярности, делает скриншоты. Сортировка организована по ценам за 1 шт.
@@ -174,6 +175,8 @@ def test_sort_lens_page(web_driver_desktop):
         page.save_screen_browser(f'sort_lens_popularity_{page_num[i]}')
 
 
+@pytest.mark.smoke
+@pytest.mark.positive
 def test_add_lens_in_cart_lens_page(web_driver_desktop):
     """Тест проверяет добавление линз с 2-х рандомных позиций с 1-й, 3-й и 5-й карточки, переход на страницу
     линз и добавление их в корзину с параметрами по умолчанию (сложная проверка с изменениями диоптрий,

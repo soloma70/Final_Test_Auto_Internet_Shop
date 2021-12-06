@@ -5,7 +5,7 @@ from pages.test_sets import CareSets
 from pages.care_page import CarePage
 
 
-@pytest.mark.smokie
+@pytest.mark.smoke
 @pytest.mark.positive
 def test_amount_care_page(web_driver_desktop):
     """Тест проверяет количество позиций на странице, суммирует по всем страницам и сравнивает
@@ -25,7 +25,7 @@ def test_amount_care_page(web_driver_desktop):
     assert amount_total_care == amount_all_page, 'ERROR! Incorrect amount lens'
 
 
-@pytest.mark.smokie
+@pytest.mark.smoke
 @pytest.mark.positive
 def test_pagination_care_page(web_driver_desktop):
     """Тест проверяет прямой переход по страницам раздела (в пределах 4 страниц), а так же переход с помощью
@@ -168,7 +168,7 @@ def test_sort_care_page(web_driver_desktop):
         page.save_screen_browser(f'sort_care_popularity_{page_num[i]}')
 
 
-@pytest.mark.smokie
+@pytest.mark.smoke
 @pytest.mark.positive
 def test_add_in_cart_care_page(web_driver_desktop):
     """Тест проверяет добавление одной рандомной позиций с 1, последней и 1-й рандомной страницы,

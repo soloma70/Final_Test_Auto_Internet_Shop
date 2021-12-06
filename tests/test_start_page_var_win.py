@@ -4,7 +4,7 @@ import pytest
 from pages.start_page import StartPage
 
 
-@pytest.mark.smokie
+@pytest.mark.smoke
 @pytest.mark.parametrize("width",
                          [320, 425, 960, 1101, 1201, 1280, 1440, 2440]
     , ids=['win size 320x960', 'win size 425x960', 'win size 960x960', 'win size 1100x960'

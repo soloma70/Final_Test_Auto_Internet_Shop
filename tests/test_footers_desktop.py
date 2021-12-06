@@ -5,7 +5,7 @@ from pages.footers import Footers
 from pages.url_list import LinsaUa
 
 
-@pytest.mark.smokie
+@pytest.mark.smoke
 @pytest.mark.positive
 def test_footer_start_page(web_driver_desktop):
     """Тест проверяет кликабельность блоков в footers

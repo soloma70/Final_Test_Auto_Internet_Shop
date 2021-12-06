@@ -7,7 +7,7 @@ from pages.url_list import LinsaUa
 from pages.test_sets import MainMenuSets, RegSets
 
 
-@pytest.mark.smokie
+@pytest.mark.smoke
 @pytest.mark.positive
 def test_main_menu_start_page(web_driver_desktop):
     """Тест проверяет кликабельность главного меню и переход на соответствующие страницы меню"""

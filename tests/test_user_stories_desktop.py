@@ -8,7 +8,7 @@ from pages.cart_page import CartPage
 from pages.test_sets import LensSets, SendOrderSets, FramesSets, SunglassSets, CareSets
 
 
-@pytest.mark.functional
+@pytest.mark.integration
 @pytest.mark.positive
 def test_us_filter_lens_page(web_driver_desktop):
     """Тест UC "Я хочу найти и купить линзы бренда INTEROJO, линейки Fusion, левая -4.00, правая -2.75"
