@@ -134,63 +134,53 @@ class StartLocatorsMobile:
 
     # HEADERS LOCATORS
     # Start Image locator
-    logo_img_mobile = (By.CSS_SELECTOR, 'div[class="left-mobile-header"] > a > img')
+    logo_img_mobile = (By.CSS_SELECTOR, 'div.left-mobile-header > a > img')
 
     # Search locators
-    search_field_img = (By.CSS_SELECTOR, 'div[class="right-mobile-header"] > div > img')
-    search_field = (By.CSS_SELECTOR, 'div[class="search-panel-mobile active"] > form > input')
-    search_field_close = (By.CSS_SELECTOR, 'div[class="search-panel-mobile active"] > form > input')
-    search_result = (By.CSS_SELECTOR, 'div[class="h-holder"] > div[class="amount"]')
+    search_field_img = (By.CSS_SELECTOR, 'div.right-mobile-header > div > img')
+    search_field = (By.CSS_SELECTOR, 'div.search-panel-mobile.active > form > input')
+    search_field_close = (By.CSS_SELECTOR, 'div.search-panel-mobile.active > form > input')
+    search_result = (By.CSS_SELECTOR, 'div.h-holder > div.amount')
 
     # Wishlist locator
-    wishlist_btns = (By.CSS_SELECTOR, 'div[class="right-mobile-header"] > a > span')
+    wishlist_btns = (By.CSS_SELECTOR, 'div.right-mobile-header > a > span')
 
     # Login locators
     login_name = (By.CSS_SELECTOR, 'input[name="login"]')
     login_pass = (By.CSS_SELECTOR, 'input[name="password"]')
-    login_submit = (By.CSS_SELECTOR, 'input[id="auth-submit"]')
-    login_close = (By.CSS_SELECTOR, 'div[class="close-popup js-close-popup"] > svg')
+    login_title = (By.CSS_SELECTOR, 'div.links-panel > span')
+    login_submit = (By.ID, 'auth-submit')
+    login_close = (By.CSS_SELECTOR, '#auth-popup > div > div > div > div.top > div > svg')
 
     # Cart locator
-    cart_btn = (By.CSS_SELECTOR, 'div[class="right-mobile-header"] > a[class="cart"] > span')
+    cart_btn = (By.CSS_SELECTOR, 'div.right-mobile-header > a.cart > span')
 
     # RightSide Menu locators
-    menu_button = (By.CSS_SELECTOR, 'div[class="left-mobile-header"] > div[class="menu-button js-open-menu"]')
-    menu_button_close = (By.CSS_SELECTOR, 'div[class="mobile-close-menu js-mobile-close-menu"] > svg')
-    lang_btn_active = (By.CSS_SELECTOR, 'div[class="controls"] > div > div')
-    lang_btn = (By.CSS_SELECTOR, 'div[class="controls"] > div > ul > li > a')
-    menu_points_main = (By.CSS_SELECTOR, 'div[id="content-wrapper"] > div[class="main-menu"] > ul > li > a')
-    menu_points_hidden = (
-        By.CSS_SELECTOR, 'div[id="content-wrapper"] > div[class="main-menu"] > ul[class="desktop-hidden"] > li > a')
+    menu_button = (By.CSS_SELECTOR, 'div.left-mobile-header > div.menu-button.js-open-menu')
+    menu_button_close = (By.CSS_SELECTOR, 'div.mobile-close-menu.js-mobile-close-menu > svg')
+    lang_btn_active = (By.CSS_SELECTOR, 'div.controls > div > div')
+    lang_btn = (By.CSS_SELECTOR, 'div.controls > div > ul > li > a')
+    menu_points_main = (By.CSS_SELECTOR, '#content-wrapper > div.main-menu > ul > li > a')
+    menu_points_hidden = (By.CSS_SELECTOR, '#content-wrapper > div.main-menu > ul.desktop-hidden > li > a')
 
     # MAIN PAGE LOCATORS
     # Banners locators
-    banner_points = (By.CSS_SELECTOR, 'div[class="blocks-holder"] > div > a')
-    amount_product = (By.CSS_SELECTOR, 'div[class="h-holder"]>div[class="amount"]')
-    sales_banners = (By.CSS_SELECTOR, 'div[class="main-content"]')
-    sales_sunglass = (
-        By.CSS_SELECTOR, 'div[class="product-item sunglasses"] > div[class="main-content"] > a[class="img"] > img')
-    add_cart_sunglass = (By.CSS_SELECTOR, 'button[id="md-to-basket"]')
-    all_sales_prods = (By.CSS_SELECTOR, 'a[class="fat-button orange"]')
+    banner_points = (By.CSS_SELECTOR, 'div.blocks-holder > div > a')
+    amount_product = (By.CSS_SELECTOR, 'div.h-holder > div.amount')
+    sales_banners = (By.CSS_SELECTOR, 'div.main-content')
+    all_sales_prods = (By.CSS_SELECTOR, 'a.fat-button.orange')
 
     # Add cart locators
-    select_sunglass = (
-        By.CSS_SELECTOR, 'div[data-id="33882"] > div[class="main-content"] > a[class="img"] > img')
-    close_cart_popup = (
-        By.CSS_SELECTOR,
-        'div[id="product-added-to-cart-popup"]>div>div>div>div>div[class="close-popup js-close-popup"]>svg')
-    amount_cart = (By.CSS_SELECTOR, 'div[class="right-mobile-header"]>a[class="cart"]>span[class="total-in-cart"]')
+    select_sunglass = (By.CSS_SELECTOR, 'div.product-item.sunglasses > div.main-content > a.img > img')
+    add_cart_product = (By.ID, 'md-to-basket')
+    close_cart_popup = (By.CSS_SELECTOR, '#product-added-to-cart-popup > div > div > div > div.top > div > svg')
+    amount_cart = (By.CSS_SELECTOR, 'div.right-mobile-header > a.cart > span.total-in-cart')
 
     # Love brand locators
-    love_brands_sunglasses = (By.CSS_SELECTOR, 'div.brands-buttons-holder > div.sunglasses-brand')
-    love_brands_lenses = (By.CSS_SELECTOR, 'div.brands-buttons-holder > div.lenses-brand')
-    love_brands_accessories = (By.CSS_SELECTOR, 'div.brands-buttons-holder > div.accessories-brand')
-    img_avizor = (By.CSS_SELECTOR, 'img[title="AVIZOR ENZYME"]')
-    img_menicon = (By.CSS_SELECTOR, 'img[title="Menicon Progent"]')
-    img_okvision = (By.CSS_SELECTOR, 'img[title="okvision I CARE"]')
-    img_vogue = (By.CSS_SELECTOR, 'img[title="VOGUE"]')
-    img_rayban = (By.CSS_SELECTOR, 'img[title="RAY-BAN"]')
-    img_carrera = (By.CSS_SELECTOR, 'img[title="CARRERA"]')
+    love_brands_section = (By.CSS_SELECTOR, '#content-wrapper > section.favourite-brands')
+    love_brands_sunglasses = (By.CSS_SELECTOR, 'div[data-id="sunglasses-brand"]')
+    love_brands_lenses = (By.CSS_SELECTOR, 'div[data-id="lenses-brand"]')
+    love_brands_accessories = (By.CSS_SELECTOR, 'div[data-id="accessories-brand"]')
 
     # PopUp Registration locators
     registr_btn = (By.CSS_SELECTOR, 'a.fat-button.black.js-open-auth-popup')
@@ -199,15 +189,20 @@ class StartLocatorsMobile:
     registr_popup_phone = (By.CSS_SELECTOR, 'div.input-wrapper.green > input[name="phone"]')
     registr_popup_passw = (By.CSS_SELECTOR, 'div.input-wrapper.green > input[name="password"]')
     registr_popup_chec = (By.CSS_SELECTOR, 'label.check-label > input[type="checkbox"]')
-    registr_popup_add = (By.CSS_SELECTOR, 'label.submit-popup > input[type="submit"]')
+    registr_popup_submit = (By.CSS_SELECTOR, 'label.submit-popup > input[type="submit"]')
     registr_popup_close = (By.CSS_SELECTOR, '#auth-popup > div > div > div > div.top > div > svg')
 
     # Blogs locators
-    blog_card_1 = (By.XPATH, '//*[@id="content-wrapper"]/section[4]/div[2]/div/div/div[1]/div/a/div[2]/div[1]')
-    blog_card_2 = (By.XPATH, '//*[@id="content-wrapper"]/section[4]/div[2]/div/div/div[2]/div/a/div[2]/div[1]')
-    blog_card_3 = (By.XPATH, '//*[@id="content-wrapper"]/section[4]/div[2]/div/div/div[3]/div/a/div[2]/div[1]')
-    blog_btn = (By.CSS_SELECTOR, 'section[class="main-blog"] > div[class="button-holder"] > a')
-    blog_title = (By.CSS_SELECTOR, 'div[class="article-top"] > h1')
+    blog_section = (By.CSS_SELECTOR, '#content-wrapper > section.main-blog')
+    blog_click_1 = (By.CSS_SELECTOR, 'div.blogs-items-holder > a.blog-item.blue')
+    blog_click_2 = (By.CSS_SELECTOR, 'div.blogs-items-holder > a.blog-item.orange')
+    blog_click_3 = (By.CSS_SELECTOR, 'div.blogs-items-holder > a.blog-item.yellow')
+    blog_titles_1 = (By.CSS_SELECTOR, 'a.blog-item.blue > div.titles > div.title')
+    blog_titles_2 = (By.CSS_SELECTOR, 'a.blog-item.orange > div.titles > div.title')
+    blog_titles_3 = (By.CSS_SELECTOR, 'a.blog-item.yellow > div.titles > div.title')
+
+    blog_btn = (By.CSS_SELECTOR, 'section.main-blog > div.button-holder > a')
+    blog_title = (By.CSS_SELECTOR, 'div.article-top > h1')
 
     # FOOTERS LOCATORS
     footers_left_btns = (

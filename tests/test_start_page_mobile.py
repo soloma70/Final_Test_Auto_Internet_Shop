@@ -21,23 +21,13 @@ def test_start_page(web_driver_mobile):
 
 
 @pytest.mark.positive
-def test_search_close_start_page(web_driver_mobile):
-    """Тест проверяет клик на иконку поиска и закрытие окна"""
-
-    page_start = StartPage(web_driver_mobile, 5)
-    page_start.search_field_click_close()
-    assert page_start.get_relative_link() == '/' or \
-           page_start.get_relative_link() == '/uk/', 'Transition error'
-
-
-@pytest.mark.positive
-@pytest.mark.parametrize("test_search_p", ['линзы', 'lens', 123], ids=['search ru', 'search en', 'search digit'])
-def test_search_start_page_positive(web_driver_mobile, test_search_p):
+@pytest.mark.parametrize("test_search", ['линзы', 'lens', 123], ids=['search ru', 'search en', 'search digit'])
+def test_search_positive_start_page(web_driver_mobile, test_search):
     """Тест проверяет работу поиска с различными позитивными данными"""
 
-    page_start = StartPage(web_driver_mobile, 5)
-    page_start.search_field_click_search(test_search_p)
-    amount = int(web_driver_mobile.find_element(*StartLocatorsMobile.search_result).text)
+    page = StartPage(web_driver_mobile, 5)
+    page.search_field_click_search(test_search)
+    amount = page.amount_found_result()
     assert amount > 0, 'Field "Search" working unsucсess'
 
 
@@ -47,12 +37,12 @@ def test_search_start_page_positive(web_driver_mobile, test_search_p):
                              , AuxMetods.russian_chars(), AuxMetods.russian_chars().upper(), AuxMetods.chinese_chars()
                              , AuxMetods.special_chars()]
     , ids=['any', '255 sym', '> 1000 sym', 'russian', 'RUSSIAN', 'chinese', 'specials'])
-def test_search_start_page_negative(web_driver_mobile, test_search):
+def test_search_negative_start_page(web_driver_mobile, test_search):
     """Тест проверяет поле поиска с различными негативными данными и корректность обработки запроса"""
 
-    page_start = StartPage(web_driver_mobile, 5)
-    page_start.search_field_click_search(test_search)
-    amount = int(web_driver_mobile.find_element(*StartLocatorsMobile.search_result).text)
+    page = StartPage(web_driver_mobile, 5)
+    page.search_field_click_search(test_search)
+    amount = page.amount_found_result()
     assert amount == 0, 'Field "Search" working unsucсess'
 
 
@@ -60,11 +50,11 @@ def test_search_start_page_negative(web_driver_mobile, test_search):
 def test_wishlist_btn_start_page(web_driver_mobile):
     """Тест проверяет кликабельность "Список желаний" без авторизации"""
 
-    page_start = StartPage(web_driver_mobile, 5)
-    page_start.wishlist_btn_click()
-    assert web_driver_mobile.find_element(*StartLocatorsMobile.login_submit).is_enabled() \
-        , 'Transition error'
-    web_driver_mobile.find_element(*StartLocatorsMobile.login_close).click()
+    page = StartPage(web_driver_mobile, 5)
+    page.wishlist_btn_click()
+    title = page.login_title()
+    assert title.is_displayed() and title.text == 'Вход', 'Transition error'
+    page.login_close()
 
 
 @pytest.mark.smoke
@@ -72,89 +62,95 @@ def test_wishlist_btn_start_page(web_driver_mobile):
 def test_cart_start_page(web_driver_mobile):
     """Тест проверяет кликабельность "Корзина" без авторизации"""
 
-    page_start = StartPage(web_driver_mobile, 5)
-    page_start.cart_btn_click()
-    assert page_start.get_relative_link() == '/ru/cart/' \
-           or page_start.get_relative_link() == '/uk/cart/', 'Transition error'
-    web_driver_mobile.find_element(*StartLocatorsMobile.logo_img_mobile).click()
+    page = StartPage(web_driver_mobile, 5)
+    page.cart_btn_click()
+    assert page.get_relative_link() == '/ru/cart/' \
+           or page.get_relative_link() == '/uk/cart/', 'Transition error'
+    page.get_url(page.url)
 
+
+# !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+# Добавить авторизацию с валидными данными
 
 @pytest.mark.positive
 def test_menu_start_page(web_driver_mobile):
     """Тест проверяет кликабельность меню и переход на соответствующие страницы меню, закрытие меню"""
 
-    page_start = StartPage(web_driver_mobile, 5)
-    page_start.menu_btn_click()
-    page_start.menu_close_btn_click()
-    assert page_start.get_relative_link() == '/' or \
-           page_start.get_relative_link() == '/uk/', 'Transition error'
+    page = StartPage(web_driver_mobile, 5)
+    page.menu_btn_click()
+    page.menu_close_click()
+    assert page.get_relative_link() == '/' or \
+           page.get_relative_link() == '/uk/', 'Transition error'
 
     # Проверка переключения языков
-    web_driver_mobile.find_element(*StartLocatorsMobile.menu_button).click()
-    web_driver_mobile.find_element(*StartLocatorsMobile.lang_btn_active).click()
-    web_driver_mobile.find_element(*StartLocatorsMobile.lang_btn).click()
-    assert page_start.get_relative_link() == '/uk/', 'Transition error'
-    web_driver_mobile.find_element(*StartLocatorsMobile.menu_button).click()
-    web_driver_mobile.find_element(*StartLocatorsMobile.lang_btn_active).click()
-    web_driver_mobile.find_element(*StartLocatorsMobile.lang_btn).click()
-    assert page_start.get_relative_link() == '/', 'Transition error'
+    page.menu_btn_click()
+    page.lang_btn_active_click()
+    page.lang_btn_click()
+    assert page.get_relative_link() == '/uk/', 'Transition error'
+
+    page.menu_btn_click()
+    page.lang_btn_active_click()
+    page.lang_btn_click()
+    assert page.get_relative_link() == '/', 'Transition error'
 
     # Перебор в цикле пунктов меню
-    menu_points = page_start.menu_points
-    menu_points_hidden = page_start.menu_points_hidden
+    menu_points = page.menu_points
+    menu_points_hidden = page.menu_points_hidden
 
     for index in range(len(menu_points) - len(menu_points_hidden)):
-        web_driver_mobile.find_element(*StartLocatorsMobile.menu_button).click()
-        web_driver_mobile.find_elements(*StartLocatorsMobile.menu_points_main)[index].click()
+        page.menu_btn_click()
+        page.menu_points_main_click(index)
         # time.sleep(2)
-        assert page_start.get_relative_link() == LinsaUa.main_menu_urls[index][0] or \
-               page_start.get_relative_link() == LinsaUa.main_menu_urls[index][1], 'Transition error'
-        web_driver_mobile.find_element(*StartLocatorsMobile.logo_img_mobile).click()
+        assert page.get_relative_link() == LinsaUa.main_menu_urls[index][0] or \
+               page.get_relative_link() == LinsaUa.main_menu_urls[index][1], 'Transition error'
+        page.get_url(page.url)
 
     for index in range(len(menu_points_hidden)):
-        web_driver_mobile.find_element(*StartLocatorsMobile.menu_button).click()
-        web_driver_mobile.find_elements(*StartLocatorsMobile.menu_points_hidden)[index].click()
+        page.menu_btn_click()
+        page.menu_points_hidden_click(index)
         # time.sleep(2)
-        assert page_start.get_relative_link() == LinsaUa.left_menu_urls[index][0] or \
-               page_start.get_relative_link() == LinsaUa.left_menu_urls[index][1], 'Transition error'
-        web_driver_mobile.find_element(*StartLocatorsMobile.logo_img_mobile).click()
+        assert page.get_relative_link() == LinsaUa.left_menu_urls[index][0] or \
+               page.get_relative_link() == LinsaUa.left_menu_urls[index][1], 'Transition error'
+        page.get_url(page.url)
 
 
 @pytest.mark.positive
 def test_banners_start_page(web_driver_mobile):
-    """Тест проверяет кликабельность баннеров и переход на соответствующие страницы"""
+    """Тест проверяет кликабельность баннеров и переход на соответствующие страницы, а так же не нулевое
+    количество продуктов"""
 
-    page_start = StartPage(web_driver_mobile, 5)
+    page = StartPage(web_driver_mobile, 5)
 
     # Перебор в цикле баннеры
     for index in range(3):
-        web_driver_mobile.find_elements(*StartLocatorsMobile.banner_points)[index].click()
-        sleep(2)
-        amount_page = int(web_driver_mobile.find_element(*StartLocatorsMobile.amount_product).text.strip())
-        assert page_start.get_relative_link() == LinsaUa.banners_urls[index][0] or \
-               page_start.get_relative_link() == LinsaUa.banners_urls[index][1], 'Transition error'
-        assert amount_page > 0, f'Amount = 0, are not positions'
-        web_driver_mobile.find_element(*StartLocatorsMobile.logo_img_mobile).click()
-        sleep(2)
+        page.banner_points_click(index)
+        sleep(1)
+        amount_products = page.amount_products()
+        assert page.get_relative_link() == LinsaUa.banners_urls[index][0] or \
+               page.get_relative_link() == LinsaUa.banners_urls[index][1], 'Transition error'
+        assert amount_products > 0, f'Amount = 0, are not positions'
+        page.get_url(page.url)
 
 
+@pytest.mark.smoke
 @pytest.mark.positive
 def test_action_banners_start_page(web_driver_mobile):
     """Тест проверяет кликабельность акционного баннера и переход на соответствующую страницу,
     добавление 1-й акционной позиции в корзину"""
 
-    page_start = StartPage(web_driver_mobile, 5)
-    page_start.all_sales_prods_click()
-    assert page_start.get_relative_link() == LinsaUa.main_menu_urls[0][0] or \
-           page_start.get_relative_link() == LinsaUa.main_menu_urls[1][0], 'Transition error'
-    web_driver_mobile.find_element(*StartLocatorsMobile.logo_img_mobile).click()
-    # Добавление в корзину солнечных очков
-    amount_cart_before = int(web_driver_mobile.find_element(*StartLocatorsMobile.amount_cart).text)
-    web_driver_mobile.find_element(*StartLocatorsMobile.sales_sunglass).click()
-    web_driver_mobile.find_element(*StartLocatorsMobile.add_cart_sunglass).click()
-    web_driver_mobile.find_element(*StartLocatorsMobile.close_cart_popup).click()
-    web_driver_mobile.find_element(*StartLocatorsMobile.logo_img_mobile).click()
-    amount_cart_after = int(web_driver_mobile.find_element(*StartLocatorsMobile.amount_cart).text)
+    page = StartPage(web_driver_mobile, 5)
+    page.all_sales_prods_click()
+    assert page.get_relative_link() == LinsaUa.main_menu_urls[0][0] or \
+           page.get_relative_link() == LinsaUa.main_menu_urls[1][0], 'Transition error'
+    page.get_url(page.url)
+
+    # Добавление в корзину 1-го акционного продукта
+    amount_cart_before = page.amount_cart_mobile()
+    page.sales_banner_first_position()
+    page.add_cart_product_def_par()
+    page.close_cart_popup()
+    page.get_url(page.url)
+    amount_cart_after = page.amount_cart_mobile()
     assert amount_cart_before + 1 == amount_cart_after, "ERROR! Product don't add to cart"
 
 
@@ -163,20 +159,14 @@ def test_love_brands_start_page(web_driver_mobile):
     """Тест проверяет кликабельность баннеров "Любимые бренды"
     и отображение соответствующих им элементов в ленте"""
 
-    page_start = StartPage(web_driver_mobile, 5)
-    page_start.love_brands_lenses.click()
-    sleep(2)
-    assert page_start.avisor.is_displayed()
-    page_start.love_brands_accessories.click()
-    sleep(2)
-    assert page_start.okvision[2].is_displayed() or page_start.okvision[1].is_displayed()
-    page_start.love_brands_sunglasses.click()
-    sleep(2)
-    assert page_start.rayban.is_displayed()
-    web_driver_mobile.execute_script("window.scrollTo(0, 0)")
-    sleep(2)
-    assert web_driver_mobile.find_element(*StartLocatorsMobile.logo_img_mobile).is_displayed() \
-        , 'ERROR! Start Image is not displayed'
+    page = StartPage(web_driver_mobile)
+    page.move_to_element_love_blands()
+    page.goto_love_brands_lenses()
+    page.save_screen_browser('love_barnds_lenses_mob')
+    page.goto_love_brands_accessories()
+    page.save_screen_browser('love_barnds_acces_mob')
+    page.goto_love_brands_sunglasses()
+    page.save_screen_browser('love_barnds_sg_mob')
 
 
 @pytest.mark.smoke
@@ -184,25 +174,13 @@ def test_love_brands_start_page(web_driver_mobile):
 def test_registration_start_page(web_driver_mobile):
     """Тест проверяет кликабельность и заполнение полей формы регистрации на стартовой странице """
 
-    page_start = StartPage(web_driver_mobile, 10)
-    page_start.reg_btn.click()
-    assert web_driver_mobile.find_element(*StartLocatorsMobile.registr_popup_windows).is_displayed(), \
-        'ERROR! PopUp Registration is not displayed'
-    name = web_driver_mobile.find_element(*StartLocatorsMobile.registr_popup_name)
-    name.clear()
-    name.send_keys(RegSets.reg_name)
-    phone = web_driver_mobile.find_element(*StartLocatorsMobile.registr_popup_phone)
-    phone.clear()
-    phone.send_keys(RegSets.reg_phone)
-    passw = web_driver_mobile.find_element(*StartLocatorsMobile.registr_popup_passw)
-    passw.clear()
-    passw.send_keys(RegSets.reg_passw)
-    web_driver_mobile.find_element(*StartLocatorsMobile.registr_popup_chec).click()
-    sleep(2)
-    page_start.close.click()
+    page = StartPage(web_driver_mobile)
+    page.registration_btn()
+    assert page.registration_popup_win().is_displayed(), 'ERROR! PopUp Registration is not displayed'
+    page.input_reg_data_mobile(RegSets.reg_name, RegSets.reg_phone, RegSets.reg_passw)
+    page.save_screen_browser('registration_popup_mob')
+    page.registration_close()
     web_driver_mobile.execute_script("window.scrollTo(0, 0)")
-    assert web_driver_mobile.find_element(*StartLocatorsMobile.logo_img_mobile).is_displayed(), \
-        'ERROR! Start Image is not displayed'
 
 
 @pytest.mark.positive
@@ -210,26 +188,33 @@ def test_blogs_start_page(web_driver_mobile):
     """Тест проверяет кликабельность блоков в разделе "Оптический блог"
     и корректность перехода по ссылкам """
 
-    page_start = StartPage(web_driver_mobile, 10)
-    # page_start.win_scroll_bl
-    blog_card_11 = page_start.blog_card_1
-    blog_card_1 = page_start.blog_card_1.text
-    blog_card_2 = page_start.blog_card_2.text
+    page = StartPage(web_driver_mobile)
+
+    list_blog_titles = page.blog_card_titles()
+
     # Click for card 1
-    blog_card_11.click()
-    blog_title_1 = web_driver_mobile.find_element(*StartLocatorsMobile.blog_title).text
-    web_driver_mobile.find_element(*StartLocatorsMobile.logo_img_mobile).click()
+    page.goto_blog(1)
+    blog_title_1 = page.blog_title()
+    page.get_url(page.url)
+
     # Click for card 2
-    web_driver_mobile.find_element(*StartLocatorsMobile.blog_card_2).click()
-    blog_title_2 = web_driver_mobile.find_element(*StartLocatorsMobile.blog_title).text
-    web_driver_mobile.find_element(*StartLocatorsMobile.logo_img_mobile).click()
+    page.goto_blog(2)
+    blog_title_2 = page.blog_title()
+    page.get_url(page.url)
+
+    # Click for card 3
+    page.goto_blog(3)
+    blog_title_3 = page.blog_title()
+    page.get_url(page.url)
+
+    list_title = [blog_title_1, blog_title_2, blog_title_3]
+
     # Click for btn 'Больше новостей'
     web_driver_mobile.find_element(*StartLocatorsMobile.blog_btn).click()
-    blog_url = page_start.get_relative_link()
-    web_driver_mobile.find_element(*StartLocatorsMobile.logo_img_mobile).click()
+    blog_url = page.get_relative_link()
+    page.get_url(page.url)
 
-    assert blog_card_1 == blog_title_1, f'ERROR! Bad transaction: {blog_card_1} != {blog_title_1}'
-    assert blog_card_2 == blog_title_2, f'ERROR! Bad transaction: {blog_card_2} != {blog_title_2}'
+    assert list_blog_titles == list_title, f'ERROR! Bad transaction: {list_blog_titles} != {list_title}'
     assert blog_url == LinsaUa.main_menu_urls[5][0] or blog_url == LinsaUa.main_menu_urls[5][1] \
         , f'ERROR! Bad transaction for {blog_url}'
 
@@ -239,38 +224,38 @@ def test_footer_start_page(web_driver_mobile):
     """Тест проверяет кликабельность блоков в footers
     и корректность перехода по ссылкам """
 
-    page_start = StartPage(web_driver_mobile, 10)
+    page = StartPage(web_driver_mobile, 10)
     pages_footers = []
-    footers_left = page_start.footers_left_btns
-    footers_right = page_start.footers_right_btns
+    footers_left = page.footers_left_btns
+    footers_right = page.footers_right_btns
 
-    for index, locator in enumerate(footers_left):
-        web_driver_mobile.find_elements(*StartLocatorsMobile.footers_left_btns)[index].click()
-        pages_footers.append(page_start.get_relative_link())
-        web_driver_mobile.find_element(*StartLocatorsMobile.logo_img_mobile).click()
+    for index in range(len(footers_left)):
+        page.goto_footer_left(index)
+        pages_footers.append(page.get_relative_link())
+        page.get_url(page.url)
 
-    for index, locator in enumerate(footers_right):
-        web_driver_mobile.find_elements(*StartLocatorsMobile.footers_right_btns)[index].click()
-        pages_footers.append(page_start.get_relative_link())
-        web_driver_mobile.find_element(*StartLocatorsMobile.logo_img_mobile).click()
+    for index in range(len(footers_right)):
+        page.goto_footer_right(index)
+        pages_footers.append(page.get_relative_link())
+        page.get_url(page.url)
 
-    web_driver_mobile.find_element(*StartLocatorsMobile.footer_bottom_left_btn).click()
-    pages_footers.append(page_start.get_relative_link())
-    web_driver_mobile.find_element(*StartLocatorsMobile.logo_img_mobile).click()
+    page.goto_footer_bottom_left()
+    pages_footers.append(page.get_relative_link())
+    page.get_url(page.url)
 
-    web_driver_mobile.find_element(*StartLocatorsMobile.footer_bottom_right_btn).click()
-    pages_footers.append(page_start.get_relative_link())
-    web_driver_mobile.find_element(*StartLocatorsMobile.logo_img_mobile).click()
+    page.goto_footer_bottom_right()
+    pages_footers.append(page.get_relative_link())
+    page.get_url(page.url)
 
     for index in range(2):
-        web_driver_mobile.find_elements(*StartLocatorsMobile.footer_middle_btns)[index].click()
+        page.goto_footer_middle(index)
         windows = web_driver_mobile.window_handles
         web_driver_mobile.switch_to.window(windows[1])
         pages_footers.append(web_driver_mobile.current_url)
         web_driver_mobile.close()
         sleep(2)
         web_driver_mobile.switch_to.window(windows[0])
-        web_driver_mobile.find_element(*StartLocatorsMobile.logo_img_mobile).click()
+        page.get_url(page.url)
 
     # Переход на страницу инстаграм не проверяется, требует логин инстаграм
     for index in range(11):

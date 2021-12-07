@@ -62,7 +62,6 @@ class Headers(BasePage):
 
     def answer_nonvalid_data(self) -> str:
         answer = WebDriverWait(self.driver, 10).until(EC.visibility_of_element_located(RegLocators.login_answer))
-        # answer = self.driver.find_element(*RegLocators.login_answer).text
         return answer.text
 
     def auth_cancel(self):
