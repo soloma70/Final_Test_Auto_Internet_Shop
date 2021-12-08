@@ -1,3 +1,4 @@
+from time import sleep
 from selenium.webdriver.remote.webelement import WebElement
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.wait import WebDriverWait
@@ -5,7 +6,6 @@ from selenium.webdriver.support import expected_conditions as EC
 from pages.base_page import BasePage
 from pages.url_list import LinsaUa
 from pages.locators import StartLocators, RegLocators, CabinetLocators
-from time import sleep
 
 
 class Headers(BasePage):
@@ -21,10 +21,10 @@ class Headers(BasePage):
         self.driver.find_element(*StartLocators.logo_img).click()
 
     def search_field_click(self, search_value):
-        self.search_field = self.driver.find_element(*StartLocators.search_field)
-        self.search_field.clear()
-        self.search_field.send_keys(search_value)
-        self.search_field.send_keys(Keys.ENTER)
+        search_field = self.driver.find_element(*StartLocators.search_field)
+        search_field.clear()
+        search_field.send_keys(search_value)
+        search_field.send_keys(Keys.ENTER)
 
     def callback_btn_click(self):
         self.driver.find_element(*StartLocators.callback_btn).click()
@@ -146,4 +146,3 @@ class Headers(BasePage):
         self.driver.find_element(*StartLocators.menu_button).click()
         WebDriverWait(self.driver, 10).until(EC.visibility_of_element_located(StartLocators.menu_button_close))
         self.driver.find_elements(*StartLocators.menu_points)[index].click()
-
