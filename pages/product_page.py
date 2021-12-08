@@ -4,9 +4,6 @@ from pages.locators import SunglassLocators, ProductLocators, FramesLocators
 from time import sleep
 from selenium.webdriver.common.by import By
 from selenium.common.exceptions import NoSuchElementException
-from selenium.webdriver.remote.webelement import WebElement
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
 
 
 class ProductPage(BasePage):
@@ -29,11 +26,7 @@ class ProductPage(BasePage):
 
     def pass_popup_banner(self):
         self.driver.find_elements(*ProductLocators.filters)[0].click()
-        sleep(6)
-        # self.driver.find_element(By.CSS_SELECTOR,
-        #                       'div.close-btn-x-new-dot.click-lgwg-dot-close-lock.animClass03').click()
-        # wait = WebDriverWait(self.driver, 10)
-        # wait.until(EC.visibility_of(By.ID('visualBlockWidgetLGWGPopff808d04311853ba8d1fa98b93462108')))
+        sleep(5)
         self.driver.get(self.url)
 
     def filter_click(self, index: int, test_set: str, type_filter: str):
