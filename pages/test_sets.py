@@ -7,6 +7,7 @@ class AuthSets:
                ['Запорожье', 'вул. Цитрусова', '4', '56']]
     birthday = '15.06.1985'
     my_wish_list = 'Тестовый список желаний'
+    test_wish_list = 'User Stories Wishlist'
 
 class RegSets:
     reg_name = 'Иванов Сергей'
@@ -189,7 +190,8 @@ class CareSets:
     filter_set_uc = [
             'ALCON',
             '120мл',
-            'МНОГОФУНКЦИОНАЛЬНЫЙ РАСТВОР'
+            'МНОГОФУНКЦИОНАЛЬНЫЙ РАСТВОР',
+            'Opti-Free Express'
             ]
 
     set_vol = '355мл'
