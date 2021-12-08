@@ -1,10 +1,10 @@
 from time import sleep
 from urllib.parse import urlparse
+from random import randint
 from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver import ActionChains
 from selenium.webdriver.common.by import By
 from pages.locators import CartLocators, ProductLocators, ProductLensLocators, PaginLocators
-from random import randint
 
 
 class BasePage(object):
@@ -44,7 +44,7 @@ class BasePage(object):
         amount_on_page = len(self.driver.find_elements(*ProductLocators.cards_prod_url))
         return amount_on_page
 
-    def amount_page_visible(self, url: str) -> int:
+    def amount_page_visible(self) -> int:
         pagination = self.driver.find_elements(*PaginLocators.pagination)
         return len(pagination)
 
@@ -94,7 +94,8 @@ class BasePage(object):
         self.driver.find_element(*CartLocators.close_popup_cart).click()
         sleep(1)
 
-    def rand_prod_page(self, amount_page: int, amount_rand_page: int, last_page=False) -> list[int]:
+    @staticmethod
+    def rand_prod_page(amount_page: int, amount_rand_page: int, last_page=False) -> list[int]:
         if not last_page:
             page_num = [1]
         else:
@@ -105,7 +106,8 @@ class BasePage(object):
         page_num.sort()
         return page_num
 
-    def rand_prod_card(self, amount: int) -> int:
+    @staticmethod
+    def rand_prod_card(amount: int) -> int:
         index = randint(0, amount)
         return index
 
