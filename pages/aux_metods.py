@@ -6,8 +6,8 @@ class AuxMetods:
     """Класс вспомагательных методов, которые используются в параметризации, для добавления различных строк и цифр"""
 
     @staticmethod
-    def generate_string(n: int) -> str:
-        return "x" * n
+    def generate_string(factor: int) -> str:
+        return "x" * factor
 
     @staticmethod
     def russian_chars() -> str:
