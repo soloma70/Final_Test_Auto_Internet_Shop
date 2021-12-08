@@ -4,7 +4,11 @@ from random import randint
 from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver import ActionChains
 from selenium.webdriver.common.by import By
-from pages.locators import CartLocators, ProductLocators, ProductLensLocators, PaginLocators
+from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.support.wait import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+from pages.locators import CartLocators, CabinetLocators
+from pages.locators import StartLocators, ProductLocators, ProductLensLocators, PaginLocators
 
 
 class BasePage(object):
@@ -30,6 +34,12 @@ class BasePage(object):
 
     def get_current_url(self) -> str:
         return self.driver.current_url
+
+    def search_field_click(self, search_value):
+        search_field = self.driver.find_element(*StartLocators.search_field)
+        search_field.clear()
+        search_field.send_keys(search_value)
+        search_field.send_keys(Keys.ENTER)
 
     def find_prod_name(self):
         return self.driver.find_element(*ProductLocators.name)
@@ -155,3 +165,23 @@ class BasePage(object):
             else:
                 list_price.append(list_pre[i][0])
         return list_price
+
+    def add_prod_wishlist(self, name_wishlist: str):
+        self.driver.find_elements(*ProductLocators.card_prod_wishlist)[0].click()
+        self.driver.find_element(*CabinetLocators.choise_name_wishlist).click()
+        wishlists = self.driver.find_elements(*CabinetLocators.wishlists)
+        list_wishlist = [wishlist.text for wishlist in wishlists]
+        i = self.choise_point_list(name_wishlist, list_wishlist)
+        wishlists[i].click()
+        self.driver.find_element(*CabinetLocators.add_in_wishlist).click()
+        title_success = WebDriverWait(self.driver, 5).until(
+            EC.visibility_of_element_located(CabinetLocators.title_success)).text
+        self.driver.find_element(*CabinetLocators.close_success).click()
+        return title_success
+
+    @staticmethod
+    def choise_point_list(name_test: str, elem_list: list) -> int:
+        i = 0
+        while name_test != elem_list[i]:
+            i += 1
+        return i
