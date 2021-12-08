@@ -1,13 +1,13 @@
-from selenium.webdriver import ActionChains
 
 from pages.base_page import BasePage
 from pages.url_list import LinsaUa
 from pages.locators import StartLocatorsMobile
+from time import sleep
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.remote.webelement import WebElement
 from selenium.webdriver.support.wait import WebDriverWait
+from selenium.webdriver import ActionChains
 from selenium.webdriver.support import expected_conditions as EC
-from time import sleep
 
 
 class StartPage(BasePage):
@@ -39,10 +39,10 @@ class StartPage(BasePage):
 
     def search_field_click_search(self, search_value):
         self.driver.find_element(*StartLocatorsMobile.search_field_img).click()
-        self.search_field = self.driver.find_element(*StartLocatorsMobile.search_field)
-        self.search_field.clear()
-        self.search_field.send_keys(search_value)
-        self.search_field.send_keys(Keys.ENTER)
+        search_field = self.driver.find_element(*StartLocatorsMobile.search_field)
+        search_field.clear()
+        search_field.send_keys(search_value)
+        search_field.send_keys(Keys.ENTER)
 
     def amount_found_result(self) -> int:
         amount = int(self.driver.find_element(*StartLocatorsMobile.search_result).text)
@@ -51,7 +51,7 @@ class StartPage(BasePage):
     def wishlist_btn_click(self):
         self.driver.find_element(*StartLocatorsMobile.wishlist_btns).click()
 
-    def login_title(self) -> WebElement:
+    def wait_login_title(self) -> WebElement:
         return WebDriverWait(self.driver, 10).until(EC.visibility_of_element_located(StartLocatorsMobile.login_title))
 
     def login_close(self):
@@ -68,6 +68,40 @@ class StartPage(BasePage):
 
     def menu_btn_click(self):
         self.driver.find_element(*StartLocatorsMobile.menu_button).click()
+
+    def menu_autor_click(self):
+        self.driver.find_element(*StartLocatorsMobile.menu_enter).click()
+
+    def input_autor_data(self, a_phone: str, a_passw: str):
+        phone = self.driver.find_element(*StartLocatorsMobile.login_name)
+        phone.clear()
+        phone.send_keys(a_phone)
+        passw = self.driver.find_element(*StartLocatorsMobile.registr_popup_passw)
+        passw.clear()
+        passw.send_keys(a_passw)
+
+    def menu_autor_submit(self):
+        self.driver.find_element(*StartLocatorsMobile.login_submit).click()
+
+    def wait_download_cabinet(self) -> str:
+        name = WebDriverWait(self.driver, 10).until(EC.visibility_of_element_located(StartLocatorsMobile.user_name))
+        return f'{name.text.split()[1]} {name.text.split()[0]}'
+
+    def exit_cabinet(self):
+        element = self.driver.find_element(*StartLocatorsMobile.exit_cabinet)
+        ActionChains(self.driver).move_to_element(element).perform()
+        element.click()
+
+    def amount_tab_cabinet_menu(self) -> int:
+        return len(self.driver.find_elements(*StartLocatorsMobile.cabinet_menu_mobile))
+
+    def goto_cabinet_menu(self, index: int) -> str:
+        element_menu = self.driver.find_elements(*StartLocatorsMobile.cabinet_menu_mobile)[index]
+        ActionChains(self.driver).move_to_element(element_menu).perform()
+        element_menu.click()
+        part_url = self.get_relative_link().split('/')
+        menu_url = f'/{part_url[1]}/{part_url[2]}/'
+        return menu_url
 
     def menu_close_click(self):
         self.driver.find_element(*StartLocatorsMobile.menu_button_close).click()
@@ -182,6 +216,3 @@ class StartPage(BasePage):
 
     def goto_footer_middle(self, index: int):
         self.driver.find_elements(*StartLocatorsMobile.footer_middle_btns)[index].click()
-
-
-

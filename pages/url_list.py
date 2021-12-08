@@ -32,6 +32,8 @@ class LinsaUa:
         ['/ru/saved-news/', '/uk/saved-news/']
     ]
 
+    cabinet_exit = ['/ru/cabinet/#', '/uk/cabinet/#']
+
     cart = [
         ['/ru/cart/', '/uk/cart/']
     ]
@@ -66,6 +68,7 @@ class LinsaUa:
         ['https://www.instagram.com/linza.ua/', 'https://www.instagram.com/linza.ua/'],
     ]
 
+    @staticmethod
     def aggregation_urls(lng: str, locator: list, index: int) -> str:
         if lng == 'ru':
             url = f'{LinsaUa.start_url}{locator[index][0]}'
@@ -75,54 +78,66 @@ class LinsaUa:
             url = f'{LinsaUa.start_url}'
         return url
 
+    @staticmethod
     def sales_url(lng='ru') -> str:
         sales_url = LinsaUa.aggregation_urls(lng, LinsaUa.main_menu_urls, 0)
         return sales_url
 
+    @staticmethod
     def lens_url(lng='ru') -> str:
         lens_url = LinsaUa.aggregation_urls(lng, LinsaUa.main_menu_urls, 1)
         return lens_url
 
+    @staticmethod
     def frames_url(lng='ru') -> str:
         frame_url = LinsaUa.aggregation_urls(lng, LinsaUa.main_menu_urls, 2)
         return frame_url
 
+    @staticmethod
     def sunglass_url(lng='ru') -> str:
         sunglass_url = LinsaUa.aggregation_urls(lng, LinsaUa.main_menu_urls, 3)
         return sunglass_url
 
+    @staticmethod
     def care_url(lng='ru') -> str:
         care_url = LinsaUa.aggregation_urls(lng, LinsaUa.main_menu_urls, 4)
         return care_url
 
+    @staticmethod
     def blog_url(lng='ru') -> str:
         blog_url = LinsaUa.aggregation_urls(lng, LinsaUa.main_menu_urls, 5)
         return blog_url
 
+    @staticmethod
     def cart_url(lng='ru') -> str:
         cart_url = LinsaUa.aggregation_urls(lng, LinsaUa.cart, 0)
         return cart_url
 
+    @staticmethod
     def cabinet_url(lng='ru') -> str:
         cabinet_url = LinsaUa.aggregation_urls(lng, LinsaUa.cabinet, 0)
         return cabinet_url
-
+    @staticmethod
     def edit_profile_url(lng='ru') -> str:
         edit_profile_url = LinsaUa.aggregation_urls(lng, LinsaUa.cabinet, 1)
         return edit_profile_url
 
+    @staticmethod
     def wishlist_url(lng='ru') -> str:
         wishlist_url = LinsaUa.aggregation_urls(lng, LinsaUa.cabinet, 2)
         return wishlist_url
 
+    @staticmethod
     def orders_url(lng='ru') -> str:
         orders_url = LinsaUa.aggregation_urls(lng, LinsaUa.cabinet, 3)
         return orders_url
 
+    @staticmethod
     def addresses_url(lng='ru') -> str:
         addresses_url = LinsaUa.aggregation_urls(lng, LinsaUa.cabinet, 4)
         return addresses_url
 
+    @staticmethod
     def saved_new_url(lng='ru') -> str:
         saved_new_url = LinsaUa.aggregation_urls(lng, LinsaUa.cabinet, 4)
         return saved_new_url

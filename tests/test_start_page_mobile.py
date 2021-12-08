@@ -1,10 +1,9 @@
 # -*- encoding=utf8 -*-
 
-from time import sleep
 import pytest
 from pages.start_page_mobile import StartPage
 from pages.locators import StartLocatorsMobile
-from pages.test_sets import RegSets
+from pages.test_sets import RegSets, AuthSets
 from pages.url_list import LinsaUa
 from pages.aux_metods import AuxMetods
 
@@ -16,8 +15,7 @@ def test_start_page(web_driver_mobile):
 
     page_start = StartPage(web_driver_mobile)
     page_start.start_img_click()
-    assert page_start.get_relative_link() == '/' or \
-           page_start.get_relative_link() == '/uk/', 'Transition error'
+    assert page_start.get_relative_link() in ('/', '/uk/'), 'Transition error'
 
 
 @pytest.mark.positive
@@ -52,7 +50,7 @@ def test_wishlist_btn_start_page(web_driver_mobile):
 
     page = StartPage(web_driver_mobile, 5)
     page.wishlist_btn_click()
-    title = page.login_title()
+    title = page.wait_login_title()
     assert title.is_displayed() and title.text == 'Вход', 'Transition error'
     page.login_close()
 
@@ -64,13 +62,9 @@ def test_cart_start_page(web_driver_mobile):
 
     page = StartPage(web_driver_mobile, 5)
     page.cart_btn_click()
-    assert page.get_relative_link() == '/ru/cart/' \
-           or page.get_relative_link() == '/uk/cart/', 'Transition error'
+    assert page.get_relative_link() in ('/ru/cart/', '/uk/cart/'), 'Transition error'
     page.get_url(page.url)
 
-
-# !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-# Добавить авторизацию с валидными данными
 
 @pytest.mark.positive
 def test_menu_start_page(web_driver_mobile):
@@ -79,8 +73,7 @@ def test_menu_start_page(web_driver_mobile):
     page = StartPage(web_driver_mobile, 5)
     page.menu_btn_click()
     page.menu_close_click()
-    assert page.get_relative_link() == '/' or \
-           page.get_relative_link() == '/uk/', 'Transition error'
+    assert page.get_relative_link() == '/' or page.get_relative_link() == '/uk/', 'Transition error'
 
     # Проверка переключения языков
     page.menu_btn_click()
@@ -100,18 +93,37 @@ def test_menu_start_page(web_driver_mobile):
     for index in range(len(menu_points) - len(menu_points_hidden)):
         page.menu_btn_click()
         page.menu_points_main_click(index)
-        # time.sleep(2)
-        assert page.get_relative_link() == LinsaUa.main_menu_urls[index][0] or \
-               page.get_relative_link() == LinsaUa.main_menu_urls[index][1], 'Transition error'
+        assert page.get_relative_link() in (
+            LinsaUa.main_menu_urls[index][0], LinsaUa.main_menu_urls[index][1]), 'Transition error'
         page.get_url(page.url)
 
     for index in range(len(menu_points_hidden)):
         page.menu_btn_click()
         page.menu_points_hidden_click(index)
-        # time.sleep(2)
-        assert page.get_relative_link() == LinsaUa.left_menu_urls[index][0] or \
-               page.get_relative_link() == LinsaUa.left_menu_urls[index][1], 'Transition error'
+        assert page.get_relative_link() in (
+            LinsaUa.left_menu_urls[index][0], LinsaUa.left_menu_urls[index][1]), 'Transition error'
         page.get_url(page.url)
+
+
+def test_authorization_valid_data_start_page(web_driver_mobile):
+    """Тест проверяет авторизацию с валидными данными, переход в кабинет, переход на соответствующие
+    страницы кабинета, выход из кабинета возможен только POST запросом к API.
+    Найден баг: кнопка на выход из кабинета невидима, элемент в DOM присутствует, но не рабочий"""
+
+    page = StartPage(web_driver_mobile, 5)
+    page.menu_btn_click()
+    page.menu_autor_click()
+    page.wait_login_title()
+    page.input_autor_data(AuthSets.auth_phone, AuthSets.auth_passw)
+    page.menu_autor_submit()
+    user_name = page.wait_download_cabinet()
+    assert page.get_relative_link() in (LinsaUa.cabinet[0][0], LinsaUa.cabinet[1][0]), 'Transition error'
+    assert user_name == AuthSets.auth_name
+
+    amount_tab = page.amount_tab_cabinet_menu()
+    for index in range(1, amount_tab):
+        url_menu = page.goto_cabinet_menu(index)
+        assert url_menu in (LinsaUa.cabinet[index][0], LinsaUa.cabinet[index][0]), 'Transition error'
 
 
 @pytest.mark.positive
@@ -124,11 +136,10 @@ def test_banners_start_page(web_driver_mobile):
     # Перебор в цикле баннеры
     for index in range(3):
         page.banner_points_click(index)
-        sleep(1)
         amount_products = page.amount_products()
-        assert page.get_relative_link() == LinsaUa.banners_urls[index][0] or \
-               page.get_relative_link() == LinsaUa.banners_urls[index][1], 'Transition error'
-        assert amount_products > 0, f'Amount = 0, are not positions'
+        assert page.get_relative_link() in (
+            LinsaUa.banners_urls[index][0], LinsaUa.banners_urls[index][1]), 'Transition error'
+        assert amount_products > 0, 'Amount = 0, are not positions'
         page.get_url(page.url)
 
 
@@ -140,8 +151,7 @@ def test_action_banners_start_page(web_driver_mobile):
 
     page = StartPage(web_driver_mobile, 5)
     page.all_sales_prods_click()
-    assert page.get_relative_link() == LinsaUa.main_menu_urls[0][0] or \
-           page.get_relative_link() == LinsaUa.main_menu_urls[1][0], 'Transition error'
+    assert page.get_relative_link() in (LinsaUa.main_menu_urls[0][0], LinsaUa.main_menu_urls[1][0]), 'Transition error'
     page.get_url(page.url)
 
     # Добавление в корзину 1-го акционного продукта
@@ -156,8 +166,7 @@ def test_action_banners_start_page(web_driver_mobile):
 
 @pytest.mark.positive
 def test_love_brands_start_page(web_driver_mobile):
-    """Тест проверяет кликабельность баннеров "Любимые бренды"
-    и отображение соответствующих им элементов в ленте"""
+    """Тест проверяет кликабельность баннеров "Любимые бренды" и отображение соответствующих им элементов в ленте"""
 
     page = StartPage(web_driver_mobile)
     page.move_to_element_love_blands()
@@ -215,8 +224,8 @@ def test_blogs_start_page(web_driver_mobile):
     page.get_url(page.url)
 
     assert list_blog_titles == list_title, f'ERROR! Bad transaction: {list_blog_titles} != {list_title}'
-    assert blog_url == LinsaUa.main_menu_urls[5][0] or blog_url == LinsaUa.main_menu_urls[5][1] \
-        , f'ERROR! Bad transaction for {blog_url}'
+    assert blog_url in (
+        LinsaUa.main_menu_urls[5][0], LinsaUa.main_menu_urls[5][1]), f'ERROR! Bad transaction for {blog_url}'
 
 
 @pytest.mark.positive
@@ -253,12 +262,10 @@ def test_footer_start_page(web_driver_mobile):
         web_driver_mobile.switch_to.window(windows[1])
         pages_footers.append(web_driver_mobile.current_url)
         web_driver_mobile.close()
-        sleep(2)
         web_driver_mobile.switch_to.window(windows[0])
         page.get_url(page.url)
 
     # Переход на страницу инстаграм не проверяется, требует логин инстаграм
     for index in range(11):
-        assert pages_footers[index] == LinsaUa.footers_menu_urls[index][0] or \
-               pages_footers[index] == LinsaUa.footers_menu_urls[index][1] \
-            , f'ERROR! Bad transaction for {pages_footers[index]}'
+        assert pages_footers[index] in (LinsaUa.footers_menu_urls[index][0], LinsaUa.footers_menu_urls[index][
+            1]), f'ERROR! Bad transaction for {pages_footers[index]}'
