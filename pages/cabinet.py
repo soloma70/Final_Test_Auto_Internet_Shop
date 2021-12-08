@@ -1,10 +1,9 @@
 from time import sleep
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-from selenium.webdriver.remote.webelement import WebElement
 from pages.base_page import BasePage
 from pages.url_list import LinsaUa
-from pages.locators import CartLocators, CabinetLocators, StartLocators, ProductLocators, BlogLocators
+from pages.locators import CabinetLocators, StartLocators, ProductLocators, BlogLocators
 
 
 class CabinetPage(BasePage):
@@ -121,13 +120,6 @@ class CabinetPage(BasePage):
         title_success = self.driver.find_element(*CabinetLocators.title_success).text
         self.driver.find_element(*CabinetLocators.close_success).click()
         return title_success
-
-    @staticmethod
-    def choise_point_list(name_test: str, elem_list: list) -> int:
-        i = 0
-        while name_test != elem_list[i]:
-            i += 1
-        return i
 
     def goto_wishlist(self, name_wishlist: str):
         elem_wishlist = self.driver.find_elements(*CabinetLocators.lists_wishlist)
