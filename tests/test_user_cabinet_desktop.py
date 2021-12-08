@@ -4,7 +4,6 @@ import pytest
 from pages.cabinet import CabinetPage
 from pages.headers import Headers
 from pages.test_sets import AuthSets
-from pages.url_list import LinsaUa
 from pages.aux_metods import AuxMetods
 
 
@@ -120,8 +119,6 @@ def test_wishlist_user(web_driver_auth_desktop):
     status_add_prod = page.add_random_prod_wishlist(AuthSets.my_wish_list)
     assert status_add_prod == 'Успешно', "ERROR! Wishlist don't add"
 
-# !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-    # Добавить юзерстори, кде доб.еще продукті в вишлист и потом добавляются в корзину
     # Переход в wishlist через кнопку в хедере, переход в тестовый список
     page.goto_wishlist_header()
     page.goto_wishlist(AuthSets.my_wish_list)
