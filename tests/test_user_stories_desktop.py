@@ -1,11 +1,13 @@
 # -*- encoding=utf8 -*-
 
 import pytest
+from pages.cabinet import CabinetPage
 from pages.care_page import CarePage
 from pages.product_page import ProductPage
 from pages.lens_page import LensPage
 from pages.cart_page import CartPage
-from pages.test_sets import LensSets, SendOrderSets, FramesSets, SunglassSets, CareSets
+from pages.test_sets import LensSets, SendOrderSets, FramesSets, SunglassSets, CareSets, AuthSets
+from time import sleep
 
 
 @pytest.mark.integration
@@ -13,7 +15,8 @@ from pages.test_sets import LensSets, SendOrderSets, FramesSets, SunglassSets, C
 def test_us_filter_lens_page(web_driver_desktop):
     """Тест UC "Я хочу найти и купить линзы бренда INTEROJO, линейки Fusion, левая -4.00, правая -2.75"
     осуществляет поиск по брендам, линейкам, типу линзы, режиму замены, базовой кривизне, диаметру и диоптрийности,
-    сортирует выбранные позиции возрастанию цены, выбирает линзы и добавляет в корзину, применяя указанные параметры.
+    сортирует выбранные позиции возрастанию цены, выбирает линзы и добавляет в корзину, применяя указанные параметры,
+    и оформляет заказ.
     ВНИМАНИЕ!!! Необходимо убрать курсор мышки из поля страницы браузера!"""
 
     page = LensPage(web_driver_desktop, 5)
@@ -74,7 +77,8 @@ def test_us_filter_lens_page(web_driver_desktop):
 def test_us_filter_fr_page(web_driver_desktop):
     """Тест UC "Я хочу найти и купить оправу бренда CARRERA, мужскую, длина заушника/ширина мостика/ширина окуляра
     145/20/50" осуществляет поиск по брендам, полу, длинне заушника, ширине мостика и ширине окуляра,
-    сортирует выбранные позиции возрастанию цены, выбирает рандомную из найденных оправ и добавляет в корзину.
+    сортирует выбранные позиции возрастанию цены, выбирает рандомную из найденных оправ и добавляет в корзину и
+    оформляет заказ.
     ВНИМАНИЕ!!! Необходимо убрать курсор мышки из поля страницы браузера!"""
 
     page = ProductPage(web_driver_desktop, 'fr')
@@ -145,7 +149,8 @@ def test_us_filter_fr_page(web_driver_desktop):
 def test_us_filter_sg_page(web_driver_desktop):
     """Тест UC "Я хочу найти и купить сонцезащитные очки бренда VOGUE, женские, длина заушника/ширина мостика/
     ширина окуляра 160/138/40" осуществляет поиск по брендам, полу, длинне заушника, ширине мостика и ширине окуляра,
-    сортирует выбранные позиции возрастанию цены, выбирает рандомные из найденных очков и добавляет в корзину.
+    сортирует выбранные позиции возрастанию цены, выбирает рандомные из найденных очков и добавляет в корзину и
+    оформляет заказ.
     ВНИМАНИЕ!!! Необходимо убрать курсор мышки из поля страницы браузера!"""
 
     page = ProductPage(web_driver_desktop, 'sg')
@@ -219,7 +224,7 @@ def test_us_filter_sg_page(web_driver_desktop):
 @pytest.mark.positive
 def test_us_filter_care_page(web_driver_desktop):
     """Тест UC "Я хочу найти и купить..." проверяет фильтр по брендам, объему и типу, сортирует
-    выбранные позиции возрастанию цены, выбирает рандомную позицию и добавляет в корзину.
+    выбранные позиции возрастанию цены, выбирает рандомную позицию и добавляет в корзину и оформляет заказ.
     ВНИМАНИЕ!!! Необходимо убрать курсор мышки из поля страницы браузера!"""
 
     page = CarePage(web_driver_desktop, 7)
@@ -276,3 +281,120 @@ def test_us_filter_care_page(web_driver_desktop):
     page.save_screen_browser(f'us_4_pay_chekout_{us_set[0]}')
     page.goto_benefit()
     page.save_screen_browser(f'us_5_confitm_chekout_{us_set[0]}')
+
+
+@pytest.mark.integration
+@pytest.mark.positive
+def test_us_cabinet_search_wishlist_cart_buy(web_driver_auth_desktop):
+    """Тест UC "Я хочу найти и купить..." авторизуется в кабинете, находит линзы, оправу, очки и ср-ва для ухода,
+    добавляет их в список желаний, переносит из списка желаний в корзину и оформляет заказ.
+    ВНИМАНИЕ!!! Необходимо убрать курсор мышки из поля страницы браузера!
+    БАГ!!! Через поиск можно найти частично линзы и уходовые средства, ни оправы, ни очки не ищет"""
+
+
+    # Инициализация экземпляра авторизованой страницы кабинета и проверка имени пользователя
+    page = CabinetPage(web_driver_auth_desktop)
+    assert page.cabinet_name.text.strip() in AuthSets.auth_name.upper(), 'ERROR! Start Image is not displayed'
+
+    # Переход на страницу Личные данные и добавление емейл и дня рождения
+    page.goto_cabinet_menu(1)
+    page.add_email(AuthSets.auth_email)
+    page.add_birthday(AuthSets.birthday)
+    page.save_personal_data()
+    # page.save_screen_browser('change_my_personal_data')
+    # Проверка соответствия введеных данных тестовому набору
+    list_data = page.list_personal_data()
+    assert list_data[3] == AuthSets.auth_email, 'ERROR! Bad last add email'
+    assert list_data[4] == AuthSets.birthday, 'ERROR! Bad last add email'
+
+    # Переход на страницу Адреса доставки и добавление адреса из тестового набора
+    page.goto_cabinet_menu(4)
+    page.add_new_adress(AuthSets.adress[0][0], AuthSets.adress[0][1], AuthSets.adress[0][2], AuthSets.adress[0][3])
+    page.inst_default_address()
+    page.save_screen_browser('add_my_adress')
+    # Проверка соответствия последнего введеного адреса тестовому набору
+    last_add_adress = page.list_last_add_adress()
+    assert last_add_adress == AuthSets.adress[0], 'ERROR! Bad last add adress'
+
+    # Переход на страницу Список желаний и добавление нового списка
+    page.goto_cabinet_menu(2)
+    status_add = page.add_new_wishlist(AuthSets.test_wish_list)
+    # page.save_screen_browser('add_new_wishlist')
+    assert status_add == 'Успешно', "ERROR! Wishlist don't add"
+
+    # Добавление в wishlist линз из тестового списка через поиск
+    # page.goto_start_page()
+    page.search_field_click(f'линзы {LensSets.filter_set_uc[1][0]}')
+    # Добавление первых найденных линз в wishlist
+    status_add_prod = page.add_prod_wishlist(AuthSets.test_wish_list)
+    assert status_add_prod == 'Успешно', "ERROR! Wishlist don't add"
+
+    # Добавление в wishlist оправы из тестового списка по первым 3 фильтрам
+    page = ProductPage(web_driver_auth_desktop, 'fr')
+    us_set = FramesSets.filter_set_uc
+    for i in range(3):
+        # Добавляем фильтр по бренду согласно тестовым наборам и получаем списки фильтров
+        page.filter_click(i, us_set[i], 'fr')
+        # Получаем результат применения фильтров и сравниваем с тестовым набором
+        search_result_brand = page.search_result_single(i)
+        if us_set[i] != '':
+            assert us_set[i] in search_result_brand, f'ERROR! Filtering error'
+    # Сортировка по возрастанию
+    page.sorted_by_on_page(2)
+    list_price_increase = page.get_prod_list_on_page()
+    list_sort = sorted(list_price_increase)
+    assert list_price_increase == list_sort, "ERROR! Position don't sorted"
+    # Добавление первой найденной оправы в wishlist
+    status_add_prod = page.add_prod_wishlist(AuthSets.test_wish_list)
+    assert status_add_prod == 'Успешно', "ERROR! Wishlist don't add"
+
+    # Добавление в wishlist солнечных очков из тестового списка по первым 3 фильтрам
+    page = ProductPage(web_driver_auth_desktop, 'sg')
+    us_set = SunglassSets.filter_set_uc
+    for i in range(3):
+        # Убираем всплывающий баннер
+        if i == 0:
+            page.pass_popup_banner()
+        # Добавляем фильтр по бренду согласно тестовым наборам и получаем списки фильтров
+        page.filter_click(i, us_set[i], 'sg')
+        # Получаем результат применения фильтров и сравниваем с тестовым набором
+        search_result_brand = page.search_result_single(i)
+        if us_set[i] != '':
+            assert us_set[i] in search_result_brand, f'ERROR! Filtering error'
+    # Сортировка по возрастанию
+    page.sorted_by_on_page(2)
+    list_price_increase = page.get_prod_list_on_page()
+    list_sort = sorted(list_price_increase)
+    assert list_price_increase == list_sort, "ERROR! Position don't sorted"
+    # Добавление первых найденных очков в wishlist
+    status_add_prod = page.add_prod_wishlist(AuthSets.test_wish_list)
+    assert status_add_prod == 'Успешно', "ERROR! Wishlist don't add"
+
+    # Добавление в wishlist многофункционального р-ра из тестового списка  через поиск
+    page.search_field_click(f'{CareSets.filter_set_uc[3]}')
+    # Добавление многофункционального р-ра в wishlist
+    status_add_prod = page.add_prod_wishlist(AuthSets.test_wish_list)
+    assert status_add_prod == 'Успешно', "ERROR! Wishlist don't add"
+
+
+
+    # Переход в wishlist через кнопку в хедере, переход в тестовый список
+    page = CabinetPage(web_driver_auth_desktop)
+    page.goto_wishlist_header()
+    page.goto_wishlist(AuthSets.test_wish_list)
+    # page.save_screen_browser('add_new_product_wishlist')
+    sleep(2)
+
+    # Удаление тестового списка wishlist
+    status_del = page.delete_open_wishlist()
+    # page.save_screen_browser('del_new_wishlist')
+    assert status_del == 'Успешно', "ERROR! Wishlist don't add"
+
+    # Удаление адреса и дня рождения
+    page.goto_cabinet_menu(1)
+    page.clear_email_birthday_lang()
+
+    # Удаление последнего добавленного адреса
+    page.goto_cabinet_menu(4)
+    page.delete_adress(-1)
+    page.save_screen_browser('delete_my_adress')
