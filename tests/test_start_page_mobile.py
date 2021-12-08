@@ -105,27 +105,6 @@ def test_menu_start_page(web_driver_mobile):
         page.get_url(page.url)
 
 
-def test_authorization_valid_data_start_page(web_driver_mobile):
-    """Тест проверяет авторизацию с валидными данными, переход в кабинет, переход на соответствующие
-    страницы кабинета, выход из кабинета возможен только POST запросом к API.
-    Найден баг: кнопка на выход из кабинета невидима, элемент в DOM присутствует, но не рабочий"""
-
-    page = StartPage(web_driver_mobile, 5)
-    page.menu_btn_click()
-    page.menu_autor_click()
-    page.wait_login_title()
-    page.input_autor_data(AuthSets.auth_phone, AuthSets.auth_passw)
-    page.menu_autor_submit()
-    user_name = page.wait_download_cabinet()
-    assert page.get_relative_link() in (LinsaUa.cabinet[0][0], LinsaUa.cabinet[1][0]), 'Transition error'
-    assert user_name == AuthSets.auth_name
-
-    amount_tab = page.amount_tab_cabinet_menu()
-    for index in range(1, amount_tab):
-        url_menu = page.goto_cabinet_menu(index)
-        assert url_menu in (LinsaUa.cabinet[index][0], LinsaUa.cabinet[index][0]), 'Transition error'
-
-
 @pytest.mark.positive
 def test_banners_start_page(web_driver_mobile):
     """Тест проверяет кликабельность баннеров и переход на соответствующие страницы, а так же не нулевое
@@ -269,3 +248,26 @@ def test_footer_start_page(web_driver_mobile):
     for index in range(11):
         assert pages_footers[index] in (LinsaUa.footers_menu_urls[index][0], LinsaUa.footers_menu_urls[index][
             1]), f'ERROR! Bad transaction for {pages_footers[index]}'
+
+
+@pytest.mark.smoke
+@pytest.mark.positive
+def test_authorization_valid_data_start_page(web_driver_mobile):
+    """Тест проверяет авторизацию с валидными данными, переход в кабинет, переход на соответствующие
+    страницы кабинета, выход из кабинета возможен только POST запросом к API.
+    Найден баг: кнопка на выход из кабинета невидима, элемент в DOM присутствует, но не рабочий"""
+
+    page = StartPage(web_driver_mobile, 5)
+    page.menu_btn_click()
+    page.menu_autor_click()
+    page.wait_login_title()
+    page.input_autor_data(AuthSets.auth_phone, AuthSets.auth_passw)
+    page.menu_autor_submit()
+    user_name = page.wait_download_cabinet()
+    assert page.get_relative_link() in (LinsaUa.cabinet[0][0], LinsaUa.cabinet[1][0]), 'Transition error'
+    assert user_name == AuthSets.auth_name
+
+    amount_tab = page.amount_tab_cabinet_menu()
+    for index in range(1, amount_tab):
+        url_menu = page.goto_cabinet_menu(index)
+        assert url_menu in (LinsaUa.cabinet[index][0], LinsaUa.cabinet[index][0]), 'Transition error'
