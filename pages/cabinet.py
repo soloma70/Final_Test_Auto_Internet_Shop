@@ -1,10 +1,10 @@
-from pages.base_page import BasePage
-from pages.url_list import LinsaUa
-from pages.locators import CartLocators, CabinetLocators, StartLocators, ProductLocators, BlogLocators
 from time import sleep
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.remote.webelement import WebElement
+from pages.base_page import BasePage
+from pages.url_list import LinsaUa
+from pages.locators import CartLocators, CabinetLocators, StartLocators, ProductLocators, BlogLocators
 
 
 class CabinetPage(BasePage):
@@ -31,7 +31,8 @@ class CabinetPage(BasePage):
     def exit_cabinet(self):
         self.driver.find_element(*CabinetLocators.exit_cabinet).click()
 
-    def search_item_in_list(self, test_item: str, item_list: list) -> int:
+    @staticmethod
+    def search_item_in_list(test_item: str, item_list: list) -> int:
         i = 0
         while test_item != item_list[i]:
             i += 1
@@ -86,10 +87,10 @@ class CabinetPage(BasePage):
         field_birthday.clear()
         field_birthday.send_keys(birthday)
 
-    def change_default_lang(self, lg='uk'):
-        if lg == 'uk':
+    def change_default_lang(self, lang='uk'):
+        if lang == 'uk':
             self.driver.find_element(*CabinetLocators.my_lang_uk).click()
-        elif lg == 'ru':
+        elif lang == 'ru':
             self.driver.find_element(*CabinetLocators.my_lang_ru).click()
 
     def save_personal_data(self):
@@ -121,7 +122,8 @@ class CabinetPage(BasePage):
         self.driver.find_element(*CabinetLocators.close_success).click()
         return title_success
 
-    def choise_point_list(self, name_test: str, elem_list: list) -> int:
+    @staticmethod
+    def choise_point_list(name_test: str, elem_list: list) -> int:
         i = 0
         while name_test != elem_list[i]:
             i += 1
@@ -193,4 +195,3 @@ class CabinetPage(BasePage):
         list_articles_end = self.driver.find_elements(*CabinetLocators.list_saved_articles)
         while len(list_articles_begin) == len(list_articles_end):
             list_articles_end = self.driver.find_elements(*CabinetLocators.list_saved_articles)
-
