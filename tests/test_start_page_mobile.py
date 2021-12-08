@@ -255,7 +255,7 @@ def test_footer_start_page(web_driver_mobile):
 def test_authorization_valid_data_start_page(web_driver_mobile):
     """Тест проверяет авторизацию с валидными данными, переход в кабинет, переход на соответствующие
     страницы кабинета, выход из кабинета возможен только POST запросом к API.
-    Найден баг: кнопка на выход из кабинета невидима, элемент в DOM присутствует, но не рабочий"""
+    БАГ! Кнопка на выход из кабинета не существует, элемент в DOM присутствует, но не рабочий"""
 
     page = StartPage(web_driver_mobile, 5)
     page.menu_btn_click()
