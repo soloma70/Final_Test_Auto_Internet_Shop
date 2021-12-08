@@ -157,11 +157,18 @@ class StartLocatorsMobile:
 
     # RightSide Menu locators
     menu_button = (By.CSS_SELECTOR, 'div.left-mobile-header > div.menu-button.js-open-menu')
+    menu_enter = (By.CSS_SELECTOR, 'div.main-menu > div.controls > a')
     menu_button_close = (By.CSS_SELECTOR, 'div.mobile-close-menu.js-mobile-close-menu > svg')
     lang_btn_active = (By.CSS_SELECTOR, 'div.controls > div > div')
     lang_btn = (By.CSS_SELECTOR, 'div.controls > div > ul > li > a')
     menu_points_main = (By.CSS_SELECTOR, '#content-wrapper > div.main-menu > ul > li > a')
     menu_points_hidden = (By.CSS_SELECTOR, '#content-wrapper > div.main-menu > ul.desktop-hidden > li > a')
+
+    # Cabinet, element in DOM exit_cabinet don't working
+    user_name = (By.CSS_SELECTOR, 'div.cards-wrapper > div > div.card-name')
+    user_data = (By.CSS_SELECTOR, 'div.cards-wrapper > div > div.info-holder > div > div.value')
+    exit_cabinet = (By.CSS_SELECTOR, '#cabinet-panel > ul > li > a.logout.js-logout')
+    cabinet_menu_mobile = (By.CSS_SELECTOR, 'section.cabinet-section > aside > ul > li > a')
 
     # MAIN PAGE LOCATORS
     # Banners locators
