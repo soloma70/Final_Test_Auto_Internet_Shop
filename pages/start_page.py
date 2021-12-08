@@ -82,10 +82,9 @@ class StartPage(BasePage):
 
     # Blog elements
     def blog_card_name(self) ->[str, str, str]:
-        blog_card = [card for card in StartLocators.blog_cards]
-        card_1 = self.driver.find_element(blog_card[0][0], blog_card[0][1]).text
-        card_2 = self.driver.find_element(blog_card[1][0], blog_card[1][1]).text
-        card_3 = self.driver.find_element(blog_card[2][0], blog_card[2][1]).text
+        card_1 = self.driver.find_element(StartLocators.blog_cards[0][0], StartLocators.blog_cards[0][1]).text
+        card_2 = self.driver.find_element(StartLocators.blog_cards[1][0], StartLocators.blog_cards[1][1]).text
+        card_3 = self.driver.find_element(StartLocators.blog_cards[2][0], StartLocators.blog_cards[2][1]).text
         return card_1, card_2, card_3
 
     def blog_card_goto(self, index: int) -> str:

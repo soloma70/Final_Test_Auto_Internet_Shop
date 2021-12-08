@@ -17,8 +17,8 @@ def test_main_menu_start_page(web_driver_desktop):
     # Перебор в цикле пунктов главного меню
     for index in range(MainMenuSets.amount_menu_points):
         page.main_menu_click(index)
-        assert page.get_relative_link() == LinsaUa.main_menu_urls[index][0] or \
-               page.get_relative_link() == LinsaUa.main_menu_urls[index][1], f'Transition {index} error'
+        assert page.get_relative_link() in (
+        LinsaUa.main_menu_urls[index][0], LinsaUa.main_menu_urls[index][1]), f'Transition {index} error'
         page.get_url(page.url)
 
 
@@ -32,8 +32,8 @@ def test_banners_start_page(web_driver_desktop):
     # Перебор в цикле баннеры
     for index in range(amount_banners):
         amount_banner, amount_page = page.banner_click(index)
-        assert page.get_relative_link() == LinsaUa.banners_urls[index][0] or \
-               page.get_relative_link() == LinsaUa.banners_urls[index][1], 'Transition error'
+        assert page.get_relative_link() in (
+            LinsaUa.banners_urls[index][0], LinsaUa.banners_urls[index][1]), 'Transition error'
         assert amount_banner == amount_page, f'Different quantity: declared {amount_banner}, in fact {amount_page}'
         page.get_url(page.url)
 
@@ -45,8 +45,7 @@ def test_action_banners_start_page(web_driver_desktop):
 
     page = StartPage(web_driver_desktop, 5)
     page.all_sales_prods_click()
-    assert page.get_relative_link() == LinsaUa.main_menu_urls[0][0] or \
-           page.get_relative_link() == LinsaUa.main_menu_urls[1][0], 'Transition error'
+    assert page.get_relative_link() in (LinsaUa.main_menu_urls[0][0], LinsaUa.main_menu_urls[1][0]), 'Transition error'
     page.get_url(page.url)
     # Добавление в корзину солнечных очков - 1-я позиция
     amount_cart_before = page.amount_cart()
@@ -113,8 +112,8 @@ def test_blogs_start_page(web_driver_desktop):
     assert card_1 == blog_titles[0], f'ERROR! Bad transaction: {card_1} != {blog_titles[0]}'
     assert card_2 == blog_titles[1], f'ERROR! Bad transaction: {card_2} != {blog_titles[1]}'
     assert card_3 == blog_titles[2], f'ERROR! Bad transaction: {card_3} != {blog_titles[2]}'
-    assert blog_url == LinsaUa.main_menu_urls[5][0] or blog_url == LinsaUa.main_menu_urls[5][1] \
-        , f'ERROR! Bad transaction for {blog_url}'
+    assert blog_url in (
+        LinsaUa.main_menu_urls[5][0], LinsaUa.main_menu_urls[5][1]), f'ERROR! Bad transaction for {blog_url}'
 
 
 @pytest.mark.positive
