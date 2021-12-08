@@ -1,8 +1,7 @@
 import pytest
-import requests
 from selenium import webdriver
-from browser_set import ChromeSet
 from fake_useragent import UserAgent
+from browser_set import ChromeSet
 from pages.headers import Headers
 from pages.test_sets import AuthSets
 from pages.url_list import LinsaUa
