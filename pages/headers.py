@@ -20,12 +20,6 @@ class Headers(BasePage):
     def start_img_click(self):
         self.driver.find_element(*StartLocators.logo_img).click()
 
-    def search_field_click(self, search_value):
-        search_field = self.driver.find_element(*StartLocators.search_field)
-        search_field.clear()
-        search_field.send_keys(search_value)
-        search_field.send_keys(Keys.ENTER)
-
     def callback_btn_click(self):
         self.driver.find_element(*StartLocators.callback_btn).click()
 
