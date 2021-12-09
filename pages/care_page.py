@@ -61,13 +61,15 @@ class CarePage(BasePage):
 
     def sorted_by_on_page(self, index: int):
         self.driver.find_elements(*ProductLocators.sort_by)[index].click()
-        sleep(2)
+        sleep(1)
 
-    def add_cart_care(self, index: int, volume: str):
+    def add_cart_care(self, index: int):
         element = self.driver.find_elements(*ProductLocators.products)[index]
         ActionChains(self.driver).move_to_element(element).perform()
         self.driver.find_elements(*ProductLocators.products_lens_buy)[index].click()
-        #
+
+    def add_param_care(self, volume: str) -> int:
+        # Страница раствора
         self.driver.find_element(*CareLocators.choice_volume).click()
         list_volume = self.driver.find_elements(*CareLocators.list_volume)
         sleep(1)
@@ -76,15 +78,7 @@ class CarePage(BasePage):
         add_cart_sum = int(self.driver.find_element(*CareLocators.add_cart_sum).text)
         #
         self.driver.find_element(*CareLocators.buy_btn).click()
-        self.driver.find_element(*CartLocators.close_popup_cart).click()
-        sleep(1)
         return add_cart_sum
-
-    def choise_param(self, us_set: str, list_it: list):
-        i = 0
-        while us_set != list_it[i].text:
-            i += 1
-        list_it[i].click()
 
     def get_care_list_on_page(self) -> [list]:
         amount_card = len(self.driver.find_elements(*CareLocators.card_care_amount))
