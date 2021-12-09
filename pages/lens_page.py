@@ -4,6 +4,8 @@ from pages.locators import LensLocators, ProductLocators, ProductLensLocators, C
 from time import sleep
 from selenium.webdriver.common.by import By
 from selenium.webdriver import ActionChains
+from selenium.webdriver.support.wait import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 from random import randint
 
 
@@ -60,9 +62,8 @@ class LensPage(BasePage):
 
     def sorted_by_on_page(self, index: int):
         self.driver.find_elements(*ProductLocators.sort_by)[index].click()
-        sleep(2)
-        # WebDriverWait(self.driver, 10).until(EC.invisibility_of_element((
-        #     By.CSS_SELECTOR('div.products-wrapper > div > div.main-content > a.img'))))
+        sleep(1)
+        # WebDriverWait(self.driver, 10).until(EC.invisibility_of_element()))
 
     def get_lens_list_on_page(self, amount_card: int) -> [list]:
         lens_price = self.driver.find_elements(*LensLocators.card_lens_price)
@@ -77,13 +78,17 @@ class LensPage(BasePage):
         card_num.sort()
         return card_num
 
-    def add_cart_lens(self, index: int, us_set: list) -> int:
+    def add_cart_lens(self, index: int):
         element = self.driver.find_elements(*ProductLocators.products)[index]
         ActionChains(self.driver).move_to_element(element).perform()
         self.driver.find_elements(*ProductLocators.products_lens_buy)[index].click()
+
+    def add_param_lens(self, us_set: list) -> int:
         # Страница линзы
         self.driver.find_element(*ProductLensLocators.diff_eyes).click()
+        sleep(0.5)
         #
+        # WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located(ProductLensLocators.dioptr_left)).click()
         self.driver.find_element(*ProductLensLocators.dioptr_left).click()
         dioptr_left_list = self.driver.find_elements(*ProductLensLocators.dioptr_left_list)
         self.choise_param(us_set[6][0], dioptr_left_list)
@@ -95,7 +100,6 @@ class LensPage(BasePage):
         self.driver.find_element(*ProductLensLocators.curv_left).click()
         curv_left_list = self.driver.find_elements(*ProductLensLocators.curv_left_list)
         self.choise_param(us_set[4][0], curv_left_list)
-        sleep(1)
         #
         self.driver.find_element(*ProductLensLocators.curv_right).click()
         curv_right_list = self.driver.find_elements(*ProductLensLocators.curv_right_list)
@@ -117,13 +121,4 @@ class LensPage(BasePage):
         add_cart_sum = int(self.driver.find_element(*ProductLensLocators.add_cart_sum).text)
         #
         self.driver.find_element(*ProductLensLocators.buy_btn).click()
-        self.driver.find_element(*CartLocators.goto_cart_popup).click()
-        #
         return add_cart_sum
-
-    def choise_param(self, us_set: str, list_it: list):
-        i = 0
-        while us_set != list_it[i].text:
-            i += 1
-        list_it[i].click()
-
