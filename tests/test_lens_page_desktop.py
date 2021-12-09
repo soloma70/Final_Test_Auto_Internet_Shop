@@ -32,7 +32,7 @@ def test_pagination_lens_page(web_driver_desktop):
     фактический URL с ожидаемым"""
 
     page = LensPage(web_driver_desktop, 5)
-    amount_page_test = page.amount_page_visible(page.url)
+    amount_page_test = page.amount_page_visible()
     # Переход по прямой ссылке
     for i in range(amount_page_test):
         goto_url, current_url = page.get_page_urls(i)
@@ -180,7 +180,7 @@ def test_sort_lens_page(web_driver_desktop):
 def test_add_lens_in_cart_lens_page(web_driver_desktop):
     """Тест проверяет добавление линз с 2-х рандомных позиций с 1-й, 3-й и 5-й карточки, переход на страницу
     линз и добавление их в корзину с параметрами по умолчанию (сложная проверка с изменениями диоптрий,
-    кривизны, типа упаковки и количества в отдельных тестах), делает скриншот"""
+    кривизны, типа упаковки и количества в отдельных тестах реализована в user cases), делает скриншот"""
 
     page = LensPage(web_driver_desktop, 5)
     # Получение количества позиций в корзине перед добавлением
