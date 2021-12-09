@@ -18,9 +18,9 @@ class RegSets:
 
 
 class SendOrderSets:
-    name = 'Пупкин Василий Васильевич'
+    name = 'Пупкин Василий'
     email = 'vasja_pupkin@gmail.com'
-    phone = '0505555555'
+    phone = '505555555'
     courier = [['Харьков', 'просп. Гагаріна', '72', '25'],
                ['Запорожье', 'вул. Цитрусова', '4', '56']]
     nova_poshta = [['Харьков', '39'],
