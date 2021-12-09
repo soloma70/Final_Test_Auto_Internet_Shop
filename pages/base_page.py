@@ -92,9 +92,9 @@ class BasePage(object):
         element = self.driver.find_elements(*ProductLocators.products)[index]
         ActionChains(self.driver).move_to_element(element).perform()
         self.driver.find_elements(*ProductLocators.products_buy)[index].click()
-        sleep(2)
+        WebDriverWait(self.driver, 5).until(
+            EC.visibility_of_element_located(CartLocators.popup_cart_title))
         self.driver.find_element(*CartLocators.close_popup_cart).click()
-        sleep(1)
 
     def add_cart_lens_def_par(self, index: int):
         element = self.driver.find_elements(*ProductLocators.products)[index]
@@ -185,3 +185,15 @@ class BasePage(object):
         while name_test != elem_list[i]:
             i += 1
         return i
+
+    def choise_param(self, us_set: str, list_it: list):
+        i = 0
+        while us_set != list_it[i].text:
+            i += 1
+        list_it[i].click()
+
+    def add_success(self):
+        title_success = WebDriverWait(self.driver, 5).until(
+            EC.visibility_of_element_located(CartLocators.popup_cart_title)).text
+        self.driver.find_element(*CartLocators.close_popup_cart).click()
+        return title_success
