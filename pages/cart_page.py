@@ -2,8 +2,6 @@ from pages.base_page import BasePage
 from pages.url_list import LinsaUa
 from pages.locators import CartLocators
 from time import sleep
-from selenium.webdriver.support.wait import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.remote.webelement import WebElement
 
 
@@ -55,10 +53,15 @@ class CartPage(BasePage):
     def checkout_click(self):
         self.driver.find_elements(*CartLocators.checkout)[1].click()
 
-    def input_data(self, name: str, email: str, phone: str):
+    def input_data(self, full_name: str, email: str, phone: str):
+        name = full_name.split()[1]
+        surname = full_name.split()[0]
         input_name = self.driver.find_element(*CartLocators.input_name)
         input_name.clear()
         input_name.send_keys(name)
+        input_surname = self.driver.find_element(*CartLocators.input_surname)
+        input_surname.clear()
+        input_surname.send_keys(surname)
         input_email = self.driver.find_element(*CartLocators.input_email)
         input_email.clear()
         input_email.send_keys(email)
