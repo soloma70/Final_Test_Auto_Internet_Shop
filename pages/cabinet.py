@@ -1,9 +1,12 @@
 from time import sleep
+
+from selenium.webdriver import ActionChains
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from pages.base_page import BasePage
 from pages.url_list import LinsaUa
-from pages.locators import CabinetLocators, StartLocators, ProductLocators, BlogLocators
+from pages.locators import CabinetLocators, StartLocators, ProductLocators, BlogLocators, CartLocators, \
+    ProductLensLocators
 
 
 class CabinetPage(BasePage):
@@ -150,7 +153,13 @@ class CabinetPage(BasePage):
     def goto_wishlist_header(self):
         self.driver.find_element(*StartLocators.wishlist_btns).click()
 
-    def delete_open_wishlist(self) -> str:
+    def delete_wishlist(self, name_wishlist: str) -> str:
+        list_wishlist = self.driver.find_elements(*CabinetLocators.list_wishlist)
+        i = 0
+        while list_wishlist[i].text.split('(')[0].rstrip() != name_wishlist:
+            name = list_wishlist[i].text.split('(')[0].rstrip()
+            i += 1
+        self.driver.find_elements(*CabinetLocators.list_wishlist)[i].click()
         self.driver.find_element(*CabinetLocators.del_withlist).click()
         self.driver.find_element(*CabinetLocators.del_yes).click()
         title_success = WebDriverWait(self.driver, 5).until(
@@ -160,7 +169,7 @@ class CabinetPage(BasePage):
 
     def add_article_in_favorites(self) -> str:
         amount_articles_on_page = len(self.driver.find_elements(*BlogLocators.news))
-        index = self.rand_prod_card(amount_articles_on_page)-1
+        index = self.rand_prod_card(amount_articles_on_page) - 1
         self.driver.find_elements(*BlogLocators.news)[index].click()
         name_article = self.driver.find_element(*BlogLocators.news_name).text.lower()
         elem_add = self.driver.find_element(*BlogLocators.add_favorite_text)
@@ -187,3 +196,36 @@ class CabinetPage(BasePage):
         list_articles_end = self.driver.find_elements(*CabinetLocators.list_saved_articles)
         while len(list_articles_begin) == len(list_articles_end):
             list_articles_end = self.driver.find_elements(*CabinetLocators.list_saved_articles)
+
+    def add_prod_to_cart(self, index: int, prod_name: tuple, prod_by: tuple) -> str:
+        element = self.driver.find_elements(*prod_name)[index]
+        ActionChains(self.driver).move_to_element(element).perform()
+        self.driver.find_elements(*prod_by)[index].click()
+        title_success = WebDriverWait(self.driver, 5).until(
+            EC.visibility_of_element_located(CartLocators.popup_cart_title)).text
+        self.driver.find_element(*CartLocators.close_popup_cart).click()
+        return title_success
+
+    def wishlist_buy_frames(self, index: int) -> str:
+        title_success = self.add_prod_to_cart(index, CabinetLocators.wishlist_frames,
+                                              CabinetLocators.wishlist_buy_frames)
+        return title_success
+
+    def wishlist_buy_sunglass(self, index: int):
+        title_success = self.add_prod_to_cart(index, CabinetLocators.wishlist_sg,
+                                              CabinetLocators.wishlist_buy_sg)
+        return title_success
+
+    def goto_header_cart(self):
+        self.driver.find_element(*CabinetLocators.header_cart).click()
+
+    def clear_all_cart(self):
+        self.driver.find_element(*CartLocators.clear_cart).click()
+        WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located(CartLocators.cart_empty))
+
+    def goto_cabinet_from_cart(self):
+        self.driver.find_element(*CabinetLocators.cabinet_name).click()
+        WebDriverWait(self.driver, 5).until(
+            EC.visibility_of_element_located(CabinetLocators.cabinet_menu_header))
+        self.driver.find_elements(*CabinetLocators.cabinet_menu_header)[3].click()
+
