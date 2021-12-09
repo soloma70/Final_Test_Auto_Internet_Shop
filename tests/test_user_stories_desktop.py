@@ -41,7 +41,14 @@ def test_us_filter_lens_page(web_driver_desktop):
     # Получение количества позиций в корзине перед добавлением
     amount_cart_before = page.amount_cart()
     # Добавление в корзину 1-го найденого продукта с параметрами в us_set, переход в корзину, получение суммы заказа
-    add_cart_sum = page.add_cart_lens(0, us_set)
+    page.add_cart_lens(0)
+    add_cart_sum = page.add_param_lens(us_set)
+    status_add_prod = page.add_success()
+    assert status_add_prod == 'Товар добавлен в корзину', "ERROR! Wishlist don't add"
+
+    # Получение количества позиций в корзине после добавления оправы
+    amount_cart_after = page.amount_cart()
+    assert amount_cart_before + 1 == amount_cart_after, "ERROR! Product don't add to cart"
 
     # Инициализация экземпляра корзины
     page = CartPage(web_driver_desktop, 10)
@@ -230,8 +237,7 @@ def test_us_filter_care_page(web_driver_desktop):
     page = CarePage(web_driver_desktop, 7)
 
     us_set = CareSets.filter_set_uc
-    for i in range(len(us_set)):
-
+    for i in range(len(us_set)-1):
         # Добавляем фильтр по бренду согласно тестовым наборам и получаем списки фильтров
         page.filter_click(i, us_set[i])
         # Получаем результат применения фильтров и сравниваем с тестовым набором
@@ -247,10 +253,12 @@ def test_us_filter_care_page(web_driver_desktop):
 
     # Получение количества позиций в корзине перед добавлением
     amount_cart_before = page.amount_cart()
-    # Получение номера продукта на странице
-    frame_num = page.rand_prod_card(page.card_prod_len() - 1)
     # Добавление в корзину 1-го продукта с параметрами заказа по умолчанию
-    add_cart_sum = page.add_cart_care(frame_num, CareSets.set_vol)
+    page.add_cart_care(0)
+    add_cart_sum = page.add_param_care(CareSets.set_vol)
+    status_add_prod = page.add_success()
+    assert status_add_prod == 'Товар добавлен в корзину', "ERROR! Wishlist don't add"
+
     # Получение количества позиций в корзине после добавления оправы
     amount_cart_after = page.amount_cart()
     assert amount_cart_before + 1 == amount_cart_after, "ERROR! Product don't add to cart"
@@ -286,11 +294,13 @@ def test_us_filter_care_page(web_driver_desktop):
 @pytest.mark.integration
 @pytest.mark.positive
 def test_us_cabinet_search_wishlist_cart_buy(web_driver_auth_desktop):
-    """Тест UC "Я хочу найти и купить..." авторизуется в кабинете, находит линзы, оправу, очки и ср-ва для ухода,
-    добавляет их в список желаний, переносит из списка желаний в корзину и оформляет заказ.
+    """Тест UC "Я хочу найти и купить..." авторизуется в кабинете, находит линзы и раствор для линз через поиск и
+    добавляет их в корзину с тестовыми параметрами, находит с помощью фильтров оправу и очки, добавляет их в
+    список желаний, переносит из списка желаний в корзину и оформляет заказ.
     ВНИМАНИЕ!!! Необходимо убрать курсор мышки из поля страницы браузера!
-    БАГ!!! Через поиск можно найти частично линзы и уходовые средства, ни оправы, ни очки не ищет"""
-
+    БАГ!!! Через поиск можно найти частично линзы и уходовые средства, ни оправы, ни очки не ищет
+    БАГ!!! Из списка желаний с помощью кнопки "Купить" невозможно добавить в корзину линзы и уходовые ср-ва,
+    только через ссылку"""
 
     # Инициализация экземпляра авторизованой страницы кабинета и проверка имени пользователя
     page = CabinetPage(web_driver_auth_desktop)
@@ -321,13 +331,6 @@ def test_us_cabinet_search_wishlist_cart_buy(web_driver_auth_desktop):
     status_add = page.add_new_wishlist(AuthSets.test_wish_list)
     # page.save_screen_browser('add_new_wishlist')
     assert status_add == 'Успешно', "ERROR! Wishlist don't add"
-
-    # Добавление в wishlist линз из тестового списка через поиск
-    # page.goto_start_page()
-    page.search_field_click(f'линзы {LensSets.filter_set_uc[1][0]}')
-    # Добавление первых найденных линз в wishlist
-    status_add_prod = page.add_prod_wishlist(AuthSets.test_wish_list)
-    assert status_add_prod == 'Успешно', "ERROR! Wishlist don't add"
 
     # Добавление в wishlist оправы из тестового списка по первым 3 фильтрам
     page = ProductPage(web_driver_auth_desktop, 'fr')
@@ -370,12 +373,23 @@ def test_us_cabinet_search_wishlist_cart_buy(web_driver_auth_desktop):
     status_add_prod = page.add_prod_wishlist(AuthSets.test_wish_list)
     assert status_add_prod == 'Успешно', "ERROR! Wishlist don't add"
 
-    # Добавление в wishlist многофункционального р-ра из тестового списка  через поиск
-    page.search_field_click(f'{CareSets.filter_set_uc[3]}')
-    # Добавление многофункционального р-ра в wishlist
-    status_add_prod = page.add_prod_wishlist(AuthSets.test_wish_list)
-    assert status_add_prod == 'Успешно', "ERROR! Wishlist don't add"
+    # Добавление в корзину линз из тестового списка через поиск
+    page = LensPage(web_driver_auth_desktop)
+    page.search_field_click(f'линзы {LensSets.filter_set_uc[1][0]}')
+    # Добавление первых найденных линз в корзину
+    page.add_cart_lens(0)
+    add_cart_sum = page.add_param_lens(LensSets.filter_set_uc)
+    status_add_prod = page.add_success()
+    assert status_add_prod == 'Товар добавлен в корзину', "ERROR! Wishlist don't add"
 
+    # Добавление в wishlist и корзину многофункционального р-ра из тестового списка  через поиск
+    page = CarePage(web_driver_auth_desktop)
+    page.search_field_click(f'{CareSets.filter_set_uc[3]}')
+    # Добавление в корзину 1-го продукта с параметрами заказа по умолчанию
+    page.add_cart_care(0)
+    add_cart_sum = page.add_param_care(CareSets.set_vol)
+    status_add_prod = page.add_success()
+    assert status_add_prod == 'Товар добавлен в корзину', "ERROR! Wishlist don't add"
 
 
     # Переход в wishlist через кнопку в хедере, переход в тестовый список
@@ -383,10 +397,24 @@ def test_us_cabinet_search_wishlist_cart_buy(web_driver_auth_desktop):
     page.goto_wishlist_header()
     page.goto_wishlist(AuthSets.test_wish_list)
     # page.save_screen_browser('add_new_product_wishlist')
-    sleep(2)
+    sleep(1)
+
+    # Добавление продуктов из wishlist в корзину
+    page.wishlist_buy_frames(0)
+    page.wishlist_buy_sunglass(0)
+    page.goto_header_cart()
+    sleep(5)
+
+    # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    # Добавить оформление покупки
+
+    # Очистка корзины
+    page.clear_all_cart()
 
     # Удаление тестового списка wishlist
-    status_del = page.delete_open_wishlist()
+    page.goto_cabinet_from_cart()
+    page.goto_cabinet_menu(2)
+    status_del = page.delete_wishlist(AuthSets.test_wish_list)
     # page.save_screen_browser('del_new_wishlist')
     assert status_del == 'Успешно', "ERROR! Wishlist don't add"
 
@@ -397,4 +425,4 @@ def test_us_cabinet_search_wishlist_cart_buy(web_driver_auth_desktop):
     # Удаление последнего добавленного адреса
     page.goto_cabinet_menu(4)
     page.delete_adress(-1)
-    page.save_screen_browser('delete_my_adress')
+    # page.save_screen_browser('delete_my_adress')
