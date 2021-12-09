@@ -227,16 +227,14 @@ class StartLocatorsMobile:
 class CartLocators:
     amount_cart_header = (By.CSS_SELECTOR, 'div.icons-panel > a.cart > span.total-in-cart')
     goto_cart_popup = (By.CSS_SELECTOR, '#product-added-to-cart-popup > div > div > div > a')
-    close_popup_cart = (By.CSS_SELECTOR,
-                        '#product-added-to-cart-popup > div > div > div > div > div.close-popup.js-close-popup > svg')
+    popup_cart_title = (By.CSS_SELECTOR, '#product-added-to-cart-popup > div > div > div > div.popup-title')
+    close_popup_cart = (By.CSS_SELECTOR, '#product-added-to-cart-popup > div > div > div > div.top > div > svg')
     #
     amount_cart = (By.ID, 'cart-total-goods')
-    sum_cart_top = (By.CSS_SELECTOR,
-                    '#content-wrapper > section > div > div.double-holder > div.left > div > '
-                    'div.amount.js-total-cart-price')
-    sum_cart_bottom = (
-        By.CSS_SELECTOR, '#content-wrapper > section > div > div.summary > div.amount.js-total-cart-price')
-    clear_cart = (By.CSS_SELECTOR, '#content-wrapper > section > div > div.double-holder > div.right > a')
+    sum_cart_top = (By.CSS_SELECTOR, 'div.left > div > div.amount.js-total-cart-price')
+    sum_cart_bottom = (By.CSS_SELECTOR, 'div.summary > div.amount.js-total-cart-price')
+    clear_cart = (By.CSS_SELECTOR, 'div.double-holder > div.right > a')
+    cart_empty = (By.CSS_SELECTOR, 'div.js-empty-cart.not-found')
     #
     in_cart_prod_name = (By.CSS_SELECTOR, 'div.cart-item > div.info > a.ttl')
     in_cart_prod_content = (By.CSS_SELECTOR, 'div.cart-item > div.info > div.dscr')
@@ -253,8 +251,11 @@ class CartLocators:
     #
     checkout = (By.CSS_SELECTOR, '#content-wrapper > section > div > div.button-holder > a')
     # Recipient's data
-    input_name = (By.CSS_SELECTOR, 'div.step.step_1 > div:nth-child(2) > div.input-wrapper > input[type=text]')
-    input_email = (By.CSS_SELECTOR, 'div div.step.step_1 > div:nth-child(3) > div.input-wrapper > input[type=email]')
+    input_name = (By.CSS_SELECTOR,
+                  'div.step.step_1 > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > div > input[type=text]')
+    input_surname = (By.CSS_SELECTOR,
+                     'div.step.step_1 > div:nth-child(2) > div:nth-child(1) > div:nth-child(2) > div > input[type=text]')
+    input_email = (By.CSS_SELECTOR, 'div.step.step_1 > div:nth-child(3) > div.input-wrapper > input[type=email]')
     input_phone = (By.CSS_SELECTOR, 'div.step.step_1 > div:nth-child(4) > div.input-wrapper > input[type=text]')
     next_step_delivery = (By.CSS_SELECTOR, 'div.left > div.button-holder > a')
     # Delivery
@@ -778,6 +779,14 @@ class CabinetLocators:
         By.CSS_SELECTOR, '#add-wishlist-popup > div > div > div > form > div > div > div > input[type=text]')
     # Добавить
     input_confirm = (By.CSS_SELECTOR, '#add-wishlist-popup > div > div > div > form > button')
+    #
+    wishlist_frames = (By.CSS_SELECTOR, 'div.product-item.frames > div.main-content > a.img > img')
+    wishlist_buy_frames = (By.CSS_SELECTOR, 'div.product-item.frames > div.additional > button')
+    wishlist_sg = (By.CSS_SELECTOR, 'div.product-item.sunglasses > div.main-content > a.img > img')
+    wishlist_buy_sg = (By.CSS_SELECTOR, 'div.product-item.sunglasses > div.additional > button')
+    wishlist_buy_lens = (By.CSS_SELECTOR, 'div.product-item.lens > div.additional.lens > a')
+    wishlist_buy_care = (By.CSS_SELECTOR, 'div.product-item  > div.additional.lens > a')
+    header_cart = (By.CSS_SELECTOR, 'div.icons-panel > a.cart > svg')
 
     # Пункты меню (0-5)
     points_main_menu = (By.CSS_SELECTOR, '#content-wrapper > div.main-menu > ul > li > a')
