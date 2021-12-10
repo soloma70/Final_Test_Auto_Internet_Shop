@@ -237,7 +237,7 @@ def test_us_filter_care_page(web_driver_desktop):
     page = CarePage(web_driver_desktop, 7)
 
     us_set = CareSets.filter_set_uc
-    for i in range(len(us_set)-1):
+    for i in range(len(us_set) - 1):
         # Добавляем фильтр по бренду согласно тестовым наборам и получаем списки фильтров
         page.filter_click(i, us_set[i])
         # Получаем результат применения фильтров и сравниваем с тестовым набором
@@ -300,7 +300,9 @@ def test_us_cabinet_search_wishlist_cart_buy(web_driver_auth_desktop):
     ВНИМАНИЕ!!! Необходимо убрать курсор мышки из поля страницы браузера!
     БАГ!!! Через поиск можно найти частично линзы и уходовые средства, ни оправы, ни очки не ищет
     БАГ!!! Из списка желаний с помощью кнопки "Купить" невозможно добавить в корзину линзы и уходовые ср-ва,
-    только через ссылку"""
+    только через ссылку.
+    БАГ!!! D корзину добавляются суммы в целых грн., а в корзине по этим же позициям суммы в грн. и коп.,
+    соответственно, итог тоже с коп."""
 
     # Инициализация экземпляра авторизованой страницы кабинета и проверка имени пользователя
     page = CabinetPage(web_driver_auth_desktop)
@@ -311,7 +313,7 @@ def test_us_cabinet_search_wishlist_cart_buy(web_driver_auth_desktop):
     page.add_email(AuthSets.auth_email)
     page.add_birthday(AuthSets.birthday)
     page.save_personal_data()
-    # page.save_screen_browser('change_my_personal_data')
+    page.save_screen_browser('us_buy_change_personal_data')
     # Проверка соответствия введеных данных тестовому набору
     list_data = page.list_personal_data()
     assert list_data[3] == AuthSets.auth_email, 'ERROR! Bad last add email'
@@ -321,7 +323,7 @@ def test_us_cabinet_search_wishlist_cart_buy(web_driver_auth_desktop):
     page.goto_cabinet_menu(4)
     page.add_new_adress(AuthSets.adress[0][0], AuthSets.adress[0][1], AuthSets.adress[0][2], AuthSets.adress[0][3])
     page.inst_default_address()
-    page.save_screen_browser('add_my_adress')
+    page.save_screen_browser('us_buy_add_adress')
     # Проверка соответствия последнего введеного адреса тестовому набору
     last_add_adress = page.list_last_add_adress()
     assert last_add_adress == AuthSets.adress[0], 'ERROR! Bad last add adress'
@@ -329,13 +331,13 @@ def test_us_cabinet_search_wishlist_cart_buy(web_driver_auth_desktop):
     # Переход на страницу Список желаний и добавление нового списка
     page.goto_cabinet_menu(2)
     status_add = page.add_new_wishlist(AuthSets.test_wish_list)
-    # page.save_screen_browser('add_new_wishlist')
+    page.save_screen_browser('us_buy_add_wishlist')
     assert status_add == 'Успешно', "ERROR! Wishlist don't add"
 
     # Добавление в wishlist оправы из тестового списка по первым 3 фильтрам
     page = ProductPage(web_driver_auth_desktop, 'fr')
     us_set = FramesSets.filter_set_uc
-    for i in range(3):
+    for i in range(len(us_set)):
         # Добавляем фильтр по бренду согласно тестовым наборам и получаем списки фильтров
         page.filter_click(i, us_set[i], 'fr')
         # Получаем результат применения фильтров и сравниваем с тестовым набором
@@ -354,7 +356,7 @@ def test_us_cabinet_search_wishlist_cart_buy(web_driver_auth_desktop):
     # Добавление в wishlist солнечных очков из тестового списка по первым 3 фильтрам
     page = ProductPage(web_driver_auth_desktop, 'sg')
     us_set = SunglassSets.filter_set_uc
-    for i in range(3):
+    for i in range(len(us_set)):
         # Убираем всплывающий баннер
         if i == 0:
             page.pass_popup_banner()
@@ -378,7 +380,7 @@ def test_us_cabinet_search_wishlist_cart_buy(web_driver_auth_desktop):
     page.search_field_click(f'линзы {LensSets.filter_set_uc[1][0]}')
     # Добавление первых найденных линз в корзину
     page.add_cart_lens(0)
-    add_cart_sum = page.add_param_lens(LensSets.filter_set_uc)
+    add_cart_sum_lens = page.add_param_lens(LensSets.filter_set_uc)
     status_add_prod = page.add_success()
     assert status_add_prod == 'Товар добавлен в корзину', "ERROR! Wishlist don't add"
 
@@ -387,35 +389,61 @@ def test_us_cabinet_search_wishlist_cart_buy(web_driver_auth_desktop):
     page.search_field_click(f'{CareSets.filter_set_uc[3]}')
     # Добавление в корзину 1-го продукта с параметрами заказа по умолчанию
     page.add_cart_care(0)
-    add_cart_sum = page.add_param_care(CareSets.set_vol)
+    add_cart_sum_care = page.add_param_care(CareSets.set_vol)
     status_add_prod = page.add_success()
     assert status_add_prod == 'Товар добавлен в корзину', "ERROR! Wishlist don't add"
-
 
     # Переход в wishlist через кнопку в хедере, переход в тестовый список
     page = CabinetPage(web_driver_auth_desktop)
     page.goto_wishlist_header()
     page.goto_wishlist(AuthSets.test_wish_list)
-    # page.save_screen_browser('add_new_product_wishlist')
-    sleep(1)
+    page.save_screen_browser('us_buy_product_wishlist')
 
     # Добавление продуктов из wishlist в корзину
-    page.wishlist_buy_frames(0)
-    page.wishlist_buy_sunglass(0)
+    add_cart_sum_frames, status_add_frames = page.wishlist_buy_frames(0)
+    assert status_add_frames == 'Товар добавлен в корзину', "ERROR! Wishlist don't add"
+    add_cart_sum_sunglass, status_add_sunglass = page.wishlist_buy_sunglass(0)
+    assert status_add_sunglass == 'Товар добавлен в корзину', "ERROR! Wishlist don't add"
     page.goto_header_cart()
-    sleep(5)
 
-    # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-    # Добавить оформление покупки
+    # Инициализация экземпляра корзины
+    page = CartPage(web_driver_auth_desktop, 10)
+    # Получение данных из корзины
+    page.save_screen_browser('us_buy_cart_1_auth_user')
+    page.win_scroll(900)
+    page.save_screen_browser('us_buy_cart_2_auth_user')
+    sum_cart_top, sum_cart_bottom, in_cart_prod_sum = page.sum_in_cart()
+    # Сравнение суммы выбраных продуктов и сумм в корзине
+    add_cart_sum = add_cart_sum_lens + add_cart_sum_care + add_cart_sum_frames + add_cart_sum_sunglass
+    print()
+    print(int(add_cart_sum), type(add_cart_sum))
+    print('----------------------')
+    print(int(in_cart_prod_sum), type(in_cart_prod_sum))
 
-    # Очистка корзины
+    assert in_cart_prod_sum in (sum_cart_top, sum_cart_bottom), 'ERROR! Еhe amounts in the basket are not equal'
+    assert int(add_cart_sum) == int(in_cart_prod_sum), 'ERROR! Amount add products != amount in cart'
+
+    # Переход на страницу оформления заказа и заполнения всех данных
+    page.save_screen_browser('us_buy_chekout_1_auth_user')
+    page.checkout_click()
+    page.save_screen_browser('us_buy_chekout_2_auth_user')
+    page.goto_delivery()
+    page.delivery_courier()
+    page.save_screen_browser('us_buy_chekout_3_auth_user')
+    page.goto_pay()
+    page.input_pay_after_receiving()
+    page.save_screen_browser('us_buy_chekout_4_auth_user')
+    page.goto_benefit()
+    page.save_screen_browser('us_buy_chekout_5_auth_user')
+
+    # Переход и очистка корзины
+    page.goto_header_cart()
     page.clear_all_cart()
 
     # Удаление тестового списка wishlist
-    page.goto_cabinet_from_cart()
+    page = CabinetPage(web_driver_auth_desktop)
     page.goto_cabinet_menu(2)
     status_del = page.delete_wishlist(AuthSets.test_wish_list)
-    # page.save_screen_browser('del_new_wishlist')
     assert status_del == 'Успешно', "ERROR! Wishlist don't add"
 
     # Удаление адреса и дня рождения
@@ -425,4 +453,3 @@ def test_us_cabinet_search_wishlist_cart_buy(web_driver_auth_desktop):
     # Удаление последнего добавленного адреса
     page.goto_cabinet_menu(4)
     page.delete_adress(-1)
-    # page.save_screen_browser('delete_my_adress')
