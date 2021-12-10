@@ -5,8 +5,7 @@ from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from pages.base_page import BasePage
 from pages.url_list import LinsaUa
-from pages.locators import CabinetLocators, StartLocators, ProductLocators, BlogLocators, CartLocators, \
-    ProductLensLocators
+from pages.locators import CabinetLocators, StartLocators, ProductLocators, BlogLocators, CartLocators
 
 
 class CabinetPage(BasePage):
@@ -206,22 +205,17 @@ class CabinetPage(BasePage):
         self.driver.find_element(*CartLocators.close_popup_cart).click()
         return title_success
 
-    def wishlist_buy_frames(self, index: int) -> str:
+    def wishlist_buy_frames(self, index: int) -> [float, str]:
+        sum_frames = float(self.driver.find_element(*CabinetLocators.wishlist_frames_price).text.split()[0])
         title_success = self.add_prod_to_cart(index, CabinetLocators.wishlist_frames,
                                               CabinetLocators.wishlist_buy_frames)
-        return title_success
+        return sum_frames, title_success
 
-    def wishlist_buy_sunglass(self, index: int):
+    def wishlist_buy_sunglass(self, index: int) -> [float, str]:
+        sum_sunglass = float(self.driver.find_element(*CabinetLocators.wishlist_sg_price).text.split()[0])
         title_success = self.add_prod_to_cart(index, CabinetLocators.wishlist_sg,
                                               CabinetLocators.wishlist_buy_sg)
-        return title_success
-
-    def goto_header_cart(self):
-        self.driver.find_element(*CabinetLocators.header_cart).click()
-
-    def clear_all_cart(self):
-        self.driver.find_element(*CartLocators.clear_cart).click()
-        WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located(CartLocators.cart_empty))
+        return sum_sunglass, title_success
 
     def goto_cabinet_from_cart(self):
         self.driver.find_element(*CabinetLocators.cabinet_name).click()
