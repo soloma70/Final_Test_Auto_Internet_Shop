@@ -32,7 +32,7 @@ def test_pagination_frames_page(web_driver_desktop):
     стрелок (в пределах 5 страниц) и сравнивает фактический URL с ожидаемым"""
 
     page = ProductPage(web_driver_desktop, 'fr')
-    amount_page_test = page.amount_page_visible(page.url)
+    amount_page_test = page.amount_page_visible()
     # Переход по прямой ссылке
     for i in range(amount_page_test):
         goto_url, current_url = page.get_page_urls(i)
@@ -51,8 +51,8 @@ def test_pagination_frames_page(web_driver_desktop):
 
 
 @pytest.mark.positive
-@pytest.mark.parametrize("test_set", [FramesSets.guess, FramesSets.police, FramesSets.ray_ban, FramesSets.sky],
-                         ids=[FramesSets.guess[11], FramesSets.police[11], FramesSets.ray_ban[11], FramesSets.sky[11]])
+@pytest.mark.parametrize("test_set", [FramesSets.sky, FramesSets.guess, FramesSets.police, FramesSets.ray_ban],
+                         ids=[FramesSets.sky[6], FramesSets.guess[6], FramesSets.police[6], FramesSets.ray_ban[6]])
 def test_filter_frames_page(web_driver_desktop, test_set):
     """Тест проверяет фильтры на странице и выборку согласно критериям фильтрации.
     ВНИМАНИЕ!!! Необходимо убрать курсор мышки из поля страницы браузера!"""
@@ -65,12 +65,12 @@ def test_filter_frames_page(web_driver_desktop, test_set):
         page.filter_click(i, test_set[i], 'fr')
 
     # Делаем скриншот
-    page.save_screen_browser(f'filter_fr_{test_set[11]}')
+    page.save_screen_browser(f'filter_fr_{test_set[6]}')
 
     # Получаем результат применения фильтров и сравниваем с тестовым набором
     search_result_brand, search_result_name = page.search_result()
-    assert search_result_name == test_set[10] and search_result_brand[0] in test_set[11], \
-        f'ERROR! Filtering error or Chek test set {test_set[9]}'
+    assert test_set[5][0] in search_result_name and test_set[
+        6] in search_result_brand, f'ERROR! Filtering error or Chek test set {test_set[6]}'
 
     # Очищаем все фильтры
     page.clear_all_filter()
@@ -109,8 +109,7 @@ def test_filter_single_negative_fr_page(web_driver_desktop):
 
     page = ProductPage(web_driver_desktop, 'fr')
 
-    amount_filter = len(page.filters)
-    for i in range(amount_filter):
+    for i in range(len(FramesSets.filter_set_negative)):
         filter_set = FramesSets.filter_set_negative[i]
 
         for j in range(len(filter_set)):
