@@ -117,6 +117,9 @@ class CartPage(BasePage):
         self.driver.find_element(*CartLocators.input_house).send_keys(house)
         self.driver.find_element(*CartLocators.input_flat).send_keys(flat)
 
+    def delivery_courier(self):
+        self.driver.find_element(*CartLocators.dilivery_cour).click()
+
     def goto_pay(self):
         self.driver.find_element(*CartLocators.next_step_pay).click()
 
