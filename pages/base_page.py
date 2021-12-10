@@ -22,8 +22,8 @@ class BasePage(object):
     def win_scroll_begin(self):
         self.driver.execute_script("window.scrollTo(0, 0)")
 
-    def win_scroll(self):
-        self.driver.execute_script("window.scrollTo(0, 3500)")
+    def win_scroll(self, scroll_point=3500):
+        self.driver.execute_script(f"window.scrollTo(0, {scroll_point})")
 
     def get_relative_link(self):
         url = urlparse(self.driver.current_url)
@@ -197,3 +197,10 @@ class BasePage(object):
             EC.visibility_of_element_located(CartLocators.popup_cart_title)).text
         self.driver.find_element(*CartLocators.close_popup_cart).click()
         return title_success
+
+    def goto_header_cart(self):
+        self.driver.find_element(*CabinetLocators.header_cart).click()
+
+    def clear_all_cart(self):
+        self.driver.find_element(*CartLocators.clear_cart).click()
+        WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located(CartLocators.cart_empty))
