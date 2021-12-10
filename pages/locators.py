@@ -600,28 +600,17 @@ class SunglassLocators:
     # frame_shape 7/4, collection_year 7/7/5, frame_color
     filter_list = [
         (By.CSS_SELECTOR,
-         '#filter-tab-1 > div.filter-slider.slider.slick-initialized.slick-slider > div > div > '
-         'div.slick-slide.slick-current.slick-active > div > div > label > a'),
+         '#filter-tab-1 > div.filter-slider.slider.slick-initialized.slick-slider > div > div > div.slick-slide.slick-current.slick-active > div > div > label > a'),
         (By.CSS_SELECTOR,
          '#filter-tab-2 > div.filter-slider.slider.slick-initialized.slick-slider > div > div > '
          'div.slick-slide.slick-current.slick-active > div > div > label > a'),
         (By.CSS_SELECTOR,
-         '#filter-tab-3 > div.filter-slider.slider.slick-initialized.slick-slider > div > div > '
-         'div.slick-slide.slick-current.slick-active > div > div > label > a'),
+         '#filter-tab-3 > div.filter-slider.slider.slick-initialized.slick-slider > div > div > div.slick-slide.slick-current.slick-active > div > div > label > a'),
         (By.CSS_SELECTOR,
          '#filter-tab-4 > div.filter-slider.slider.slick-initialized.slick-slider > div > div > '
          'div.slick-slide.slick-current.slick-active > div > div > label > a'),
         (By.CSS_SELECTOR,
          '#filter-tab-5 > div.filter-slider.slider.slick-initialized.slick-slider > div > div > '
-         'div.slick-slide.slick-current.slick-active > div > div > label > a'),
-        (By.CSS_SELECTOR,
-         '#filter-tab-6 > div.filter-slider.slider.slick-initialized.slick-slider > div > div > '
-         'div.slick-slide.slick-current.slick-active > div > div > label > a'),
-        (By.CSS_SELECTOR,
-         '#filter-tab-7 > div.filter-slider.slider.slick-initialized.slick-slider > div > div > '
-         'div.slick-slide.slick-current.slick-active > div > div > label > a'),
-        (By.CSS_SELECTOR,
-         '#filter-tab-8 > div.filter-slider.slider.slick-initialized.slick-slider > div > div > '
          'div.slick-slide.slick-current.slick-active > div > div > label > a')
     ]
 
@@ -781,8 +770,12 @@ class CabinetLocators:
     input_confirm = (By.CSS_SELECTOR, '#add-wishlist-popup > div > div > div > form > button')
     #
     wishlist_frames = (By.CSS_SELECTOR, 'div.product-item.frames > div.main-content > a.img > img')
+    wishlist_frames_price = (
+        By.CSS_SELECTOR, 'div.product-item.frames > div.main-content > div > div.prices > div.actual')
     wishlist_buy_frames = (By.CSS_SELECTOR, 'div.product-item.frames > div.additional > button')
     wishlist_sg = (By.CSS_SELECTOR, 'div.product-item.sunglasses > div.main-content > a.img > img')
+    wishlist_sg_price = (
+        By.CSS_SELECTOR, 'div.product-item.sunglasses > div.main-content > div > div.prices > div.actual')
     wishlist_buy_sg = (By.CSS_SELECTOR, 'div.product-item.sunglasses > div.additional > button')
     wishlist_buy_lens = (By.CSS_SELECTOR, 'div.product-item.lens > div.additional.lens > a')
     wishlist_buy_care = (By.CSS_SELECTOR, 'div.product-item  > div.additional.lens > a')
