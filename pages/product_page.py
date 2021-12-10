@@ -37,22 +37,22 @@ class ProductPage(BasePage):
         elif type_filter == 'sg':
             filter_vals = self.driver.find_elements(*SunglassLocators.filter_list[index])
         filter_val = [filter_vals[k].get_attribute('title') for k in range(len(filter_vals))]
-
-        while test_set not in filter_val and (test_set != '' or filter_vals != []):
-            self.driver.find_element(By.CSS_SELECTOR,
-                                     f'div.right-filter-cntrl.js-rf-cntrl-{index + 1}.slick-arrow').click()
-            if type_filter == 'fr':
-                filter_vals = self.driver.find_elements(*FramesLocators.filter_list[index])
-            elif type_filter == 'sg':
-                filter_vals = self.driver.find_elements(*SunglassLocators.filter_list[index])
-            filter_val = [filter_vals[k].get_attribute('title') for k in range(len(filter_vals))]
+        ts_tmp = test_set
+        if filter_vals != []:
+            while test_set not in filter_val and test_set != '':
+                self.driver.find_element(By.CSS_SELECTOR, f'div.right-filter-cntrl.js-rf-cntrl-{index + 1}.slick-arrow').click()
+                if type_filter == 'fr':
+                    filter_vals = self.driver.find_elements(*FramesLocators.filter_list[index])
+                elif type_filter == 'sg':
+                    filter_vals = self.driver.find_elements(*SunglassLocators.filter_list[index])
+                filter_val = [filter_vals[k].get_attribute('title') for k in range(len(filter_vals))]
 
         if filter_vals != [] and test_set != '':
             i = 0
             while filter_vals[i].get_attribute('title') != test_set:
+                fv_tmp = filter_vals[i].get_attribute('title')
                 i += 1
-            else:
-                filter_vals[i].click()
+            filter_vals[i].click()
 
     def search_result(self) -> [str, str]:
         search_result_brands = self.driver.find_elements(*ProductLocators.cards_prod_brand)
