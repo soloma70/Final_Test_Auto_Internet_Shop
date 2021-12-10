@@ -32,7 +32,7 @@ def test_pagination_sunglass_page(web_driver_desktop):
     стрелок (в пределах 5 страниц) и сравнивает фактический URL с ожидаемым"""
 
     page = ProductPage(web_driver_desktop, 'sg')
-    amount_page_test = page.amount_page_visible(page.url)
+    amount_page_test = page.amount_page_visible()
     # Переход по прямой ссылке
     for i in range(amount_page_test):
         goto_url, current_url = page.get_page_urls(i)
@@ -54,8 +54,8 @@ def test_pagination_sunglass_page(web_driver_desktop):
 @pytest.mark.parametrize("test_set",
                          [SunglassSets.versace, SunglassSets.police, SunglassSets.ray_ban, SunglassSets.furla,
                           SunglassSets.polaroid],
-                         ids=[SunglassSets.versace[9], SunglassSets.police[9], SunglassSets.ray_ban[9],
-                              SunglassSets.furla[9], SunglassSets.polaroid[9]])
+                         ids=[SunglassSets.versace[5], SunglassSets.police[5], SunglassSets.ray_ban[5],
+                              SunglassSets.furla[5], SunglassSets.polaroid[5]])
 def test_filter_sg_page(web_driver_desktop, test_set):
     """Тест проверяет фильтры на странице и выборку согласно критериям фильтрации.
     ВНИМАНИЕ!!! Необходимо убрать курсор мышки из поля страницы браузера!"""
@@ -72,12 +72,12 @@ def test_filter_sg_page(web_driver_desktop, test_set):
         page.filter_click(i, test_set[i], 'sg')
 
     # Делаем скриншот
-    page.save_screen_browser(f'filter_pos_sg_{test_set[9]}')
+    page.save_screen_browser(f'filter_pos_sg_{test_set[5]}')
 
     # Получаем результат применения фильтров и сравниваем с тестовым набором
     search_result_brand, search_result_name = page.search_result()
-    assert search_result_name == test_set[8] and search_result_brand[0] == test_set[9], \
-        f'ERROR! Filtering error or Chek test set {test_set[9]}'
+    assert test_set[4][0] in search_result_name and test_set[
+        5] in search_result_brand, f'ERROR! Filtering error or Chek test set {test_set[5]}'
 
     # Очищаем все фильтры
     page.clear_all_filter()
@@ -119,8 +119,7 @@ def test_filter_single_negative_sg_page(web_driver_desktop):
 
     page = ProductPage(web_driver_desktop, 'sg')
 
-    amount_filter = len(page.filters)
-    for i in range(amount_filter):
+    for i in range(len(SunglassSets.filter_set_negative)):
         filter_set = SunglassSets.filter_set_negative[i]
         # Убираем всплывающий баннер
         if i == 0:
