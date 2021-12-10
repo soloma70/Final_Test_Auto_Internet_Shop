@@ -83,7 +83,7 @@ class LensPage(BasePage):
         ActionChains(self.driver).move_to_element(element).perform()
         self.driver.find_elements(*ProductLocators.products_lens_buy)[index].click()
 
-    def add_param_lens(self, us_set: list) -> int:
+    def add_param_lens(self, us_set: list) -> float:
         # Страница линзы
         self.driver.find_element(*ProductLensLocators.diff_eyes).click()
         sleep(0.5)
@@ -92,33 +92,38 @@ class LensPage(BasePage):
         self.driver.find_element(*ProductLensLocators.dioptr_left).click()
         dioptr_left_list = self.driver.find_elements(*ProductLensLocators.dioptr_left_list)
         self.choise_param(us_set[6][0], dioptr_left_list)
+        sleep(0.5)
         #
         self.driver.find_element(*ProductLensLocators.dioptr_right).click()
         dioptr_right_list = self.driver.find_elements(*ProductLensLocators.dioptr_right_list)
         self.choise_param(us_set[6][1], dioptr_right_list)
+        sleep(0.5)
         #
         self.driver.find_element(*ProductLensLocators.curv_left).click()
         curv_left_list = self.driver.find_elements(*ProductLensLocators.curv_left_list)
         self.choise_param(us_set[4][0], curv_left_list)
+        sleep(0.5)
         #
         self.driver.find_element(*ProductLensLocators.curv_right).click()
         curv_right_list = self.driver.find_elements(*ProductLensLocators.curv_right_list)
         self.choise_param(us_set[4][0], curv_right_list)
+        sleep(0.5)
         #
         if len(us_set) == 8:
             self.driver.find_element(*ProductLensLocators.curv_left).click()
             curv_left_list = self.driver.find_elements(*ProductLensLocators.curv_left_list)
             self.choise_param(us_set[7][0], curv_left_list)
-            sleep(1)
+            sleep(0.5)
             #
             self.driver.find_element(*ProductLensLocators.curv_right).click()
             curv_right_list = self.driver.find_elements(*ProductLensLocators.curv_right_list)
             self.choise_param(us_set[7][0], curv_right_list)
         #
         self.driver.find_element(*ProductLensLocators.pack_mul_left).click()
+        sleep(0.5)
         self.driver.find_element(*ProductLensLocators.pack_mul_right).click()
         #
-        add_cart_sum = int(self.driver.find_element(*ProductLensLocators.add_cart_sum).text)
+        add_cart_sum = float(self.driver.find_element(*ProductLensLocators.add_cart_sum).text)
         #
         self.driver.find_element(*ProductLensLocators.buy_btn).click()
         return add_cart_sum
