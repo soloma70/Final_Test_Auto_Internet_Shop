@@ -68,14 +68,14 @@ class CarePage(BasePage):
         ActionChains(self.driver).move_to_element(element).perform()
         self.driver.find_elements(*ProductLocators.products_lens_buy)[index].click()
 
-    def add_param_care(self, volume: str) -> int:
+    def add_param_care(self, volume: str) -> float:
         # Страница раствора
         self.driver.find_element(*CareLocators.choice_volume).click()
         list_volume = self.driver.find_elements(*CareLocators.list_volume)
         sleep(1)
         self.choise_param(volume, list_volume)
         #
-        add_cart_sum = int(self.driver.find_element(*CareLocators.add_cart_sum).text)
+        add_cart_sum = float(self.driver.find_element(*CareLocators.add_cart_sum).text)
         #
         self.driver.find_element(*CareLocators.buy_btn).click()
         return add_cart_sum
