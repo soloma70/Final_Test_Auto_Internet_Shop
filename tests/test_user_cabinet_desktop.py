@@ -125,7 +125,7 @@ def test_wishlist_user(web_driver_auth_desktop):
     page.save_screen_browser('add_new_product_wishlist')
 
     # Удаление тестового списка
-    status_del = page.delete_open_wishlist()
+    status_del = page.delete_wishlist(AuthSets.my_wish_list)
     page.save_screen_browser('del_new_wishlist')
     assert status_del == 'Успешно', "ERROR! Wishlist don't add"
 
