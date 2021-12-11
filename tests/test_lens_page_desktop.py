@@ -88,17 +88,17 @@ def test_filter_single_positive_lens_page(web_driver_desktop):
 
     amount_filter = len(page.filters)
     for i in range(amount_filter):
-        filter_set = LensSets.filter_set_positive[i]
+        filter_sets = LensSets.filter_set_positive[i]
 
-        for j in range(len(filter_set)):
+        for _, filter_set in enumerate(filter_sets):
             # Добавляем фильтр по бренду согласно тестовым наборам и получаем списки фильтров
-            page.filter_click_lens(i, filter_set[j])
+            page.filter_click_lens(i, filter_set)
             # Делаем скриншот
-            page.save_screen_browser(f'filter_pos_single_lens_{filter_set[j]}')
+            page.save_screen_browser(f'filter_pos_single_lens_{filter_set}')
             # Получаем результат применения 2-х фильтров (по бренду и линейке) и сравниваем с тестовым набором
             if 0 <= i <= 1:
                 search_result = ', '.join(page.search_result_single(i)).lower()
-                assert filter_set[j].lower() in search_result, f'ERROR! Filtering error'
+                assert filter_set.lower() in search_result, 'ERROR! Filtering error'
 
             # Очищаем все фильтры
             page.clear_all_filter()
@@ -116,15 +116,15 @@ def test_filter_single_negative_lens_page(web_driver_desktop):
 
     amount_filter = len(page.filters)
     for i in range(amount_filter):
-        filter_set = LensSets.filter_set_negative[i]
+        filter_sets = LensSets.filter_set_negative[i]
 
-        for j in range(len(filter_set)):
-            if filter_set[j]:
+        for _, filter_set in enumerate(filter_sets):
+            if filter_set:
                 # Добавляем фильтр по бренду согласно тестовым наборам и получаем списки фильтров
-                page.filter_click_lens(i, filter_set[j])
+                page.filter_click_lens(i, filter_set)
                 # Делаем скриншот
-                page.save_screen_browser(f'filter_neg_single_lens_{filter_set[j]}')
-                assert page.filter_prod_not_found() == 'Товаров не найдено', f'ERROR! Filtering error'
+                page.save_screen_browser(f'filter_neg_single_lens_{filter_set}')
+                assert page.filter_prod_not_found() == 'Товаров не найдено', 'ERROR! Filtering error'
 
                 # Очищаем все фильтры
                 page.clear_all_filter()
