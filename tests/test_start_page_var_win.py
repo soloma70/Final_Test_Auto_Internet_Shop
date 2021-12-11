@@ -15,6 +15,6 @@ def test_start_page_var_win_width(web_driver_var_size, width):
 
     page = StartPage(web_driver_var_size, 5)
     if width == 320 or width == 425 or width == 960:
-        assert page.logo_img_mob().is_displayed() == True, "ERROR screen"
+        assert page.logo_img_mob().is_displayed() is True, "ERROR screen"
     else:
-        assert page.logo_img().is_displayed() == True, "ERROR screen"
+        assert page.logo_img().is_displayed() is True, "ERROR screen"
