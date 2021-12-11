@@ -32,7 +32,7 @@ def test_pagination_care_page(web_driver_desktop):
     стрелок (в пределах 4 страниц) и сравнивает фактический URL с ожидаемым"""
 
     page = CarePage(web_driver_desktop, 5)
-    amount_page_test = page.amount_page_visible(page.url)
+    amount_page_test = page.amount_page_visible()
     # Переход по прямой ссылке
     for i in range(amount_page_test):
         goto_url, current_url = page.get_page_urls(i)
