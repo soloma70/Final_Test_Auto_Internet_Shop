@@ -42,8 +42,8 @@ def test_footer_start_page(web_driver_desktop):
         footers.append(footer)
         page.get_url(page.url)
 
-    # Переход на страницу инстаграм не проверяется, требует логин инстаграм
-    for index in range(11):
+    # Переход на страницу фейсбук и инстаграм не проверяется
+    for index in range(10):
         assert footers[index] == LinsaUa.footers_menu_urls[index][0] or \
                 footers[index] == LinsaUa.footers_menu_urls[index][1] \
              , f'ERROR! Bad transaction for {index}: {footers[index]}'
