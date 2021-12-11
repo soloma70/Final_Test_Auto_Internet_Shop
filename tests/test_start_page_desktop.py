@@ -49,7 +49,7 @@ def test_action_banners_start_page(web_driver_desktop):
     page.get_url(page.url)
     # Добавление в корзину солнечных очков - 1-я позиция
     amount_cart_before = page.amount_cart()
-    page.add_cart_product(0)
+    page.add_cart_lens_def_par(0)
     amount_cart_after = page.amount_cart()
     assert amount_cart_before + 1 == amount_cart_after, "ERROR! Product don't add to cart"
 
