@@ -152,11 +152,11 @@ class StartPage(BasePage):
         element = self.driver.find_element(*StartLocatorsMobile.love_brands_section)
         ActionChains(self.driver).move_to_element(element).perform()
 
-    def registration_btn(self):
+    def registration_btn(self) -> WebElement:
         self.driver.find_element(*StartLocatorsMobile.registr_btn).click()
-
-    def registration_popup_win(self) -> WebElement:
-        return self.driver.find_element(*StartLocatorsMobile.registr_popup_windows)
+        element = WebDriverWait(self.driver, 10).until(
+            EC.visibility_of_element_located(StartLocatorsMobile.registr_popup_windows))
+        return element
 
     def input_reg_data_mobile(self, r_name: str, r_phone: str, r_passw: str):
         name = self.driver.find_element(*StartLocatorsMobile.registr_popup_name)

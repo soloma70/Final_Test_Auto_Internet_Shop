@@ -163,12 +163,12 @@ def test_registration_start_page(web_driver_mobile):
     """Тест проверяет кликабельность и заполнение полей формы регистрации на стартовой странице """
 
     page = StartPage(web_driver_mobile)
-    page.registration_btn()
-    assert page.registration_popup_win().is_displayed(), 'ERROR! PopUp Registration is not displayed'
+    win_reg_popup = page.registration_btn()
+    assert win_reg_popup.is_displayed(), 'ERROR! PopUp Registration is not displayed'
     page.input_reg_data_mobile(RegSets.reg_name, RegSets.reg_phone, RegSets.reg_passw)
     page.save_screen_browser('registration_popup_mob')
     page.registration_close()
-    web_driver_mobile.execute_script("window.scrollTo(0, 0)")
+    page.win_scroll_begin()
 
 
 @pytest.mark.positive
