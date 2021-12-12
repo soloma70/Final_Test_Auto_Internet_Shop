@@ -39,10 +39,7 @@ class CartPage(BasePage):
         content_dict = {content_list[i].split(': ')[0]: content_list[i].split(': ')[1] for i in range(1, len(content_list))}
         prod_brand = content_dict.get('Бренд', '')
         prod_sex = content_dict.get('Пол', '')
-        prod_temple_length = content_dict.get('Длина заушника', '')
-        prod_bridge_width = content_dict.get('Ширина мостика', '')
-        prod_eyepiece_width = content_dict.get('Ширина окуляра', '')
-        return [prod_brand, prod_sex, prod_temple_length, prod_bridge_width, prod_eyepiece_width]
+        return [prod_brand, prod_sex]
 
     def param_care(self, index: int) -> [str, str]:
         prod_name = self.driver.find_elements(*CartLocators.in_cart_prod_name)[index].text

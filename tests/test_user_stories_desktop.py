@@ -7,7 +7,6 @@ from pages.product_page import ProductPage
 from pages.lens_page import LensPage
 from pages.cart_page import CartPage
 from pages.test_sets import LensSets, SendOrderSets, FramesSets, SunglassSets, CareSets, AuthSets
-from time import sleep
 
 
 @pytest.mark.integration
@@ -48,7 +47,7 @@ def test_us_filter_buy_lens_page(web_driver_desktop):
 
     # Получение количества позиций в корзине после добавления оправы
     amount_cart_after = page.amount_cart()
-    assert amount_cart_before + 1 == amount_cart_after, "ERROR! Product don't add to cart"
+    assert amount_cart_before + 2 == amount_cart_after, "ERROR! Product don't add to cart"
 
     # Инициализация экземпляра корзины
     page = CartPage(web_driver_desktop, 10)
@@ -415,11 +414,6 @@ def test_us_cabinet_search_wishlist_cart_buy(web_driver_auth_desktop):
     sum_cart_top, sum_cart_bottom, in_cart_prod_sum = page.sum_in_cart()
     # Сравнение суммы выбраных продуктов и сумм в корзине
     add_cart_sum = add_cart_sum_lens + add_cart_sum_care + add_cart_sum_frames + add_cart_sum_sunglass
-    print()
-    print(int(add_cart_sum), type(add_cart_sum))
-    print('----------------------')
-    print(int(in_cart_prod_sum), type(in_cart_prod_sum))
-
     assert in_cart_prod_sum in (sum_cart_top, sum_cart_bottom), 'ERROR! Еhe amounts in the basket are not equal'
     assert int(add_cart_sum) == int(in_cart_prod_sum), 'ERROR! Amount add products != amount in cart'
 
