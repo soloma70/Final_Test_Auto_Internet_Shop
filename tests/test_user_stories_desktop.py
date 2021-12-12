@@ -19,17 +19,17 @@ def test_us_filter_buy_lens_page(web_driver_desktop):
     ВНИМАНИЕ!!! Необходимо убрать курсор мышки из поля страницы браузера!"""
 
     page = LensPage(web_driver_desktop, 5)
-    us_set = LensSets.filter_set_uc
 
-    for i in range(6):
+    us_sets_mas = LensSets.filter_set_uc
+    for i, us_sets in enumerate(us_sets_mas):
 
-        for j in range(len(us_set[i])):
+        for _, us_set in enumerate(us_sets):
             # Добавляем фильтр по бренду согласно тестовому набору и получаем список фильтров
-            page.filter_click_lens(i, us_set[i][j])
+            page.filter_click_lens(i, us_set)
             # Получаем результат применения 2-х фильтров (по бренду и линейке) и сравниваем с тестовым набором
             if 0 <= i <= 1:
                 search_result = ', '.join(page.search_result_single(i)).lower()
-                assert us_set[i][j].lower() in search_result, f'ERROR! Filtering error'
+                assert us_set.lower() in search_result, f'ERROR! Filtering error'
 
     # Сортировка по возрастанию
     page.sorted_by_on_page(2)
@@ -41,7 +41,7 @@ def test_us_filter_buy_lens_page(web_driver_desktop):
     amount_cart_before = page.amount_cart()
     # Добавление в корзину 1-го найденого продукта с параметрами в us_set, переход в корзину, получение суммы заказа
     page.add_cart_lens(0)
-    add_cart_sum = page.add_param_lens(us_set)
+    add_cart_sum = page.add_param_lens(us_sets_mas)
     status_add_prod = page.add_success()
     assert status_add_prod == 'Товар добавлен в корзину', "ERROR! Wishlist don't add"
 
@@ -58,24 +58,28 @@ def test_us_filter_buy_lens_page(web_driver_desktop):
     # Получение данных по линзам из корзины по имени, бренду, sph, bc и сравнение с тестовым набором
     for seq_num in range(len(page.prod_names)):
         prod_name, prod_brand, lens_sph, lens_bc = page.param_lens(seq_num)
-        assert us_set[1][0].lower() in prod_name.lower()
-        assert us_set[0][0].lower() in prod_brand.lower()
-        assert us_set[6][seq_num] in lens_sph
-        assert us_set[4][0] in lens_bc
+        assert us_sets_mas[1][0].lower() in prod_name.lower()
+        assert us_sets_mas[0][0].lower() in prod_brand.lower()
+        assert us_sets_mas[6][seq_num] in lens_sph
+        assert us_sets_mas[4][0] in lens_bc
 
     # Переход на страницу оформления заказа и заполнения всех данных
-    page.save_screen_browser(f'us_1_cart_chekout_{us_set[0][0]}')
+    page.save_screen_browser(f'us_1_cart_chekout_{us_sets_mas[0][0]}')
     page.checkout_click()
     page.input_data(SendOrderSets.name, SendOrderSets.email, SendOrderSets.phone)
-    page.save_screen_browser(f'us_2_data_chekout_{us_set[0][0]}')
+    page.save_screen_browser(f'us_2_data_chekout_{us_sets_mas[0][0]}')
     page.goto_delivery()
     page.input_delivery_np(SendOrderSets.nova_poshta[0][0], SendOrderSets.nova_poshta[0][1])
-    page.save_screen_browser(f'us_3_delivery_chekout_{us_set[0][0]}')
+    page.save_screen_browser(f'us_3_delivery_chekout_{us_sets_mas[0][0]}')
     page.goto_pay()
     page.input_pay_after_receiving()
-    page.save_screen_browser(f'us_4_pay_chekout_{us_set[0][0]}')
+    page.save_screen_browser(f'us_4_pay_chekout_{us_sets_mas[0][0]}')
     page.goto_benefit()
-    page.save_screen_browser(f'us_5_confitm_chekout_{us_set[0][0]}')
+    page.save_screen_browser(f'us_5_confitm_chekout_{us_sets_mas[0][0]}')
+
+    # Переход в корзину и ее очистка
+    page.goto_header_cart()
+    page.clear_all_cart()
 
 
 @pytest.mark.integration
@@ -89,15 +93,15 @@ def test_us_filter_buy_fr_page(web_driver_desktop):
 
     page = ProductPage(web_driver_desktop, 'fr')
 
-    us_set = FramesSets.filter_set_uc
-    for i in range(len(us_set)):
+    us_sets = FramesSets.filter_set_uc
+    for i, us_set in enumerate(us_sets):
 
         # Добавляем фильтр по бренду согласно тестовым наборам и получаем списки фильтров
-        page.filter_click(i, us_set[i], 'fr')
+        page.filter_click(i, us_set, 'fr')
         # Получаем результат применения фильтров и сравниваем с тестовым набором
         search_result_brand = page.search_result_single(i)
         if us_set[i] != '':
-            assert us_set[i] in search_result_brand, f'ERROR! Filtering error'
+            assert us_set in search_result_brand, 'ERROR! Filtering error'
 
     # Сортировка по возрастанию
     page.sorted_by_on_page(2)
@@ -116,7 +120,7 @@ def test_us_filter_buy_fr_page(web_driver_desktop):
     amount_cart_after = page.amount_cart()
     assert amount_cart_before + 1 == amount_cart_after, "ERROR! Product don't add to cart"
 
-    page.save_screen_browser(f'uc_add_cart_fr_{us_set[0]}')
+    page.save_screen_browser(f'uc_add_cart_fr_{us_sets[0]}')
 
     # Очищаем все фильтры
     page.clear_all_filter()
@@ -131,23 +135,27 @@ def test_us_filter_buy_fr_page(web_driver_desktop):
     for seq_num in range(len(page.prod_names)):
         prod_content = page.param_prod(seq_num)
         for i in range(len(prod_content)):
-            if us_set[i] != '':
-                assert us_set[i] in prod_content[i]
+            if us_sets[i] != '':
+                assert us_sets[i] in prod_content[i]
 
     # Переход на страницу оформления заказа и заполнения всех данных
-    page.save_screen_browser(f'us_1_cart_chekout_{us_set[0]}')
+    page.save_screen_browser(f'us_1_cart_chekout_{us_sets[0]}')
     page.checkout_click()
     page.input_data(SendOrderSets.name, SendOrderSets.email, SendOrderSets.phone)
-    page.save_screen_browser(f'us_2_data_chekout_{us_set[0]}')
+    page.save_screen_browser(f'us_2_data_chekout_{us_sets[0]}')
     page.goto_delivery()
     page.input_delivery_courier(SendOrderSets.courier[1][0], SendOrderSets.courier[1][1], SendOrderSets.courier[1][2],
                                 SendOrderSets.courier[1][3])
     page.save_screen_browser(f'us_3_delivery_chekout_{us_set[0]}')
     page.goto_pay()
     page.input_pay_after_receiving()
-    page.save_screen_browser(f'us_4_pay_chekout_{us_set[0]}')
+    page.save_screen_browser(f'us_4_pay_chekout_{us_sets[0]}')
     page.goto_benefit()
-    page.save_screen_browser(f'us_5_confitm_chekout_{us_set[0]}')
+    page.save_screen_browser(f'us_5_confitm_chekout_{us_sets[0]}')
+
+    # Переход в корзину и ее очистка
+    page.goto_header_cart()
+    page.clear_all_cart()
 
 
 @pytest.mark.integration
@@ -161,19 +169,19 @@ def test_us_filter_buy_sg_page(web_driver_desktop):
 
     page = ProductPage(web_driver_desktop, 'sg')
 
-    us_set = SunglassSets.filter_set_uc
-    for i in range(len(us_set)):
+    us_sets = SunglassSets.filter_set_uc
+    for i, us_set in enumerate(us_sets):
 
         # Убираем всплывающий баннер
         if i == 0:
             page.pass_popup_banner()
 
         # Добавляем фильтр по бренду согласно тестовым наборам и получаем списки фильтров
-        page.filter_click(i, us_set[i], 'sg')
+        page.filter_click(i, us_set, 'sg')
         # Получаем результат применения фильтров и сравниваем с тестовым набором
         search_result_brand = page.search_result_single(i)
-        if us_set[i] != '':
-            assert us_set[i] in search_result_brand, f'ERROR! Filtering error'
+        if us_set != '':
+            assert us_set in search_result_brand, 'ERROR! Filtering error'
 
     # Сортировка по возрастанию
     page.sorted_by_on_page(2)
@@ -192,7 +200,7 @@ def test_us_filter_buy_sg_page(web_driver_desktop):
     amount_cart_after = page.amount_cart()
     assert amount_cart_before + 1 == amount_cart_after, "ERROR! Product don't add to cart"
 
-    page.save_screen_browser(f'uc_add_cart_sg_{us_set[0]}')
+    page.save_screen_browser(f'uc_add_cart_sg_{us_sets[0]}')
 
     # Очищаем все фильтры
     page.clear_all_filter()
@@ -207,23 +215,27 @@ def test_us_filter_buy_sg_page(web_driver_desktop):
     for seq_num in range(len(page.prod_names)):
         prod_content = page.param_prod(seq_num)
         for i in range(len(prod_content)):
-            if us_set[i] != '':
-                assert us_set[i] in prod_content[i]
+            if us_sets[i] != '':
+                assert us_sets[i] in prod_content[i]
 
     # Переход на страницу оформления заказа и заполнения всех данных
-    page.save_screen_browser(f'us_1_cart_chekout_{us_set[0]}')
+    page.save_screen_browser(f'us_1_cart_chekout_{us_sets[0]}')
     page.checkout_click()
     page.input_data(SendOrderSets.name, SendOrderSets.email, SendOrderSets.phone)
-    page.save_screen_browser(f'us_2_data_chekout_{us_set[0]}')
+    page.save_screen_browser(f'us_2_data_chekout_{us_sets[0]}')
     page.goto_delivery()
     page.input_delivery_courier(SendOrderSets.courier[0][0], SendOrderSets.courier[0][1], SendOrderSets.courier[0][2],
                                 SendOrderSets.courier[0][3])
-    page.save_screen_browser(f'us_3_delivery_chekout_{us_set[0]}')
+    page.save_screen_browser(f'us_3_delivery_chekout_{us_sets[0]}')
     page.goto_pay()
     page.input_pay_after_receiving()
-    page.save_screen_browser(f'us_4_pay_chekout_{us_set[0]}')
+    page.save_screen_browser(f'us_4_pay_chekout_{us_sets[0]}')
     page.goto_benefit()
-    page.save_screen_browser(f'us_5_confitm_chekout_{us_set[0]}')
+    page.save_screen_browser(f'us_5_confitm_chekout_{us_sets[0]}')
+
+    # Переход в корзину и ее очистка
+    page.goto_header_cart()
+    page.clear_all_cart()
 
 
 @pytest.mark.integration
@@ -288,6 +300,10 @@ def test_us_filter_buy_care_page(web_driver_desktop):
     page.save_screen_browser(f'us_4_pay_chekout_{us_set[0]}')
     page.goto_benefit()
     page.save_screen_browser(f'us_5_confitm_chekout_{us_set[0]}')
+
+    # Переход в корзину и ее очистка
+    page.goto_header_cart()
+    page.clear_all_cart()
 
 
 @pytest.mark.integration
