@@ -786,7 +786,7 @@ class CabinetLocators:
     points_main_menu = (By.CSS_SELECTOR, '#content-wrapper > div.main-menu > ul > li > a')
 
     # Вернуться на главную
-    goto_start_page = (By.CSS_SELECTOR, '#content-wrapper > section > main > div.double-no-goods > div.left > a')
+    goto_start_page = (By.CSS_SELECTOR, '#content-wrapper > header > div.header-left.test > a')
     # Переход на страницу линз
     goto_lens_page = (By.CSS_SELECTOR, 'div.banner-block.js-banner-block.blue > div.button-holder > a')
     # Переход на страницу очков
