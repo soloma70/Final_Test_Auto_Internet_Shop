@@ -29,7 +29,7 @@ def test_us_filter_buy_lens_page(web_driver_desktop):
             # Получаем результат применения 2-х фильтров (по бренду и линейке) и сравниваем с тестовым набором
             if 0 <= i <= 1:
                 search_result = ', '.join(page.search_result_single(i)).lower()
-                assert us_set.lower() in search_result, f'ERROR! Filtering error'
+                assert us_set.lower() in search_result, 'ERROR! Filtering error'
 
     # Сортировка по возрастанию
     page.sorted_by_on_page(2)
@@ -146,7 +146,7 @@ def test_us_filter_buy_fr_page(web_driver_desktop):
     page.goto_delivery()
     page.input_delivery_courier(SendOrderSets.courier[1][0], SendOrderSets.courier[1][1], SendOrderSets.courier[1][2],
                                 SendOrderSets.courier[1][3])
-    page.save_screen_browser(f'us_3_delivery_chekout_{us_set[0]}')
+    page.save_screen_browser(f'us_3_delivery_chekout_{us_sets[0]}')
     page.goto_pay()
     page.input_pay_after_receiving()
     page.save_screen_browser(f'us_4_pay_chekout_{us_sets[0]}')
@@ -349,16 +349,16 @@ def test_us_cabinet_search_wishlist_cart_buy(web_driver_auth_desktop):
     page.save_screen_browser('us_buy_add_wishlist')
     assert status_add == 'Успешно', "ERROR! Wishlist don't add"
 
-    # Добавление в wishlist оправы из тестового списка по первым 3 фильтрам
+    # Добавление в wishlist оправы из тестового списка по 2 фильтрам
     page = ProductPage(web_driver_auth_desktop, 'fr')
-    us_set = FramesSets.filter_set_uc
-    for i in range(len(us_set)):
+    us_sets = FramesSets.filter_set_uc
+    for i, us_set in enumerate(us_sets):
         # Добавляем фильтр по бренду согласно тестовым наборам и получаем списки фильтров
-        page.filter_click(i, us_set[i], 'fr')
+        page.filter_click(i, us_set, 'fr')
         # Получаем результат применения фильтров и сравниваем с тестовым набором
         search_result_brand = page.search_result_single(i)
-        if us_set[i] != '':
-            assert us_set[i] in search_result_brand, f'ERROR! Filtering error'
+        if us_set != '':
+            assert us_set in search_result_brand, 'ERROR! Filtering error'
     # Сортировка по возрастанию
     page.sorted_by_on_page(2)
     list_price_increase = page.get_prod_list_on_page()
@@ -368,19 +368,19 @@ def test_us_cabinet_search_wishlist_cart_buy(web_driver_auth_desktop):
     status_add_prod = page.add_prod_wishlist(AuthSets.test_wish_list)
     assert status_add_prod == 'Успешно', "ERROR! Wishlist don't add"
 
-    # Добавление в wishlist солнечных очков из тестового списка по первым 3 фильтрам
+    # Добавление в wishlist солнечных очков из тестового списка по 2 фильтрам
     page = ProductPage(web_driver_auth_desktop, 'sg')
-    us_set = SunglassSets.filter_set_uc
-    for i in range(len(us_set)):
+    us_sets = SunglassSets.filter_set_uc
+    for i, us_set in enumerate(us_sets):
         # Убираем всплывающий баннер
         if i == 0:
             page.pass_popup_banner()
         # Добавляем фильтр по бренду согласно тестовым наборам и получаем списки фильтров
-        page.filter_click(i, us_set[i], 'sg')
+        page.filter_click(i, us_set, 'sg')
         # Получаем результат применения фильтров и сравниваем с тестовым набором
         search_result_brand = page.search_result_single(i)
-        if us_set[i] != '':
-            assert us_set[i] in search_result_brand, f'ERROR! Filtering error'
+        if us_set != '':
+            assert us_set in search_result_brand, 'ERROR! Filtering error'
     # Сортировка по возрастанию
     page.sorted_by_on_page(2)
     list_price_increase = page.get_prod_list_on_page()
