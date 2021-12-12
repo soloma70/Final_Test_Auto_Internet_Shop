@@ -156,9 +156,6 @@ def test_sort_frames_page(web_driver_desktop):
         page.save_screen_browser(f'sort_frames_increase_{page_num[i]}')
         list_price_increase = page.get_prod_list_on_page()
         list_sort = sorted(list_price_increase)
-        print('-' * 20)
-        print(list_price_increase)
-        print(list_sort)
         assert list_price_increase == list_sort, "ERROR! Position don't sorted"
 
         # Сортировка по популярности
