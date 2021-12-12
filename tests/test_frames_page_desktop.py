@@ -138,16 +138,13 @@ def test_sort_frames_page(web_driver_desktop):
         # Переход на страницу сортировки (не перегружаем 1-ю страницу)
         if i != 0:
             page.get_url(page.goto_page(page_num[i]))
-        print()
-        print(f'{page_num[i]=}')
+
         # Сортировка по снижению
         page.sorted_by_on_page(1)
         page.save_screen_browser(f'sort_frames_decrease_{page_num[i]}')
         list_price_decrease = page.get_prod_list_on_page()
         list_sort = sorted(list_price_decrease)
         list_sort.sort(reverse=True)
-        print(list_price_decrease)
-        print(list_sort)
         assert list_price_decrease == list_sort, "ERROR! Position don't sorted"
 
         # Сортировка по новизне
