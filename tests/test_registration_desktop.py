@@ -26,6 +26,7 @@ def test_registration_valid(web_driver_desktop):
     page.reg_submit()
 
     # Блок для неправильного кода смс
+    page.wait_reg_sms()
     answer = page.enter_sms_code('123456')
     page.reg_sms_close()
     assert answer == 'Неверный код подтверждения'
@@ -102,7 +103,7 @@ def test_registration_nonvalid_password(web_driver_desktop, passw):
     page.wait_download_reg_win()
 
     # Ввод данных авторизации, получение ответа и сравление с ожиданием
-    page.input_reg_data(RegSets.reg_name, RegSets.reg_phone, passw)
+    page.input_reg_data(RegSets.reg_name, RegSets.reg_phone_neg_test, passw)
     page.reg_submit()
     answer = page.answer_nonvalid_registr()
     if len(str(passw)) < 6:
