@@ -1,6 +1,6 @@
 # -*- encoding=utf8 -*-
+
 import pytest
-from time import sleep
 from pages.blog_page import BlogPage
 
 
@@ -12,9 +12,9 @@ def test_news_tags_blog_page(web_driver_desktop):
     page = BlogPage(web_driver_desktop, 5)
     decl_urls = [page.news_tags[i].get_attribute('href') for i in range(len(page.news_tags))]
 
-    for index in range(len(decl_urls)):
+    for index, decl_url in enumerate(decl_urls):
         actual_url = page.news_tag_blog(index)
-        assert decl_urls[index] == actual_url, 'ERROR! Transaction is bad'
+        assert decl_url == actual_url, 'ERROR! Transaction is bad'
 
 
 @pytest.mark.positive
@@ -27,14 +27,13 @@ def test_news_blog_page(web_driver_desktop):
     test_page_urls = page.get_test_pages_urls()
     for page_url in test_page_urls:
         page.get_url(page_url)
-        sleep(1)
+
         # Создаем список URL тестовых новостей на странице
         test_news_urls = page.list_news_urls(0, 4, -1)
         assert page_url == web_driver_desktop.current_url
 
         for news_url in test_news_urls:
             page.get_url(news_url)
-            sleep(1)
             assert page.news_name().is_displayed(), 'ERROR! Transaction is bad'
 
 
@@ -48,7 +47,6 @@ def test_pagination_blog_page(web_driver_desktop, index):
     # Проверка пагинации крайние значения и середина диапазона
     decl_url = page.page_elements()[index].get_attribute('href')
     page.page_elements()[index].click()
-    sleep(1)
     actual_url = web_driver_desktop.current_url
     assert decl_url == actual_url, 'ERROR! Transaction is bad'
 
