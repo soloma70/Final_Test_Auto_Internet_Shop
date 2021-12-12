@@ -254,7 +254,7 @@ def test_us_filter_buy_care_page(web_driver_desktop):
         # Получаем результат применения фильтров и сравниваем с тестовым набором
         if us_set[i] != '' and i <= 1:
             search_result_brand = page.search_result_single(i)
-            assert us_set[i] in search_result_brand, f'ERROR! Filtering error'
+            assert us_set[i] in search_result_brand, 'ERROR! Filtering error'
 
     # Сортировка по возрастанию
     page.sorted_by_on_page(2)
