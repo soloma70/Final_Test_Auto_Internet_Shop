@@ -85,17 +85,16 @@ def test_filter_single_positive_fr_page(web_driver_desktop):
 
     page = ProductPage(web_driver_desktop, 'fr')
 
-    for i in range(len(FramesSets.filter_set_positive)):
-        filter_set = FramesSets.filter_set_positive[i]
+    for i, filter_sets in enumerate(FramesSets.filter_set_positive):
 
-        for j in range(len(filter_set)):
+        for _, filter_set in enumerate(filter_sets):
             # Добавляем фильтр по бренду согласно тестовым наборам и получаем списки фильтров
-            page.filter_click(i, filter_set[j], 'fr')
+            page.filter_click(i, filter_set, 'fr')
             # Делаем скриншот
-            page.save_screen_browser(f'filter_pos_single_fr_{filter_set[j]}')
+            page.save_screen_browser(f'filter_pos_single_fr_{filter_set}')
             # Получаем результат применения фильтров и сравниваем с тестовым набором
             search_result = page.search_result_single(i)
-            assert filter_set[j] in search_result and all(search_result), f'ERROR! Filtering error'
+            assert filter_set in search_result and all(search_result), 'ERROR! Filtering error'
 
             # Очищаем все фильтры
             page.clear_all_filter()
@@ -109,16 +108,15 @@ def test_filter_single_negative_fr_page(web_driver_desktop):
 
     page = ProductPage(web_driver_desktop, 'fr')
 
-    for i in range(len(FramesSets.filter_set_negative)):
-        filter_set = FramesSets.filter_set_negative[i]
+    for i, filter_sets in enumerate(FramesSets.filter_set_negative):
 
-        for j in range(len(filter_set)):
-            if filter_set[j]:
+        for _, filter_set in enumerate(filter_sets):
+            if filter_set:
                 # Добавляем фильтр по бренду согласно тестовым наборам и получаем списки фильтров
-                page.filter_click(i, filter_set[j], 'fr')
+                page.filter_click(i, filter_set, 'fr')
                 # Делаем скриншот
-                page.save_screen_browser(f'filter_neg_single_fr_{filter_set[j]}')
-                assert page.filter_prod_not_found() == 'Товаров не найдено', f'ERROR! Filtering error'
+                page.save_screen_browser(f'filter_neg_single_fr_{filter_set}')
+                assert page.filter_prod_not_found() == 'Товаров не найдено', 'ERROR! Filtering error'
 
                 # Очищаем все фильтры
                 page.clear_all_filter()
@@ -135,18 +133,21 @@ def test_sort_frames_page(web_driver_desktop):
     page = ProductPage(web_driver_desktop, 'fr', 10)
     # Получение списка рандомных страниц для теста
     page_num = page.rand_prod_page(page.amount_page_total(), 1, True)
-
+    # page_num = [1, 45, 66]
     for i in range(3):
         # Переход на страницу сортировки (не перегружаем 1-ю страницу)
         if i != 0:
             page.get_url(page.goto_page(page_num[i]))
-
+        print()
+        print(f'{page_num[i]=}')
         # Сортировка по снижению
         page.sorted_by_on_page(1)
         page.save_screen_browser(f'sort_frames_decrease_{page_num[i]}')
         list_price_decrease = page.get_prod_list_on_page()
         list_sort = sorted(list_price_decrease)
         list_sort.sort(reverse=True)
+        print(list_price_decrease)
+        print(list_sort)
         assert list_price_decrease == list_sort, "ERROR! Position don't sorted"
 
         # Сортировка по новизне
@@ -158,6 +159,9 @@ def test_sort_frames_page(web_driver_desktop):
         page.save_screen_browser(f'sort_frames_increase_{page_num[i]}')
         list_price_increase = page.get_prod_list_on_page()
         list_sort = sorted(list_price_increase)
+        print('-' * 20)
+        print(list_price_increase)
+        print(list_sort)
         assert list_price_increase == list_sort, "ERROR! Position don't sorted"
 
         # Сортировка по популярности

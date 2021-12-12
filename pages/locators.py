@@ -310,6 +310,7 @@ class ProductLocators:
     filters = (By.CSS_SELECTOR, 'div.product-filters-titles.js-filter-toggle-items > div > span')
     # Sort locators
     sort_by = (By.CSS_SELECTOR, 'section.sort_panel > a')  # 4 items
+    sort_by_active = (By.CSS_SELECTOR, 'section.sort_panel > a.sort.active')
     #
     products = (By.CSS_SELECTOR, 'div.products-wrapper > div > div.main-content > a.img')
     products_buy = (By.CSS_SELECTOR, 'div.products-wrapper > div > div.additional > button')

@@ -151,6 +151,7 @@ class BasePage(object):
         for i in range(iter_card):
             full_price_act = f'{block} > div:nth-child({i + 1}) > {price_act}'
             full_price_old = f'{block} > div:nth-child({i + 1}) > {price_old}'
+            sleep(0.5)
             actual_price = int(self.driver.find_element(By.CSS_SELECTOR, full_price_act).text.split()[0])
             try:
                 old_price = int(self.driver.find_element(By.CSS_SELECTOR, full_price_old).text.split()[0])

@@ -4,6 +4,8 @@ from pages.locators import SunglassLocators, ProductLocators, FramesLocators
 from time import sleep
 from selenium.webdriver.common.by import By
 from selenium.common.exceptions import NoSuchElementException
+from selenium.webdriver.support.wait import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 
 
 class ProductPage(BasePage):
@@ -74,7 +76,7 @@ class ProductPage(BasePage):
 
     def sorted_by_on_page(self, index: int):
         self.driver.find_elements(*ProductLocators.sort_by)[index].click()
-        sleep(2)
+        WebDriverWait(self.driver, 10).until(EC.visibility_of_element_located(ProductLocators.sort_by_active))
 
     def get_product_list_sale_banner(self) -> list:
         """ Метод собирает со страницы продукта наличие/отсутсвие баннера с % скидки, формирует и возвращает
