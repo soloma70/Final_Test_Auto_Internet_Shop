@@ -3,6 +3,8 @@ from pages.url_list import LinsaUa
 from pages.locators import CartLocators
 from time import sleep
 from selenium.webdriver.remote.webelement import WebElement
+from selenium.webdriver.support.wait import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 
 
 class CartPage(BasePage):
@@ -84,9 +86,8 @@ class CartPage(BasePage):
         city_list[index].click()
         sleep(1)
         self.driver.find_element(*CartLocators.dilivery_np).click()
-        # wait = WebDriverWait(self.driver, 10)
-        # wait.until(EC.element_to_be_clickable((CartLocators.np_branch)))
-        self.driver.find_element(*CartLocators.np_branch).click()
+        WebDriverWait(self.driver, 10).until(EC.element_to_be_clickable(CartLocators.np_branch)).click()
+        # self.driver.find_element(*CartLocators.np_branch).click()
         #
         branch_list = self.driver.find_elements(*CartLocators.branch_list)
         num_brahch = [num.text.split('№')[1].split()[0] for num in branch_list]
