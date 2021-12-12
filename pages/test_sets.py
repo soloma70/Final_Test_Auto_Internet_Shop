@@ -4,15 +4,18 @@ class AuthSets:
     auth_email = 'vasja_pupkin@gmail.com'
     auth_passw = 'vV123456'
     adress = [['Харьков', 'просп. Гагаріна', '72', '25'],
-               ['Запорожье', 'вул. Цитрусова', '4', '56']]
+              ['Запорожье', 'вул. Цитрусова', '4', '56']]
     birthday = '15.06.1985'
     my_wish_list = 'Тестовый список желаний'
     test_wish_list = 'User Stories Wishlist'
 
+
 class RegSets:
+    """ Для регистрации используется телефон без +380
+    При регистрации запрашивает код подтверждения по SMS - 6 цифр. Для успешной регистрации телефон д.б. реальным.
+    При повторном запуске теста регистрации необходимо поменять цифру в номере телефона, т.к.при регистрации телефон
+    попадает в базу системы"""
     reg_name = 'Иванов Сергей'
-    # Для регистрации используется телефон без +380
-    # При регистрации запрашивает код подтверждения по SMS - 6 цифр. Для успешной регистрации телефон д.б. реальным
     reg_phone = '681474653'
     reg_passw = 'I123456i'
     reg_phone_neg_test = '681475353'
@@ -148,10 +151,10 @@ class CareSets:
               ['Капли Ekinos drops', 'Капли Queens I-Fresh Yal drops 20ml'], 'SOLEKO', 'SOLEKO']
 
     alcon = ['ALCON', '120мл', 'МНОГОФУНКЦИОНАЛЬНЫЙ РАСТВОР',
-              ['Alcon Opti-Free Express'], 'ALCON', 'ALCON']
+             ['Alcon Opti-Free Express'], 'ALCON', 'ALCON']
 
     olmi = ['ТОВ "ОЛМІ"', '', 'Контейнер',
-             ['Контейнер для линз B&L'], 'ТОВ "ОЛМІ"', 'OLMI']
+            ['Контейнер для линз B&L'], 'ТОВ "ОЛМІ"', 'OLMI']
 
     # brands 5, sex 4, temple length 4, bridge width 2, eyepiece width 2
     filter_set_positive = [
@@ -167,10 +170,10 @@ class CareSets:
     ]
 
     filter_set_uc = [
-            'ALCON',
-            '120мл',
-            'МНОГОФУНКЦИОНАЛЬНЫЙ РАСТВОР',
-            'Opti-Free Express'
-            ]
+        'ALCON',
+        '120мл',
+        'МНОГОФУНКЦИОНАЛЬНЫЙ РАСТВОР',
+        'Opti-Free Express'
+    ]
 
     set_vol = '355мл'
