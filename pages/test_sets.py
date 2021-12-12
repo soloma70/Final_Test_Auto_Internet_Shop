@@ -161,7 +161,7 @@ class CareSets:
 
     filter_set_negative = [
         [''],
-        ['300мл', '50мл'],
+        ['50мл'],
         [''],
     ]
 

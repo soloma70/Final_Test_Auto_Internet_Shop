@@ -89,17 +89,17 @@ def test_filter_single_positive_care_page(web_driver_desktop):
 
     amount_filter = len(page.filters)
     for i in range(amount_filter):
-        filter_set = CareSets.filter_set_positive[i]
+        filter_sets = CareSets.filter_set_positive[i]
 
-        for j in range(len(filter_set)):
+        for _, filter_set in enumerate(filter_sets):
             # Добавляем фильтр по бренду согласно тестовым наборам и получаем списки фильтров
-            page.filter_click(i, filter_set[j])
+            page.filter_click(i, filter_set)
             # Делаем скриншот
-            page.save_screen_browser(f'filter_pos_single_care_{filter_set[j]}')
+            page.save_screen_browser(f'filter_pos_single_care_{filter_set}')
             # Получаем результат применения фильтров и сравниваем с тестовым набором
             if i < 2:
                 search_result = page.search_result_single(i)
-                assert filter_set[j] in search_result and all(search_result), f'ERROR! Filtering error'
+                assert filter_set in search_result and all(search_result), 'ERROR! Filtering error'
 
             # Очищаем все фильтры
             page.clear_all_filter()
@@ -115,15 +115,15 @@ def test_filter_negative_single_care_page(web_driver_desktop):
 
     amount_filter = len(page.filters)
     for i in range(amount_filter):
-        filter_set = CareSets.filter_set_negative[i]
+        filter_sets = CareSets.filter_set_negative[i]
 
-        for j in range(len(filter_set)):
-            if filter_set[j]:
+        for _, filter_set in enumerate(filter_sets):
+            if filter_set:
                 # Добавляем фильтр по бренду согласно тестовым наборам и получаем списки фильтров
-                page.filter_click(i, filter_set[j])
+                page.filter_click(i, filter_set)
                 # Делаем скриншот
-                page.save_screen_browser(f'filter_neg_single_care_{filter_set[j]}')
-                assert page.filter_prod_not_found() == 'Товаров не найдено', f'ERROR! Filtering error'
+                page.save_screen_browser(f'filter_neg_single_care_{filter_set}')
+                assert page.filter_prod_not_found() == 'Товаров не найдено', 'ERROR! Filtering error'
 
                 # Очищаем все фильтры
                 page.clear_all_filter()
