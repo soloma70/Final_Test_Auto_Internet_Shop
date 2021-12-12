@@ -86,7 +86,7 @@ class LensPage(BasePage):
     def add_param_lens(self, us_set: list) -> float:
         # Страница линзы
         self.driver.find_element(*ProductLensLocators.diff_eyes).click()
-        sleep(0.5)
+        sleep(1)
         #
         # WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located(ProductLensLocators.dioptr_left)).click()
         self.driver.find_element(*ProductLensLocators.dioptr_left).click()
