@@ -92,20 +92,19 @@ def test_filter_single_positive_sg_page(web_driver_desktop):
 
     page = ProductPage(web_driver_desktop, 'sg')
 
-    for i in range(len(SunglassSets.filter_set_positive)):
-        filter_set = SunglassSets.filter_set_positive[i]
+    for i, filter_sets in enumerate(SunglassSets.filter_set_positive):
         # Убираем всплывающий баннер
         if i == 0:
             page.pass_popup_banner()
 
-        for j in range(len(filter_set)):
+        for _, filter_set in enumerate(filter_sets):
             # Добавляем фильтр по бренду согласно тестовым наборам и получаем списки фильтров
-            page.filter_click(i, filter_set[j], 'sg')
+            page.filter_click(i, filter_set, 'sg')
             # Делаем скриншот
-            page.save_screen_browser(f'filter_pos_single_sg_{filter_set[j]}')
+            page.save_screen_browser(f'filter_pos_single_sg_{filter_set}')
             # Получаем результат применения фильтров и сравниваем с тестовым набором
             search_result = page.search_result_single(i)
-            assert filter_set[j] in search_result and all(search_result), f'ERROR! Filtering error'
+            assert filter_set in search_result and all(search_result), 'ERROR! Filtering error'
 
             # Очищаем все фильтры
             page.clear_all_filter()
@@ -119,19 +118,18 @@ def test_filter_single_negative_sg_page(web_driver_desktop):
 
     page = ProductPage(web_driver_desktop, 'sg')
 
-    for i in range(len(SunglassSets.filter_set_negative)):
-        filter_set = SunglassSets.filter_set_negative[i]
+    for i, filter_sets in enumerate(SunglassSets.filter_set_negative):
         # Убираем всплывающий баннер
         if i == 0:
             page.pass_popup_banner()
 
-        for j in range(len(filter_set)):
-            if filter_set[j]:
+        for _, filter_set in enumerate(filter_sets):
+            if filter_set:
                 # Добавляем фильтр по бренду согласно тестовым наборам и получаем списки фильтров
-                page.filter_click(i, filter_set[j], 'sg')
+                page.filter_click(i, filter_set, 'sg')
                 # Делаем скриншот
-                page.save_screen_browser(f'filter_neg_single_sg_{filter_set[j]}')
-                assert page.filter_prod_not_found() == 'Товаров не найдено', f'ERROR! Filtering error'
+                page.save_screen_browser(f'filter_neg_single_sg_{filter_set}')
+                assert page.filter_prod_not_found() == 'Товаров не найдено', 'ERROR! Filtering error'
 
                 # Очищаем все фильтры
                 page.clear_all_filter()
