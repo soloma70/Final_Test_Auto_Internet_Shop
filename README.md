@@ -17,3 +17,15 @@ https://docs.google.com/spreadsheets/d/1ZCOuL6OwdR9urhH52DM8sfgB9VsDuglPrcQqCuLs
 ```
 pip3 install -r requirements
 ```
+2. Установить Selenium WebDriver с https://chromedriver.chromium.org/downloads (выбрать версию, совместимую с вашим браузером).
+3. Запустить тесты можно:    
+- из среды разработки (например, PyCharm) как отдельными тестами, так и одним файлом теста.    
+- из командной строки как файл теста, так и отдельный тест в файле:     
+```
+pytest -v <test_file_name>::<test_name>
+```
+- 
+из командной строки тесты, помеченые соответствующим декоратором:     
+```
+pytest -v smoke (positive, negative, integration)
+```
