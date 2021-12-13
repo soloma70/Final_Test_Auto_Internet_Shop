@@ -183,6 +183,7 @@ def test_sort_sunglass_page(web_driver_desktop):
 
 
 @pytest.mark.smoke
+@pytest.mark.integration
 @pytest.mark.positive
 def test_add_in_cart_sunglass_page(web_driver_desktop):
     """Тест проверяет добавление очков одной рандомной позиций с 1, последней и 4-х рандомных страниц,
