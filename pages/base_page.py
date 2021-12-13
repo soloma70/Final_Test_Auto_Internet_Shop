@@ -187,7 +187,8 @@ class BasePage(object):
             i += 1
         return i
 
-    def choise_param(self, us_set: str, list_it: list):
+    @staticmethod
+    def choise_param(us_set: str, list_it: list):
         i = 0
         while us_set != list_it[i].text:
             i += 1
