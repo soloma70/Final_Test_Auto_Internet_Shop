@@ -1,10 +1,10 @@
-from pages.base_page import BasePage
-from pages.url_list import LinsaUa
-from pages.locators import CartLocators
 from time import sleep
 from selenium.webdriver.remote.webelement import WebElement
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+from pages.base_page import BasePage
+from pages.url_list import LinsaUa
+from pages.locators import CartLocators
 
 
 class CartPage(BasePage):
@@ -35,7 +35,6 @@ class CartPage(BasePage):
         return prod_name, prod_brand, lens_sph, lens_bc
 
     def param_prod(self, index: int) -> list:
-        prod_name = self.driver.find_elements(*CartLocators.in_cart_prod_name)[index].text
         content = self.driver.find_elements(*CartLocators.in_cart_prod_content)[index].text
         content_list = content.split('\n')
         content_dict = {content_list[i].split(': ')[0]: content_list[i].split(': ')[1] for i in range(1, len(content_list))}
@@ -68,7 +67,8 @@ class CartPage(BasePage):
         input_phone.clear()
         input_phone.send_keys(phone)
 
-    def search_item_in_list(self, test_item: str, item_list: list) -> int:
+    @staticmethod
+    def search_item_in_list(test_item: str, item_list: list) -> int:
         i = 0
         while test_item != item_list[i]:
             i += 1
