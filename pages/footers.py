@@ -2,7 +2,6 @@ from time import sleep
 from pages.base_page import BasePage
 from pages.url_list import LinsaUa
 from pages.locators import StartLocators
-from selenium.webdriver.remote.webelement import WebElement
 
 
 class Footers(BasePage):
