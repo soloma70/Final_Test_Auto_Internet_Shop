@@ -14,4 +14,6 @@ https://docs.google.com/spreadsheets/d/1ZCOuL6OwdR9urhH52DM8sfgB9VsDuglPrcQqCuLs
 Из папки **webdriver** загружается веб-драйвер Chrome.    
 ## Как запускать тесты.
 1. Установить зависимости:    
-`pip3 install -r requirements`
+```
+pip3 install -r requirements
+```
