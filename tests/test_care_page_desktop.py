@@ -5,7 +5,6 @@ from pages.test_sets import CareSets
 from pages.care_page import CarePage
 
 
-@pytest.mark.smoke
 @pytest.mark.positive
 def test_amount_care_page(web_driver_desktop):
     """Тест проверяет количество позиций на странице, суммирует по всем страницам и сравнивает
@@ -80,8 +79,8 @@ def test_positive_filter_care_page(web_driver_desktop, test_set):
 
 @pytest.mark.positive
 def test_filter_single_positive_care_page(web_driver_desktop):
-    """Тест проверяет фильтр на странице отдельно по брендам, объему и типу средства
-    и выборку согласно критерию фильтрации (по типу средств не делается).
+    """Тест проверяет фильтр на странице отдельно по брендам и объему средства и выборку согласно критерию фильтрации
+    (по типу средств не делается).
     В зависимости от прокруток ленты используются до 4 параметров фильтрации.
     ВНИМАНИЕ!!! Необходимо убрать курсор мышки из поля страницы браузера!"""
 
@@ -107,8 +106,7 @@ def test_filter_single_positive_care_page(web_driver_desktop):
 
 @pytest.mark.negative
 def test_filter_negative_single_care_page(web_driver_desktop):
-    """Тест проверяет фильтр на странице по брендам, полу, длинне заушника, ширине мостика и ширине окуляра
-    и выборку согласно критерию фильтрации.
+    """Тест проверяет фильтр на странице отдельно по брендам и объему средства и выборку согласно критерию фильтрации.
     ВНИМАНИЕ!!! Необходимо убрать курсор мышки из поля страницы браузера!"""
 
     page = CarePage(web_driver_desktop, 5)
