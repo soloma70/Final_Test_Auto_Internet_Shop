@@ -24,8 +24,7 @@ pip3 install -r requirements
 ```
 pytest -v <test_file_name>::<test_name>
 ```
-- 
-из командной строки тесты, помеченые соответствующим декоратором:     
+- из командной строки тесты, помеченые соответствующим декоратором:     
 ```
 pytest -v smoke (positive, negative, integration)
 ```
