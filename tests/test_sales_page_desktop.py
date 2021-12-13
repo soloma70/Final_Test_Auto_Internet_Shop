@@ -26,6 +26,7 @@ def test_sales_banners_sales_page(web_driver_desktop):
 
 
 @pytest.mark.smoke
+@pytest.mark.integration
 @pytest.mark.positive
 def test_sales_products_sales_page(web_driver_desktop):
     """Тест проверяет переход на страницу 1-го акционного товара и добавление его в корзину
