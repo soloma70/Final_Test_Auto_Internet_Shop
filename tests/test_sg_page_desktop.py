@@ -5,7 +5,6 @@ from pages.test_sets import SunglassSets
 from pages.product_page import ProductPage
 
 
-@pytest.mark.smoke
 @pytest.mark.positive
 def test_amount_sunglass_page(web_driver_desktop):
     """Тест проверяет количество позиций на странице, суммирует по всем страницам и сравнивает
