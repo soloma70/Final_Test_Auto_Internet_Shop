@@ -170,6 +170,7 @@ def test_sort_frames_page(web_driver_desktop):
 
 
 @pytest.mark.smoke
+@pytest.mark.integration
 @pytest.mark.positive
 def test_add_in_cart_frames_page(web_driver_desktop):
     """Тест проверяет добавление оправ 1-й рандомной позиций с 1, последней и 4-х рандомных страниц,
