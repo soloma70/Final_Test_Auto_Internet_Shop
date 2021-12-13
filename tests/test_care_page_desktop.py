@@ -167,6 +167,7 @@ def test_sort_care_page(web_driver_desktop):
 
 
 @pytest.mark.smoke
+@pytest.mark.integration
 @pytest.mark.positive
 def test_add_in_cart_care_page(web_driver_desktop):
     """Тест проверяет добавление одной рандомной позиций с 1, последней и 1-й рандомной страницы,

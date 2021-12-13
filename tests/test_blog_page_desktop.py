@@ -54,7 +54,7 @@ def test_pagination_blog_page(web_driver_desktop, index):
 @pytest.mark.smoke
 @pytest.mark.positive
 def test_pagination_arrow_blog_page(web_driver_desktop):
-    """Тест проверяет пагинацию и переход на соответствующие страницы блога"""
+    """Тест проверяет пагинацию и переход на соответствующие страницы блога с помощью стрелок"""
 
     page = BlogPage(web_driver_desktop, 5)
 
