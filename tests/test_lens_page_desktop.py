@@ -174,6 +174,7 @@ def test_sort_lens_page(web_driver_desktop):
 
 
 @pytest.mark.smoke
+@pytest.mark.integration
 @pytest.mark.positive
 def test_add_lens_in_cart_lens_page(web_driver_desktop):
     """Тест проверяет добавление линз с 2-х рандомных позиций с 1-й, 3-й и 5-й карточки, переход на страницу
