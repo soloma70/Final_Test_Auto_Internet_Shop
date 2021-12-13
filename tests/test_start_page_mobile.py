@@ -209,8 +209,7 @@ def test_blogs_start_page(web_driver_mobile):
 
 @pytest.mark.positive
 def test_footer_start_page(web_driver_mobile):
-    """Тест проверяет кликабельность блоков в footers
-    и корректность перехода по ссылкам """
+    """Тест проверяет кликабельность блоков в footers и корректность перехода по ссылкам """
 
     page = StartPage(web_driver_mobile, 10)
     pages_footers = []
