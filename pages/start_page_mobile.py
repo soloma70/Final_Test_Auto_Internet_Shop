@@ -1,13 +1,12 @@
-
-from pages.base_page import BasePage
-from pages.url_list import LinsaUa
-from pages.locators import StartLocatorsMobile
 from time import sleep
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.remote.webelement import WebElement
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver import ActionChains
 from selenium.webdriver.support import expected_conditions as EC
+from pages.base_page import BasePage
+from pages.url_list import LinsaUa
+from pages.locators import StartLocatorsMobile
 
 
 class StartPage(BasePage):
