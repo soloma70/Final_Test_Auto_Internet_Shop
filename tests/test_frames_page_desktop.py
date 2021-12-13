@@ -5,7 +5,6 @@ from pages.test_sets import FramesSets
 from pages.product_page import ProductPage
 
 
-@pytest.mark.smoke
 @pytest.mark.positive
 def test_amount_frames_page(web_driver_desktop):
     """Тест проверяет количество позиций на странице, суммирует по всем страницам и сравнивает
