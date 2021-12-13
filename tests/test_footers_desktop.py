@@ -8,8 +8,7 @@ from pages.url_list import LinsaUa
 @pytest.mark.smoke
 @pytest.mark.positive
 def test_footer_start_page(web_driver_desktop):
-    """Тест проверяет кликабельность блоков в footers
-    и корректность перехода по ссылкам """
+    """Тест проверяет кликабельность блоков в footers и корректность перехода по ссылкам """
 
     page = Footers(web_driver_desktop, 10)
     footers = []
