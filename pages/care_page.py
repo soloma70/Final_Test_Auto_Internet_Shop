@@ -1,11 +1,11 @@
-from selenium.webdriver import ActionChains
-from pages.base_page import BasePage
-from pages.url_list import LinsaUa
-from pages.locators import CareLocators, ProductLocators, CartLocators
 from time import sleep
+from selenium.webdriver import ActionChains
 from selenium.webdriver.common.by import By
 from selenium.webdriver.remote.webelement import WebElement
 from selenium.common.exceptions import NoSuchElementException
+from pages.base_page import BasePage
+from pages.url_list import LinsaUa
+from pages.locators import CareLocators, ProductLocators
 
 
 class CarePage(BasePage):
@@ -38,8 +38,7 @@ class CarePage(BasePage):
             i = 0
             while filter_vals[i].get_attribute('title') != test_set:
                 i += 1
-            else:
-                filter_vals[i].click()
+            filter_vals[i].click()
 
     def search_result(self) -> [str, str]:
         search_result_brands = self.driver.find_elements(*ProductLocators.cards_prod_brand)
@@ -113,4 +112,3 @@ class CarePage(BasePage):
             elem_price = self.driver.find_element(By.CSS_SELECTOR,
                                                   f'{loc_b} > div:nth-child({i1}) > div:nth-child({i2}) > {loc_p_2}')
         return elem_price
-
