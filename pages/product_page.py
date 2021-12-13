@@ -1,11 +1,11 @@
-from pages.base_page import BasePage
-from pages.url_list import LinsaUa
-from pages.locators import SunglassLocators, ProductLocators, FramesLocators
 from time import sleep
 from selenium.webdriver.common.by import By
 from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+from pages.base_page import BasePage
+from pages.url_list import LinsaUa
+from pages.locators import SunglassLocators, ProductLocators, FramesLocators
 
 
 class ProductPage(BasePage):
@@ -39,7 +39,6 @@ class ProductPage(BasePage):
         elif type_filter == 'sg':
             filter_vals = self.driver.find_elements(*SunglassLocators.filter_list[index])
         filter_val = [filter_vals[k].get_attribute('title') for k in range(len(filter_vals))]
-        ts_tmp = test_set
         if filter_vals != []:
             while test_set not in filter_val and test_set != '':
                 self.driver.find_element(By.CSS_SELECTOR, f'div.right-filter-cntrl.js-rf-cntrl-{index + 1}.slick-arrow').click()
@@ -52,7 +51,6 @@ class ProductPage(BasePage):
         if filter_vals != [] and test_set != '':
             i = 0
             while filter_vals[i].get_attribute('title') != test_set:
-                fv_tmp = filter_vals[i].get_attribute('title')
                 i += 1
             filter_vals[i].click()
 
