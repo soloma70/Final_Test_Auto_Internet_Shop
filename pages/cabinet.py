@@ -156,7 +156,6 @@ class CabinetPage(BasePage):
         list_wishlist = self.driver.find_elements(*CabinetLocators.list_wishlist)
         i = 0
         while list_wishlist[i].text.split('(')[0].rstrip() != name_wishlist:
-            name = list_wishlist[i].text.split('(')[0].rstrip()
             i += 1
         self.driver.find_elements(*CabinetLocators.list_wishlist)[i].click()
         self.driver.find_element(*CabinetLocators.del_withlist).click()
