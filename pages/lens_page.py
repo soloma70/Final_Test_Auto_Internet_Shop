@@ -1,12 +1,10 @@
-from pages.base_page import BasePage
-from pages.url_list import LinsaUa
-from pages.locators import LensLocators, ProductLocators, ProductLensLocators, CartLocators, CabinetLocators
 from time import sleep
+from random import randint
 from selenium.webdriver.common.by import By
 from selenium.webdriver import ActionChains
-from selenium.webdriver.support.wait import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
-from random import randint
+from pages.base_page import BasePage
+from pages.url_list import LinsaUa
+from pages.locators import LensLocators, ProductLocators, ProductLensLocators
 
 
 class LensPage(BasePage):
@@ -39,8 +37,7 @@ class LensPage(BasePage):
             i = 0
             while filter_vals[i].get_attribute('title') != test_set:
                 i += 1
-            else:
-                filter_vals[i].click()
+            filter_vals[i].click()
 
     def search_result(self) -> [str, str]:
         search_result_brands = self.driver.find_elements(*LensLocators.cards_lens_brand)
@@ -70,7 +67,8 @@ class LensPage(BasePage):
         list_price = [int(lens_price[i].text.split()[0]) for i in range(amount_card)]
         return list_price
 
-    def rand_lens_card(self, amount_card: int, amount_rand_card: int) -> list[int]:
+    @staticmethod
+    def rand_lens_card(amount_card: int, amount_rand_card: int) -> list[int]:
         card_num = [randint(0, amount_card)]
         while len(card_num) < amount_rand_card:
             card_num.append(randint(0, amount_card))
