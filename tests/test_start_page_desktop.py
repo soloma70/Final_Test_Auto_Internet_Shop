@@ -59,8 +59,7 @@ def test_action_banners_start_page(web_driver_desktop):
 
 @pytest.mark.positive
 def test_love_brands_start_page(web_driver_desktop):
-    """Тест проверяет кликабельность баннеров "Любимые бренды"
-    и отображение соответствующих им элементов в ленте"""
+    """Тест проверяет кликабельность баннеров "Любимые бренды" и отображение соответствующих им элементов в ленте"""
 
     page = StartPage(web_driver_desktop, 5)
     # Клик на "Солнцезащитные очки" и проверка всплывающей линейки
@@ -79,8 +78,7 @@ def test_love_brands_start_page(web_driver_desktop):
 
 @pytest.mark.positive
 def test_registration_start_page(web_driver_desktop):
-    """Тест проверяет кликабельность и заполнение полей формы регистрации на стартовой странице
-    и делает скриншот"""
+    """Тест проверяет кликабельность и заполнение полей формы регистрации на стартовой странице и делает скриншот"""
 
     page = StartPage(web_driver_desktop, 10)
     # Клик и проверка всплывающего окна регистрации
@@ -95,8 +93,7 @@ def test_registration_start_page(web_driver_desktop):
 
 @pytest.mark.positive
 def test_blogs_start_page(web_driver_desktop):
-    """Тест проверяет кликабельность блоков в разделе "Оптический блог"
-    и корректность перехода по ссылкам """
+    """Тест проверяет кликабельность блоков в разделе "Оптический блог" и корректность перехода по ссылкам """
 
     page = StartPage(web_driver_desktop, 10)
     # Получение наименований карточек новостей блога
