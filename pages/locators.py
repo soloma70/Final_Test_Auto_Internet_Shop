@@ -41,6 +41,7 @@ class StartLocators:
     # Banners locators
     banner_points = (By.CSS_SELECTOR, 'div.blocks-holder > div > div.button-holder > a')
     amount_product = (By.CSS_SELECTOR, 'div.h-holder > div.amount')
+    sales_banners_name = (By.CSS_SELECTOR, 'section.products-section.promos-compact > div.h-section > div > div')
     sales_banners = (By.CSS_SELECTOR, 'div.main-content')
     sales_sunglass = (By.CSS_SELECTOR, 'div.product-item.sunglasses > div.main-content > a.img')
     sales_add_cart_sunglass = (By.CSS_SELECTOR, 'button.buy-button.js-to-basket')
@@ -54,6 +55,7 @@ class StartLocators:
     amount_cart = (By.CSS_SELECTOR, 'div.icons-panel > a.cart > span.total-in-cart')
 
     # Love brand locators
+    love_brands_name = (By.CSS_SELECTOR, 'section.favourite-brands > div.top > h2')
     love_brands_sunglasses = (By.XPATH, '//*[@id="content-wrapper"]/section[2]/div[1]/div/div[1]')
     love_brands_lenses = (By.XPATH, '//*[@id="content-wrapper"]/section[2]/div[1]/div/div[2]')
     love_brands_accessories = (By.XPATH, '//*[@id="content-wrapper"]/section[2]/div[1]/div/div[3]')
@@ -64,6 +66,8 @@ class StartLocators:
     img_okvision = (By.CSS_SELECTOR, 'img[title="okvision I CARE"]')
 
     # Blogs locators
+    benefit_name = (By.CSS_SELECTOR, 'section.cabinet-benefits > div.right > h2')
+    blog_name = (By.CSS_SELECTOR, 'section.main-blog > h2')
     blog_cards = [
         (By.CSS_SELECTOR,
          '#content-wrapper > section.main-blog > div.blogs-items-holder > a.blog-item.blue > div.titles > div.title'),
@@ -79,6 +83,7 @@ class StartLocators:
     more_info_btn = (By.CSS_SELECTOR, 'i.more')
 
     # FOOTERS LOCATORS
+    footers_img = (By.CSS_SELECTOR, 'footer > div.footer-top > div.middle > div.title')
     footers_left_btns = (By.CSS_SELECTOR, 'div.footer-top > div.left > ul.footer-menu > li > a')
     footers_right_btns = (By.CSS_SELECTOR, 'div.footer-top > div.right > ul.footer-menu > li > a')
     footer_middle_btns = (By.CSS_SELECTOR, 'div.footer-middle > div.item > a')

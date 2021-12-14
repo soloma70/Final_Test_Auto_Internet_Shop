@@ -1,7 +1,8 @@
 import pytest
 from selenium import webdriver
+from selenium.webdriver.edge.options import Options
 from fake_useragent import UserAgent
-from browser_set import ChromeSet
+from browser_set import ChromeSet, EdgeSet, GeckoSet, OperaSet
 from pages.headers import Headers
 from pages.test_sets import AuthSets
 from pages.url_list import LinsaUa
@@ -40,9 +41,9 @@ def web_driver_mobile(request):
 
 
 @pytest.fixture(scope='function')
-def web_driver_var_size(request, width):
+def web_driver_var_size(request, width: int):
     """Фикстура рандомно передает в опции веб-драйвера браузера разные занчения User-Agent, загружает веб-драйвер Хром,
-    принимает в качестве опции ширину окна для разных устройств (десктоп, мобильные) , после выполнения основного кода
+    принимает в качестве опции ширину окна для разных устройств (десктоп, мобильные), после выполнения основного кода
     закрывает браузер"""
 
     option = webdriver.ChromeOptions()
@@ -83,4 +84,50 @@ def web_driver_auth_desktop(request):
 
     yield web_driver
     page.exit_cabinet()
+    web_driver.quit()
+
+
+@pytest.fixture(scope='function')
+def web_driver_gecko(request, width: int):
+    """Фикстура рандомно передает в опции веб-драйвера браузера разные занчения User-Agent, загружает веб-драйвер
+    FireFox, принимает в качестве опции ширину окна для разных устройств (десктоп, мобильные),
+    после выполнения основного кода закрывает браузер"""
+
+    option = webdriver.FirefoxOptions()
+    user_agent = UserAgent()
+    option.set_preference("general.useragent.override", user_agent.random)
+    web_driver = webdriver.Firefox(executable_path=GeckoSet.gecko_driver_path, options=option)
+    web_driver.set_window_size(width, 960)
+    web_driver.delete_all_cookies()
+    yield web_driver
+    web_driver.quit()
+
+
+@pytest.fixture(scope='function')
+def web_driver_edge(request, width: int):
+    """Фикстура рандомно передает в опции веб-драйвера браузера разные занчения User-Agent, загружает веб-драйвер Edge,
+    устанавливает размер окна как в десктопах (ПК, ноутбук), после выполнения основного кода закрывает браузер"""
+
+    option = Options()
+    option.use_chromium = True
+    web_driver = webdriver.Edge(executable_path=EdgeSet.edge_driver_path)
+    web_driver.set_window_size(width, 960)
+    web_driver.delete_all_cookies()
+    yield web_driver
+    web_driver.quit()
+
+
+@pytest.fixture(scope='function')
+def web_driver_opera(request):
+    """Фикстура рандомно передает в опции веб-драйвера браузера разные занчения User-Agent, загружает веб-драйвер
+    FireFox, принимает в качестве опции ширину окна для разных устройств (десктоп, мобильные),
+    после выполнения основного кода закрывает браузер"""
+
+    # option = webdriver.Opera()
+    user_agent = UserAgent()
+    # option.service(option=f"User-Agent={user_agent.random}")
+    web_driver = webdriver.Opera(executable_path=OperaSet.opera_driver_path)
+    web_driver.set_window_size(1280, 960)
+    web_driver.delete_all_cookies()
+    yield web_driver
     web_driver.quit()

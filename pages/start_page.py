@@ -1,5 +1,6 @@
 from time import sleep
 from selenium.webdriver.remote.webelement import WebElement
+from selenium.webdriver import ActionChains
 from pages.base_page import BasePage
 from pages.url_list import LinsaUa
 from pages.locators import StartLocators, StartLocatorsMobile, RegLocators
@@ -38,6 +39,31 @@ class StartPage(BasePage):
         sleep(1)
         amount_page = int(self.driver.find_element(*StartLocators.amount_product).text.strip())
         return amount_banner, amount_page
+
+    def goto_sales_banners(self) -> WebElement:
+        element = self.driver.find_element(*StartLocators.sales_banners_name)
+        element.click()
+        return element
+
+    def goto_love_brands(self) -> WebElement:
+        element = self.driver.find_element(*StartLocators.love_brands_name)
+        element.click()
+        return element
+
+    def goto_benefit(self) -> WebElement:
+        element = self.driver.find_element(*StartLocators.benefit_name)
+        element.click()
+        return element
+
+    def goto_blog(self) -> WebElement:
+        element = self.driver.find_element(*StartLocators.blog_name)
+        element.click()
+        return element
+
+    def goto_footers_img(self) -> WebElement:
+        element = self.driver.find_element(*StartLocators.footers_img)
+        element.click()
+        return element
 
     def all_sales_prods_click(self):
         self.all_sales_prods.click()
