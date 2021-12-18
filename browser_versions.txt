@@ -1,0 +1,9 @@
+Chrome 96.0.4664.93 (64 бита)
+https://chromedriver.chromium.org/downloads
+Microsoft Edge 96.0.1054.53 (64 бита)
+https://developer.microsoft.com/en-us/microsoft-edge/tools/webdriver/
+Firefox 95.0 (64 бита)
+https://github.com/mozilla/geckodriver/releases
+Opera 82.0.4227.23
+https://github.com/operasoftware/operachromiumdriver/releases
+
