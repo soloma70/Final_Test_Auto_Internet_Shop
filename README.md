@@ -4,7 +4,8 @@
 ## Вступление.
 Этот репозиторий содержит автотесты сайта интернет-магазина оптики и контактных линз "Линза UA".    
 Тесты выполнены с применением PageObject и фреймворков Pytest и Selenium.    
-Тесты разработаны для браузера Chrome.    
+Тесты, кроме ***test_crossbrowser.py*** запускаются в браузере Chrome.    
+Для запуска ***test_crossbrowser.py*** необходимы браузеры Firefox, Edge, Opera, Safari
 Ссылка на описание тест-кейсов:    
 https://docs.google.com/spreadsheets/d/1ZCOuL6OwdR9urhH52DM8sfgB9VsDuglPrcQqCuLsHMw/edit?usp=sharing
 ## Файлы.
