@@ -13,7 +13,7 @@ def test_start_page_firefox(web_driver_gecko, width):
     на различных размерах экрана, что соответствует разным мобильным и десктопным устройствам"""
 
     page = StartPage(web_driver_gecko)
-    if width == 480 or width == 960:
+    if width in (480, 960):
         assert page.logo_img_mob().is_displayed() is True, "ERROR screen"
     else:
         assert page.logo_img().is_displayed() is True, "ERROR screen"
@@ -72,5 +72,5 @@ def test_start_page_opera(web_driver_opera, width):
     """Тест проверяет загрузку стартовой страницы магазина в браузере Opera на различных размерах экрана,
     что соответствует разным мобильным и десктопным устройствам"""
 
-    page = StartPage(web_driver_opera)
+    StartPage(web_driver_opera)
     sleep(1)
