@@ -6,10 +6,8 @@ from time import sleep
 
 
 @pytest.mark.smoke
-@pytest.mark.parametrize("width",
-                         [480, 960, 1201, 1280, 1440, 2440]
-    , ids=['win size 480x960', 'win size 960x960', 'win size 1200x960', 'win size 1280x960'
-    , 'win size 1440x960', 'win size 2440x960'])
+@pytest.mark.parametrize("width", [480, 1280, 1440]
+    , ids=['win size 480x960', 'win size 1200x960', 'win size 1440x960'])
 def test_start_page_firefox(web_driver_gecko, width):
     """Тест проверяет загрузку стартовой страницы магазина и переход к ее отдельным блокам в браузере Firefox
     на различных размерах экрана, что соответствует разным мобильным и десктопным устройствам"""
@@ -38,10 +36,8 @@ def test_start_page_firefox(web_driver_gecko, width):
 
 
 @pytest.mark.smoke
-@pytest.mark.parametrize("width",
-                         [480, 960, 1201, 1280, 1440, 2440]
-    , ids=['win size 480x960', 'win size 960x960', 'win size 1200x960', 'win size 1280x960'
-    , 'win size 1440x960', 'win size 2440x960'])
+@pytest.mark.parametrize("width", [480, 1280, 1440]
+    , ids=['win size 480x960', 'win size 1200x960', 'win size 1440x960'])
 def test_start_page_edge(web_driver_edge, width):
     """Тест проверяет загрузку стартовой страницы магазина и переход к ее отдельным блокам в браузере Edge
     на различных размерах экрана, что соответствует разным мобильным и десктопным устройствам"""
@@ -67,3 +63,14 @@ def test_start_page_edge(web_driver_edge, width):
     element_footers_img = page.goto_footers_img()
     sleep(0.5)
     assert element_footers_img.is_displayed() is True, "ERROR screen"
+
+
+@pytest.mark.smoke
+@pytest.mark.parametrize("width", [480, 1280, 1440]
+    , ids=['win size 480x960', 'win size 1200x960', 'win size 1440x960'])
+def test_start_page_opera(web_driver_opera, width):
+    """Тест проверяет загрузку стартовой страницы магазина и переход к ее отдельным блокам в браузере Opera
+    на различных размерах экрана, что соответствует разным мобильным и десктопным устройствам"""
+
+    page = StartPage(web_driver_opera)
+    sleep(1)

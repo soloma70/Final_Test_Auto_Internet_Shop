@@ -118,16 +118,13 @@ def web_driver_edge(request, width: int):
 
 
 @pytest.fixture(scope='function')
-def web_driver_opera(request):
+def web_driver_opera(request, width: int):
     """Фикстура рандомно передает в опции веб-драйвера браузера разные занчения User-Agent, загружает веб-драйвер
-    FireFox, принимает в качестве опции ширину окна для разных устройств (десктоп, мобильные),
+    Opera, принимает в качестве опции ширину окна для разных устройств (десктоп, мобильные),
     после выполнения основного кода закрывает браузер"""
 
-    # option = webdriver.Opera()
-    user_agent = UserAgent()
-    # option.service(option=f"User-Agent={user_agent.random}")
     web_driver = webdriver.Opera(executable_path=OperaSet.opera_driver_path)
-    web_driver.set_window_size(1280, 960)
+    web_driver.set_window_size(width, 960)
     web_driver.delete_all_cookies()
     yield web_driver
     web_driver.quit()

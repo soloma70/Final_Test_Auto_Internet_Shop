@@ -16,4 +16,4 @@ class GeckoSet:
 
 
 class OperaSet:
-    opera_driver_path = Path.cwd().parent / 'webdriver' / 'geckodriver.exe'
+    opera_driver_path = Path.cwd().parent / 'webdriver' / 'operadriver.exe'
