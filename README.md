@@ -5,7 +5,7 @@
 Этот репозиторий содержит автотесты сайта интернет-магазина оптики и контактных линз "Линза UA".    
 Тесты выполнены с применением PageObject и фреймворков Pytest и Selenium.    
 Тесты, кроме ***test_crossbrowser.py*** запускаются в браузере Chrome.    
-Для запуска ***test_crossbrowser.py*** необходимы браузеры Firefox, Edge, Opera, Safari. Версии браузеров и ссылки на скачивание находятся в ***browser_versions.txt***.    
+Для запуска ***test_crossbrowser.py*** необходимы браузеры Firefox, Edge, Opera, Safari.    
 Ссылка на описание тест-кейсов:    
 https://docs.google.com/spreadsheets/d/1ZCOuL6OwdR9urhH52DM8sfgB9VsDuglPrcQqCuLsHMw/edit?usp=sharing
 ## Файлы.
@@ -13,6 +13,7 @@ https://docs.google.com/spreadsheets/d/1ZCOuL6OwdR9urhH52DM8sfgB9VsDuglPrcQqCuLs
 В папке ***.pages*** находятся файлы с классами и методами для работы с соответствующими страницами сайта. Так же там находятся файлы с тестовыми данными, описаниями url сайта и вспомагательными методами.    
 В папку ***.tests/screenshots*** сохраняются скриншоты, создающиеся при выполении тестов.    
 Из папки ***.webdriver*** загружается веб-драйвер Chrome.    
+В ***browser_versions.txt*** описаны версии браузеров и ссылки на скачивание.    
 ## Как запускать тесты.
 1. Установить зависимости:    
 ```
