@@ -19,8 +19,9 @@ https://docs.google.com/spreadsheets/d/1ZCOuL6OwdR9urhH52DM8sfgB9VsDuglPrcQqCuLs
 ```
 pip3 install -r requirements
 ```
-2. Скачать Selenium WebDriver с https://chromedriver.chromium.org/downloads (выбрать версию, совместимую с вашим браузером) и скопировать в папку ***.webdriver***.
-3. Запустить тесты можно:    
+2. Скачать Selenium WebDriver с https://chromedriver.chromium.org/downloads (выбрать версию, совместимую с вашим браузером) и скопировать в папку ***.webdriver***.    
+  *Примечание:* для кроссбраузерного теста необходимо скачать и скопировать в папку вебдрайверы для Firefox, Edge, Opera, Safari.    
+4. Запустить тесты можно:    
 - из среды разработки (например, PyCharm) как отдельными тестами, так и одним файлом теста    
 - из командной строки как файл теста, так и отдельный тест в файле:     
 ```
