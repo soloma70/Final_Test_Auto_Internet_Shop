@@ -1,8 +1,8 @@
 # -*- encoding=utf8 -*-
 
+from time import sleep
 import pytest
 from pages.start_page import StartPage
-from time import sleep
 
 
 @pytest.mark.smoke
@@ -43,7 +43,7 @@ def test_start_page_edge(web_driver_edge, width):
     на различных размерах экрана, что соответствует разным мобильным и десктопным устройствам"""
 
     page = StartPage(web_driver_edge)
-    if width == 480 or width == 960:
+    if width in (480, 960):
         assert page.logo_img_mob().is_displayed() is True, "ERROR screen"
     else:
         assert page.logo_img().is_displayed() is True, "ERROR screen"
