@@ -284,8 +284,7 @@ class CartLocators:
         By.CSS_SELECTOR, 'div.delivery-radio-wrapper > table > tr:nth-child(3) > td:nth-child(1) > label > span.round')
 
     np_branch = (By.CSS_SELECTOR,
-                 'div.select-wrapper.department > div > div.selectize-input.items.has-options.not-full > input['
-                 'type=text]')
+                 'div.select-wrapper.department > div > div.selectize-input.items.not-full > input[type=text]')
     branch_list = (By.CSS_SELECTOR, 'div.select-wrapper.department > div > div.selectize-dropdown.single > div > div')
     #
     next_step_pay = (By.CSS_SELECTOR, 'form.ecom_steps > div > div.left > div.button-holder > a')

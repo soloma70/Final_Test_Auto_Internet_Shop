@@ -84,13 +84,14 @@ class CartPage(BasePage):
         city_name = [name_city.text.strip() for name_city in city_list]
         index = self.search_item_in_list(city, city_name)
         city_list[index].click()
-        sleep(1)
+        sleep(0.7)
         self.driver.find_element(*CartLocators.dilivery_np).click()
-        WebDriverWait(self.driver, 10).until(EC.element_to_be_clickable(CartLocators.np_branch)).click()
-        # self.driver.find_element(*CartLocators.np_branch).click()
+        sleep(0.7)
+        # WebDriverWait(self.driver, 10).until(EC.element_to_be_clickable(CartLocators.np_branch)).click()
+        self.driver.find_element(*CartLocators.np_branch).click()
         #
         branch_list = self.driver.find_elements(*CartLocators.branch_list)
-        num_brahch = [num.text.split('№')[1].split()[0] for num in branch_list]
+        num_brahch = [num.text.split('№')[1].split()[0] for num in branch_list[0:50]]
         index = self.search_item_in_list(branch, num_brahch)
         branch_list[index].click()
 

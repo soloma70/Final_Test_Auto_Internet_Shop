@@ -79,33 +79,34 @@ class LensPage(BasePage):
     def add_cart_lens(self, index: int):
         element = self.driver.find_elements(*ProductLocators.products)[index]
         ActionChains(self.driver).move_to_element(element).perform()
+        sleep(0.5)
         self.driver.find_elements(*ProductLocators.products_lens_buy)[index].click()
 
     def add_param_lens(self, us_set: list) -> float:
         # Страница линзы
         self.driver.find_element(*ProductLensLocators.diff_eyes).click()
-        sleep(1)
+        sleep(0.7)
         #
         # WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located(ProductLensLocators.dioptr_left)).click()
         self.driver.find_element(*ProductLensLocators.dioptr_left).click()
         dioptr_left_list = self.driver.find_elements(*ProductLensLocators.dioptr_left_list)
         self.choise_param(us_set[6][0], dioptr_left_list)
-        sleep(0.5)
+        sleep(0.7)
         #
         self.driver.find_element(*ProductLensLocators.dioptr_right).click()
         dioptr_right_list = self.driver.find_elements(*ProductLensLocators.dioptr_right_list)
         self.choise_param(us_set[6][1], dioptr_right_list)
-        sleep(0.5)
+        sleep(0.7)
         #
         self.driver.find_element(*ProductLensLocators.curv_left).click()
         curv_left_list = self.driver.find_elements(*ProductLensLocators.curv_left_list)
         self.choise_param(us_set[4][0], curv_left_list)
-        sleep(0.5)
+        sleep(0.7)
         #
         self.driver.find_element(*ProductLensLocators.curv_right).click()
         curv_right_list = self.driver.find_elements(*ProductLensLocators.curv_right_list)
         self.choise_param(us_set[4][0], curv_right_list)
-        sleep(0.5)
+        sleep(0.7)
         #
         if len(us_set) == 8:
             self.driver.find_element(*ProductLensLocators.curv_left).click()
