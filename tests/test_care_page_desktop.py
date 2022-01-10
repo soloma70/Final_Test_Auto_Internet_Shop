@@ -51,8 +51,8 @@ def test_pagination_care_page(web_driver_desktop):
 
 @pytest.mark.positive
 @pytest.mark.parametrize("test_set",
-                         [CareSets.soleko, CareSets.alcon, CareSets.olmi],
-                         ids=[CareSets.soleko[4], CareSets.alcon[4], CareSets.olmi[5]])
+                         [CareSets.soleko, CareSets.alcon, CareSets.kaida],
+                         ids=[CareSets.soleko[4], CareSets.alcon[4], CareSets.kaida[5]])
 def test_positive_filter_care_page(web_driver_desktop, test_set):
     """Тест проверяет фильтры на странице и выборку согласно критериям фильтрации.
     ВНИМАНИЕ!!! Необходимо убрать курсор мышки из поля страницы браузера!"""
@@ -70,7 +70,7 @@ def test_positive_filter_care_page(web_driver_desktop, test_set):
     # Получаем результат применения фильтров и сравниваем с тестовым набором
     search_result_brand, search_result_name = page.search_result()
 
-    assert search_result_name == test_set[3] and search_result_brand[0] == test_set[4], \
+    assert search_result_name[0] in test_set[3] and search_result_brand[0] in test_set[4], \
         f'ERROR! Filtering error or Chek test set {test_set[4]}'
 
     # Очищаем все фильтры

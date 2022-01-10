@@ -153,8 +153,8 @@ class CareSets:
     alcon = ['ALCON', '120мл', 'МНОГОФУНКЦИОНАЛЬНЫЙ РАСТВОР',
              ['Alcon Opti-Free Express'], 'ALCON', 'ALCON']
 
-    olmi = ['ТОВ "ОЛМІ"', '', 'Контейнер',
-            ['Контейнер для линз B&L'], 'ТОВ "ОЛМІ"', 'OLMI']
+    kaida = ['Kaida', '', 'Дорожный набор',
+            ['Дорожный набор для линз KAIDA К 1622'], 'Kaida', 'KAIDA']
 
     # brands 5, sex 4, temple length 4, bridge width 2, eyepiece width 2
     filter_set_positive = [
